@@ -42,6 +42,17 @@ body.light-mode{
 body.light-mode #gl{ background:#dfe6df; }
 body.light-mode #vignette{ background:radial-gradient(125% 95% at 50% 42%, transparent 40%, rgba(216,225,216,.38) 100%); }
 body.light-mode .nav::before{ background:rgba(232,236,232,.78); }
+body.light-mode .nav-links{ background:rgba(244,247,243,.98); border-color:var(--line); }
+body.light-mode .hero::before{ background:linear-gradient(rgba(232,238,232,.82), rgba(232,238,232,.45) 46%, transparent); }
+body.light-mode .gate,
+body.light-mode .card,
+body.light-mode .les,
+body.light-mode .foot{ background:rgba(220,227,221,.82); }
+body.light-mode .body-lg{ color:#34463c; text-shadow:none; }
+body.light-mode .body,
+body.light-mode .foot li a,
+body.light-mode .foot-brand p{ color:#52645a; text-shadow:none; }
+body.light-mode .pre{ background:var(--ink); }
 body.is-locked{ overflow:hidden; height:100vh; }
 ::selection{ background:var(--vermilion); color:#fff; }
 img{max-width:100%;display:block}
@@ -153,7 +164,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .nav-links{
   display:flex; position:fixed; top:0; right:0; bottom:0; width:min(430px,92vw);
   padding:calc(var(--nav-h) + 28px) var(--pad) 34px; flex-direction:column; align-items:flex-start; gap:0;
-  background:rgba(3,6,9,.985); border-left:1px solid var(--line-soft);
+  background:var(--ink-2); border-left:1px solid var(--line-soft);
   transform:translate3d(100%,0,0); opacity:0; visibility:hidden; pointer-events:none;
   transition:transform .65s var(--ease-out), opacity .4s, visibility 0s linear .65s;
   overflow-y:auto;
@@ -179,6 +190,11 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .menu-tool-label{ display:flex; align-items:center; gap:12px; font-size:16px; }
 .menu-tool-meta{ display:flex; align-items:center; gap:9px; color:var(--muted); font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
 .menu-tool svg{ color:var(--bone-dim); }
+.menu-language-list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; width:100%; padding:12px 0 4px; border-bottom:1px solid var(--line-soft); }
+.menu-language-list[hidden]{ display:none; }
+.menu-language-option{ display:flex; align-items:center; gap:8px; padding:9px 10px; color:var(--muted); font-size:12px; text-align:left; border:1px solid transparent; }
+.menu-language-option:hover,.menu-language-option[aria-current="true"]{ color:var(--bone); border-color:var(--line-soft); background:rgba(255,255,255,.04); }
+.menu-language-option b{ font-size:16px; font-weight:400; line-height:1; }
 .menu-social{ display:flex; justify-content:center; gap:22px; padding:30px 0 0; }
 .menu-social a{ color:var(--bone-dim); transition:color .2s; }
 .menu-social a:hover{ color:var(--bone); }
@@ -501,7 +517,12 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 @media (max-width:820px){
   .brand-tx b{ font-size:10px; letter-spacing:.17em; }
   .brand-tx i{ font-size:7px; letter-spacing:.2em; }
-  .nav-links{ width:min(84vw,360px); }
+  .nav-links{
+    top:0; right:0; bottom:0; left:0; width:100%; height:100dvh; max-height:100dvh;
+    padding:calc(var(--nav-h) + 28px) var(--pad) 34px;
+    border-left:0; border-top:1px solid var(--line-soft);
+    transform:translate3d(0,100%,0);
+  }
   .nav-links .nav-link{ font-size:17px; }
   .menu-tool{ display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; padding:17px 0; border-bottom:1px solid var(--line-soft); color:var(--bone-dim); text-align:left; }
   .menu-tool:hover{ color:var(--bone); }
@@ -524,6 +545,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
      opens. Without transition:none it eases out over .55s and the sheet spends
      that whole time measured against the bar. */
   .nav.menu-open{ transform:none; transition:none; }
+  .nav.menu-open::before{ opacity:0; backdrop-filter:none; -webkit-backdrop-filter:none; }
+  .nav.menu-open .nav-links{ position:fixed; inset:0; width:100%; height:100dvh; max-height:100dvh; transform:translate3d(0,0,0); }
   .nav-burger{ margin-left:auto; }
   .nav-burger.active i:nth-child(1){ top:7px; width:26px; transform:rotate(45deg); }
   .nav-burger.active i:nth-child(2){ top:7px; width:26px; transform:rotate(-45deg); }
@@ -944,10 +967,24 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   </a>
   <nav class="nav-links" id="navlinks">
     <div class="menu-tools">
-      <div class="menu-version"><span>Watchtower · v0.1.0</span><b>+</b></div>
+      <div class="menu-version"><span>Watchtower · v8.1.160+160</span><b>+</b></div>
       <a class="menu-tool" href="./?view=docs"><span class="menu-tool-label"><span data-menu-label="docs">Docs</span></span><span class="menu-tool-meta">Read the guide</span></a>
       <a class="menu-tool" href="#eternity"><span class="menu-tool-label"><span data-menu-label="news">News</span></span><span class="menu-tool-meta">What is new</span></a>
-      <button class="menu-tool" id="language-toggle" type="button"><span class="menu-tool-label"><span data-menu-label="language">Language</span></span><span class="menu-tool-meta" id="language-value">EN</span></button>
+      <button class="menu-tool" id="language-toggle" type="button" aria-expanded="false" aria-controls="language-list"><span class="menu-tool-label"><span data-menu-label="language">Language</span></span><span class="menu-tool-meta" id="language-value">🇬🇧 EN</span></button>
+      <div class="menu-language-list" id="language-list" hidden>
+        <button class="menu-language-option" data-language="en" type="button" aria-current="true"><b>🇬🇧</b> English</button>
+        <button class="menu-language-option" data-language="fr" type="button"><b>🇫🇷</b> Français</button>
+        <button class="menu-language-option" data-language="es" type="button"><b>🇪🇸</b> Español</button>
+        <button class="menu-language-option" data-language="pt-br" type="button"><b>🇧🇷</b> Português</button>
+        <button class="menu-language-option" data-language="de" type="button"><b>🇩🇪</b> Deutsch</button>
+        <button class="menu-language-option" data-language="it" type="button"><b>🇮🇹</b> Italiano</button>
+        <button class="menu-language-option" data-language="ru" type="button"><b>🇷🇺</b> Русский</button>
+        <button class="menu-language-option" data-language="ar" type="button"><b>🇸🇦</b> العربية</button>
+        <button class="menu-language-option" data-language="ja" type="button"><b>🇯🇵</b> 日本語</button>
+        <button class="menu-language-option" data-language="ko" type="button"><b>🇰🇷</b> 한국어</button>
+        <button class="menu-language-option" data-language="zh" type="button"><b>🇨🇳</b> 中文</button>
+        <button class="menu-language-option" data-language="tr" type="button"><b>🇹🇷</b> Türkçe</button>
+      </div>
       <button class="menu-tool" id="theme-toggle" type="button">
         <span class="menu-tool-label"><span data-menu-label="appearance">Appearance</span></span>
         <span class="menu-tool-meta"><span id="theme-value">Dark</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/></svg></span>
@@ -4377,6 +4414,8 @@ function wireNav() {
   const links = $$('.nav-link');
   const burger = $('.nav-burger');
   const languageToggle = $('#language-toggle');
+  const languageList = $('#language-list');
+  const languageOptions = $$('.menu-language-option');
   const themeToggle = $('#theme-toggle');
   const languageValue = $('#language-value');
   const themeValue = $('#theme-value');
@@ -4384,16 +4423,23 @@ function wireNav() {
     en: { docs: 'Docs', news: 'News', language: 'Language', appearance: 'Appearance' },
     fr: { docs: 'Documentation', news: 'Nouveautés', language: 'Langue', appearance: 'Apparence' }
   };
+  const languageNames = {
+    en: '🇬🇧 EN', fr: '🇫🇷 FR', es: '🇪🇸 ES', 'pt-br': '🇧🇷 PT',
+    de: '🇩🇪 DE', it: '🇮🇹 IT', ru: '🇷🇺 RU', ar: '🇸🇦 AR',
+    ja: '🇯🇵 JA', ko: '🇰🇷 KO', zh: '🇨🇳 ZH', tr: '🇹🇷 TR'
+  };
   const setLandingLanguage = language => {
-    document.documentElement.lang = language;
-    if (languageValue) languageValue.textContent = language.toUpperCase();
+    const activeLanguage = languageNames[language] ? language : 'en';
+    document.documentElement.lang = activeLanguage;
+    if (languageValue) languageValue.textContent = languageNames[activeLanguage];
     $$('[data-menu-label]').forEach(el => {
       const key = el.dataset.menuLabel;
-      if (menuLabels[language][key]) el.textContent = menuLabels[language][key];
+      if (menuLabels[activeLanguage]?.[key]) el.textContent = menuLabels[activeLanguage][key];
     });
+    languageOptions.forEach(option => option.setAttribute('aria-current', String(option.dataset.language === activeLanguage)));
   };
   const storedLanguage = localStorage.getItem('watchtower-language');
-  setLandingLanguage(storedLanguage === 'fr' ? 'fr' : 'en');
+  setLandingLanguage(languageNames[storedLanguage] ? storedLanguage : 'en');
   if (themeToggle) {
     const light = localStorage.getItem('watchtower-theme') === 'light';
     document.body.classList.toggle('light-mode', light);
@@ -4408,16 +4454,25 @@ function wireNav() {
   }
   if (languageToggle) {
     languageToggle.addEventListener('click', () => {
-      const next = document.documentElement.lang === 'fr' ? 'en' : 'fr';
-      localStorage.setItem('watchtower-language', next);
-      setLandingLanguage(next);
+      const isOpen = !languageList.hidden;
+      languageList.hidden = isOpen;
+      languageToggle.setAttribute('aria-expanded', String(!isOpen));
     });
   }
+  languageOptions.forEach(option => option.addEventListener('click', () => {
+    const next = option.dataset.language;
+    localStorage.setItem('watchtower-language', next);
+    setLandingLanguage(next);
+    languageList.hidden = true;
+    languageToggle?.setAttribute('aria-expanded', 'false');
+  }));
   const closeMenu = () => {
     nav.classList.remove('menu-open');
     burger.classList.remove('active');
     burger.setAttribute('aria-expanded', 'false');
     document.documentElement.classList.remove('nav-open');
+    if (languageList) languageList.hidden = true;
+    languageToggle?.setAttribute('aria-expanded', 'false');
   };
   const setMenu = open => {
     /* clear the scroll-hide before the sheet opens: leaving it set would ease
