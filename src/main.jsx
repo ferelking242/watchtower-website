@@ -38,59 +38,59 @@ const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
 const translations = {
   en: {
     language: "English",
-    nav: { overview: "Overview", gettingStarted: "Getting started", extensions: "Extensions", uiSchema: "UI schema", api: "API reference" },
+    nav: { overview: "Overview", gettingStarted: "Build locally", extensions: "Extensions", uiSchema: "UI schema", api: "Server API" },
     heroEyebrow: "OPEN RUNTIME / DOCUMENTATION",
     heroTitle: <>Build the watchtower.<br /><em>Ship the view.</em></>,
-    heroBody: "Watchtower is a small, composable runtime for discovering extensions, composing their data, and rendering a clear interface from a JSON contract.",
+    heroBody: "Watchtower is an open media hub for manga, anime, series, music and novels, powered by Flutter and an extensible source runtime.",
     explore: "Explore the docs",
     github: "View on GitHub",
     featureLabel: "THE PATH",
     featureTitle: "One contract. Every extension.",
-    featureBody: "Describe the interface once. Watchtower handles the layout, state, and navigation so extensions stay focused on their data.",
+    featureBody: "The app, extension engine and native modules stay separate. Sources can change without forcing the player or library to change with them.",
     cards: [
-      ["01", "Discover", "Extensions expose capabilities through a predictable API."],
-      ["02", "Describe", "A readable UI schema turns data into a useful surface."],
-      ["03", "Compose", "Layouts, sections, and sources stay interchangeable."]
+      ["01", "Discover", "Browse sources and content through one consistent media surface."],
+      ["02", "Extend", "Run JavaScript sources through QuickJS without native app code."],
+      ["03", "Compose", "Connect Flutter, Rust, Go and Node runtimes around the same library."]
     ],
     docsLabel: "Documentation",
-    introTitle: "Build with clarity.",
-    introBody: "Everything you need to extend Watchtower, from your first manifest to a custom renderer.",
-    quickstart: "Quickstart",
-    quickstartBody: "Install the runtime, create your first extension, and render a section in minutes.",
-    install: "Installation",
-    installBody: "Add Watchtower to your project and start with the smallest useful setup.",
+    introTitle: "A media runtime with a clear center.",
+    introBody: "Watchtower combines a Flutter client, JavaScript extensions, native bindings and an optional headless server.",
+    quickstart: "Build the Flutter app",
+    quickstartBody: "Install the toolchains, fetch Dart packages, and launch the cross-platform client.",
+    install: "Run the headless server",
+    installBody: "Use the Node.js server when sources need a cloud, VPS, Railway, Render or Docker deployment.",
     read: "Read guide",
     source: "Source",
-    footer: "Made for focused software.",
-    loading: ["CALIBRATING THE WATCHTOWER", "OPENING THE GATE", "LOADING DOCUMENTATION"]
+    footer: "Open source media, kept in view.",
+    loading: ["MAPPING THE SOURCES", "OPENING THE RUNTIME", "LOADING WATCHTOWER"]
   },
   fr: {
     language: "Français",
-    nav: { overview: "Vue d’ensemble", gettingStarted: "Démarrage", extensions: "Extensions", uiSchema: "Schéma UI", api: "Référence API" },
+    nav: { overview: "Vue d’ensemble", gettingStarted: "Compiler localement", extensions: "Extensions", uiSchema: "Schéma UI", api: "API serveur" },
     heroEyebrow: "RUNTIME OUVERT / DOCUMENTATION",
     heroTitle: <>Construisez la tour.<br /><em>Livrez la vue.</em></>,
-    heroBody: "Watchtower est un runtime composable pour découvrir les extensions, composer leurs données et rendre une interface claire depuis un contrat JSON.",
+    heroBody: "Watchtower est un hub multimédia ouvert pour les mangas, animés, séries, musiques et romans, construit avec Flutter et un runtime extensible.",
     explore: "Explorer la documentation",
     github: "Voir sur GitHub",
     featureLabel: "LE CHEMIN",
     featureTitle: "Un contrat. Chaque extension.",
-    featureBody: "Décrivez l’interface une seule fois. Watchtower gère le layout, l’état et la navigation pour laisser les extensions se concentrer sur leurs données.",
+    featureBody: "L’application, le moteur d’extensions et les modules natifs restent séparés. Les sources évoluent sans imposer de refaire le lecteur ou la bibliothèque.",
     cards: [
-      ["01", "Découvrez", "Les extensions exposent leurs capacités via une API prévisible."],
-      ["02", "Décrivez", "Un schéma UI lisible transforme les données en surface utile."],
-      ["03", "Composez", "Layouts, sections et sources restent interchangeables."]
+      ["01", "Découvrez", "Parcourez les sources et les contenus depuis une seule surface média."],
+      ["02", "Étendez", "Exécutez des sources JavaScript avec QuickJS, sans code natif."],
+      ["03", "Assemblez", "Reliez Flutter, Rust, Go et Node autour de la même bibliothèque."]
     ],
     docsLabel: "Documentation",
-    introTitle: "Construire avec clarté.",
-    introBody: "Tout ce qu’il faut pour étendre Watchtower, du premier manifeste au renderer personnalisé.",
-    quickstart: "Démarrage rapide",
-    quickstartBody: "Installez le runtime, créez votre première extension et rendez une section en quelques minutes.",
-    install: "Installation",
-    installBody: "Ajoutez Watchtower à votre projet avec la configuration utile la plus simple.",
+    introTitle: "Un runtime média avec un centre clair.",
+    introBody: "Watchtower réunit un client Flutter, des extensions JavaScript, des bindings natifs et un serveur headless optionnel.",
+    quickstart: "Compiler l’application Flutter",
+    quickstartBody: "Installez les toolchains, récupérez les paquets Dart et lancez le client multiplateforme.",
+    install: "Lancer le serveur headless",
+    installBody: "Utilisez le serveur Node.js pour déployer les sources dans le cloud, sur un VPS, Railway, Render ou Docker.",
     read: "Lire le guide",
     source: "Source",
-    footer: "Conçu pour les logiciels concentrés.",
-    loading: ["CALIBRAGE DE LA TOUR", "OUVERTURE DU PORTAIL", "CHARGEMENT DE LA DOCUMENTATION"]
+    footer: "Des médias ouverts, toujours en vue.",
+    loading: ["CARTOGRAPHIE DES SOURCES", "OUVERTURE DU RUNTIME", "CHARGEMENT DE WATCHTOWER"]
   }
 };
 
@@ -197,11 +197,41 @@ function Docs({ t, language, setLanguage, onHome }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const activeSection = sections.find((section) => section.id === active) || sections[0];
   const content = useMemo(() => ({
-    overview: { kicker: t.nav.overview, title: t.introTitle, body: t.introBody, marker: "01", code: "watchtower.render({ source, layout })" },
-    "getting-started": { kicker: t.nav.gettingStarted, title: t.quickstart, body: t.quickstartBody, marker: "02", code: "npm create watchtower@latest" },
-    extensions: { kicker: t.nav.extensions, title: language === "fr" ? "Des extensions qui restent simples." : "Extensions that stay simple.", body: language === "fr" ? "Un manifeste expose les capacités. Le runtime s’occupe du reste : découverte, navigation et rendu." : "A manifest exposes capabilities. The runtime handles the rest: discovery, navigation, and rendering.", marker: "03", code: "export default defineExtension({ name: 'library' })" },
-    "ui-schema": { kicker: t.nav.uiSchema, title: language === "fr" ? "L’interface est une donnée." : "The interface is data.", body: language === "fr" ? "Décrivez des sections, des cartes et des layouts dans un contrat JSON lisible par les humains." : "Describe sections, cards, and layouts in a JSON contract that humans can read.", marker: "04", code: '{ "layout": "masonry", "columns": 3 }' },
-    api: { kicker: t.nav.api, title: language === "fr" ? "Une API courte, composable." : "A short, composable API.", body: language === "fr" ? "Composez les sources, adaptez le renderer, et gardez chaque responsabilité à sa place." : "Compose sources, adapt the renderer, and keep every responsibility in its place.", marker: "05", code: "const result = await extension.query(params)" }
+    overview: {
+      kicker: t.nav.overview,
+      title: t.introTitle,
+      body: t.introBody,
+      marker: "01",
+      code: "lib/\\n├── modules/     # anime, manga, music, novels, player\\n├── eval/        # QuickJS extension engine\\n├── remote/      # embedded shelf server\\n├── ffi/         # Go torrent bindings\\n└── src/rust/    # native Rust bindings"
+    },
+    "getting-started": {
+      kicker: t.nav.gettingStarted,
+      title: t.quickstart,
+      body: t.quickstartBody,
+      marker: "02",
+      code: "git clone https://github.com/ferelking242/watchtower.git\\ncd watchtower\\nflutter pub get\\nflutter run"
+    },
+    extensions: {
+      kicker: t.nav.extensions,
+      title: language === "fr" ? "Des extensions déclaratives et isolées." : "Declarative extensions, kept isolated.",
+      body: language === "fr" ? "Les extensions JavaScript s’exécutent via QuickJS. Elles décrivent une source, ses modèles et ses actions sans ajouter de code natif à l’application." : "JavaScript extensions run through QuickJS. They describe a source, its models and its actions without adding native code to the app.",
+      marker: "03",
+      code: "lib/eval/\\n├── javascript/  # HTTP, DOM, extractors\\n├── bridge/      # Dart ↔ JS models\\n└── service.dart  # extension lifecycle"
+    },
+    "ui-schema": {
+      kicker: t.nav.uiSchema,
+      title: language === "fr" ? "Le manifeste décrit le contrat." : "The manifest describes the contract.",
+      body: language === "fr" ? "Pour les plugins UI, manifest.json déclare l’identité, les permissions et le runtime. ui/schema.json décrit ensuite les champs, actions et sorties rendus nativement par Flutter." : "For UI plugins, manifest.json declares identity, permissions and runtime. ui/schema.json then describes the fields, actions and output rendered natively by Flutter.",
+      marker: "04",
+      code: '{\\n  "ui": "native",\\n  "runtimeTypes": ["downloader"],\\n  "commandScopes": ["download"],\\n  "requirements": { "zeusdl": { "version": ">=1.0.0" } }\\n}'
+    },
+    api: {
+      kicker: t.nav.api,
+      title: language === "fr" ? "Deux runtimes, une API." : "Two runtimes, one API.",
+      body: language === "fr" ? "Le serveur embarqué Dart/shelf écoute sur 4567 dans l’application. Le serveur headless Node/Express écoute sur 8080 pour le cloud, Docker, Railway ou Render." : "The embedded Dart/shelf server listens on 4567 inside the app. The headless Node/Express server listens on 8080 for cloud, Docker, Railway or Render deployments.",
+      marker: "05",
+      code: "GET /api/ping\\nGET /api/sources\\nGET /api/sources/:id/popular?page=1\\nGET /api/sources/:id/search?q=query&page=1"
+    }
   }), [language, t]);
   const page = content[active];
   const selectSection = (id) => { setActive(id); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
@@ -227,8 +257,8 @@ function Docs({ t, language, setLanguage, onHome }) {
           </section>
           <section className="docs-content-grid">
             <div className="docs-copy">
-              <p>{language === "fr" ? "Watchtower transforme un ensemble de données en une surface calme et navigable. Le contrat reste proche du code, explicite et facile à faire évoluer." : "Watchtower turns a set of data into a calm, navigable surface. The contract stays close to the code, explicit, and easy to evolve."}</p>
-              <div className="note-card"><Icon name="spark" size={17} /><div><strong>{language === "fr" ? "Pensé pour le changement." : "Designed for change."}</strong><span>{language === "fr" ? "Remplacez une source sans refaire votre interface." : "Swap a source without rebuilding your interface."}</span></div></div>
+              <p>{language === "fr" ? "Le dépôt est organisé par responsabilités : Flutter pour l’interface, QuickJS pour les sources, Rust pour les bindings natifs, Go pour le torrent et Node.js pour le serveur cloud." : "The repository is organized by responsibility: Flutter for the interface, QuickJS for sources, Rust for native bindings, Go for torrent support, and Node.js for the cloud server."}</p>
+              <div className="note-card"><Icon name="spark" size={17} /><div><strong>{language === "fr" ? "Deux modes de déploiement." : "Two deployment modes."}</strong><span>{language === "fr" ? "Embarqué sur l’appareil ou headless dans le cloud, avec les mêmes routes de sources." : "Embedded on-device or headless in the cloud, with the same source routes."}</span></div></div>
             </div>
             <div className="code-card"><div className="code-top"><span><i /> {language === "fr" ? "exemple" : "example"}</span><button onClick={() => navigator.clipboard?.writeText(page.code)} aria-label="Copy example"><Icon name="copy" size={14} /></button></div><pre><code>{page.code}</code></pre></div>
           </section>
@@ -245,7 +275,7 @@ function KageExperience() {
     <div className="kage-experience">
       <iframe
         src="./kage.html"
-        title="Kage — Where stillness reveals the unseen"
+        title="Watchtower — Keep every source in view"
         allow="fullscreen"
       />
       <div className="kage-toolbar" aria-label="Watchtower links">
