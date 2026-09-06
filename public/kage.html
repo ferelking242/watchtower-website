@@ -150,19 +150,39 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .brand-tx{ display:flex; flex-direction:column; line-height:1; gap:3px; }
 .brand-tx b{ font-size:12px; font-weight:500; letter-spacing:.26em; }
 .brand-tx i{ font-style:normal; font-size:8px; letter-spacing:.34em; color:var(--muted); }
-.nav-links{ display:flex; gap:clamp(18px,2.6vw,46px); margin-left:auto; }
+.nav-links{
+  display:flex; position:fixed; top:0; right:0; bottom:0; width:min(430px,92vw);
+  padding:calc(var(--nav-h) + 28px) var(--pad) 34px; flex-direction:column; align-items:flex-start; gap:0;
+  background:rgba(3,6,9,.985); border-left:1px solid var(--line-soft);
+  transform:translate3d(100%,0,0); opacity:0; visibility:hidden; pointer-events:none;
+  transition:transform .65s var(--ease-out), opacity .4s, visibility 0s linear .65s;
+  overflow-y:auto;
+}
+.nav.menu-open .nav-links{
+  transform:none; opacity:1; visibility:visible; pointer-events:auto; transition-delay:0s;
+}
 .nav-link{
   position:relative; font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--bone-dim); display:block; height:15px; line-height:15px; overflow:hidden;
+  color:var(--bone-dim); display:block; width:100%; height:auto; padding:17px 0; line-height:1.2;
+  overflow:visible; border-bottom:1px solid var(--line-soft);
 }
-.nav-link span{ display:block; height:15px; line-height:15px; transition:transform .55s var(--ease-out), color .3s; }
-.nav-link .alt{ position:absolute; inset:0; transform:translate3d(0,100%,0); color:var(--bone); letter-spacing:.32em; }
-.nav-link:hover span{ transform:translate3d(0,-100%,0); }
-.nav-link:hover .alt{ transform:none; }
+.nav-link span{ display:block; height:auto; line-height:1.2; transition:color .3s; }
+.nav-link .alt{ position:static; margin-top:6px; color:var(--muted); font-size:10px; letter-spacing:.28em; }
+.nav-link:hover{ color:var(--bone); }
 .nav-link.on{ color:var(--bone); }
 .nav-link.on::after{ content:''; position:absolute; left:0; bottom:0; width:100%; height:1px; background:var(--vermilion); }
-.menu-tools{ display:none; }
-.nav-burger{ margin-left:clamp(18px,2.6vw,42px); width:26px; height:16px; position:relative; flex:0 0 auto; }
+.menu-tools{ display:grid; gap:0; width:100%; margin-top:20px; }
+.menu-version{ display:flex; align-items:center; justify-content:space-between; width:100%; padding:17px 0; color:var(--bone-dim); border-bottom:1px solid var(--line-soft); font-size:16px; letter-spacing:.02em; }
+.menu-version b{ color:var(--bone-dim); font-size:20px; font-weight:300; }
+.menu-tool{ display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; padding:17px 0; border-bottom:1px solid var(--line-soft); color:var(--bone-dim); text-align:left; }
+.menu-tool:hover{ color:var(--bone); }
+.menu-tool-label{ display:flex; align-items:center; gap:12px; font-size:16px; }
+.menu-tool-meta{ display:flex; align-items:center; gap:9px; color:var(--muted); font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
+.menu-tool svg{ color:var(--bone-dim); }
+.menu-social{ display:flex; justify-content:center; gap:22px; padding:30px 0 0; }
+.menu-social a{ color:var(--bone-dim); transition:color .2s; }
+.menu-social a:hover{ color:var(--bone); }
+.nav-burger{ margin-left:auto; width:26px; height:16px; position:relative; flex:0 0 auto; }
 .nav-burger i{ position:absolute; right:0; height:1.5px; background:var(--bone); transition:width .45s var(--ease-out), transform .45s var(--ease-out); }
 .nav-burger i:nth-child(1){ top:4px; width:26px; }
 .nav-burger i:nth-child(2){ top:11px; width:17px; }
@@ -481,23 +501,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 @media (max-width:820px){
   .brand-tx b{ font-size:10px; letter-spacing:.17em; }
   .brand-tx i{ font-size:7px; letter-spacing:.2em; }
-  .nav-links{
-    display:flex; position:fixed; top:0; right:0; bottom:0; width:min(84vw,360px);
-    padding:calc(var(--nav-h) + 28px) var(--pad) 34px; flex-direction:column; align-items:flex-start; gap:0;
-    background:rgba(3,6,9,.98); border-left:1px solid var(--line-soft);
-    transform:translate3d(100%,0,0); opacity:0; visibility:hidden; pointer-events:none;
-    transition:transform .65s var(--ease-out), opacity .4s, visibility 0s linear .65s;
-  }
-  .nav.menu-open .nav-links{
-    transform:none; opacity:1; visibility:visible; pointer-events:auto; transition-delay:0s;
-  }
-  .nav-links .nav-link{
-    width:100%; height:auto; padding:17px 0; overflow:visible; border-bottom:1px solid var(--line-soft);
-    font-size:17px; line-height:1.2;
-  }
-  .nav-links .nav-link span{ height:auto; line-height:1.2; transform:none !important; }
-  .nav-links .nav-link .alt{ position:static; margin-top:6px; font-size:10px; color:var(--muted); }
-  .menu-tools{ display:grid; gap:0; width:100%; margin-top:20px; }
+  .nav-links{ width:min(84vw,360px); }
+  .nav-links .nav-link{ font-size:17px; }
   .menu-tool{ display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; padding:17px 0; border-bottom:1px solid var(--line-soft); color:var(--bone-dim); text-align:left; }
   .menu-tool:hover{ color:var(--bone); }
   .menu-tool-label{ display:flex; align-items:center; gap:12px; font-size:16px; }
@@ -506,7 +511,6 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   .menu-social{ display:flex; justify-content:center; gap:22px; padding:30px 0 0; }
   .menu-social a{ color:var(--bone-dim); transition:color .2s; }
   .menu-social a:hover{ color:var(--bone); }
-  .menu-version{ margin-top:17px; color:var(--muted); font-size:9px; letter-spacing:.14em; text-transform:uppercase; }
   /* The links panel leaves the flow to become the slide-in sheet, taking its
      margin-left:auto with it, so without this the burger sits tucked against
      the wordmark instead of out at the edge where a thumb reaches. */
@@ -939,16 +943,15 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <span class="brand-tx"><b>WATCHTOWER</b><i>OPEN MEDIA RUNTIME</i></span>
   </a>
   <nav class="nav-links" id="navlinks">
-    <a class="nav-link" href="#gate" data-cursor><span>Runtime</span><span class="alt">監視塔</span></a>
-    <a class="nav-link" href="#pathways" data-cursor><span>Extensions</span><span class="alt">拡張</span></a>
-    <a class="nav-link" href="#lessons" data-cursor><span>UI schema</span><span class="alt">構造</span></a>
-    <a class="nav-link" href="#eternity" data-cursor><span>Roadmap</span><span class="alt">未来</span></a>
     <div class="menu-tools">
-      <div class="menu-version">Watchtower · v0.1.0</div>
+      <div class="menu-version"><span>Watchtower · v0.1.0</span><b>+</b></div>
       <a class="menu-tool" href="./?view=docs"><span class="menu-tool-label"><span data-menu-label="docs">Docs</span></span><span class="menu-tool-meta">Read the guide</span></a>
       <a class="menu-tool" href="#eternity"><span class="menu-tool-label"><span data-menu-label="news">News</span></span><span class="menu-tool-meta">What is new</span></a>
       <button class="menu-tool" id="language-toggle" type="button"><span class="menu-tool-label"><span data-menu-label="language">Language</span></span><span class="menu-tool-meta" id="language-value">EN</span></button>
-      <button class="menu-tool" id="theme-toggle" type="button"><span class="menu-tool-label"><span data-menu-label="appearance">Appearance</span></span><span class="menu-tool-meta" id="theme-value">Dark</span></button>
+      <button class="menu-tool" id="theme-toggle" type="button">
+        <span class="menu-tool-label"><span data-menu-label="appearance">Appearance</span></span>
+        <span class="menu-tool-meta"><span id="theme-value">Dark</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/></svg></span>
+      </button>
       <div class="menu-social">
         <a href="https://github.com/ferelking242/watchtower" target="_blank" rel="noreferrer" aria-label="Watchtower on GitHub">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-3.2c.1-1.6-.5-2.3-1.4-2.8 4.6-.5 6.4-2.3 6.4-6.3a5 5 0 0 0-1.3-3.5A4.6 4.6 0 0 0 18.6 3s-1.2-.4-3.7 1.4a12.8 12.8 0 0 0-5.8 0C6.6 2.6 5.4 3 5.4 3a4.6 4.6 0 0 0-.1 3.2A5 5 0 0 0 4 9.7c0 4 1.8 5.8 6.4 6.3-.9.5-1.5 1.2-1.4 2.8V22"/><path d="M8.7 18.5c-3 .9-3-1.6-4.2-2"/></svg>
@@ -4427,10 +4430,7 @@ function wireNav() {
   };
   burger.setAttribute('aria-controls', 'navlinks');
   burger.setAttribute('aria-expanded', 'false');
-  burger.addEventListener('click', () => {
-    if (vpW() > 820) return;
-    setMenu(!nav.classList.contains('menu-open'));
-  });
+  burger.addEventListener('click', () => setMenu(!nav.classList.contains('menu-open')));
   links.forEach(link => link.addEventListener('click', closeMenu));
   addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   addEventListener('resize', () => { if (vpW() > 820) closeMenu(); }, { passive:true });

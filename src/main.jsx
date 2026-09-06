@@ -24,6 +24,8 @@ const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
     search: <><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></>,
     server: <><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></>,
     spark: <><path d="m12 3 1.3 5.7L19 10l-5.7 1.3L12 17l-1.3-5.7L5 10l5.7-1.3z"/><path d="m19 17 .5 2.5L22 20l-2.5.5L19 23l-.5-2.5L16 20l2.5-.5z"/></>,
+    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
+    moon: <path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/>,
     terminal: <><path d="m5 7 5 5-5 5"/><path d="M13 17h6"/></>,
     x: <><path d="m5 5 14 14"/><path d="m19 5-14 14"/></>
   };
@@ -38,7 +40,7 @@ const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
 const translations = {
   en: {
     language: "English",
-    nav: { overview: "Overview", gettingStarted: "Build locally", extensions: "Extensions", uiSchema: "UI schema", api: "Server API" },
+    nav: { overview: "Overview", architecture: "Architecture", gettingStarted: "Build locally", extensions: "Extensions", uiSchema: "UI schema", api: "Server API", deployment: "Deploy" },
     heroEyebrow: "OPEN RUNTIME / DOCUMENTATION",
     heroTitle: <>Build the watchtower.<br /><em>Ship the view.</em></>,
     heroBody: "Watchtower is an open media hub for manga, anime, series, music and novels, powered by Flutter and an extensible source runtime.",
@@ -66,7 +68,7 @@ const translations = {
   },
   fr: {
     language: "Français",
-    nav: { overview: "Vue d’ensemble", gettingStarted: "Compiler localement", extensions: "Extensions", uiSchema: "Schéma UI", api: "API serveur" },
+    nav: { overview: "Vue d’ensemble", architecture: "Architecture", gettingStarted: "Compiler localement", extensions: "Extensions", uiSchema: "Schéma UI", api: "API serveur", deployment: "Déployer" },
     heroEyebrow: "RUNTIME OUVERT / DOCUMENTATION",
     heroTitle: <>Construisez la tour.<br /><em>Livrez la vue.</em></>,
     heroBody: "Watchtower est un hub multimédia ouvert pour les mangas, animés, séries, musiques et romans, construit avec Flutter et un runtime extensible.",
@@ -96,10 +98,12 @@ const translations = {
 
 const sections = [
   { id: "overview", icon: "book", key: "overview" },
+  { id: "architecture", icon: "server", key: "architecture" },
   { id: "getting-started", icon: "play", key: "gettingStarted" },
   { id: "extensions", icon: "box", key: "extensions" },
   { id: "ui-schema", icon: "braces", key: "uiSchema" },
-  { id: "api", icon: "code", key: "api" }
+  { id: "api", icon: "code", key: "api" },
+  { id: "deployment", icon: "arrowUpRight", key: "deployment" }
 ];
 
 function LoadingScreen({ copy, onFinish }) {
@@ -192,45 +196,136 @@ function Landing({ t, onDocs }) {
   );
 }
 
-function Docs({ t, language, setLanguage, onHome }) {
+function Docs({ t, language, setLanguage, theme, setTheme, onHome }) {
   const [active, setActive] = useState("overview");
   const [menuOpen, setMenuOpen] = useState(false);
-  const activeSection = sections.find((section) => section.id === active) || sections[0];
   const content = useMemo(() => ({
     overview: {
       kicker: t.nav.overview,
       title: t.introTitle,
       body: t.introBody,
       marker: "01",
-      code: "lib/\\n├── modules/     # anime, manga, music, novels, player\\n├── eval/        # QuickJS extension engine\\n├── remote/      # embedded shelf server\\n├── ffi/         # Go torrent bindings\\n└── src/rust/    # native Rust bindings"
+      code: `watchtower/
+├── lib/modules/       Flutter features and player
+├── lib/eval/          QuickJS extension engine
+├── lib/remote/        Embedded Dart/shelf server
+├── server/            Node.js headless runtime
+├── rust/              Rust native library
+└── go/                Torrent + HTTP streaming`,
+      facts: language === "fr"
+        ? ["Client Flutter multiplateforme pour anime, manga, musique, romans et lecture.", "Services réseau, téléchargements Aria2, anti-bot et stockage local.", "Bindings Rust pour EPUB, images et TLS ; bindings FFI vers le serveur torrent Go."]
+        : ["Cross-platform Flutter client for anime, manga, music, novels and playback.", "Network, Aria2 downloads, anti-bot and local storage services.", "Rust bindings for EPUB, images and TLS; FFI bindings to the Go torrent server."]
+    },
+    architecture: {
+      kicker: t.nav.architecture,
+      title: language === "fr" ? "Chaque couche garde son rôle." : "Every layer keeps its role.",
+      body: language === "fr" ? "Le client Flutter orchestre l’expérience. QuickJS exécute les sources, Rust fournit les bindings natifs, Go porte le torrent et Node.js permet un mode headless." : "The Flutter client owns the experience. QuickJS runs sources, Rust provides native bindings, Go powers torrent support, and Node.js enables headless deployments.",
+      marker: "02",
+      code: `Flutter / Dart
+  ├─ modules/     anime · manga · music · novels · player
+  ├─ services/    network · downloads · anti-bot
+  └─ remote/      shelf server · port 4567
+
+Native
+  ├─ rust/        EPUB · images · custom TLS
+  └─ go/          torrent client · HTTP streaming`,
+      facts: language === "fr"
+        ? ["Mode embarqué : le serveur Dart/shelf vit dans l’application et écoute sur le port 4567.", "Mode headless : server.js expose les extensions dans un processus Node.js indépendant.", "Les bridges HTTP, DOM, crypto et préférences donnent aux extensions un environnement contrôlé."]
+        : ["Embedded mode: the Dart/shelf server lives inside the app and listens on port 4567.", "Headless mode: server.js exposes extensions from an independent Node.js process.", "HTTP, DOM, crypto and preferences bridges give extensions a controlled environment."]
     },
     "getting-started": {
       kicker: t.nav.gettingStarted,
       title: t.quickstart,
       body: t.quickstartBody,
-      marker: "02",
-      code: "git clone https://github.com/ferelking242/watchtower.git\\ncd watchtower\\nflutter pub get\\nflutter run"
+      marker: "03",
+      code: `git clone https://github.com/ferelking242/watchtower.git
+cd watchtower
+flutter pub get
+flutter run
+
+# Android release
+flutter build apk --release --target-platform android-arm64`,
+      facts: language === "fr"
+        ? ["Prérequis : Flutter 3.38+, Dart 3.10+, Rust et Java 17 pour Android.", "Windows, Linux, macOS, iOS, Android et Web sont prévus par le projet.", "Le build serveur se fait séparément depuis server/ avec npm install."]
+        : ["Prerequisites: Flutter 3.38+, Dart 3.10+, Rust and Java 17 for Android.", "The project targets Windows, Linux, macOS, iOS, Android and Web.", "The server is built separately from server/ with npm install."]
     },
     extensions: {
       kicker: t.nav.extensions,
       title: language === "fr" ? "Des extensions déclaratives et isolées." : "Declarative extensions, kept isolated.",
       body: language === "fr" ? "Les extensions JavaScript s’exécutent via QuickJS. Elles décrivent une source, ses modèles et ses actions sans ajouter de code natif à l’application." : "JavaScript extensions run through QuickJS. They describe a source, its models and its actions without adding native code to the app.",
-      marker: "03",
-      code: "lib/eval/\\n├── javascript/  # HTTP, DOM, extractors\\n├── bridge/      # Dart ↔ JS models\\n└── service.dart  # extension lifecycle"
+      marker: "04",
+      code: `lib/eval/
+├── javascript/       HTTP · DOM · extractors
+├── dart/bridge/      Dart ↔ JavaScript models
+├── mihon/            compatibility services
+└── service.dart      extension lifecycle
+
+extensions/
+└── watch/multi/      source implementations`,
+      facts: language === "fr"
+        ? ["Les extensions sources peuvent récupérer les catalogues, détails, chapitres, pages et vidéos.", "Le bridge expose HTTP, sélection DOM, extracteurs, préférences et modèles Dart.", "Le serveur applique une limitation de débit et peut charger un catalogue distant mis en cache."]
+        : ["Source extensions can retrieve catalogs, details, chapters, pages and videos.", "The bridge exposes HTTP, DOM selection, extractors, preferences and Dart models.", "The server applies rate limiting and can load a cached remote extension catalog."]
     },
     "ui-schema": {
       kicker: t.nav.uiSchema,
       title: language === "fr" ? "Le manifeste décrit le contrat." : "The manifest describes the contract.",
       body: language === "fr" ? "Pour les plugins UI, manifest.json déclare l’identité, les permissions et le runtime. ui/schema.json décrit ensuite les champs, actions et sorties rendus nativement par Flutter." : "For UI plugins, manifest.json declares identity, permissions and runtime. ui/schema.json then describes the fields, actions and output rendered natively by Flutter.",
-      marker: "04",
-      code: '{\\n  "ui": "native",\\n  "runtimeTypes": ["downloader"],\\n  "commandScopes": ["download"],\\n  "requirements": { "zeusdl": { "version": ">=1.0.0" } }\\n}'
+      marker: "05",
+      code: `{
+  "id": "en.example-tool",
+  "version": "1.0.0",
+  "runtimeTypes": ["downloader"],
+  "commandScopes": ["download"],
+  "networkAccess": ["example.com"],
+  "ui": "native"
+}
+
+// ui/schema.json
+{
+  "inputs": [{ "id": "url", "type": "url_field" }],
+  "actions": [{ "id": "download", "style": "primary" }],
+  "output": { "type": "log" }
+}`,
+      facts: language === "fr"
+        ? ["manifest.json porte l’identité, la version, l’auteur, les permissions réseau et les exigences binaires.", "ui/schema.json rend des champs URL/texte, sélecteurs, toggles et actions sans WebView.", "Les scripts ZeusDL communiquent par stdout avec PROGRESS, STATUS, DONE et ERROR."]
+        : ["manifest.json carries identity, version, author, network permissions and binary requirements.", "ui/schema.json renders URL/text fields, selects, toggles and actions without a WebView.", "ZeusDL scripts communicate over stdout with PROGRESS, STATUS, DONE and ERROR."]
     },
     api: {
       kicker: t.nav.api,
       title: language === "fr" ? "Deux runtimes, une API." : "Two runtimes, one API.",
       body: language === "fr" ? "Le serveur embarqué Dart/shelf écoute sur 4567 dans l’application. Le serveur headless Node/Express écoute sur 8080 pour le cloud, Docker, Railway ou Render." : "The embedded Dart/shelf server listens on 4567 inside the app. The headless Node/Express server listens on 8080 for cloud, Docker, Railway or Render deployments.",
-      marker: "05",
-      code: "GET /api/ping\\nGET /api/sources\\nGET /api/sources/:id/popular?page=1\\nGET /api/sources/:id/search?q=query&page=1"
+      marker: "06",
+      code: `GET /api/ping
+GET /api/sources
+GET /api/sources/:id
+GET /api/sources/:id/popular?page=1
+GET /api/sources/:id/latest?page=1
+GET /api/sources/:id/search?q=query&page=1
+GET /api/sources/:id/detail?url=...
+GET /api/sources/:id/videos?url=...
+GET /api/sources/:id/pages?url=...`,
+      facts: language === "fr"
+        ? ["GET /api/ping reste public et renvoie l’état du serveur.", "Les autres routes acceptent X-Api-Key ou Authorization: Bearer quand API_KEY est définie.", "Les sources NSFW sont filtrées de la liste et bloquées avec 403 en accès direct."]
+        : ["GET /api/ping is public and returns server health.", "Other routes accept X-Api-Key or Authorization: Bearer when API_KEY is configured.", "NSFW sources are filtered from listings and blocked with 403 on direct access."]
+    },
+    deployment: {
+      kicker: t.nav.deployment,
+      title: language === "fr" ? "Embarqué ou headless." : "Embedded or headless.",
+      body: language === "fr" ? "Le serveur Node peut être lancé avec Docker ou directement avec Node.js. Les routes privées utilisent X-Api-Key ou Authorization Bearer quand API_KEY est activée." : "The Node server can run with Docker or directly with Node.js. Private routes use X-Api-Key or Authorization Bearer when API_KEY is enabled.",
+      marker: "07",
+      code: `cd server
+cp .env.example .env
+
+# Docker
+docker compose up -d
+
+# Node.js
+npm install
+API_KEY=mysecretkey PORT=8080 node server.js`
+      ,
+      facts: language === "fr"
+        ? ["Docker Compose est le chemin recommandé pour un serveur reproductible.", "Les déploiements Railway, Render, VPS et Docker sont documentés dans le dépôt.", "CACHE_TTL_MS, CACHE_DIR, PREFS_DIR et RATE_MAX_TOKENS contrôlent le comportement du serveur."]
+        : ["Docker Compose is the recommended path for a reproducible server.", "Railway, Render, VPS and Docker deployments are documented in the repository.", "CACHE_TTL_MS, CACHE_DIR, PREFS_DIR and RATE_MAX_TOKENS control server behavior."]
     }
   }), [language, t]);
   const page = content[active];
@@ -239,7 +334,14 @@ function Docs({ t, language, setLanguage, onHome }) {
     <div className="docs-shell">
       <header className="docs-topbar">
         <button className="docs-brand" onClick={onHome}><span className="brand-mark"><i /><i /><i /></span><span>WATCHTOWER <small>/ DOCS</small></span></button>
-        <div className="docs-top-actions"><a href={GITHUB_URL} target="_blank" rel="noreferrer" className="github-link"><Icon name="github" size={16} /> GitHub <Icon name="arrowUpRight" size={13} /></a><LanguagePicker language={language} setLanguage={setLanguage} /><button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation"><Icon name={menuOpen ? "close" : "menu"} size={20} /></button></div>
+        <div className="docs-top-actions">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="github-link"><Icon name="github" size={16} /> GitHub <Icon name="arrowUpRight" size={13} /></a>
+          <LanguagePicker language={language} setLanguage={setLanguage} />
+          <button className="theme-switch" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={theme === "light"}>
+            <Icon name={theme === "dark" ? "sun" : "moon"} size={15} /><span>{theme === "dark" ? "Dark" : "Light"}</span>
+          </button>
+          <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation"><Icon name={menuOpen ? "close" : "menu"} size={20} /></button>
+        </div>
       </header>
       <div className="docs-layout">
         <aside className={`docs-sidebar ${menuOpen ? "open" : ""}`}>
@@ -258,6 +360,7 @@ function Docs({ t, language, setLanguage, onHome }) {
           <section className="docs-content-grid">
             <div className="docs-copy">
               <p>{language === "fr" ? "Le dépôt est organisé par responsabilités : Flutter pour l’interface, QuickJS pour les sources, Rust pour les bindings natifs, Go pour le torrent et Node.js pour le serveur cloud." : "The repository is organized by responsibility: Flutter for the interface, QuickJS for sources, Rust for native bindings, Go for torrent support, and Node.js for the cloud server."}</p>
+              <ul className="docs-facts">{page.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
               <div className="note-card"><Icon name="spark" size={17} /><div><strong>{language === "fr" ? "Deux modes de déploiement." : "Two deployment modes."}</strong><span>{language === "fr" ? "Embarqué sur l’appareil ou headless dans le cloud, avec les mêmes routes de sources." : "Embedded on-device or headless in the cloud, with the same source routes."}</span></div></div>
             </div>
             <div className="code-card"><div className="code-top"><span><i /> {language === "fr" ? "exemple" : "example"}</span><button onClick={() => navigator.clipboard?.writeText(page.code)} aria-label="Copy example"><Icon name="copy" size={14} /></button></div><pre><code>{page.code}</code></pre></div>
@@ -278,12 +381,6 @@ function KageExperience() {
         title="Watchtower — Keep every source in view"
         allow="fullscreen"
       />
-      <div className="kage-toolbar" aria-label="Watchtower links">
-        <a href="./?view=docs">Docs</a>
-        <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="Open Watchtower on GitHub">
-          <Icon name="github" size={15} />
-        </a>
-      </div>
     </div>
   );
 }
@@ -291,10 +388,18 @@ function KageExperience() {
 function App() {
   const initialView = new URLSearchParams(window.location.search).get("view");
   const [showDocs, setShowDocs] = useState(() => initialView === "docs");
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState(() => localStorage.getItem("watchtower-language") || "en");
+  const [theme, setTheme] = useState(() => localStorage.getItem("watchtower-theme") || "dark");
   const t = translations[language];
-  useEffect(() => { document.documentElement.lang = language; }, [language]);
-  return showDocs ? <Docs t={t} language={language} setLanguage={setLanguage} onHome={() => setShowDocs(false)} /> : <KageExperience />;
+  useEffect(() => {
+    document.documentElement.lang = language;
+    localStorage.setItem("watchtower-language", language);
+  }, [language]);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("watchtower-theme", theme);
+  }, [theme]);
+  return showDocs ? <Docs t={t} language={language} setLanguage={setLanguage} theme={theme} setTheme={setTheme} onHome={() => setShowDocs(false)} /> : <KageExperience />;
 }
 
 createRoot(document.getElementById("root")).render(<App />);
