@@ -240,16 +240,31 @@ function Docs({ t, language, setLanguage, onHome }) {
   );
 }
 
+function KageExperience() {
+  return (
+    <div className="kage-experience">
+      <iframe
+        src="./kage.html"
+        title="Kage — Where stillness reveals the unseen"
+        allow="fullscreen"
+      />
+      <div className="kage-toolbar" aria-label="Watchtower links">
+        <a href="./?view=docs">Docs</a>
+        <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="Open Watchtower on GitHub">
+          <Icon name="github" size={15} />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const initialView = new URLSearchParams(window.location.search).get("view");
-  const [ready, setReady] = useState(() => initialView === "docs" || initialView === "landing");
   const [showDocs, setShowDocs] = useState(() => initialView === "docs");
   const [language, setLanguage] = useState("en");
   const t = translations[language];
   useEffect(() => { document.documentElement.lang = language; }, [language]);
-  const onFinish = () => setReady(true);
-  if (!ready) return <LoadingScreen copy={t.loading} onFinish={onFinish} />;
-  return showDocs ? <Docs t={t} language={language} setLanguage={setLanguage} onHome={() => setShowDocs(false)} /> : <Landing t={t} onDocs={() => setShowDocs(true)} />;
+  return showDocs ? <Docs t={t} language={language} setLanguage={setLanguage} onHome={() => setShowDocs(false)} /> : <KageExperience />;
 }
 
 createRoot(document.getElementById("root")).render(<App />);

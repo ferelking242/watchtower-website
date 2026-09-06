@@ -142,6 +142,12 @@ pre { overflow-x: auto; margin: 0; padding: 25px 20px 30px; color: #d2a897; font
 .docs-toc a { padding-left: 12px; border-left: 1px solid var(--line); color: var(--faint); font: 10px "DM Mono", monospace; }
 .docs-toc a:hover, .docs-toc a.toc-active { color: var(--text); border-color: var(--accent); }
 
+.kage-experience { position: fixed; inset: 0; z-index: 20; overflow: hidden; background: #05070a; }
+.kage-experience iframe { display: block; width: 100%; height: 100%; border: 0; }
+.kage-toolbar { position: fixed; z-index: 30; top: 24px; right: 28px; display: flex; gap: 7px; align-items: center; }
+.kage-toolbar a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid rgba(223, 231, 224, .17); background: rgba(5, 7, 10, .56); color: rgba(223, 231, 224, .72); font: 9px "DM Mono", monospace; letter-spacing: .15em; text-transform: uppercase; backdrop-filter: blur(8px); transition: .2s ease; }
+.kage-toolbar a:hover { color: #fff; border-color: rgba(223, 231, 224, .48); background: rgba(5, 7, 10, .8); }
+
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes visual-in { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
@@ -188,4 +194,5 @@ pre { overflow-x: auto; margin: 0; padding: 25px 20px 30px; color: #d2a897; font
   .docs-hero h1 { font-size: clamp(42px, 13vw, 65px); }
   .docs-content-grid { display: block; padding: 40px 0; }
   .code-card { margin-top: 35px; }
+  .kage-toolbar { top: 15px; right: 15px; }
 }
