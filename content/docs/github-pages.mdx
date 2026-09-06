@@ -1,0 +1,44 @@
+---
+title: GitHub Pages
+description: How this documentation site builds and deploys from GitHub Actions.
+---
+
+# GitHub Pages
+
+The website is a static Next.js export with Fumadocs content. GitHub Actions builds the `out` directory and publishes it through the official Pages artifact flow.
+
+## Workflow
+
+The workflow in `.github/workflows/deploy.yml`:
+
+1. checks out the repository;
+2. installs dependencies with `npm ci`;
+3. runs `npm run build`;
+4. uploads `out` as a Pages artifact;
+5. deploys that artifact to the `github-pages` environment.
+
+The workflow runs on pushes to `main` and can also be started manually.
+
+## Project path
+
+Because the repository is named `watchtower-website`, the exported site uses:
+
+```text
+https://ferelking242.github.io/watchtower-website/
+```
+
+The Next configuration adds `/watchtower-website` only in GitHub Actions. Local development stays at `/`, which keeps links easy to test.
+
+## Local verification
+
+```bash
+npm ci
+npm run build
+npm run dev
+```
+
+The static export is written to `out`. Do not commit `out`; the action creates it on every deployment.
+
+## GitHub settings
+
+In the repository settings, Pages should use **GitHub Actions** as the source. The workflow has the `pages: write` and `id-token: write` permissions it needs for deployment.

@@ -1,0 +1,49 @@
+---
+title: Extension system
+description: The contract for adding a source without coupling it to the Flutter UI.
+---
+
+# Extension system
+
+Extensions live in `watchtower-extensions`. Each source is a small JavaScript module that implements the operations the host can call.
+
+## Source responsibilities
+
+An extension generally provides:
+
+- a source identity and language;
+- search and browse routes;
+- custom lists such as categories, tags, history, or rankings;
+- filters and content subtypes;
+- stable item fields such as title, URL, thumbnail, and metadata;
+- a layout declaration in `ui-layouts/<source>.json`.
+
+Keep network parsing and source-specific rules inside the extension. Keep generic interaction and rendering inside Watchtower.
+
+## Free-content rules
+
+Premium or gated entries should be excluded at the source boundary whenever they can be identified reliably. This prevents paid items from appearing in home sections, search results, and recommendations that share the normalized model.
+
+The host still needs to handle missing thumbnails, empty lists, failed requests, and malformed optional fields gracefully.
+
+## Routes and filters
+
+Search filters should be represented as data rather than hard-coded Flutter controls. A filter can describe its label, value, route parameters, and the content subtype it applies to. The host can then render a consistent control while the extension owns the URL semantics.
+
+## Validation
+
+From the extensions repository:
+
+```bash
+npm run validate
+```
+
+The validation checks JavaScript syntax, JSON validity, settings declarations, and synchronized index versions.
+
+For a new source, also check that:
+
+- its index entry points to the expected module;
+- all declared custom lists resolve;
+- its layout JSON parses;
+- no paid-only content enters a free list;
+- empty and error responses remain valid normalized results.

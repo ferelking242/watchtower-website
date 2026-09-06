@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+:root {
+  --watchtower-red: #e31d27;
+  --watchtower-ink: #090a0c;
+  --watchtower-mist: #a6a8af;
+}
+
+html {
+  background: var(--watchtower-ink);
+}
+
+body {
+  background:
+    radial-gradient(circle at 82% -20%, rgb(227 29 39 / 0.11), transparent 34rem),
+    var(--watchtower-ink);
+  color: #f4f1ed;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--watchtower-red);
+  color: white;
+}
+
+.watchtower-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+.watchtower-display {
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.055em;
+}

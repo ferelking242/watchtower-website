@@ -1,0 +1,48 @@
+---
+title: Declarative UI layouts
+description: Select renderers with JSON instead of drawing UI inside an extension.
+---
+
+# Declarative UI layouts
+
+The `ui-layouts` directory is the source of truth for home-screen composition. The extension declares intent; the app supplies the implementation.
+
+## Section example
+
+```json
+{
+  "id": "trending",
+  "title": "Trending now",
+  "listId": "trending",
+  "component": "grid",
+  "columns": 3,
+  "cardStyle": "tag"
+}
+```
+
+## Supported components
+
+| Component | Best for | Notes |
+| --- | --- | --- |
+| `carousel` | one featured item or a small hero sequence | Uses the large header banner. |
+| `spotlight` | editorial highlights | Uses the classic featured presentation. |
+| `grid` | categories, tags, and browse results | Uses a regular column grid. |
+| `masonry` | uneven thumbnails or visual catalogs | Uses variable-height columns without an external masonry package. |
+| `ranked` | popularity and top lists | Adds rank numbers and compact metadata. |
+| `compact` | dense secondary rows | Uses smaller cards and reduced spacing. |
+
+## Presentation hints
+
+`columns` is an optional integer for grid-like renderers. `cardStyle` is an optional semantic style such as `tag` or `thumbnail`. Unknown values should degrade to the host's default card rather than making the whole screen fail.
+
+## Category covers
+
+Category cards can provide an explicit image. When they do not, the host uses the first item in the category as the cover. This keeps the category browser visual even when the source only provides a list of entries.
+
+## History
+
+An extension can declare its own `history` section. In that case the host avoids inserting the native inline history row as a duplicate. This lets a source choose its own ordering and content while preserving the default experience for sources that do not declare history.
+
+## Design rule
+
+The JSON should describe *what the section means*, not how many nested Flutter widgets it needs. If a new visual pattern is useful across sources, add a generic renderer to Watchtower and keep the extension declaration small.
