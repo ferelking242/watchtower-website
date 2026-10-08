@@ -1,2 +1,3 @@
+- [Docs architecture](docs-architecture.md) — how the multilingual docs are structured and extended.
 - [GitHub Pages lockfiles](github-pages-lockfiles.md) — sanitize Replit-internal npm URLs before publishing a lockfile to GitHub Actions.
 - [GitHub API publishing](github-api-publishing.md) — when PAT API auth works but Git HTTPS push fails, publish through Git Data blobs/tree/commit/ref.

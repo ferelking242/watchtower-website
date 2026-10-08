@@ -108,6 +108,11 @@ h1, h2, p { margin-top: 0; }
 .docs-topbar { position: sticky; z-index: 10; top: 0; height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 4vw; border-bottom: 1px solid var(--line); background: rgba(14, 15, 15, .88); backdrop-filter: blur(14px); }
 .docs-brand { border: 0; background: none; font: 11px "DM Mono", monospace; cursor: pointer; }
 .docs-brand small { color: var(--muted); font-size: inherit; }
+.docs-search { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.03); transition: border-color .2s ease, background .2s ease; }
+.docs-search:focus-within { border-color: var(--accent); background: rgba(255,255,255,.05); }
+.docs-search input { width: 150px; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 12px; }
+.docs-search input::placeholder { color: var(--muted); }
+.docs-nav-empty { padding: 8px 7px; color: var(--muted); font-size: 12px; }
 .language-picker { position: relative; }
 .language-trigger { display: inline-flex; align-items: center; gap: 6px; padding: 8px 9px; background: transparent; border: 1px solid var(--line); color: var(--muted); font: 10px "DM Mono", monospace; }
 .language-trigger:hover { color: var(--text); border-color: var(--line-bright); }
@@ -231,4 +236,19 @@ pre { overflow-x: auto; margin: 0; padding: 25px 20px 30px; color: #d2a897; font
   .docs-hero h1 { font-size: clamp(42px, 13vw, 65px); }
   .docs-content-grid { display: block; padding: 40px 0; }
   .code-card { margin-top: 35px; }
+}
+
+/* RTL: mirror the shell for right-to-left locales such as Arabic. */
+[dir="rtl"] .docs-sidebar { border-right: 0; border-left: 1px solid var(--line); }
+[dir="rtl"] .docs-sidebar nav button { text-align: right; }
+[dir="rtl"] .docs-sidebar nav button.active { padding-left: 7px; padding-right: 12px; }
+[dir="rtl"] .docs-breadcrumb,
+[dir="rtl"] .docs-next,
+[dir="rtl"] .code-top { flex-direction: row-reverse; }
+[dir="rtl"] .docs-hero { grid-template-columns: 1fr 34px; }
+[dir="rtl"] .docs-hero .docs-marker { order: 2; }
+@media (max-width: 720px) {
+  .docs-search input { width: 96px; }
+  [dir="rtl"] .docs-sidebar { left: auto; right: 0; transform: translateX(100%); box-shadow: -15px 0 40px rgba(0,0,0,.3); }
+  [dir="rtl"] .docs-sidebar.open { transform: translateX(0); }
 }
