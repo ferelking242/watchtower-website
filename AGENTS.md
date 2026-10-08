@@ -16,8 +16,10 @@ Live at https://ferelking242.github.io/watchtower-website/
 ## Docs structure
 
 Navigation is defined once in `src/i18n.js` as `SECTION_GROUPS` (group key plus
-an ordered list of page ids). `SECTION_IDS` and `SECTION_ICONS` derive from it.
-Adding a page means:
+an ordered list of entries). An entry is either a page id string or an object
+`{ id, children }` for a parent with nested pages, as with Extensions. `SECTION_IDS`
+and `SECTION_ICONS` derive from it, so nested pages count as real pages for
+routing, pagers and search. Adding a page means:
 
 1. Add the id to the right group in `SECTION_GROUPS`.
 2. Add an icon in `SECTION_ICONS`.

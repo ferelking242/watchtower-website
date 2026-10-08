@@ -97,10 +97,10 @@ flutter build apk --release`,
     body: "The library collects everything you follow, tracks your progress and drives updates, downloads and tracking in one place.",
     marker: "04",
     code: `Library
-├── Watching        in progress, updates every day
-├── Plan to watch   not started
-├── Completed       finished, skipped by updates
-└── On hold         paused, excluded from global update`,
+├── Watching/
+├── Plan to watch/
+├── Completed/
+└── On hold/`,
     subsections: [
       ["Adding entries", "Open a series and press Add to library. The entry inherits its source, cover and description, and starts tracking your progress."],
       ["Organising with categories", "Use categories to split the library by status or genre, then point global updates at a single category instead of everything."],
@@ -120,10 +120,10 @@ flutter build apk --release`,
     body: "Browse is where you explore a source catalogue, search globally and jump between providers without leaving the app.",
     marker: "05",
     code: `Browse
-├── Sources        installed extensions, grouped by language
-├── Extensions     update, install and remove
-├── Migrate        move a series to another source
-└── Search         global search across enabled sources`,
+├── Sources/
+├── Extensions/
+├── Migrate/
+└── Search`,
     subsections: [
       ["Browsing a source", "Pick a source to see its Popular and Latest listings, plus any filters the source exposes such as genre or year."],
       ["Global search", "The search action queries every enabled source at once. Results are grouped by source so you can compare availability."],
@@ -132,9 +132,9 @@ flutter build apk --release`,
       ["Language filters", "Extensions are tagged with a language so you can hide sources you cannot read."]
     ],
     facts: [
-      "Popular and Latest are optional capabilities of a source.",
-      "Global search only queries sources you have enabled.",
-      "Migration does not move downloaded episodes or chapters."
+      "A source that exposes neither Popular nor Latest still works through search.",
+      "Global search fans out to every enabled source at once.",
+      "Migration rewrites the entry's source, not the files on disk."
     ]
   },
 
@@ -156,12 +156,86 @@ class Example extends Source {
       ["Repositories and updates", "Repositories distribute extensions and their versions. Refresh the list to see updates, then install them in place without losing data."],
       ["Item types", "An extension declares an item type such as manga, anime, music, novel or game. That type decides which library, reader or player is used."],
       ["Trust and safety", "Extensions are third-party code. Install only from repositories you trust, because an extension can reach the network and your device storage."],
-      ["Writing one", "See the Extension runtime and Source contract pages for the API surface, entry points and the native UI schema."]
+      ["Writing one", "A working source needs the listing and search entry points only. Filters, preferences and the native UI schema are optional layers you can add later."]
     ],
     facts: [
       "Extensions run in QuickJS, isolated from the Flutter UI.",
       "One extension maps to one website, never a group of them.",
       "The manifest declares name, version, language and item type."
+    ]
+  },
+
+  "extensions-catalogue": {
+    title: "The catalogue is where you pick a source.",
+    body: "The extensions screen lists everything installable, groups it by language and shows what is out of date.",
+    marker: "06a",
+    code: `Extensions
+├── Installed    ready to browse
+├── Available    in a repository, not installed yet
+└── Updates      newer version than yours`,
+    subsections: [
+      ["Installed and available", "Installed extensions can be browsed immediately. Available ones appear after you add a repository and refresh, and install in a single tap."],
+      ["Updating safely", "An update replaces the extension package in place and keeps its preferences, so a fix never costs you your settings."],
+      ["Removing an extension", "Uninstalling removes the extension only. Library entries it supplied stay, but open as unavailable until a source provides them again."],
+      ["Language grouping", "Extensions are tagged by language. Filters let you hide the ones you cannot read so the list stays short."],
+      ["When nothing installs", "A blocked install is almost always the system installer, not the extension. Allow installation from unknown sources and try again."]
+    ],
+    facts: [
+      "An update never clears source preferences.",
+      "Removing an extension keeps the library entries it created.",
+      "The list is grouped by language, not by repository."
+    ]
+  },
+
+  "extensions-devkit": {
+    title: "Write a source and run it before you ship it.",
+    body: "The dev kit is the loop for building an extension: scaffold it, run it against the live site, and inspect what the parser actually returned.",
+    marker: "06b",
+    code: `# Scaffold, run, inspect
+my-source/
+├── index.js       entry points
+├── manifest.json  name, version, language, item type
+└── ui-layouts.json  optional home page schema
+
+# Inspect a call without the app
+watchtower --eval my-source --call popularManga --page 1`,
+    subsections: [
+      ["Scaffolding", "Start from a manifest and an entry file. The manifest declares identity and item type; the entry file implements the listing and search calls."],
+      ["Running a call", "The CLI can invoke a single entry point and print the raw result, so you can debug a parser without rebuilding the app."],
+      ["Parsing helpers", "Requests, an HTML parser and a JSON parser are injected into the sandbox. There is no file system, no database and no direct UI access."],
+      ["Inspecting output", "Compare the returned model against what the source contract expects. A missing field is usually the parser, not the runtime."],
+      ["Iterating", "Reload the extension after each change. The app keeps a hot path for development builds so you do not reinstall between edits."]
+    ],
+    facts: [
+      "The CLI can call one entry point and print its result.",
+      "The sandbox exposes HTTP and parsers, nothing more.",
+      "A manifest declares item type, which picks the reader or player."
+    ]
+  },
+
+  "extensions-publishing": {
+    title: "Ship a source through a repository.",
+    body: "Publishing means putting a signed extension package in a repository index that users can add to the app.",
+    marker: "06c",
+    code: `# Repository index (index.min.json)
+{
+  "name": "My repository",
+  "extensions": [
+    { "name": "Example", "pkg": "eu.kanade.example",
+      "version": "1.4.2", "apk": "example-v1.4.2.apk" }
+  ]
+}`,
+    subsections: [
+      ["Packaging", "Build the extension into a package, bump its version and keep the package name stable so updates land as updates rather than duplicates."],
+      ["The index", "A repository is a JSON index listing each package, its version and its file. Host it over HTTPS so the app can fetch it."],
+      ["Versioning", "The version in the index is what the app compares. Bump it on every release or users will never see the update."],
+      ["Trust and signing", "Users are warned that third-party repositories run with the app's privileges. Sign your packages and publish from a place you control."],
+      ["Maintenance", "A source breaks when its website changes. Expect to republish, and keep an eye on issue reports so you hear about breakage early."]
+    ],
+    facts: [
+      "The index file must end in index.min.json for the app to accept it.",
+      "A stable package name is what makes an update an update.",
+      "A source breaks whenever the site it targets changes."
     ]
   },
 
@@ -197,12 +271,9 @@ localanime/
     title: "Playback that adapts to the media you open.",
     body: "The video player exposes quality, audio track, subtitle and speed controls through sheets and panels that sit above the video surface.",
     marker: "08",
-    code: `Player sheets
-├── Quality        pick a stream or resolution
-├── Audio track    switch language or commentary
-├── Subtitles      enable, style and offset
-├── Speed          playback rate
-└── Panels         episode list, notes, stats`,
+    code: `Player
+├── Sheets/    Quality · Audio · Subtitles · Speed
+└── Panels/    Episodes · Notes · Stats`,
     subsections: [
       ["The player surface", "Tap to reveal controls, double tap to seek, and long press to change speed. Pinch to zoom when the aspect ratio allows it."],
       ["Sheets", "Quality, audio and subtitle choices open as bottom sheets so the video keeps playing behind them."],
@@ -222,11 +293,11 @@ localanime/
     body: "Player settings decide how video is decoded, how gestures behave and which buttons appear on the player surface.",
     marker: "09",
     code: `Player settings
-├── Decoder            hardware, software, auto
-├── Gestures           brightness, volume, seek
-├── Subtitles          font, size, delay
-├── Custom buttons     extra actions on the overlay
-└── Advanced           buffer, aspect ratio, PiP`,
+├── Decoder/          hardware · software · auto
+├── Gestures/         brightness · volume · seek
+├── Subtitles/        font · size · delay
+├── Custom buttons/
+└── Advanced/         buffer · aspect ratio · PiP`,
     subsections: [
       ["Decoder", "Hardware decoding is faster and lighter, but a few codecs need software decoding. Auto picks the safer option per stream."],
       ["Gestures", "Assign vertical swipes to brightness and volume and horizontal swipes to seeking. Each axis can be inverted."],
@@ -268,12 +339,9 @@ localanime/
     title: "A reader built for long sessions.",
     body: "The reader handles paged, vertical and long-strip content with tap zones, zoom and continuous progress tracking.",
     marker: "11",
-    code: `Reader modes
-├── Paged (right to left)   manga default
-├── Paged (left to right)   comics
-├── Paged (vertical)        vertical paging
-├── Long strip              webtoons
-└── Long strip with gaps    webtoons, spaced`,
+    code: `Reader
+├── Paged/     rtl · ltr · vertical
+└── Long strip/  tight · with gaps`,
     subsections: [
       ["Choosing a mode", "Set a global default and override it per series. Long strip suits webtoons, paged suits print manga."],
       ["Navigation", "Tap zones move a page forward or back, swipe scrolls, and pinch zooms. Tap the centre to open the reader menu."],
@@ -282,9 +350,9 @@ localanime/
       ["Downloads", "Downloaded chapters open instantly and are marked in the chapter list so you can read offline."]
     ],
     facts: [
-      "Reader mode can differ between series.",
-      "Reading progress syncs to a tracker when connected.",
-      "Chapter transitions can be shown as a separator or skipped."
+      "Long strip ignores page width, which suits vertical webtoons.",
+      "The reader keeps the last page per chapter, not per series.",
+      "Pinch zoom is disabled in long strip unless you enable it."
     ]
   },
 
@@ -293,10 +361,10 @@ localanime/
     body: "Reader settings cover reading direction, page scaling, cropping and the tap zones used for navigation.",
     marker: "12",
     code: `Reader settings
-├── Reading        mode, transitions, skip rules
-├── Display        rotation, background, fullscreen
-├── Pages          scale, crop, zoom, split
-└── Long strip     side padding, tap zones`,
+├── Reading/      mode · transitions · skip rules
+├── Display/      rotation · background · fullscreen
+├── Pages/        scale · crop · zoom · split
+└── Long strip/   padding · tap zones`,
     subsections: [
       ["Reading", "Set the default mode, whether transitions animate, and which chapters are skipped when they are read, filtered or duplicated."],
       ["Display", "Rotation, background colour, fullscreen and page number visibility all live in the display group."],
@@ -341,14 +409,11 @@ Series → Overflow → Refresh`,
     title: "Take your library offline on purpose.",
     body: "Downloads queue episodes and chapters for offline use, with a single queue, clear limits and a predictable storage layout.",
     marker: "14",
-    code: `Downloads
-├── Queue          reorder or cancel items
-├── Only           download only, read offline
-└── Storage
-    └── Source name (LANG)/
-        └── Series title/
-            ├── Chapter 01.cbz
-            └── Episode 01.mp4`,
+    code: `downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4`,
     subsections: [
       ["Queueing", "Add chapters or episodes from a series and manage them in the download queue. Reorder by dragging, cancel with the overflow action."],
       ["Parallelism", "One source is downloaded at a time to avoid IP bans, while several different sources can run in parallel."],
@@ -367,11 +432,10 @@ Series → Overflow → Refresh`,
     title: "Turn a long library into a few clear shelves.",
     body: "Categories group entries by status, genre or mood, and double as the selector for which part of the library updates and downloads.",
     marker: "15",
-    code: `Categories
-├── Watching        updated daily
-├── Plan to watch   never updated
-├── On hold         excluded from global update
-└── Completed       skipped by default`,
+    code: `Watching        → global update every day
+Plan to watch   → never updated
+On hold         → excluded from global update
+Completed       → skipped by default`,
     subsections: [
       ["Creating categories", "Name and order categories however you like. An entry can belong to several at once."],
       ["Assigning entries", "Long press a series, choose Set categories, and tick every category that applies."],
@@ -390,13 +454,8 @@ Series → Overflow → Refresh`,
     title: "Send your progress to the services you already use.",
     body: "Tracking connects the library to online services so watched episodes and read chapters are recorded without manual entry.",
     marker: "16",
-    code: `Supported trackers
-├── MyAnimeList
-├── AniList
-├── Kitsu
-├── MangaUpdates
-├── Shikimori
-└── Bangumi`,
+    code: `MyAnimeList   AniList     Kitsu
+MangaUpdates  Shikimori   Bangumi`,
     subsections: [
       ["Supported services", "MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori and Bangumi can all be connected from tracking settings."],
       ["Logging in", "Open tracking settings and tap a service to start its login flow. Kitsu expects your email address as the username."],
@@ -443,11 +502,11 @@ downloads, custom covers, history of non-library titles`,
     body: "Storage holds backups, downloads and local sources. Choosing the location deliberately avoids lost downloads and permission errors.",
     marker: "18",
     code: `[storage location]/
-├── autobackup/     scheduled backup files
-├── downloads/      Source (LANG)/Series/Chapter.cbz
-├── local/          your manga folders
-├── localanime/     your anime folders
-└── mpv-config/     player fonts and scripts`,
+├── autobackup/
+├── downloads/    Source (LANG)/Series/
+├── local/        manga you own
+├── localanime/   anime you own
+└── mpv-config/   fonts · scripts`,
     subsections: [
       ["Folder layout", "Backups, downloads, local manga, local anime and player configuration each get their own folder inside the storage location."],
       ["Choosing a location", "Pick a folder you can still reach later. Avoid the root of a volume and avoid moving files outside the app afterwards."],
@@ -467,10 +526,10 @@ downloads, custom covers, history of non-library titles`,
     body: "Beyond per-feature options, Watchtower has app-wide settings for updates, installation, security and diagnostics.",
     marker: "19",
     code: `Settings
-├── General        theme, language, library
-├── Security       secure screen, incognito
-├── Advanced       DNS over HTTPS, installer, logs
-└── Diagnostics    crash logs, logcat, index rebuild`,
+├── General/      theme · language · library
+├── Security/     secure screen · incognito
+├── Advanced/     DNS over HTTPS · installer · logs
+└── Diagnostics/  crash logs · logcat · reindex`,
     subsections: [
       ["General", "Theme, interface language and default library behaviour are set once here and apply everywhere."],
       ["Security and privacy", "Secure screen blocks screenshots, and incognito mode pauses history recording."],
@@ -645,14 +704,10 @@ build-debug.yml      debug APK`,
     title: "Diagnose a failure instead of guessing.",
     body: "Most problems are one of a handful of causes: a dead source, an anti-bot wall, a storage permission or a broken extension. Work through them in order.",
     marker: "26",
-    code: `# First checks
-1. Does the source load in a browser?
-2. Does another source work right now?
-3. Did the extension update recently?
-4. Is storage still reachable?
-5. Do crash logs show a specific error?
-
-Settings → Advanced → Dump crash logs`,
+    code: `# Narrow the fault before touching settings
+browser  → does the source load at all?
+second   → does another source work now?
+logs     → Settings → Advanced → Dump crash logs`,
     subsections: [
       ["Primary diagnosis", "Decide whether the failure is source-side, device-side or account-side. One working source points at the source, not the app."],
       ["Reading an error", "HTTP 403 and 429 usually mean anti-bot, 404 means a changed URL, and timeouts mean network or source load."],

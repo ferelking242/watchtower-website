@@ -1,49 +1,5 @@
 // Indonesian prose overlay. Code blocks and markers come from en.js.
 const id = {
-  overview: {
-    title: "Peta lengkap aplikasi Watchtower.",
-    body: "Watchtower menggabungkan klien Flutter, pustaka lokal, ekstensi JavaScript, binding native, dan server headless opsional dalam satu runtime yang bisa di-host sendiri.",
-    subsections: [
-      ["Apa itu Watchtower", "Hub media lintas platform untuk anime, manga, serial, musik, novel, dan game. Aplikasi ini mengindeks file lokal, melacak progres, mengunduh konten, dan menjalankan sumber komunitas melalui runtime JavaScript yang dapat diperluas."],
-      ["Dua runtime, satu kontrak", "Aplikasi terpasang mengekspos server HTTP tertanam di port 4567. CLI headless memakai ulang mesin Flutter dan QuickJS yang sama sehingga CI, server, dan SSH bisa menjalankan sumber tanpa sesi grafis."],
-      ["Untuk siapa panduan ini", "Untuk penulis sumber yang menulis ekstensi, pengguna yang menjalankan server headless, dan kontributor aplikasi Flutter. Setiap bagian menjelaskan apa yang wajib dan apa yang opsional."]
-    ],
-    facts: [
-      "Klien Flutter lintas platform untuk anime, manga, musik, novel, game, dan pemutaran.",
-      "Pengindeks lokal, pustaka, riwayat, favorit, kalender, dan pelacakan progres.",
-      "Ekstensi QuickJS, unduhan, anti-bot, binding Rust, dan server torrent Go."
-    ]
-  },
-  "app-map": {
-    title: "Aplikasi yang terdiri dari permukaan yang bisa dikomposisi.",
-    body: "Repositori memisahkan layar fitur, layanan data, dan runtime eksekusi. Peta ini mengikuti konten dari sumber hingga pemutaran dan pustaka lokal.",
-    subsections: [
-      ["Alur konten", "Ekstensi mengembalikan model bersama. Provider Riverpod memaginasi, layar mengubahnya menjadi kartu, dan Isar menyimpan riwayat, favorit, serta file terindeks."],
-      ["Routing", "GoRouter menghubungkan onboarding, beranda, pencarian, detail, pemutaran, pustaka, pengaturan, dan modul khusus tanpa mengikat kontrak sumber."],
-      ["Runtime", "Flutter memegang antarmuka, QuickJS/Dart menjalankan sumber, Rust dan Go memberi kemampuan native, dan CLI headless meniru runtime di sisi server."],
-      ["Status dan penyimpanan", "Riverpod menggerakkan aplikasi utama, Isar adalah basis data utama, dan Hive menyimpan preferensi. Modul musik dan penjelajah file mempertahankan tumpukan lama mereka, terpisah dari kontrak sumber."]
-    ],
-    facts: [
-      "Modul antarmuka dikelompokkan per domain media, bukan per penyedia.",
-      "Layanan lintas fungsi menangani cache, unduhan, anti-bot, sinkronisasi, dan diagnostik.",
-      "Layar dapat bekerja dengan sumber jarak jauh, file lokal, atau server headless."
-    ]
-  },
-  "content-types": {
-    title: "Manga, watch, musik: satu model bersama.",
-    body: "ItemType mengklasifikasi keluarga sumber; isi konkret tetap di model manga, bab, halaman, video, dan trek. Jadi ekstensi watch bisa mencakup anime, film, atau serial tanpa renderer native baru.",
-    subsections: [
-      ["Manga", "Bab memakai getPageList(url) untuk menghasilkan halaman pembaca. Metadata berbagi nama, gambar, deskripsi, penulis, artis, dan genre."],
-      ["watch: anime, film, serial", "Episode memakai getVideoList(url). Video membawa URL, kualitas, URL asli, header, subtitle, dan trek audio. Film/serial/anime adalah metadata konten, bukan runtime terpisah."],
-      ["Musik dan novel", "Musik memakai ulang permukaan pencarian dan detail dengan trek, album, artis, dan playlist; novel memakai detail, bab, dan pembaca HTML/teks."],
-      ["Game dan plugin", "Game menyediakan permukaan penemuan khusus. Plugin mewakili ekstensi utilitas atau pengunduh yang memakai manifes dan skema UI native."]
-    ],
-    facts: [
-      "Kompatibilitas berasal dari kontrak data, bukan layar yang dikodekan per situs.",
-      "Filter, preferensi, komentar, rekomendasi, dan daftar khusus bersifat opsional.",
-      "itemType disimpan di Source dan memilih pustaka, pemutar, serta riwayat."
-    ]
-  },
   "extension-runtime": {
     title: "JavaScript berjalan di runtime terkendali.",
     body: "DartExtensionService memuat kode sumber, menyuntikkan MProvider, dan menjalankannya di QuickJS. Bridge menyediakan jaringan, DOM, ekstraktor, preferensi, dan model Flutter tanpa membuka aplikasi native.",
@@ -57,21 +13,6 @@ const id = {
       "QuickJS mengembalikan objek terserialisasi ke model Dart.",
       "Kode ekstensi dapat mendefinisikan header, filter, preferensi, dan daftar khusus.",
       "Kompatibilitas Mihon memungkinkan penggunaan ulang ekstensi manga yang ada."
-    ]
-  },
-  "extension-types": {
-    title: "Setiap keluarga ekstensi punya permukaannya.",
-    body: "Jenis sumber memilih layar dan aksi yang tersedia. Mesin JS yang sama dibagikan, sementara hasil ditampilkan melalui pembaca manga, pemutar watch, audio, novel, game, atau plugin.",
-    subsections: [
-      ["Manga", "Sumber bab dan halaman dengan filter katalog, riwayat baca, dan impor lokal."],
-      ["watch", "Sumber video untuk anime, film, dan serial: detail, episode, kualitas, subtitle, trek audio, dan ekstraktor pemutar."],
-      ["Musik", "Katalog audio dan ekstensi metadata: album, artis, trek, pencarian, playlist, dan statistik."],
-      ["Novel, game, plugin", "Novel memakai ulang pembaca teks/HTML; game punya layar penemuan; plugin utilitas mengikuti manifest.json dan ui/schema.json."]
-    ],
-    facts: [
-      "watch adalah keluarga penggunaan: itemType-nya bisa anime atau sumber video lain yang kompatibel.",
-      "Renderer generik memakai kartu, paginasi, dan layout yang sama untuk sumber kompatibel.",
-      "Kemampuan opsional mencegah menampilkan aksi yang tidak diimplementasikan sumber."
     ]
   },
   "extension-contract": {
@@ -104,53 +45,6 @@ const id = {
       "Skrip ZeusDL berkomunikasi lewat stdout dengan PROGRESS, STATUS, DONE, dan ERROR."
     ]
   },
-  layouts: {
-    title: "ui-layouts.json mengontrol urutan dan bentuk.",
-    body: "Ekstensi dapat menerbitkan layout deklaratif. Watchtower mengunduhnya dari watchtower-extensions, mengurainya sebagai UiLayout, menyimpannya per sumber, dan membiarkan Flutter memetakan komponen ke widget native.",
-    subsections: [
-      ["Akar dan cache", "schemaVersion dan home.sections adalah minimum yang berguna. browse, detail, dan player opsional. LayoutDownloader membaca Source.uiLayout dari raw.githubusercontent.com, lalu LayoutRegistry menyimpan layouts/<source.id>.json."],
-      ["Bagian beranda", "id mengidentifikasi getCustomList(id, page). component menerima spotlight/carousel, banner/hero, ranked, newHot, compactRow, categoryPills, creatorRow, grid, feed, dan masonry, plus presentasi kurasi dari registri komponen."],
-      ["Parameter visual", "title, icon, dan accent membentuk header. columns, rows, cardStyle, gridOrder, dan scrollDirection adalah petunjuk render. seeAll membuka halaman penuh, paginated mengaktifkan pemuatan halaman, dan requiresAuth melindungi bagian untuk pengguna masuk."],
-      ["browse, detail, player", "browse mendeskripsikan popular/latest/search dengan component, columns, cardStyle, results, dan filters. detail menerima hero, episodeList, dan showRecommendations. player menerima standard atau feed."],
-      ["Layout tidak valid", "Komponen tak dikenal kembali ke renderer grid dan dicatat. File rusak membiarkan sumber pada beranda standar Popular/Latest/Search alih-alih merusak seluruh layar."]
-    ],
-    facts: [
-      "Tanpa layout, sumber kembali ke beranda standar Popular/Latest/Search.",
-      "Bridge toLegacyMap menjaga kompatibilitas layar beranda yang ada.",
-      "Layout dimuat ulang setelah pemasangan atau pembaruan ekstensi dan dihapus saat dilepas."
-    ]
-  },
-  "watch-home": {
-    title: "WatchHomeScreen adalah permukaan yang bisa dikendalikan.",
-    body: "Halaman Watch menyusun hero, riwayat, kategori, baris, dan katalog dari sumber saat ini. Layout JSON dapat mengganti daftar standar sambil mempertahankan interaksi native.",
-    subsections: [
-      ["Urutan dan hero", "Hero memakai lima item banner pertama (fallback popular), berganti tiap 7 detik, dan menargetkan rasio lanskap lebar × 0,62. Putar membuka detail, Info membuka sheet bawah, dan Daftar saya mengubah favorit Isar."],
-      ["Riwayat", "Lanjutkan menonton membaca riwayat Isar sumber, menghapus duplikat per manga, membatasi 12 kartu, dan menampilkan thumbnail, episode/bab, serta progres."],
-      ["Katalog dan pencarian", "Grid katalog memaginasi Popular atau daftar khusus. Pencarian memakai debounce 250 ms, saran mengambang, aksi mikrofon/X, dan hanya menetapkan hasil saat dikirim."],
-      ["Performa", "App bar mengamati gulir dengan ValueNotifier; hero berada di dalam CustomScrollView sehingga konten tidak menutupinya dan gulir menghindari setState penuh."],
-      ["Status kosong dan error", "Bagian kosong disembunyikan. Bagian gagal menampilkan kartu coba lagi dengan error mentah, dan blokir Cloudflare mengarah ke panel bypass alih-alih jalan buntu."]
-    ],
-    facts: [
-      "Kategori adalah kartu 132×72 dengan gambar, gradien, dan bingkai.",
-      "Bagian disembunyikan saat datanya kosong.",
-      "Aksi sumber tetap konsisten di manga, anime, film, dan serial."
-    ]
-  },
-  "home-widgets": {
-    title: "Widget adalah adaptor data.",
-    body: "WatchtowerHomeScreen adalah beranda global aplikasi. Ini menggabungkan feed AniList dan TMDB dengan pustaka lokal dan menggerakkan baris melalui tab media.",
-    subsections: [
-      ["Beranda media", "Tab Semua, Film, Serial, Musik, Anime, Asia, Anak, Barat, Afrika, TV Pendek, Sepak Bola, dan Game memilih bagian dan data hero yang terlihat."],
-      ["Kartu", "DiscoveryCard punya varian standard, ranked, landscape, featured, saga, dan spotlight. EpisodeCard menambah thumbnail, judul episode, durasi, dan bilah progres untuk melanjutkan."],
-      ["Data", "AniList memasok anime dan konten editorial; TMDB memasok film dan serial; pustaka dan provider lokal melengkapi daftar pengguna."],
-      ["Watch versus beranda global", "WatchtowerHomeScreen adalah beranda global; WatchHomeScreen adalah beranda sumber/ekstensi. Yang pertama menggabungkan katalog, yang kedua merender kontrak sumber."]
-    ],
-    facts: [
-      "Widget tidak tahu URL tiap penyedia: mereka mengonsumsi model ternormalisasi.",
-      "Status skeleton, kosong, memuat, dan error adalah bagian dari permukaan beranda.",
-      "Layout ekstensi terutama menyasar WatchHomeScreen dan layar browse/detail/player."
-    ]
-  },
   api: {
     title: "Dua runtime, satu API.",
     body: "Server Dart/shelf tertanam mendengarkan 4567 di dalam aplikasi. CLI headless memakai ulang operasi yang sama untuk CI, Docker, Railway, atau Render.",
@@ -179,21 +73,6 @@ const id = {
       "Aturan hanya Wi-Fi dapat memblokir unduhan sampai jaringan Wi-Fi tersedia.",
       "Pembaruan pustaka pintar menambah episode atau bab baru secara otomatis.",
       "Antrean unduhan menampilkan hingga lima tombol aksi cepat per kartu."
-    ]
-  },
-  trackers: {
-    title: "Progres disinkronkan dengan layanan eksternal.",
-    body: "Watchtower terhubung ke AniList, Kitsu, MyAnimeList, Simkl, dan Trakt agar progres tonton dan baca tetap sinkron antar perangkat.",
-    subsections: [
-      ["Tracker yang didukung", "AniList, Kitsu, MyAnimeList, Simkl, dan Trakt. Masing-masing punya alur masuk dan model status sendiri, dinormalisasi ke model Track bersama."],
-      ["Menautkan dan sinkronisasi", "Entri pustaka dapat ditautkan ke entri tracker. Progres, status, dan skor dikirim saat pembaruan, dan pembaruan pintar dapat menarik episode atau bab berikutnya."],
-      ["Error tracker", "Token kedaluwarsa, aplikasi dicabut, atau batas laju menghasilkan pesan berbeda. Autentikasi ulang dari Pengaturan › Pelacakan; entri yang salah dapat dilepas lalu ditautkan lagi."],
-      ["Migrasi", "Alur migrasi massal memindahkan entri pustaka antar sumber sambil mempertahankan tautan tracker, sehingga progres tidak hilang saat sumber mati."]
-    ],
-    facts: [
-      "Integrasi tracker berada di lib/services/trackers.",
-      "Kelola tracker dari Pengaturan › Pelacakan.",
-      "Migrasi massal mempertahankan tautan tracker saat sumber berubah."
     ]
   },
   "getting-started": {
@@ -240,22 +119,6 @@ const id = {
       "Perbarui ekstensi dulu: sebagian besar kerusakan diperbaiki oleh pembaruan ekstensi.",
       "Layar diagnostik memisahkan langkah popular, latest, detail, dan media.",
       "Tidak ada ETA untuk perbaikan ekstensi; sumber rusak kadang butuh kesabaran."
-    ]
-  },
-  cloudflare: {
-    title: "Cloudflare & anti-bot",
-    body: "Sebagian sumber berada di belakang Cloudflare. Watchtower hanya melaporkan challenge saat respons membawa bukti nyata, dan menawarkan WebView bypass yang membuka URL gagal secara persis.",
-    subsections: [
-      ["Apa yang dianggap challenge", "403/503 biasa, timeout, atau kata challenge bukan Cloudflare. Watchtower memerlukan penanda CDN, halaman challenge interaktif, atau halaman blokir sebelum menampilkan antarmuka anti-bot."],
-      ["Melewati challenge", "WebView bypass membuka URL gagal secara persis, bukan akar situs. Selesaikan CAPTCHA sekali, lalu coba lagi sumbernya."],
-      ["Mengubah user agent", "User agent memengaruhi deteksi bot. Ubah nilai bawaan di pengaturan Lanjutan, mulai ulang aplikasi, lalu coba lagi. Coba beberapa browser dan sistem."],
-      ["Cookie dan cache", "Membersihkan cookie mengatur ulang status masuk atau challenge. Membersihkan data WebView memberi awal bersih. Keduanya ada di pengaturan Lanjutan."],
-      ["Jika masih gagal", "Sumber mungkin menaikkan perlindungannya. Tunggu, atau pindah ke sumber lain untuk konten yang sama."]
-    ],
-    facts: [
-      "Cloudflare hanya dilaporkan saat ada bukti nyata dalam respons.",
-      "WebView bypass membuka URL gagal, bukan akar situs.",
-      "Kegagalan pribadi biasanya berarti blokir atau batas laju, bukan bug."
     ]
   },
   cli: {

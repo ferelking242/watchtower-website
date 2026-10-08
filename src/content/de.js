@@ -1,49 +1,5 @@
 // German prose overlay. Code blocks and markers come from en.js.
 const de = {
-  overview: {
-    title: "Eine vollständige Karte der Watchtower-App.",
-    body: "Watchtower vereint einen Flutter-Client, lokale Bibliotheken, JavaScript-Erweiterungen, native Bindings und einen optionalen Headless-Server in einer selbst hostbaren Runtime.",
-    subsections: [
-      ["Was Watchtower ist", "Ein plattformübergreifender Media-Hub für Anime, Manga, Serien, Musik, Romane und Spiele. Er indexiert lokale Dateien, verfolgt den Fortschritt, lädt Inhalte herunter und führt Community-Quellen über eine erweiterbare JavaScript-Runtime aus."],
-      ["Zwei Runtimes, ein Vertrag", "Die installierte App bietet einen eingebetteten HTTP-Server auf Port 4567. Die Headless-CLI nutzt dieselbe Flutter- und QuickJS-Engine, sodass CI, Server und SSH-Sitzungen Quellen ohne grafische Sitzung ausführen können."],
-      ["Für wen dieser Leitfaden ist", "Für Quellen-Autoren, die Erweiterungen schreiben, Selbsthoster, die den Headless-Server betreiben, und Mitwirkende am Flutter-Client. Jeder Abschnitt nennt, was Pflicht und was optional ist."]
-    ],
-    facts: [
-      "Plattformübergreifender Flutter-Client für Anime, Manga, Musik, Romane, Spiele und Wiedergabe.",
-      "Lokaler Indexer, Bibliothek, Verlauf, Favoriten, Kalender und Fortschrittsverfolgung.",
-      "QuickJS-Erweiterungen, Downloads, Anti-Bot, Rust-Bindings und der Go-Torrent-Server."
-    ]
-  },
-  "app-map": {
-    title: "Eine App aus kombinierbaren Oberflächen.",
-    body: "Das Repository trennt Feature-Screens, Datendienste und Ausführungs-Runtimes. Diese Karte folgt Inhalten von einer Quelle bis zur Wiedergabe und zur lokalen Bibliothek.",
-    subsections: [
-      ["Datenfluss", "Eine Erweiterung liefert gemeinsame Modelle. Riverpod-Provider paginieren sie, Screens machen daraus Karten, und Isar speichert Verlauf, Favoriten und indexierte Dateien."],
-      ["Routing", "GoRouter verbindet Onboarding, Start, Suche, Details, Wiedergabe, Bibliotheken, Einstellungen und Spezialmodule, ohne Quellen-Verträge zu koppeln."],
-      ["Runtimes", "Flutter besitzt die UI, QuickJS/Dart führt Quellen aus, Rust und Go liefern native Fähigkeiten, und die Headless-CLI spiegelt die Runtime serverseitig."],
-      ["Zustand und Speicher", "Riverpod steuert die Haupt-App, Isar ist die primäre Datenbank und Hive speichert Einstellungen. Musik- und Dateibrowser-Module behalten ihre eigenen Alt-Stacks, isoliert von Quellen-Verträgen."]
-    ],
-    facts: [
-      "UI-Module sind nach Mediendomäne gruppiert, nicht nach Anbieter.",
-      "Querschnittsdienste übernehmen Cache, Downloads, Anti-Bot, Sync und Diagnose.",
-      "Screens arbeiten mit einer Remote-Quelle, einer lokalen Datei oder dem Headless-Server."
-    ]
-  },
-  "content-types": {
-    title: "Manga, Watch, Musik: ein gemeinsames Modell.",
-    body: "ItemType klassifiziert Quellenfamilien; die konkrete Nutzlast bleibt in Manga-, Kapitel-, Seiten-, Video- und Track-Modellen. Eine Watch-Erweiterung deckt so Anime, Filme oder Serien ohne neuen nativen Renderer ab.",
-    subsections: [
-      ["Manga", "Kapitel nutzen getPageList(url), um Reader-Seiten zu erzeugen. Metadaten teilen Name, Bild, Beschreibung, Autor, Künstler und Genres."],
-      ["Watch: Anime, Film, Serie", "Episoden nutzen getVideoList(url). Videos tragen URL, Qualität, Original-URL, Header, Untertitel und Audiospuren. Film/Serie/Anime sind Inhaltsmetadaten, keine getrennten Runtimes."],
-      ["Musik und Roman", "Musik nutzt die Such- und Detailoberflächen mit Tracks, Alben, Künstlern und Playlists; Romane nutzen Detail, Kapitel und einen HTML/Text-Reader."],
-      ["Spiele und Plugins", "Game bietet eine eigene Discovery-Oberfläche. Plugin steht für Utility- oder Downloader-Erweiterungen mit Manifest und nativer UI-Schema."]
-    ],
-    facts: [
-      "Kompatibilität kommt aus Datenverträgen, nicht aus einem Screen pro Website.",
-      "Filter, Einstellungen, Kommentare, Empfehlungen und eigene Listen sind optional.",
-      "Das Feld itemType liegt auf Source und wählt Bibliothek, Player und Verlauf."
-    ]
-  },
   "extension-runtime": {
     title: "JavaScript läuft in einer kontrollierten Runtime.",
     body: "DartExtensionService lädt den Quellcode, injiziert MProvider und führt ihn in QuickJS aus. Bridges bieten Netzwerk, DOM, Extraktoren, Einstellungen und Flutter-Modelle, ohne die native App offenzulegen.",
@@ -57,21 +13,6 @@ const de = {
       "QuickJS liefert serialisierte Objekte an Dart-Modelle.",
       "Erweiterungscode kann Header, Filter, Einstellungen und eigene Listen definieren.",
       "Mihon-Kompatibilität erlaubt die Wiederverwendung bestehender Manga-Erweiterungen."
-    ]
-  },
-  "extension-types": {
-    title: "Jede Erweiterungsfamilie hat ihre Oberfläche.",
-    body: "Der Quellentyp wählt die verfügbaren Screens und Aktionen. Dieselbe JS-Engine wird geteilt, während Ergebnisse im Manga-Reader, Watch-Player, Audio-, Roman-, Spiel- oder Plugin-Bereich gerendert werden.",
-    subsections: [
-      ["Manga", "Kapitel- und Seitenquellen mit Katalogfiltern, Leseverlauf und lokalem Import."],
-      ["Watch", "Videoquellen für Anime, Filme und Serien: Details, Episoden, Qualität, Untertitel, Audiospuren und Player-Extraktoren."],
-      ["Musik", "Audio-Katalog- und Metadaten-Erweiterungen: Alben, Künstler, Tracks, Suche, Playlists und Statistiken."],
-      ["Roman, Spiel, Plugin", "Romane nutzen den Text/HTML-Reader; Spiele haben Discovery-Screens; Utility-Plugins folgen manifest.json und ui/schema.json."]
-    ],
-    facts: [
-      "Watch ist eine Nutzungsfamilie: itemType kann Anime oder eine andere kompatible Videoquelle sein.",
-      "Der generische Renderer nutzt dieselben Karten, Paginierung und Layouts für kompatible Quellen.",
-      "Optionale Fähigkeiten verhindern das Anzeigen einer Aktion, die die Quelle nicht implementiert."
     ]
   },
   "extension-contract": {
@@ -104,53 +45,6 @@ const de = {
       "ZeusDL-Skripte kommunizieren über stdout mit PROGRESS, STATUS, DONE und ERROR."
     ]
   },
-  layouts: {
-    title: "ui-layouts.json steuert Reihenfolge und Form.",
-    body: "Eine Erweiterung kann ein deklaratives Layout veröffentlichen. Watchtower lädt es aus watchtower-extensions, parst es als UiLayout, cached es pro Quelle und lässt Flutter Komponenten auf native Widgets abbilden.",
-    subsections: [
-      ["Wurzel und Cache", "schemaVersion und home.sections sind das nützliche Minimum. browse, detail und player sind optional. LayoutDownloader liest Source.uiLayout von raw.githubusercontent.com, dann speichert LayoutRegistry layouts/<source.id>.json."],
-      ["Startabschnitte", "id identifiziert getCustomList(id, page). component akzeptiert spotlight/carousel, banner/hero, ranked, newHot, compactRow, categoryPills, creatorRow, grid, feed und masonry sowie die kuratierten Präsentationen der Komponentenregistry."],
-      ["Visuelle Parameter", "title, icon und accent formen den Kopfbereich. columns, rows, cardStyle, gridOrder und scrollDirection sind Rendering-Hinweise. seeAll öffnet die volle Seite, paginated aktiviert Seitenladen und requiresAuth schützt einen Abschnitt für Angemeldete."],
-      ["Browse, detail, player", "Browse beschreibt popular/latest/search mit component, columns, cardStyle, results und filters. Detail akzeptiert hero, episodeList und showRecommendations. Player akzeptiert standard oder feed."],
-      ["Ungültige Layouts", "Eine unbekannte Komponente fällt auf den Grid-Renderer zurück und wird protokolliert. Eine fehlerhafte Datei lässt die Quelle auf ihrem Standard-Start Popular/Latest/Search, statt den ganzen Screen zu brechen."]
-    ],
-    facts: [
-      "Ohne Layout fällt die Quelle auf den Standard-Start Popular/Latest/Search zurück.",
-      "Die toLegacyMap-Bridge hält bestehende Start-Screens kompatibel.",
-      "Ein Layout wird nach Installation oder Update neu geladen und beim Deinstallieren entfernt."
-    ]
-  },
-  "watch-home": {
-    title: "WatchHomeScreen ist eine steuerbare Oberfläche.",
-    body: "Die Watch-Seite kombiniert Hero, Verlauf, Kategorien, Reihen und Katalog aus der aktuellen Quelle. JSON-Layouts können Standardlisten ersetzen und behalten native Interaktionen.",
-    subsections: [
-      ["Reihenfolge und Hero", "Der Hero nutzt die ersten fünf Banner-Einträge (mit Popular als Fallback), rotiert alle 7 Sekunden und zielt auf ein Querformat-Verhältnis Breite × 0,62. Abspielen öffnet das Detail, Info das Bottom-Sheet und Meine Liste schaltet den Isar-Favoriten um."],
-      ["Verlauf", "Weiterschauen liest den Isar-Verlauf der Quelle, dedupliziert nach Manga, begrenzt auf 12 Karten und zeigt Thumbnail, Episode/Kapitel und Fortschritt."],
-      ["Katalog und Suche", "Das Kataloggitter paginiert Popular oder eine eigene Liste. Die Suche nutzt 250 ms Debounce, schwebende Vorschläge, Mikrofon/X-Aktionen und bestätigt Ergebnisse erst beim Absenden."],
-      ["Performance", "Die App-Bar beobachtet den Scroll mit ValueNotifier; der Hero liegt im CustomScrollView, sodass Inhalte ihn nicht überlagern und der Scroll ein volles setState vermeidet."],
-      ["Leere und Fehlerzustände", "Ein leerer Abschnitt wird ausgeblendet. Ein fehlerhafter Abschnitt zeigt eine Retry-Karte mit dem rohen Fehler, und ein Cloudflare-Block führt zum Bypass-Panel statt in eine Sackgasse."]
-    ],
-    facts: [
-      "Kategorien sind 132×72-Karten mit Bild, Verlauf und Rahmen.",
-      "Abschnitte werden ausgeblendet, wenn ihre Daten leer sind.",
-      "Quellenaktionen bleiben über Manga, Anime, Filme und Serien konsistent."
-    ]
-  },
-  "home-widgets": {
-    title: "Widgets sind Datenadapter.",
-    body: "WatchtowerHomeScreen ist der globale App-Start. Er kombiniert AniList- und TMDB-Feeds mit der lokalen Bibliothek und steuert Reihen über Medien-Tabs.",
-    subsections: [
-      ["Medien-Start", "Die Tabs Alle, Film, Serie, Musik, Anime, Asia, Kinder, Westlich, Afrika, Kurz-TV, Fußball und Spiele wählen sichtbare Abschnitte und Hero-Daten."],
-      ["Karten", "DiscoveryCard hat Standard-, Ranked-, Landscape-, Featured-, Saga- und Spotlight-Varianten. EpisodeCard ergänzt Thumbnail, Episodentitel, Dauer und Fortschrittsbalken zum Fortsetzen."],
-      ["Daten", "AniList liefert Anime und redaktionelle Inhalte; TMDB liefert Filme und Serien; lokale Bibliothek und Provider vervollständigen Nutzerlisten."],
-      ["Watch versus globaler Start", "WatchtowerHomeScreen ist der globale Start; WatchHomeScreen ist der Start einer Quelle/Erweiterung. Ersterer aggregiert Kataloge, letzterer rendert einen Quellenvertrag."]
-    ],
-    facts: [
-      "Widgets kennen die URLs der Anbieter nicht: sie konsumieren normalisierte Modelle.",
-      "Skeleton-, Leer-, Lade- und Fehlerzustände gehören zur Startoberfläche.",
-      "Erweiterungslayouts zielen vor allem auf WatchHomeScreen und browse/detail/player."
-    ]
-  },
   api: {
     title: "Zwei Runtimes, eine API.",
     body: "Der eingebettete Dart/shelf-Server lauscht in der App auf 4567. Die Headless-CLI nutzt dieselben Operationen für CI, Docker, Railway oder Render.",
@@ -179,21 +73,6 @@ const de = {
       "Nur-WLAN-Regeln können einen Download blockieren, bis ein WLAN verfügbar ist.",
       "Smart-Updates fügen neue Episoden oder Kapitel automatisch hinzu.",
       "Die Download-Warteschlange zeigt bis zu fünf Schnellaktions-Buttons pro Karte."
-    ]
-  },
-  trackers: {
-    title: "Der Fortschritt synchronisiert mit externen Diensten.",
-    body: "Watchtower verbindet AniList, Kitsu, MyAnimeList, Simkl und Trakt, damit Seh- und Lesefortschritt geräteübergreifend synchron bleibt.",
-    subsections: [
-      ["Unterstützte Tracker", "AniList, Kitsu, MyAnimeList, Simkl und Trakt. Jeder hat seinen Login und sein Statusmodell, normalisiert auf ein gemeinsames Track-Modell."],
-      ["Verknüpfen und Synchronisieren", "Ein Bibliothekseintrag kann mit einem Tracker-Eintrag verknüpft werden. Fortschritt, Status und Bewertung werden beim Update gesendet, Smart-Updates können die nächste Episode oder das nächste Kapitel holen."],
-      ["Tracker-Fehler", "Ein abgelaufenes Token, eine widerrufene App oder ein Rate-Limit erzeugen je eine eigene Meldung. Melde dich unter Einstellungen › Tracking neu an; ein falscher Eintrag lässt sich entkoppeln und neu verknüpfen."],
-      ["Migration", "Der Massenmigrations-Flow verschiebt Bibliothekseinträge zwischen Quellen und erhält Tracker-Verknüpfungen, damit kein Fortschritt verloren geht, wenn eine Quelle stirbt."]
-    ],
-    facts: [
-      "Tracker-Integrationen liegen unter lib/services/trackers.",
-      "Tracker verwaltest du unter Einstellungen › Tracking.",
-      "Die Massenmigration erhält Tracker-Verknüpfungen beim Quellenwechsel."
     ]
   },
   "getting-started": {
@@ -240,22 +119,6 @@ const de = {
       "Aktualisiere zuerst die Erweiterungen: die meisten Brüche behebt ein Update.",
       "Der Diagnose-Screen trennt die Schritte popular, latest, detail und media.",
       "Kein ETA für Erweiterungsfixes; eine tote Quelle braucht manchmal Geduld."
-    ]
-  },
-  cloudflare: {
-    title: "Cloudflare & Anti-Bot",
-    body: "Manche Quellen liegen hinter Cloudflare. Watchtower meldet einen Challenge nur bei echten Belegen und bietet eine Bypass-WebView, die die exakte fehlerhafte URL öffnet.",
-    subsections: [
-      ["Was als Challenge zählt", "Ein reines 403/503, ein Timeout oder das Wort challenge ist kein Cloudflare. Watchtower verlangt CDN-Marker, eine interaktive Challenge-Seite oder eine Blockseite, bevor die Anti-Bot-UI erscheint."],
-      ["Challenge umgehen", "Die Bypass-WebView öffnet die exakte fehlerhafte URL, nie die Seitenwurzel. Löse das CAPTCHA einmal und versuche die Quelle erneut."],
-      ["User-Agent ändern", "Der User-Agent beeinflusst die Bot-Erkennung. Ändere den Standard in den erweiterten Einstellungen, starte die App neu und versuche es erneut. Teste mehrere Browser und Systeme."],
-      ["Cookies und Cache", "Cookies löschen setzt Login- oder Challenge-Zustand zurück. WebView-Daten löschen schafft eine reine Basis. Beides liegt in den erweiterten Einstellungen."],
-      ["Wenn es weiter scheitert", "Die Quelle hat ihren Schutz vielleicht erhöht. Warte oder wechsle zu einer anderen Quelle für denselben Inhalt."]
-    ],
-    facts: [
-      "Cloudflare wird nur bei echten Belegen in der Antwort gemeldet.",
-      "Die Bypass-WebView öffnet die fehlerhafte URL, nicht die Seitenwurzel.",
-      "Ein persönlicher Fehler ist meist ein Block oder Rate-Limit, kein Bug."
     ]
   },
   cli: {
