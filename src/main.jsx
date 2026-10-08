@@ -136,14 +136,10 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
       <header className="docs-topbar">
         <button className="docs-brand" onClick={onHome}><span className="brand-mark"><i /><i /><i /></span><span>WATCHTOWER <small>/ DOCS</small></span></button>
         <div className="docs-top-actions">
-          <div className="docs-search">
-            <Icon name="search" size={15} />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} aria-label={t.searchPlaceholder} />
-          </div>
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="github-link"><Icon name="github" size={16} /> GitHub <Icon name="arrowUpRight" size={13} /></a>
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="topbar-action github-link"><Icon name="github" size={15} /> GitHub <Icon name="arrowUpRight" size={12} /></a>
           <LanguagePicker language={language} setLanguage={setLanguage} />
-          <button className="theme-switch" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={theme === "light"}>
-            <Icon name={theme === "dark" ? "sun" : "moon"} size={15} /><span>{theme === "dark" ? "Dark" : "Light"}</span>
+          <button className="topbar-action theme-switch" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={theme === "light"}>
+            <Icon name={theme === "dark" ? "sun" : "moon"} size={14} /><span>{theme === "dark" ? "Dark" : "Light"}</span>
           </button>
           <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation"><Icon name={menuOpen ? "close" : "menu"} size={20} /></button>
         </div>
@@ -151,6 +147,11 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
       <div className="docs-layout">
         <aside className={`docs-sidebar ${menuOpen ? "open" : ""}`}>
           <div className="sidebar-intro"><span className="side-label">{t.docsLabel}</span><p>{t.sidebarTagline}</p></div>
+          <label className="docs-search">
+            <Icon name="search" size={15} />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} aria-label={t.searchPlaceholder} />
+            {query && <button type="button" className="docs-search-clear" onClick={() => setQuery("")} aria-label="Clear search"><Icon name="close" size={13} /></button>}
+          </label>
           <nav className="docs-nav">
             {filteredGroups.length === 0 && <p className="docs-nav-empty">{t.noResults}</p>}
             {filteredGroups.map((group) => (
