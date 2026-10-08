@@ -17,6 +17,7 @@ const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
     close: <><path d="m6 6 12 12"/><path d="m18 6-12 12"/></>,
     code: <><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/></>,
     copy: <><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></>,
+    discord: <><path d="M8.5 9.5c2.3-1 4.7-1 7 0"/><path d="M7.5 16.5c-2-.4-3.5-1-3.5-1C4.6 11.9 5.5 8.6 7 6.4A12 12 0 0 1 10.4 5l.7 1.4a10 10 0 0 1 1.8 0L13.6 5A12 12 0 0 1 17 6.4c1.5 2.2 2.4 5.5 3 9.1 0 0-1.5.6-3.5 1"/><path d="m7.5 16.5.6 1.3a10 10 0 0 0 7.8 0l.6-1.3"/><circle cx="9.8" cy="12.3" r="1.1"/><circle cx="14.2" cy="12.3" r="1.1"/></>,
     globe: <><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.1 2.3 3.2 5.1 3.2 8.5s-1.1 6.2-3.2 8.5c-2.1-2.3-3.2-5.1-3.2-8.5S9.9 5.8 12 3.5Z"/></>,
     github: <><path d="M15 22v-3.2c.1-1.6-.5-2.3-1.4-2.8 4.6-.5 6.4-2.3 6.4-6.3a5 5 0 0 0-1.3-3.5A4.6 4.6 0 0 0 18.6 3s-1.2-.4-3.7 1.4a12.8 12.8 0 0 0-5.8 0C6.6 2.6 5.4 3 5.4 3a4.6 4.6 0 0 0-.1 3.2A5 5 0 0 0 4 9.7c0 4 1.8 5.8 6.4 6.3-.9.5-1.5 1.2-1.4 2.8V22"/><path d="M8.7 18.5c-3 .9-3-1.6-4.2-2"/></>,
     menu: <><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></>,
@@ -38,6 +39,8 @@ const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
   );
 };
 const GITHUB_URL = "https://github.com/ferelking242/watchtower";
+const GITHUB_SITE_URL = "https://github.com/ferelking242/watchtower-website";
+const DISCORD_URL = "https://discord.gg/";
 const WATCHTOWER_VERSION = "8.1.160+160";
 
 const sectionGroups = SECTION_GROUPS.map((group) => ({
@@ -82,7 +85,7 @@ function LanguagePicker({ language, setLanguage }) {
   return (
     <div className="language-picker">
       <button className="language-trigger" onClick={() => setOpen(!open)} aria-expanded={open}>
-        <Icon name="globe" size={15} /><span className="language-current"><b>{current.flag}</b>{current.code.toUpperCase()}</span><Icon name="chevron" size={13} />
+        <span className="language-current"><b>{current.flag}</b>{current.code.toUpperCase()}</span><Icon name="chevron" size={12} />
       </button>
       {open && (
         <div className="language-menu" role="menu">
@@ -97,10 +100,27 @@ function LanguagePicker({ language, setLanguage }) {
   );
 }
 
+function SidebarSearch({ t, query, setQuery, expanded, setExpanded }) {
+  return (
+    <div className={`sidebar-search ${expanded || query ? "expanded" : ""}`}>
+      <button className="search-toggle" onClick={() => setExpanded(!expanded)} aria-label={t.searchPlaceholder} aria-expanded={expanded || !!query}>
+        <Icon name="search" size={16} />
+      </button>
+      {(expanded || query) && (
+        <label className="search-field">
+          <input autoFocus={expanded} value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} aria-label={t.searchPlaceholder} />
+          {query && <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label="Clear search"><Icon name="close" size={13} /></button>}
+        </label>
+      )}
+    </div>
+  );
+}
+
 function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
-  const [active, setActive] = useState("overview");
+  const [active, setActive] = useState("getting-started");
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const dir = getDir(language);
 
@@ -121,8 +141,9 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
       .filter((group) => group.items.length > 0);
   }, [query, t, content]);
 
-  const page = content[active] || content.overview;
+  const page = content[active] || content["getting-started"];
   const currentIndex = sections.findIndex((item) => item.id === active);
+  const prevSection = sections[(currentIndex - 1 + sections.length) % sections.length];
   const nextSection = sections[(currentIndex + 1) % sections.length];
   const selectSection = (id) => { setActive(id); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
   const copyCode = () => {
@@ -136,22 +157,17 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
       <header className="docs-topbar">
         <button className="docs-brand" onClick={onHome}><span className="brand-mark"><i /><i /><i /></span><span>WATCHTOWER <small>/ DOCS</small></span></button>
         <div className="docs-top-actions">
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="topbar-action github-link"><Icon name="github" size={15} /> GitHub <Icon name="arrowUpRight" size={12} /></a>
           <LanguagePicker language={language} setLanguage={setLanguage} />
           <button className="topbar-action theme-switch" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={theme === "light"}>
             <Icon name={theme === "dark" ? "sun" : "moon"} size={14} /><span>{theme === "dark" ? "Dark" : "Light"}</span>
           </button>
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="topbar-action github-link"><Icon name="github" size={15} /> GitHub <Icon name="arrowUpRight" size={12} /></a>
           <button className="mobile-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation"><Icon name={menuOpen ? "close" : "menu"} size={20} /></button>
         </div>
       </header>
       <div className="docs-layout">
         <aside className={`docs-sidebar ${menuOpen ? "open" : ""}`}>
-          <div className="sidebar-intro"><span className="side-label">{t.docsLabel}</span><p>{t.sidebarTagline}</p></div>
-          <label className="docs-search">
-            <Icon name="search" size={15} />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} aria-label={t.searchPlaceholder} />
-            {query && <button type="button" className="docs-search-clear" onClick={() => setQuery("")} aria-label="Clear search"><Icon name="close" size={13} /></button>}
-          </label>
+          <SidebarSearch t={t} query={query} setQuery={setQuery} expanded={searchOpen} setExpanded={setSearchOpen} />
           <nav className="docs-nav">
             {filteredGroups.length === 0 && <p className="docs-nav-empty">{t.noResults}</p>}
             {filteredGroups.map((group) => (
@@ -165,13 +181,28 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
               </div>
             ))}
           </nav>
-          <div className="sidebar-bottom"><span className="side-label">{t.source}</span><a href={GITHUB_URL} target="_blank" rel="noreferrer"><Icon name="github" size={15} /> ferelking242/watchtower <Icon name="arrowUpRight" size={12} /></a><span className="version">v{WATCHTOWER_VERSION} · open source</span></div>
+          <footer className="sidebar-footer">
+            <a className="sidebar-source" href={GITHUB_URL} target="_blank" rel="noreferrer"><Icon name="github" size={15} /> ferelking242/watchtower <Icon name="arrowUpRight" size={12} /></a>
+            <div className="sidebar-social">
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub"><Icon name="github" size={16} /></a>
+              <a href={DISCORD_URL} target="_blank" rel="noreferrer" aria-label="Discord"><Icon name="discord" size={16} /></a>
+              <a href={GITHUB_SITE_URL} target="_blank" rel="noreferrer" aria-label="Website source"><Icon name="code" size={16} /></a>
+            </div>
+            <span className="version">v{WATCHTOWER_VERSION} · Apache-2.0</span>
+          </footer>
         </aside>
         <main className="docs-main">
-          <div className="docs-breadcrumb"><span>WATCHTOWER</span><Icon name="chevron" size={13} /><span>{t.nav[active]}</span></div>
+          <nav className="docs-breadcrumb" aria-label="Breadcrumb">
+            <button onClick={() => selectSection("getting-started")}>WATCHTOWER</button>
+            <Icon name="chevron" size={13} />
+            <span>{t.nav[active]}</span>
+          </nav>
           <section className="docs-hero">
             <div className="docs-marker">{page.marker}</div>
-            <div><p className="eyebrow"><span className="eyebrow-rule" />{t.nav[active]}</p><h1>{page.title}</h1><p className="docs-lead">{page.body}</p></div>
+            <div className="docs-hero-text">
+              <h1>{page.title}</h1>
+              <p className="docs-lead">{page.body}</p>
+            </div>
           </section>
           <section className="docs-content-grid">
             <div className="docs-copy" id="docs-summary">
@@ -186,14 +217,22 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
             </div>
             <div className="code-card" id="docs-example"><div className="code-top"><span><i /> {t.contractExample}</span><button onClick={copyCode} aria-label={t.copy}>{copied ? <Icon name="check" size={14} /> : <Icon name="copy" size={14} />}</button></div><pre><code>{page.code}</code></pre></div>
           </section>
-          <div className="docs-next" id="docs-next"><span>{t.continueLabel}</span><button onClick={() => selectSection(nextSection.id)}>{t.nav[nextSection.key]} <Icon name="arrow" size={15} /></button></div>
+          <nav className="docs-pager" aria-label={t.continueLabel}>
+            <button className="pager-card prev" onClick={() => selectSection(prevSection.id)}>
+              <span className="pager-label"><Icon name="arrow" size={14} /> {t.previous}</span>
+              <span className="pager-title">{t.nav[prevSection.key]}</span>
+            </button>
+            <button className="pager-card next" onClick={() => selectSection(nextSection.id)}>
+              <span className="pager-label">{t.continueLabel} <Icon name="arrow" size={14} /></span>
+              <span className="pager-title">{t.nav[nextSection.key]}</span>
+            </button>
+          </nav>
         </main>
         <aside className="docs-toc">
           <span className="side-label">{t.onThisPage}</span>
           <a className="toc-active" href="#docs-summary">{t.summary}</a>
           {page.subsections?.map(([title], index) => <a href={`#docs-subsection-${index}`} key={title}>{title}</a>)}
           <a href="#docs-example">{t.contractExample}</a>
-          <a href="#docs-next">{t.nextStep}</a>
         </aside>
       </div>
     </div>

@@ -2,516 +2,724 @@
 // prose on top of this base and inherit `code` blocks unchanged, because code
 // is language-independent.
 const en = {
-  overview: {
-    title: "A complete map of the Watchtower app.",
-    body: "Watchtower combines a Flutter client, local libraries, JavaScript extensions, native bindings and an optional headless server in one self-hostable runtime.",
-    marker: "01",
-    code: `watchtower/
-├── lib/modules/       media, library, calendar, game, tracking
-├── lib/local_indexer/ local files, metadata and search
-├── lib/eval/          QuickJS extension runtime
-├── lib/extension/     extension catalogue and lifecycle
-├── lib/remote/        embedded Dart/shelf server
-├── lib/cli/           headless command-line runtime
-├── rust/              native EPUB, image and TLS bindings
-└── go/                torrent + HTTP streaming`,
-    subsections: [
-      ["What Watchtower is", "A cross-platform media hub for anime, manga, series, music, novels and games. It indexes local files, tracks progress, downloads content and runs community sources through an extensible JavaScript runtime."],
-      ["Two runtimes, one contract", "The installed app exposes an embedded HTTP server on port 4567. The headless CLI reuses the same Flutter and QuickJS engine so CI, servers and SSH sessions can run sources without a graphical session."],
-      ["Who this guide is for", "Source authors who write extensions, self-hosters who run the headless server, and contributors who work on the Flutter app. Every section states what is required and what is optional."]
-    ],
-    facts: [
-      "Cross-platform Flutter client for anime, manga, music, novels, games and playback.",
-      "Local indexer, library, history, favorites, calendar and progress tracking.",
-      "QuickJS extensions, downloads, anti-bot, Rust bindings and the Go torrent server."
-    ]
-  },
-  "app-map": {
-    title: "An application made of composable surfaces.",
-    body: "The repository separates feature screens, data services and execution runtimes. This map follows content from a source to playback and the local library.",
-    marker: "02",
-    code: `lib/
-├── modules/
-│   ├── home/          Watchtower home, discovery, search
-│   ├── watch/         source home, catalogue, reader/player
-│   ├── anime/         anime player and subtitle controls
-│   ├── manga/         manga reader and chapters
-│   ├── music/         library, playlists, player and stats
-│   ├── novel/         novel reader
-│   ├── calendar/      upcoming schedule
-│   ├── game/          game discovery
-│   ├── tracker_library/ tracking integrations
-│   └── mass_migration/ library migration flow
-├── local_indexer/      filesystem → normalized media
-├── eval/               JS/Dart extension bridge
-├── remote/             embedded HTTP server
-├── cli/                headless commands
-├── router/             GoRouter routes
-└── services/           downloads, sync, torrent, diagnostics`,
-    subsections: [
-      ["Content flow", "An extension returns shared models. Riverpod providers paginate them, screens turn them into cards, and Isar stores history, favorites and indexed files."],
-      ["Routing", "GoRouter connects onboarding, home, search, details, playback, libraries, settings and specialist modules without coupling source contracts."],
-      ["Runtimes", "Flutter owns the UI, QuickJS/Dart executes sources, Rust and Go provide native capabilities, and the headless CLI mirrors the runtime server-side."],
-      ["State and storage", "Riverpod drives the main app, Isar is the primary database, and Hive keeps preferences. The music and file-browser modules carry their own legacy stacks and stay isolated from source contracts."]
-    ],
-    facts: [
-      "UI modules are grouped by media domain rather than by provider.",
-      "Cross-cutting services handle cache, downloads, anti-bot, sync and diagnostics.",
-      "Screens can work with a remote source, a local file or the headless server."
-    ]
-  },
-  "content-types": {
-    title: "Manga, watch, music: one shared model.",
-    body: "ItemType classifies source families; the concrete payload stays in manga, chapter, page, video and track models. A watch extension can therefore cover anime, films or series without a new native renderer.",
-    marker: "03",
-    code: `ItemType
-├── manga    chapters → page list → reader
-├── anime    episodes → video list → player
-├── novel    chapters → HTML/text reader
-├── music    tracks → audio player → playlists
-├── game     discovery/detail surface
-└── plugin   utility or downloader surface
-
-MManga: name, link, imageUrl, description,
-        author, artist, genre, chapters[]
-MChapter: name, url, dateUpload, thumbnailUrl,
-          description, duration, downloadSize`,
-    subsections: [
-      ["Manga", "Chapters use getPageList(url) to produce reader pages. Metadata shares name, image, description, author, artist and genres."],
-      ["Watch: anime, film, series", "Episodes use getVideoList(url). Videos carry URL, quality, original URL, headers, subtitles and audio tracks. Film/series/anime are content metadata, not separate runtimes."],
-      ["Music and novel", "Music reuses search and detail surfaces with tracks, albums, artists and playlists; novels use detail, chapters and an HTML/text reader."],
-      ["Games and plugins", "Game provides a dedicated discovery surface. Plugin represents utility or downloader extensions using the manifest and native UI schema."]
-    ],
-    facts: [
-      "Compatibility comes from data contracts, not a screen coded for every site.",
-      "Filters, preferences, comments, recommendations and custom lists are optional.",
-      "The itemType field is persisted on Source and selects library, player and history behavior."
-    ]
-  },
-  "extension-runtime": {
-    title: "JavaScript runs inside a controlled runtime.",
-    body: "DartExtensionService loads source code, injects MProvider and executes it in QuickJS. Bridges expose network, DOM, extractors, preferences and Flutter models without exposing the native app.",
-    marker: "04",
-    code: `ExtensionService
-├── sourceBaseUrl / headers
-├── getPopular(page)
-├── getLatestUpdates(page)
-├── search(query, page, filters)
-├── getDetail(url)
-├── getPageList(url)
-├── getVideoList(url)
-└── optional custom lists / comments / suggestions
-
-QuickJS bridges
-HTTP · DOM selector · extractors · preferences
-Dart models: MSource · MPages · MManga · MChapter · MVideo`,
-    subsections: [
-      ["Loading", "SourceCodeLanguage distinguishes Dart, JavaScript and Mihon. The loader also installs or removes Android private extensions through the native channel."],
-      ["Security and isolation", "Source calls pass through controlled bridges. The headless server adds a registry, cache, authentication and rate limiting before execution."],
-      ["Lifecycle", "A source is discovered in the catalogue, installed or enabled, executed on demand, and its preferences, cookies, cache and layout can be reset from extension settings."],
-      ["Error handling", "A failing bridge call returns a typed error to Dart instead of crashing the isolate. Failures are logged with the operation name and the offending URL so a diagnostic run can point at the exact step."]
-    ],
-    facts: [
-      "QuickJS returns serialized objects to Dart models.",
-      "Extension code can define headers, filters, preferences and custom lists.",
-      "Mihon compatibility allows reuse of existing manga extensions."
-    ]
-  },
-  "extension-types": {
-    title: "Each extension family has its surface.",
-    body: "The source type selects available screens and actions. The same JS engine is shared, while results render through the manga reader, watch player, audio, novel, game or plugin surface.",
-    marker: "05",
-    code: `MANGA  → popular/latest/search
-          → detail → chapters → pages → reader
-WATCH  → popular/latest/search
-          → detail → episodes → videos → player
-MUSIC  → catalogue/search → album/artist
-          → tracks → audio queue
-NOVEL  → detail → chapters → text/HTML reader
-GAME   → discovery/detail modules
-PLUGIN → manifest + native UI / downloader`,
-    subsections: [
-      ["Manga", "Chapter and page sources with catalogue filters, reading history and local import."],
-      ["Watch", "Video sources for anime, films and series: details, episodes, quality, subtitles, audio tracks and player extractors."],
-      ["Music", "Audio catalogue and metadata extensions: albums, artists, tracks, search, playlists and statistics."],
-      ["Novel, game, plugin", "Novels reuse the text/HTML reader; games have discovery screens; utility plugins follow manifest.json and ui/schema.json."]
-    ],
-    facts: [
-      "Watch is a usage family: its itemType can be anime or another compatible video source.",
-      "The generic renderer uses the same cards, pagination and layouts for compatible sources.",
-      "Optional capabilities prevent showing an action a source does not implement."
-    ]
-  },
-  "extension-contract": {
-    title: "The JS contract, method by method.",
-    body: "ExtensionService defines the shared minimum. Optional methods enrich the experience without breaking a source that does not implement them.",
-    marker: "06",
-    code: `required
-getPopular(page) -> MPages
-getDetail(url) -> MManga
-getPageList(url) -> PageUrl[]
-getVideoList(url) -> Video[]
-
-capabilities
-supportsLatest
-getLatestUpdates(page)
-search(query, page, filters)
-getFilterList()
-getSourcePreferences()
-getCustomList(id, page)
-getRecommendations(url)
-getComments(url)
-getSuggestions(query)
-getAccount() / getFavorites() / getSubscription()`,
-    subsections: [
-      ["Catalogue navigation", "getPopular, getLatestUpdates and search return MPages with list and hasNextPage. Filters come from getFilterList and preferences are persisted per source."],
-      ["Detail and playback", "getDetail returns MManga. A manga source exposes getPageList; a watch source exposes getVideoList and can provide quality, headers, subtitles and audio."],
-      ["Contract extensions", "getCustomList enables home sections declared by id; recommendations, comments, suggestions, account, favorites and subscription remain optional with safe empty defaults."],
-      ["Failure semantics", "Return an empty MPages rather than throwing when a page has no items. When a request truly fails, let the error propagate so the UI can show a retry and the diagnosis can record the cause."]
-    ],
-    facts: [
-      "URLs remain navigation identifiers between catalogue, detail and playback.",
-      "Headers and baseUrl are provided by the source and can be customized.",
-      "Errors are logged in Dart and in the headless runtime for diagnostics."
-    ]
-  },
-  "ui-schema": {
-    title: "The manifest describes the contract.",
-    body: "For UI extensions and ZeusDL scripts, manifest.json declares identity, permissions and runtime. The schema then describes fields, actions and output rendered natively by Flutter.",
-    marker: "07",
-    code: `// manifest.json
-{
-  "id": "en.example-tool",
-  "version": "1.0.0",
-  "runtimeTypes": ["downloader"],
-  "commandScopes": ["download"],
-  "networkAccess": ["example.com"],
-  "ui": "native"
-}
-
-// UI contract
-{
-  "inputs": [{ "id": "url", "type": "url_field" }],
-  "actions": [{ "id": "download", "style": "primary" }],
-  "output": { "type": "log" }
-}`,
-    subsections: [
-      ["Manifest fields", "manifest.json carries identity, version, author, network permissions and binary requirements. The id is a reverse-DNS string such as en.example-tool."],
-      ["Native UI contract", "The UI contract renders URL/text fields, selects, toggles and actions without a WebView, so load times stay fast and the result works offline."],
-      ["ZeusDL output protocol", "Scripts communicate over stdout with PROGRESS, STATUS, DONE and ERROR lines. Watchtower streams them into the output log in real time."],
-      ["Validation errors", "A manifest that fails schema validation is rejected before install. The marketplace shows the exact field that failed instead of a generic message."]
-    ],
-    facts: [
-      "manifest.json carries identity, version, author, network permissions and binary requirements.",
-      "The UI contract renders URL/text fields, selects, toggles and actions without a WebView.",
-      "ZeusDL scripts communicate over stdout with PROGRESS, STATUS, DONE and ERROR."
-    ]
-  },
-  layouts: {
-    title: "ui-layouts.json controls order and shape.",
-    body: "An extension can publish a declarative layout. Watchtower downloads it from watchtower-extensions, parses it as UiLayout, caches it per source and lets Flutter map components to native widgets.",
-    marker: "08",
-    code: `{
-  "schemaVersion": 1,
-  "home": {
-    "sections": [{
-      "id": "popular",
-      "component": "carousel",
-      "title": "Popular",
-      "icon": "star",
-      "accent": "primary",
-      "columns": 2,
-      "cardStyle": "poster",
-      "seeAll": true,
-      "paginated": true,
-      "requiresAuth": false
-    }]
-  },
-  "browse": { "popular": {}, "latest": {}, "search": {} },
-  "detail": { "hero": "backdrop", "episodeList": "grouped", "showRecommendations": true },
-  "player": { "mode": "standard" }
-}`,
-    subsections: [
-      ["Root and cache", "schemaVersion and home.sections are the useful minimum. browse, detail and player are optional. LayoutDownloader reads Source.uiLayout from raw.githubusercontent.com, then LayoutRegistry stores layouts/<source.id>.json."],
-      ["Home sections", "id identifies getCustomList(id, page). component accepts spotlight/carousel, banner/hero, ranked, newHot, compactRow, categoryPills, creatorRow, grid, feed and masonry, plus the curated presentations declared in the component registry."],
-      ["Visual parameters", "title, icon and accent shape the header. columns, rows, cardStyle, gridOrder and scrollDirection are rendering hints. seeAll enables a full page, paginated enables page loading and requiresAuth gates a signed-in section."],
-      ["Browse, detail, player", "Browse describes popular/latest/search with component, columns, cardStyle, results and filters. Detail accepts hero, episodeList and showRecommendations. Player accepts standard or feed."],
-      ["Invalid layouts", "An unknown component falls back to the grid renderer and is logged. A malformed file leaves the source on its standard Popular/Latest/Search home instead of failing the whole screen."]
-    ],
-    facts: [
-      "Without a layout, the source falls back to standard Popular/Latest/Search.",
-      "The toLegacyMap bridge keeps existing home screens compatible.",
-      "A layout reloads after extension install or update and is removed on uninstall."
-    ]
-  },
-  "watch-home": {
-    title: "WatchHomeScreen is a controllable surface.",
-    body: "The Watch page composes hero, history, categories, rows and catalogue from the current source. JSON layouts can replace standard lists while keeping native interactions.",
-    marker: "09",
-    code: `WatchHomeScreen
-CustomScrollView
-├── Hero / banner
-├── Continue watching (Isar history)
-├── Category cards
-├── Popular / Latest / custom rows
-├── New & Hot
-└── Catalogue grid
-
-Interactions
-refresh · pagination · search · favorites
-detail sheet · reader/player · see all`,
-    subsections: [
-      ["Order and hero", "The hero uses the first five banner items (popular fallback), rotates every 7 seconds and targets a width × 0.62 landscape ratio. Play opens detail, Info opens the bottom sheet and My list toggles the Isar favorite."],
-      ["History", "Continue watching reads the source's Isar history, deduplicates by manga, limits to 12 cards and shows thumbnail, episode/chapter and progress."],
-      ["Catalogue and search", "The catalogue grid paginates Popular or a custom list. Search uses a 250 ms debounce, floating suggestions, mic/X actions and only commits results on submit."],
-      ["Performance", "The app bar observes scroll with ValueNotifier; the hero lives inside CustomScrollView so content cannot overlap it and scrolling avoids a full setState rebuild."],
-      ["Empty and error states", "An empty section is hidden. A failed section shows a retry card with the raw error, and a Cloudflare block routes to the bypass panel instead of a dead end."]
-    ],
-    facts: [
-      "Categories are 132×72 cards with image, gradient and border.",
-      "Sections are hidden when their data is empty.",
-      "Source actions stay consistent across manga, anime, films and series."
-    ]
-  },
-  "home-widgets": {
-    title: "Widgets are data adapters.",
-    body: "WatchtowerHomeScreen is the global app home. It combines AniList and TMDB feeds with the local library and drives rows through media tabs.",
-    marker: "10",
-    code: `lib/modules/home/widgets/
-├── hero_carousel.dart      spotlight + pagination
-├── discovery_card.dart     poster, landscape, ranked, saga
-├── episode_card.dart       progress + resume action
-├── category_row.dart       media category navigation
-├── tmdb_cards.dart         film / series discovery
-├── home_header.dart        account + search entry
-└── skeleton_home.dart      loading placeholders
-
-_HomeTab
-tout · film · serie · musique · anime · asia
-enfant · occidental · africa · tvCourt
-football · jeux`,
-    subsections: [
-      ["Media home", "The Tout, Film, Series, Music, Anime, Asia, Kids, Western, Africa, Short TV, Football and Games tabs select visible sections and hero data."],
-      ["Cards", "DiscoveryCard has standard, ranked, landscape, featured, saga and spotlight variants. EpisodeCard adds thumbnail, episode title, duration and progress bar for resume."],
-      ["Data", "AniList feeds anime and editorial content; TMDB feeds films and series; the local library and providers complete user lists."],
-      ["Watch versus global home", "WatchtowerHomeScreen is the global home; WatchHomeScreen is a source/extension home. The first aggregates catalogues, the second renders a source contract."]
-    ],
-    facts: [
-      "Widgets do not know each provider's URLs: they consume normalized models.",
-      "Skeleton, empty, loading and error states are part of the home surface.",
-      "Extension layouts primarily target WatchHomeScreen and browse/detail/player screens."
-    ]
-  },
-  api: {
-    title: "Two runtimes, one API.",
-    body: "The embedded Dart/shelf server listens on 4567 inside the app. The headless CLI reuses the same operations for CI, Docker, Railway or Render.",
-    marker: "11",
-    code: `GET /api/ping
-GET /api/sources
-GET /api/sources/:id
-GET /api/sources/:id/popular?page=1
-GET /api/sources/:id/latest?page=1
-GET /api/sources/:id/search?q=query&page=1
-GET /api/sources/:id/detail?url=...
-GET /api/sources/:id/videos?url=...
-GET /api/sources/:id/pages?url=...
-GET /api/sources/:id/filters
-GET /api/library
-GET /api/history
-GET /api/proxy?url=...`,
-    subsections: [
-      ["Endpoints", "Ping, source discovery, catalogue, detail, video, page and filter routes mirror the ExtensionService contract. Library, history and proxy routes serve the local database and media."],
-      ["Authentication", "GET /api/ping stays public and returns the server version. Other routes pass through authentication, rate limiting and the extension registry."],
-      ["Error responses", "Failures return a JSON body with the operation and message instead of an empty 500. A source error keeps its HTTP status so the client can distinguish a block from a bug."],
-      ["NSFW filtering", "NSFW sources are filtered from listings and blocked with 403 on direct access."]
-    ],
-    facts: [
-      "GET /api/ping is public and returns the server version.",
-      "Other routes pass through authentication, rate limiting and the extension registry.",
-      "NSFW sources are filtered from listings and blocked with 403 on direct access."
-    ]
-  },
-  downloads: {
-    title: "Downloads run through selectable engines.",
-    body: "Watch, manga and novel each have their own download tab. A per-media engine, concurrency and Wi-Fi rules drive the queue, and every card exposes quick actions.",
-    marker: "12",
-    code: `Engines
-HYDRA  internal HLS downloader
-ZEUS   ZeusDL multi-thread
-ARES   Aria2 external protocol
-Externe hand off to ADM / IDM
-
-Folders
-/storage/emulated/0/Watchtower/
-  video|music|manga|novels/
-    downloads/     final files
-    plugins/.cache/zeus/  temp`,
-    subsections: [
-      ["Engine selection", "HYDRA is the internal HLS engine, ZEUS is ZeusDL, ARES is Aria2 and Externe hands the link to ADM or IDM. Choosing the wrong engine for a protected stream is a common failure."],
-      ["Concurrency", "Each tab sets simultaneous connections (1–20) and simultaneous queue items (1–10). Higher values speed up downloads but consume more bandwidth and can trigger source rate limits."],
-      ["Archive and cleanup", "Manga chapters can be archived as folder, CBZ, CBR, CB7 or ZIP. Auto-delete after reading removes a chapter once it is marked read, optionally including bookmarked chapters."],
-      ["Download errors", "A failed download keeps its partial files and offers Retry. 403/429 usually mean a rate limit or anti-bot block; 5xx points at the source. Verify the link in a browser before changing settings."]
-    ],
-    facts: [
-      "Wi-Fi-only rules can block a download until a Wi-Fi network is available.",
-      "Smart library updates add new episodes or chapters automatically when enabled.",
-      "The download queue shows up to five quick-action buttons per card."
-    ]
-  },
-  trackers: {
-    title: "Progress syncs with external services.",
-    body: "Watchtower connects to AniList, Kitsu, MyAnimeList, Simkl and Trakt so watch and read progress stays in sync across devices.",
-    marker: "13",
-    code: `lib/services/trackers/
-├── anilist.dart
-├── kitsu.dart
-├── myanimelist.dart
-├── simkl.dart
-└── trakt_tv.dart
-
-Settings › Tracking
-login · link series · auto-update
-status mapping · score format`,
-    subsections: [
-      ["Supported trackers", "AniList, Kitsu, MyAnimeList, Simkl and Trakt. Each has its own login flow and status model, normalized to a shared Track model."],
-      ["Linking and syncing", "A library entry can be linked to a tracker entry. Progress, status and score are pushed on update, and smart updates can pull the next episode or chapter."],
-      ["Tracker errors", "An expired token, a revoked app or a rate limit each produce a distinct message. Re-authenticate from Settings › Tracking; a mismatched entry can be unlinked and re-linked."],
-      ["Migration", "The mass migration flow moves library entries between sources while preserving tracker links, so a dead source does not lose progress."]
-    ],
-    facts: [
-      "Tracker integrations live under lib/services/trackers.",
-      "Manage trackers from Settings › Tracking.",
-      "Mass migration preserves tracker links when a source changes."
-    ]
-  },
   "getting-started": {
-    title: "Build the Flutter app",
-    body: "Install the toolchains, fetch Dart packages, and launch the cross-platform client.",
+    title: "Everything you need to get Watchtower running.",
+    body: "Watchtower is a cross-platform media hub for anime, manga, series, music, novels and games. This page walks you from download to your first playable source.",
+    marker: "01",
+    code: `# 1. Install the app
+#    Android: download the APK and open it
+#    Desktop/CI: build the headless CLI
+
+# 2. Add a source repository
+#    More → Extensions → Add repository
+#    Paste a URL ending in index.min.json
+
+# 3. Install extensions, then add series
+#    Browse → pick a source → search → Add to library
+
+# 4. Start watching or reading
+watchtower --serve --port 4567`,
+    subsections: [
+      ["What you need", "An Android 8.0 or newer device for the full app, or any Linux, macOS or Windows host for the headless CLI. A source repository URL is required before any content appears."],
+      ["Install the app", "Download the latest APK from the repository releases and open it. If your device blocks sideloading, enable installation from unknown sources for your file manager first."],
+      ["Add your first source", "Open More, go to Extensions, and add a repository URL that ends in index.min.json. Refresh the list, then install the extensions you want."],
+      ["Find something to play", "Go to Browse, pick an installed source, and search or browse its Popular and Latest listings. Tap a result and choose Add to library to keep it."],
+      ["Where to go next", "Read Adding sources for repositories and local folders, Extensions for the runtime, and Player settings or Reader settings to tune playback."]
+    ],
+    facts: [
+      "Watchtower runs on Android, iOS, Windows, Linux, macOS and the web.",
+      "Sources are JavaScript extensions executed by an embedded QuickJS runtime.",
+      "The same engine powers the app and the headless server, so contracts match."
+    ]
+  },
+
+  installation: {
+    title: "Install on the platform you actually use.",
+    body: "Watchtower ships as an Android app, a desktop build and a headless Linux CLI. Pick the channel that matches how you want to run it.",
+    marker: "02",
+    code: `# Android
+adb install watchtower-release.apk
+
+# Headless CLI (Linux, x86_64)
+curl -LO https://github.com/ferelking242/watchtower/releases/latest/download/watchtower-linux-x64
+chmod +x watchtower-linux-x64
+./watchtower-linux-x64 --version
+
+# From source
+flutter pub get
+flutter build apk --release`,
+    subsections: [
+      ["Android app", "The primary target. Download the release APK, or a preview build for upcoming features. Keep automatic backups enabled on preview builds."],
+      ["Headless CLI", "A Linux binary that reuses the same Flutter and QuickJS engine without a graphical session. Ideal for servers, SSH sessions and CI jobs."],
+      ["Build from source", "Clone the repository, run flutter pub get, then flutter build apk --release. Rust and Go toolchains are needed for native bindings and the torrent server."],
+      ["Preview versus stable", "Preview builds track main and showcase unreleased work. They break more often, so treat them as a testing channel rather than a daily driver."],
+      ["Requirements", "Flutter 3.38+, Dart 3.10+, a Rust toolchain and Go 1.22+ when building every component from source."]
+    ],
+    facts: [
+      "Release, profile and debug APKs are all produced by CI.",
+      "The CLI binary is published for Linux on every tagged release.",
+      "Third-party installation must be allowed for APK-based extensions."
+    ]
+  },
+
+  "adding-sources": {
+    title: "Bring your own content to Watchtower.",
+    body: "Watchtower does not bundle content. You add it through extension repositories for online sources or through local folders for files you already own.",
+    marker: "03",
+    code: `# Repository index shape
+{
+  "name": "My repository",
+  "extensions": [
+    {
+      "name": "Example source",
+      "pkg": "eu.kanade.tachiyomi.extension.all.example",
+      "version": "1.4.2",
+      "apk": "example-v1.4.2.apk"
+    }
+  ]
+}`,
+    subsections: [
+      ["External repositories", "Open More, then Extensions, and tap the repositories entry. Add a URL ending in index.min.json, then refresh the extension list."],
+      ["Installing extensions", "After a refresh, tap the download button beside an extension. Some devices also need third-party installation enabled in system settings."],
+      ["Manual extensions", "An extension can also be installed from an .apk file. Only do this for files you trust: an extension runs with the full privileges of the app."],
+      ["Local folders", "Point Watchtower at a local manga or anime folder to read or play files you already have, with no network source involved."],
+      ["Third-party warning", "Watchtower does not vet third-party repositories. Anything you install there can read your data and should be treated as untrusted code."]
+    ],
+    facts: [
+      "Repositories are plain JSON indexes served over HTTP or HTTPS.",
+      "Local sources need no repository and work fully offline.",
+      "Every extension runs inside the same sandboxed QuickJS runtime."
+    ]
+  },
+
+  library: {
+    title: "Your library is the centre of the app.",
+    body: "The library collects everything you follow, tracks your progress and drives updates, downloads and tracking in one place.",
+    marker: "04",
+    code: `Library
+├── Watching        in progress, updates every day
+├── Plan to watch   not started
+├── Completed       finished, skipped by updates
+└── On hold         paused, excluded from global update`,
+    subsections: [
+      ["Adding entries", "Open a series and press Add to library. The entry inherits its source, cover and description, and starts tracking your progress."],
+      ["Organising with categories", "Use categories to split the library by status or genre, then point global updates at a single category instead of everything."],
+      ["Progress tracking", "Watched episodes and read chapters are stored locally and synced to a tracker when one is connected. Offline progress uploads when you reconnect."],
+      ["Filters and badges", "The filter menu hides watched, unread or bookmarked entries, and display options add download badges to covers."],
+      ["Multiple devices", "Watchtower has no built-in sync. Move your library between devices with a backup file instead."]
+    ],
+    facts: [
+      "Completed entries are skipped by global update by default.",
+      "Categories can be excluded from updates to reduce source load.",
+      "Library data lives in the local database, not on a server."
+    ]
+  },
+
+  browse: {
+    title: "Find a series across every source you have.",
+    body: "Browse is where you explore a source catalogue, search globally and jump between providers without leaving the app.",
+    marker: "05",
+    code: `Browse
+├── Sources        installed extensions, grouped by language
+├── Extensions     update, install and remove
+├── Migrate        move a series to another source
+└── Search         global search across enabled sources`,
+    subsections: [
+      ["Browsing a source", "Pick a source to see its Popular and Latest listings, plus any filters the source exposes such as genre or year."],
+      ["Global search", "The search action queries every enabled source at once. Results are grouped by source so you can compare availability."],
+      ["Trouble finding a title", "Many sources use romanised Japanese titles. Try alternate spellings or the native title before assuming a series is missing."],
+      ["Source migration", "If a source dies or falls behind, migrate the entry to another source while keeping your progress and categories."],
+      ["Language filters", "Extensions are tagged with a language so you can hide sources you cannot read."]
+    ],
+    facts: [
+      "Popular and Latest are optional capabilities of a source.",
+      "Global search only queries sources you have enabled.",
+      "Migration does not move downloaded episodes or chapters."
+    ]
+  },
+
+  extensions: {
+    title: "Extensions are the engine of Watchtower.",
+    body: "A source is a small JavaScript program that tells Watchtower how to list, search, read and play content from one website.",
+    marker: "06",
+    code: `// Minimal source shape
+class Example extends Source {
+  get popularManga() { return this.request("/popular") }
+  get latestUpdates() { return this.request("/latest") }
+  get searchManga() { return this.request("/search?q=" + query) }
+  mangaDetails(manga) { return this.parseDetails(manga) }
+  chapterList(manga) { return this.parseChapters(manga) }
+  pageList(chapter) { return this.parsePages(chapter) }
+}`,
+    subsections: [
+      ["What an extension is", "Each extension targets one website and returns the shared models Watchtower understands. The UI is generic, so a new site needs no new screens."],
+      ["Repositories and updates", "Repositories distribute extensions and their versions. Refresh the list to see updates, then install them in place without losing data."],
+      ["Item types", "An extension declares an item type such as manga, anime, music, novel or game. That type decides which library, reader or player is used."],
+      ["Trust and safety", "Extensions are third-party code. Install only from repositories you trust, because an extension can reach the network and your device storage."],
+      ["Writing one", "See the Extension runtime and Source contract pages for the API surface, entry points and the native UI schema."]
+    ],
+    facts: [
+      "Extensions run in QuickJS, isolated from the Flutter UI.",
+      "One extension maps to one website, never a group of them.",
+      "The manifest declares name, version, language and item type."
+    ]
+  },
+
+  "local-source": {
+    title: "Read and play files that never touch the network.",
+    body: "A local source turns a folder on your device into a normal source, so your own files behave exactly like an online catalogue.",
+    marker: "07",
+    code: `local/
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4`,
+    subsections: [
+      ["Local manga", "Place one folder per series under the local manga directory. Chapters are either CBZ archives or image folders, and covers are read from a cover file."],
+      ["Local anime", "Place one folder per series under the local anime directory and put episode video files inside. Episode order follows the filename."],
+      ["Metadata", "A details.json beside the series folder can supply author, artist, description and genres when the folder name alone is not enough."],
+      ["Refreshing the index", "After moving files from outside the app, invalidate the downloads index or re-add the source so Watchtower rescans the folder."],
+      ["Offline by design", "Local sources never request the network, so they work in flight mode and never trip anti-bot protection."]
+    ],
+    facts: [
+      "CBZ archives and plain image folders are both supported.",
+      "Filenames determine chapter and episode numbering.",
+      "A .nomedia file keeps local media out of the system gallery."
+    ]
+  },
+
+  "video-player": {
+    title: "Playback that adapts to the media you open.",
+    body: "The video player exposes quality, audio track, subtitle and speed controls through sheets and panels that sit above the video surface.",
+    marker: "08",
+    code: `Player sheets
+├── Quality        pick a stream or resolution
+├── Audio track    switch language or commentary
+├── Subtitles      enable, style and offset
+├── Speed          playback rate
+└── Panels         episode list, notes, stats`,
+    subsections: [
+      ["The player surface", "Tap to reveal controls, double tap to seek, and long press to change speed. Pinch to zoom when the aspect ratio allows it."],
+      ["Sheets", "Quality, audio and subtitle choices open as bottom sheets so the video keeps playing behind them."],
+      ["Panels", "Side panels expose the episode list, playback statistics and any source-provided extras without leaving playback."],
+      ["Subtitles", "Subtitle tracks come from the source or from an external file. Styling, delay and font size are handled in Subtitle settings."],
+      ["External players", "An episode can be handed to an external player such as mpv or VLC when the internal decoder cannot handle a codec."]
+    ],
+    facts: [
+      "The internal player is backed by a hardware-accelerated decoder.",
+      "Gestures control brightness, volume and seeking.",
+      "Watching progress is written continuously, not only on exit."
+    ]
+  },
+
+  "player-settings": {
+    title: "Tune decoding, gestures and controls.",
+    body: "Player settings decide how video is decoded, how gestures behave and which buttons appear on the player surface.",
+    marker: "09",
+    code: `Player settings
+├── Decoder            hardware, software, auto
+├── Gestures           brightness, volume, seek
+├── Subtitles          font, size, delay
+├── Custom buttons     extra actions on the overlay
+└── Advanced           buffer, aspect ratio, PiP`,
+    subsections: [
+      ["Decoder", "Hardware decoding is faster and lighter, but a few codecs need software decoding. Auto picks the safer option per stream."],
+      ["Gestures", "Assign vertical swipes to brightness and volume and horizontal swipes to seeking. Each axis can be inverted."],
+      ["Custom buttons", "Add buttons to the overlay for actions you use often, such as skip intro, screenshot or rotate."],
+      ["Advanced playback", "Buffer size, aspect ratio override and picture-in-picture live under the advanced section and rarely need changing."],
+      ["Per-series overrides", "Most settings can be overridden for a single series without touching the global defaults."]
+    ],
+    facts: [
+      "Hardware decoding is the default and suits most devices.",
+      "Gesture axes can be swapped or disabled individually.",
+      "Custom buttons are stored as part of your settings backup."
+    ]
+  },
+
+  subtitles: {
+    title: "Make subtitles readable on any screen.",
+    body: "Subtitle settings control track selection, timing, and the styling applied when the player renders a track itself.",
+    marker: "10",
+    code: `# External subtitle lookup order
+1. track bundled with the stream
+2. file next to the episode on disk
+3. subtitle downloaded by the source
+4. manual file you pick yourself`,
+    subsections: [
+      ["Selecting a track", "When a stream carries multiple subtitle tracks they appear in the subtitle sheet. The choice is remembered per series."],
+      ["Timing and offset", "Nudge subtitles forward or backward in small steps when a track is out of sync with the audio."],
+      ["Styling", "Font, size, colour, outline and background are applied to text-based subtitle formats rendered by the player."],
+      ["External files", "Drop a matching subtitle file beside a local episode and the player loads it automatically."],
+      ["Bitmap subtitles", "Image-based subtitles carry their own styling and cannot be restyled; only their position and size respond to settings."]
+    ],
+    facts: [
+      "Text subtitles can be restyled, bitmap subtitles cannot.",
+      "Per-series subtitle choices override the global default.",
+      "Subtitle delay is stored so it survives app restarts."
+    ]
+  },
+
+  reader: {
+    title: "A reader built for long sessions.",
+    body: "The reader handles paged, vertical and long-strip content with tap zones, zoom and continuous progress tracking.",
+    marker: "11",
+    code: `Reader modes
+├── Paged (right to left)   manga default
+├── Paged (left to right)   comics
+├── Paged (vertical)        vertical paging
+├── Long strip              webtoons
+└── Long strip with gaps    webtoons, spaced`,
+    subsections: [
+      ["Choosing a mode", "Set a global default and override it per series. Long strip suits webtoons, paged suits print manga."],
+      ["Navigation", "Tap zones move a page forward or back, swipe scrolls, and pinch zooms. Tap the centre to open the reader menu."],
+      ["Progress", "The last read page is stored per chapter, so returning to a series resumes where you stopped."],
+      ["Wide pages", "Wide spreads can be split, rotated or zoomed automatically to avoid tiny pages on a phone."],
+      ["Downloads", "Downloaded chapters open instantly and are marked in the chapter list so you can read offline."]
+    ],
+    facts: [
+      "Reader mode can differ between series.",
+      "Reading progress syncs to a tracker when connected.",
+      "Chapter transitions can be shown as a separator or skipped."
+    ]
+  },
+
+  "reader-settings": {
+    title: "Control how pages are displayed and turned.",
+    body: "Reader settings cover reading direction, page scaling, cropping and the tap zones used for navigation.",
+    marker: "12",
+    code: `Reader settings
+├── Reading        mode, transitions, skip rules
+├── Display        rotation, background, fullscreen
+├── Pages          scale, crop, zoom, split
+└── Long strip     side padding, tap zones`,
+    subsections: [
+      ["Reading", "Set the default mode, whether transitions animate, and which chapters are skipped when they are read, filtered or duplicated."],
+      ["Display", "Rotation, background colour, fullscreen and page number visibility all live in the display group."],
+      ["Pages", "Scale type, border cropping and zoom start position decide how a single page fills the screen."],
+      ["Tap zones", "Choose a tap-zone layout and invert it horizontally, vertically or both for left-handed reading."],
+      ["Long strip", "Side padding and separate tap zones let webtoons read well on wide screens."]
+    ],
+    facts: [
+      "Scale type can be fit screen, fit width, fit height or original size.",
+      "Crop borders trims scan margins automatically.",
+      "Skip rules can be overridden per series."
+    ]
+  },
+
+  updates: {
+    title: "Keep your library current without hammering sources.",
+    body: "Updates check your sources for new chapters and episodes, respecting rules that avoid unnecessary load and anti-bot responses.",
+    marker: "13",
+    code: `# Update targets
+Library → Global update
+├── Categories     limit to "Watching"
+├── Frequency      how often to check
+└── Notifications  new chapter / episode alerts
+
+# Manual
+Series → Overflow → Refresh`,
+    subsections: [
+      ["Global update", "Runs across the library on a schedule. Restrict it to a single category so infrequent series are not checked daily."],
+      ["Smart skipping", "Entries that are completed, not started, or not expected to have new releases are skipped to reduce requests."],
+      ["Notifications", "New chapters and episodes raise a notification that can be filtered by category and by skip reason."],
+      ["Manual refresh", "A single series can be refreshed from its overflow menu at any time without touching the rest of the library."],
+      ["Why skipping matters", "Heavy update traffic can trigger anti-bot measures on a source, making it unusable for everyone."]
+    ],
+    facts: [
+      "Updates can be limited to one or more categories.",
+      "Completed entries are excluded by default.",
+      "Battery optimisation can block background updates on some Android skins."
+    ]
+  },
+
+  downloads: {
+    title: "Take your library offline on purpose.",
+    body: "Downloads queue episodes and chapters for offline use, with a single queue, clear limits and a predictable storage layout.",
     marker: "14",
-    code: `git clone https://github.com/ferelking242/watchtower.git
+    code: `Downloads
+├── Queue          reorder or cancel items
+├── Only           download only, read offline
+└── Storage
+    └── Source name (LANG)/
+        └── Series title/
+            ├── Chapter 01.cbz
+            └── Episode 01.mp4`,
+    subsections: [
+      ["Queueing", "Add chapters or episodes from a series and manage them in the download queue. Reorder by dragging, cancel with the overflow action."],
+      ["Parallelism", "One source is downloaded at a time to avoid IP bans, while several different sources can run in parallel."],
+      ["Downloads only", "Enable download only mode to hide streamed content and rely entirely on what is stored on the device."],
+      ["Storage layout", "Downloads live under a source-named folder, then a series folder. Renaming either folder breaks detection."],
+      ["Troubleshooting", "If downloads vanish, check that the storage location is still reachable and invalidate the downloads index."]
+    ],
+    facts: [
+      "A single source is never downloaded in parallel with itself.",
+      "Downloads are not included in a backup file.",
+      "Internal storage performs better than external SD cards."
+    ]
+  },
+
+  categories: {
+    title: "Turn a long library into a few clear shelves.",
+    body: "Categories group entries by status, genre or mood, and double as the selector for which part of the library updates and downloads.",
+    marker: "15",
+    code: `Categories
+├── Watching        updated daily
+├── Plan to watch   never updated
+├── On hold         excluded from global update
+└── Completed       skipped by default`,
+    subsections: [
+      ["Creating categories", "Name and order categories however you like. An entry can belong to several at once."],
+      ["Assigning entries", "Long press a series, choose Set categories, and tick every category that applies."],
+      ["Driving updates", "Point global update and auto-download at specific categories so only active series generate traffic."],
+      ["Removing entries", "Deselect a category in the same dialog to remove an entry from it without deleting the series."],
+      ["Naming advice", "Name categories by state rather than by source, so migrating a series between sources never changes its shelf."]
+    ],
+    facts: [
+      "An entry can live in multiple categories.",
+      "Global update can target a single category.",
+      "Auto-download can be limited to chosen categories."
+    ]
+  },
+
+  tracking: {
+    title: "Send your progress to the services you already use.",
+    body: "Tracking connects the library to online services so watched episodes and read chapters are recorded without manual entry.",
+    marker: "16",
+    code: `Supported trackers
+├── MyAnimeList
+├── AniList
+├── Kitsu
+├── MangaUpdates
+├── Shikimori
+└── Bangumi`,
+    subsections: [
+      ["Supported services", "MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori and Bangumi can all be connected from tracking settings."],
+      ["Logging in", "Open tracking settings and tap a service to start its login flow. Kitsu expects your email address as the username."],
+      ["Per-series setup", "Open a series, tap Tracking and add the service. The search query can be edited when the automatic match is wrong."],
+      ["One-way by design", "Progress flows from Watchtower to the tracker. Changes made on the website are not pulled back into the app."],
+      ["Offline progress", "Progress recorded offline is queued and uploaded the next time the device is online."]
+    ],
+    facts: [
+      "Tracking is enabled per series, not globally.",
+      "A watch percentage can decide when an episode counts as seen.",
+      "Start dates are set automatically when tracking begins."
+    ]
+  },
+
+  backups: {
+    title: "Protect the library before something goes wrong.",
+    body: "A backup captures your library, progress, categories, tracking links and settings in a single portable file.",
+    marker: "17",
+    code: `# Create a backup
+Data and storage → Create backup → choose a location
+
+# What is included
+titles, categories, read/watched state, tracking links,
+history, series metadata, extensions, settings
+
+# What is not included
+downloads, custom covers, history of non-library titles`,
+    subsections: [
+      ["Creating a backup", "Open data and storage settings and choose Create backup. Pick a location you can reach from another device."],
+      ["What is included", "Titles, categories, progress, tracking links, history, series metadata, extension list and settings are all stored in the file."],
+      ["What is excluded", "Downloaded files, custom covers and the history of series that are not in the library are not part of a backup."],
+      ["Restoring", "Log in to your trackers and install the extensions you used before importing, so the restore can relink everything cleanly."],
+      ["Automatic backups", "Set a backup frequency so a recent file always exists. This is strongly recommended on preview builds."]
+    ],
+    facts: [
+      "Backups move the library between devices since there is no sync.",
+      "Downloads must be transferred separately.",
+      "Auto backups are the safest defence against a bad update."
+    ]
+  },
+
+  storage: {
+    title: "Know exactly where Watchtower writes.",
+    body: "Storage holds backups, downloads and local sources. Choosing the location deliberately avoids lost downloads and permission errors.",
+    marker: "18",
+    code: `[storage location]/
+├── autobackup/     scheduled backup files
+├── downloads/      Source (LANG)/Series/Chapter.cbz
+├── local/          your manga folders
+├── localanime/     your anime folders
+└── mpv-config/     player fonts and scripts`,
+    subsections: [
+      ["Folder layout", "Backups, downloads, local manga, local anime and player configuration each get their own folder inside the storage location."],
+      ["Choosing a location", "Pick a folder you can still reach later. Avoid the root of a volume and avoid moving files outside the app afterwards."],
+      ["Scoped storage", "Modern Android restricts apps to their own directories. Grant access to the storage folder so downloads and local sources work."],
+      ["Rechecking files", "After moving files from outside the app, invalidate the downloads index so Watchtower rescans the folders."],
+      ["Gallery visibility", "A .nomedia file in the downloads folder keeps covers and episodes out of the system gallery."]
+    ],
+    facts: [
+      "Backup file names are prefixed per app to avoid collisions.",
+      "Internal storage is faster and more reliable than SD cards.",
+      "Downloads and local sources must not share a folder."
+    ]
+  },
+
+  settings: {
+    title: "The settings that matter, and what they change.",
+    body: "Beyond per-feature options, Watchtower has app-wide settings for updates, installation, security and diagnostics.",
+    marker: "19",
+    code: `Settings
+├── General        theme, language, library
+├── Security       secure screen, incognito
+├── Advanced       DNS over HTTPS, installer, logs
+└── Diagnostics    crash logs, logcat, index rebuild`,
+    subsections: [
+      ["General", "Theme, interface language and default library behaviour are set once here and apply everywhere."],
+      ["Security and privacy", "Secure screen blocks screenshots, and incognito mode pauses history recording."],
+      ["DNS over HTTPS", "Encrypted DNS resolution can bypass basic blocking and is configured in advanced settings."],
+      ["Installers", "The legacy installer is a fallback for restrictive systems, while Shizuku enables elevated installation on modern Android."],
+      ["Diagnostics", "Dump crash logs, capture a logcat trace and rebuild indexes when something behaves unexpectedly."]
+    ],
+    facts: [
+      "Secure screen must be off before screenshots work.",
+      "Incognito mode stops history, not progress.",
+      "Crash logs are written locally and never uploaded automatically."
+    ]
+  },
+
+  "extension-runtime": {
+    title: "QuickJS executes sources, Flutter renders them.",
+    body: "The extension runtime evaluates JavaScript, exposes a small host API and converts source output into the models the UI already understands.",
+    marker: "20",
+    code: `lib/eval/         QuickJS bridge and host API
+lib/extension/    catalogue, install and lifecycle
+lib/models/       shared manga, video, track, page models
+lib/remote/       embedded HTTP server
+
+// Host API surface
+request(url, headers)  parseHtml(html)  parseJson(text)
+getPreference(key)     setPreference(k, v)  toast(msg)`,
+    subsections: [
+      ["Runtime responsibilities", "The runtime loads an extension, injects the host API and calls the entry points the manifest declares, all off the UI thread."],
+      ["Host API", "Extensions get HTTP requests, HTML and JSON parsers, preference storage and simple UI helpers, and nothing else."],
+      ["Model conversion", "Source output is normalised into shared models so a new website never requires a new screen."],
+      ["Lifecycle", "Extensions are installed, updated and removed as packages, with their preferences preserved across updates."],
+      ["Isolation", "An extension cannot touch Flutter state directly. Everything crosses the bridge as plain data."]
+    ],
+    facts: [
+      "QuickJS keeps the runtime small and embeddable on every platform.",
+      "The same runtime is used by the app and the headless CLI.",
+      "Extensions never receive raw database or file access."
+    ]
+  },
+
+  "extension-contract": {
+    title: "The methods a source must implement.",
+    body: "A source contract defines the entry points Watchtower calls, from listing and searching to details, chapters, pages and video streams.",
+    marker: "21",
+    code: `// Listing and search
+popularManga(page)      latestUpdates(page)      searchManga(query, filters)
+// Details and content
+mangaDetails(manga)     chapterList(manga)       pageList(chapter)
+// Video
+videoList(episode)      videoUrl(video)
+// Optional
+filters                 preferences              imageRequest(url)`,
+    subsections: [
+      ["Listing and search", "Popular, latest and search entry points return paginated lists of the shared manga or media model."],
+      ["Details and chapters", "A details call fills metadata, and a chapter or episode call returns the ordered list a user can open."],
+      ["Pages and video", "Manga returns page image URLs, while video returns streams with quality, headers and subtitle information."],
+      ["Optional capabilities", "Filters, source preferences and custom image requests are optional and only used when an extension declares them."],
+      ["Item type", "The declared item type selects the library, reader or player the content opens in, so one contract serves several media."]
+    ],
+    facts: [
+      "Only listing and search are required for a browsable source.",
+      "Filters and preferences are optional capabilities.",
+      "Item type is persisted so history and library know how to open it."
+    ]
+  },
+
+  "ui-schema": {
+    title: "Describe native UI from a source.",
+    body: "The native UI schema lets an extension describe cards, lists and layouts declaratively, so rich source home pages need no Flutter code.",
+    marker: "22",
+    code: `{
+  "type": "list",
+  "items": [
+    { "type": "card", "title": "Trending", "image": "$cover", "onTap": "open" },
+    { "type": "row", "items": ["$items"] }
+  ]
+}`,
+    subsections: [
+      ["Why a schema", "Declarative UI keeps source-specific layout out of the Flutter codebase while still rendering with native widgets."],
+      ["Components", "Lists, rows, cards, banners and text blocks are the building blocks a source can emit."],
+      ["Data binding", "Schema nodes bind to values returned by the source, so a change in data does not require a change in layout."],
+      ["Layouts", "A ui-layouts.json file can describe whole source home pages, mixing schema blocks and content sections."],
+      ["Fallback", "When a source provides no schema, Watchtower renders its own default layout from the standard models."]
+    ],
+    facts: [
+      "The schema is data, not code, so it can be validated.",
+      "Unknown node types are ignored rather than fatal.",
+      "Default layouts apply when no schema is supplied."
+    ]
+  },
+
+  api: {
+    title: "An HTTP server inside the app.",
+    body: "The installed app exposes an embedded HTTP server that mirrors the headless runtime, so scripts and tools can drive the same engine.",
+    marker: "23",
+    code: `# Start the embedded server
+Settings → Advanced → Enable server
+# Default endpoint
+http://localhost:4567
+
+# Example calls
+GET /sources            list installed sources
+GET /library            library entries
+POST /search            query a source
+GET /stream?episode=... resolve a video stream`,
+    subsections: [
+      ["What the server is", "A Dart and shelf based HTTP server embedded in the app. It shares the extension runtime and models with the UI."],
+      ["Enabling it", "The server is off by default. Turn it on in advanced settings and note the port it binds to."],
+      ["Endpoints", "Sources, library, search and stream endpoints expose the same operations the UI performs."],
+      ["Use cases", "Automation, external players, remote control and CI checks can all talk to the app over HTTP."],
+      ["Security", "The server is meant for local or trusted networks. Do not expose it to the open internet."]
+    ],
+    facts: [
+      "The default port is 4567.",
+      "The headless CLI reuses the same server layer.",
+      "The server is disabled until you enable it."
+    ]
+  },
+
+  cli: {
+    title: "Run Watchtower without a screen.",
+    body: "The headless CLI runs the same engine as the app so servers, SSH sessions and CI jobs can fetch, search and stream without a GUI.",
+    marker: "24",
+    code: `watchtower --list-sources
+watchtower --search "query" --source example
+watchtower --serve --port 4567
+watchtower --update-library --category watching
+watchtower --download --series "Title" --latest 5`,
+    subsections: [
+      ["What it is", "A Linux binary built from the same Flutter and QuickJS engine as the app, with a command-line front end."],
+      ["Common commands", "List sources, search, update the library, queue downloads and start the HTTP server directly from the terminal."],
+      ["Server mode", "Serve mode exposes the embedded HTTP API, which is how remote clients talk to a headless host."],
+      ["CI and automation", "Because it is a single binary, the CLI drops into containers and scheduled jobs without an Android device."],
+      ["Parity with the app", "The CLI intentionally follows the app's behaviour, so a source that works on mobile works headless."]
+    ],
+    facts: [
+      "The CLI is published for Linux on every release.",
+      "It uses the same source contracts as the app.",
+      "Server mode is the bridge between the CLI and remote clients."
+    ]
+  },
+
+  deployment: {
+    title: "Build once, ship everywhere.",
+    body: "Watchtower is built by CI into an Android app, a desktop bundle and a headless Linux binary from the same source tree.",
+    marker: "25",
+    code: `# Local builds
+flutter build apk --release
+flutter build linux --release
+dart run build_runner build
+
+# CI workflows
+build-release.yml    APK
+build-server.yml     headless Linux CLI
+build-profile.yml    profile APK
+build-debug.yml      debug APK`,
+    subsections: [
+      ["Build targets", "Android APKs, desktop bundles and the headless CLI are all produced from one repository and one pubspec."],
+      ["Continuous integration", "Separate workflows build release, profile and debug APKs plus the headless server binary on each change."],
+      ["Native components", "Rust handles EPUB, image and TLS bindings while Go provides torrent and HTTP streaming, all wired in at build time."],
+      ["Versioning", "The app version is injected at build time and shown in the interface, so a build is always traceable to a commit."],
+      ["Release checklist", "Bump the version, run the full build matrix, verify the CLI, then tag the release that CI will publish."]
+    ],
+    facts: [
+      "Four CI workflows cover app and CLI builds.",
+      "Rust and Go components are compiled into the binaries.",
+      "Every tagged release publishes the CLI for Linux."
+    ]
+  },
+
+  troubleshooting: {
+    title: "Diagnose a failure instead of guessing.",
+    body: "Most problems are one of a handful of causes: a dead source, an anti-bot wall, a storage permission or a broken extension. Work through them in order.",
+    marker: "26",
+    code: `# First checks
+1. Does the source load in a browser?
+2. Does another source work right now?
+3. Did the extension update recently?
+4. Is storage still reachable?
+5. Do crash logs show a specific error?
+
+Settings → Advanced → Dump crash logs`,
+    subsections: [
+      ["Primary diagnosis", "Decide whether the failure is source-side, device-side or account-side. One working source points at the source, not the app."],
+      ["Reading an error", "HTTP 403 and 429 usually mean anti-bot, 404 means a changed URL, and timeouts mean network or source load."],
+      ["WebView and cookies", "Some sources need a WebView pass to clear a challenge. Clearing cookies and WebView data resets a stuck login."],
+      ["Cloudflare and anti-bot", "Changing the user agent, clearing WebView data and waiting out a challenge resolve most anti-bot loops."],
+      ["Installation problems", "Signature mismatches, corrupted APKs and architecture mismatches each produce a distinct installer error."]
+    ],
+    facts: [
+      "One failing source is usually the source, not the app.",
+      "403 and 429 almost always mean anti-bot protection.",
+      "Crash logs are the fastest way to a specific error."
+    ]
+  },
+
+  faq: {
+    title: "Short answers to the questions that come up most.",
+    body: "Why the app is not on a store, whether there is an iOS build, how updates behave and how to read logs.",
+    marker: "27",
+    code: `Q: Is Watchtower on Google Play?
+A: No. APK-based extensions conflict with store policy.
+
+Q: Is there an iOS build?
+A: The codebase is cross-platform, but shipping iOS
+   is constrained by platform rules and is not promised.
+
+Q: Can Watchtower read light novels?
+A: Text-based novels are supported as their own item type.`,
+    subsections: [
+      ["Store availability", "Watchtower is distributed outside app stores because installable extensions conflict with store content policies."],
+      ["iOS and desktop", "The Flutter codebase targets many platforms, but each platform has its own packaging and policy constraints."],
+      ["Updates and previews", "A preview channel tracks main and shows upcoming work. It is more prone to bugs, so keep auto backups on."],
+      ["Library behaviour", "Global update skips completed and unstarted entries by design, and large bulk updates are warned about."],
+      ["Logs and reports", "Crash logs and logcat traces are the two artefacts to attach when reporting a problem."]
+    ],
+    facts: [
+      "Watchtower is not distributed through app stores.",
+      "Preview builds are for testing, not daily use.",
+      "A backup makes any upgrade reversible."
+    ]
+  },
+
+  contribute: {
+    title: "Help improve the app, the sources or the docs.",
+    body: "Contributions are welcome across the Flutter app, the extension runtime, native components, the CLI and this documentation.",
+    marker: "28",
+    code: `# Get the source
+git clone https://github.com/ferelking242/watchtower
 cd watchtower
 flutter pub get
-flutter run
 
-# Android release
-flutter build apk --release --target-platform android-arm64
+# Run checks before opening a pull request
+flutter analyze
+flutter test
 
-# Headless Linux CLI
-./watchtower --cli doctor --json`,
+# Docs live in a separate repository
+git clone https://github.com/ferelking242/watchtower-website`,
     subsections: [
-      ["Prerequisites", "Flutter 3.38+ / Dart 3.10+, Rust for the flutter_rust_bridge bindings, Java 17 for Android, and Go 1.21+ if you rebuild the torrent client."],
-      ["Platforms", "Windows, Linux, macOS, iOS, Android and Web are all targeted by the project. Some native features degrade gracefully on Web."],
-      ["Verify the install", "Run the analyzer before your first change: dart format --output=none --set-exit-if-changed lib and flutter analyze --no-pub. The CLI doctor command reports whether the native engine and QuickJS are available."],
-      ["Common build errors", "A missing Rust toolchain fails the binding step. An old Flutter SDK fails the pub resolution. A missing Java 17 fails the Android build. Fix the toolchain before editing app code."]
+      ["Ways to help", "Fix bugs, add sources, improve the runtime, write docs or translate this site into another language."],
+      ["Development setup", "Clone the repository, install the Flutter, Rust and Go toolchains, then run flutter pub get and the analyzer."],
+      ["Pull requests", "Keep changes focused, explain the motivation, and run analyze and the test suite before opening a pull request."],
+      ["Translations", "The interface and this website both ship many languages. Adding one means adding a locale file, not touching the layout."],
+      ["Community", "Join the Discord server or open an issue to discuss an idea before investing in a large change."]
     ],
     facts: [
-      "Prerequisites: Flutter 3.38+, Dart 3.10+, Rust and Java 17 for Android.",
-      "The project targets Windows, Linux, macOS, iOS, Android and Web.",
-      "The headless CLI ships from the Build Linux Headless CLI workflow."
-    ]
-  },
-  deployment: {
-    title: "Embedded or headless.",
-    body: "The headless CLI runs with or without Docker. Private routes use X-Api-Key or Authorization Bearer when API_KEY is enabled, while the app keeps its embedded mode.",
-    marker: "15",
-    code: `# Docker
-docker compose up -d
-
-# Local headless
-./watchtower --cli help
-./watchtower --cli extensions test \\
-  --repo ./watchtower-extensions \\
-  --mode smoke --report extensions.json
-
-API_KEY=mysecretkey PORT=4567 ./watchtower --cli serve`,
-    subsections: [
-      ["Docker", "Docker Compose is the recommended path for a reproducible server. The published image is available on GHCR."],
-      ["Other hosts", "Railway, Render, a VPS and bare Docker are documented in the repository. The server keeps the same source contract as the app."],
-      ["Environment variables", "API_KEY protects private routes. CACHE_TTL_MS, CACHE_DIR, PREFS_DIR and RATE_MAX_TOKENS control caching, persistence and rate limiting."],
-      ["Deployment errors", "A container that exits immediately is usually a missing API_KEY or a port conflict. Check the logs, confirm the port is free, and verify the extension repo path before restarting."]
-    ],
-    facts: [
-      "Docker Compose is the recommended path for a reproducible server; the image is on GHCR.",
-      "Railway, Render, VPS and Docker deployments are documented in the repository.",
-      "CACHE_TTL_MS, CACHE_DIR, PREFS_DIR and RATE_MAX_TOKENS control server behavior."
-    ]
-  },
-  troubleshooting: {
-    title: "Troubleshooting",
-    body: "Facing a source or app issue? Work through the checklist, read the exact error, then run a diagnosis before changing settings.",
-    marker: "16",
-    code: `Primary checklist
-1. Update extensions
-2. Update the app
-3. Refresh the series / episode
-4. Try another item from the same source
-5. Open the site in a browser or WebView
-6. Change network (Wi-Fi · mobile · VPN)
-7. Clear cache and cookies
-8. Restart the app`,
-    subsections: [
-      ["Primary diagnosis", "Update extensions and the app, refresh the failing item, try a different item from the same source, open the site in a browser, change network, clear cache and cookies, then restart the app. If a step fixes it, the cause is local."],
-      ["Reading the error", "Watchtower shows the raw error, not a generic message. Copy it: the operation name and the failing URL point at the exact step. Extension diagnostics record popular, latest, detail and media stages separately."],
-      ["HTTP errors", "403 Forbidden: anti-bot or IP ban. 404 Not Found: removed content or a dead source. 429 Too Many Requests: a temporary rate limit. 5xx: the source server is down. 1006/1020: an IP ban or firewall rule."],
-      ["Personalized versus widespread", "If only you are affected, suspect Cloudflare, an IP ban or a rate limit, and reduce downloads from that source. If everyone is affected, check the extension and app issue trackers."],
-      ["Installation issues", "An extension that fails to install usually fails schema validation or downloads a corrupt file. Re-download it and check the manifest id and version."]
-    ],
-    facts: [
-      "Update extensions first: most breakages are fixed by an extension update.",
-      "The diagnosis screen separates popular, latest, detail and media stages.",
-      "No ETA for extension fixes; a broken source may simply need patience."
-    ]
-  },
-  cloudflare: {
-    title: "Cloudflare & anti-bot",
-    body: "Some sources sit behind Cloudflare. Watchtower only reports a challenge when the response carries real evidence, and offers a bypass WebView that opens the exact failing URL.",
-    marker: "17",
-    code: `Evidence required
-cf-ray · cf-mitigated · server: cloudflare
-challenge-platform · cf-chl
-“Just a moment…” · “Verify you are human”
-
-Not Cloudflare by itself
-a bare 403 / 503 · a timeout · “challenge”
-
-Fix order
-WebView → user agent → cookies → network`,
-    subsections: [
-      ["What counts as a challenge", "A bare 403/503, a timeout or the word challenge is not Cloudflare. Watchtower requires CDN markers, an interactive challenge page or a block page before showing the anti-bot UI."],
-      ["Bypassing a challenge", "The bypass WebView opens the exact URL that failed, never the site root. Solve the CAPTCHA once, then retry the source."],
-      ["Changing the user agent", "A user agent string affects bot detection. Change the default in Advanced settings, restart the app and retry. Try several browsers and operating systems."],
-      ["Cookies and cache", "Clearing cookies resets a login or challenge state. Clearing WebView data gives a clean slate. Both live in Advanced settings."],
-      ["When it still fails", "The source may have raised its protection. Wait, or switch to another source for the same content."]
-    ],
-    facts: [
-      "Cloudflare is reported only when there is real evidence in the response.",
-      "The bypass WebView opens the failing URL, not the site root.",
-      "A personalized failure usually means a block or rate limit, not a bug."
-    ]
-  },
-  cli: {
-    title: "Headless CLI",
-    body: "The Linux build contains the same extension runtime as the desktop app and runs without X11 or Wayland, for CI, servers and SSH.",
-    marker: "18",
-    code: `./watchtower --cli doctor --json
-./watchtower --cli extensions list --repo ./watchtower-extensions
-./watchtower --cli extensions test \\
-  --repo ./watchtower-extensions \\
-  --type watch --lang fr --include-unindexed \\
-  --mode smoke --report extensions.json
-./watchtower --cli source 1900000002 inspect --json
-./watchtower --cli plugins validate --repo ./watchtower-extensions --json`,
-    subsections: [
-      ["Commands", "doctor probes the native engine and QuickJS. extensions list and test load a local repo. source runs a single ExtensionService operation. plugins validate inspects the plugin catalogue."],
-      ["Test modes", "load checks that a source loads and exposes filters, preferences and headers. smoke also calls popular, latest, search, suggestions, details and the media operation. deep adds page two and HTTP probes."],
-      ["Filtering", "Filter by language, NSFW/SFW, engine, tag, query, ids or type. A language directory such as src/watch/fr takes precedence over a stale lang field in the index."],
-      ["Exit codes and errors", "0 is success, 1 is a failed health, test or validation check, and 2 is invalid usage or an unhandled operation error. Reports and stdout redact credentials and signed URL parameters."],
-      ["Known limits", "Library, history, progress, download queue and tracker commands are not available yet: the headless entry point does not open the Isar/Hive stores."]
-    ],
-    facts: [
-      "doctor --json reports whether the native engine and QuickJS are available.",
-      "smoke runs popular, latest, search, details and the media operation.",
-      "Output redacts common credentials and signed URL parameters."
+      "The docs are a separate repository from the app.",
+      "Translations are additive and never change layout.",
+      "Running the analyzer before a pull request saves review time."
     ]
   }
 };

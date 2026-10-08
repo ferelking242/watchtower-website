@@ -20,48 +20,93 @@ export const LANGUAGES = [
 
 export const LANGUAGE_CODES = LANGUAGES.map((l) => l.code);
 
-// Section ids, in navigation order. Content lives in docs-content.js keyed by
-// these ids; every language falls back to English for anything it omits.
+// Nested navigation. Every id is a page; subsections are anchored blocks inside
+// that page and are listed both in the right-hand outline and the page itself.
 export const SECTION_GROUPS = [
-  { key: "map", items: ["overview", "app-map", "content-types"] },
-  { key: "extensions", items: ["extension-runtime", "extension-types", "extension-contract", "ui-schema", "layouts"] },
-  { key: "experience", items: ["watch-home", "home-widgets"] },
-  { key: "platform", items: ["api", "downloads", "trackers", "getting-started", "deployment"] },
-  { key: "support", items: ["troubleshooting", "cloudflare", "cli"] }
+  { key: "start", items: ["getting-started", "installation", "adding-sources", "library"] },
+  { key: "browse", items: ["browse", "extensions", "local-source"] },
+  { key: "playback", items: ["video-player", "player-settings", "subtitles", "reader", "reader-settings"] },
+  { key: "library", items: ["updates", "downloads", "categories", "tracking"] },
+  { key: "data", items: ["backups", "storage", "settings"] },
+  { key: "platform", items: ["extension-runtime", "extension-contract", "ui-schema", "api", "cli", "deployment"] },
+  { key: "support", items: ["troubleshooting", "faq", "contribute"] }
 ];
+
+export const SECTION_IDS = SECTION_GROUPS.flatMap((group) => group.items);
 
 // Icons are language-independent, so they stay out of the translation tables.
 export const SECTION_ICONS = {
-  overview: "book",
-  "app-map": "server",
-  "content-types": "package",
+  "getting-started": "book",
+  installation: "package",
+  "adding-sources": "box",
+  library: "book",
+  browse: "search",
+  extensions: "package",
+  "local-source": "box",
+  "video-player": "play",
+  "player-settings": "spark",
+  subtitles: "braces",
+  reader: "book",
+  "reader-settings": "spark",
+  updates: "arrow",
+  downloads: "arrow",
+  categories: "package",
+  tracking: "check",
+  backups: "copy",
+  storage: "server",
+  settings: "spark",
   "extension-runtime": "code",
-  "extension-types": "box",
   "extension-contract": "braces",
   "ui-schema": "spark",
-  layouts: "package",
-  "watch-home": "play",
-  "home-widgets": "book",
   api: "terminal",
-  downloads: "arrow",
-  trackers: "check",
-  "getting-started": "check",
+  cli: "terminal",
   deployment: "arrowUpRight",
   troubleshooting: "spark",
-  cloudflare: "server",
-  cli: "terminal"
+  faq: "book",
+  contribute: "github"
 };
+
+export const GROUP_LABELS = {
+  en: { start: "Getting started", browse: "Browse", playback: "Playback", library: "Library", data: "Data & storage", platform: "Development", support: "Support" },
+  fr: { start: "Premiers pas", browse: "Parcourir", playback: "Lecture", library: "Bibliothèque", data: "Données et stockage", platform: "Développement", support: "Assistance" },
+  es: { start: "Primeros pasos", browse: "Explorar", playback: "Reproducción", library: "Biblioteca", data: "Datos y almacenamiento", platform: "Desarrollo", support: "Soporte" },
+  pt: { start: "Primeiros passos", browse: "Explorar", playback: "Reprodução", library: "Biblioteca", data: "Dados e armazenamento", platform: "Desenvolvimento", support: "Suporte" },
+  de: { start: "Erste Schritte", browse: "Durchsuchen", playback: "Wiedergabe", library: "Bibliothek", data: "Daten & Speicher", platform: "Entwicklung", support: "Support" },
+  it: { start: "Primi passi", browse: "Esplora", playback: "Riproduzione", library: "Libreria", data: "Dati e archiviazione", platform: "Sviluppo", support: "Supporto" },
+  ru: { start: "Начало работы", browse: "Просмотр", playback: "Воспроизведение", library: "Библиотека", data: "Данные и хранилище", platform: "Разработка", support: "Поддержка" },
+  ar: { start: "بدء الاستخدام", browse: "تصفح", playback: "التشغيل", library: "المكتبة", data: "البيانات والتخزين", platform: "التطوير", support: "الدعم" },
+  ja: { start: "はじめに", browse: "閲覧", playback: "再生", library: "ライブラリ", data: "データとストレージ", platform: "開発", support: "サポート" },
+  ko: { start: "시작하기", browse: "탐색", playback: "재생", library: "라이브러리", data: "데이터 및 저장소", platform: "개발", support: "지원" },
+  zh: { start: "快速开始", browse: "浏览", playback: "播放", library: "媒体库", data: "数据与存储", platform: "开发", support: "支持" },
+  tr: { start: "Başlangıç", browse: "Gözat", playback: "Oynatma", library: "Kitaplık", data: "Veri ve depolama", platform: "Geliştirme", support: "Destek" },
+  hi: { start: "शुरुआत करें", browse: "ब्राउज़ करें", playback: "प्लेबैक", library: "लाइब्रेरी", data: "डेटा और स्टोरेज", platform: "विकास", support: "सहायता" },
+  id: { start: "Memulai", browse: "Jelajahi", playback: "Pemutaran", library: "Pustaka", data: "Data & penyimpanan", platform: "Pengembangan", support: "Dukungan" },
+  th: { start: "เริ่มต้นใช้งาน", browse: "เรียกดู", playback: "การเล่น", library: "คลัง", data: "ข้อมูลและที่จัดเก็บ", platform: "การพัฒนา", support: "สนับสนุน" }
+};
+
+export const NAV_LABELS = {
+  en: { "getting-started": "Getting started", installation: "Installation", "adding-sources": "Adding sources", library: "Library", browse: "Browse", extensions: "Extensions", "local-source": "Local source", "video-player": "Video player", "player-settings": "Player settings", subtitles: "Subtitles", reader: "Reader", "reader-settings": "Reader settings", updates: "Updates", downloads: "Downloads", categories: "Categories", tracking: "Tracking", backups: "Backups", storage: "Storage", settings: "Settings", "extension-runtime": "Extension runtime", "extension-contract": "Source contract", "ui-schema": "Native UI schema", api: "Server API", cli: "Headless CLI", deployment: "Deployment", troubleshooting: "Troubleshooting", faq: "FAQ", contribute: "Contribute" },
+  fr: { "getting-started": "Premiers pas", installation: "Installation", "adding-sources": "Ajouter des sources", library: "Bibliothèque", browse: "Parcourir", extensions: "Extensions", "local-source": "Source locale", "video-player": "Lecteur vidéo", "player-settings": "Réglages du lecteur", subtitles: "Sous-titres", reader: "Lecteur manga", "reader-settings": "Réglages de lecture", updates: "Mises à jour", downloads: "Téléchargements", categories: "Catégories", tracking: "Suivi", backups: "Sauvegardes", storage: "Stockage", settings: "Réglages", "extension-runtime": "Runtime d’extension", "extension-contract": "Contrat de source", "ui-schema": "Schéma UI natif", api: "API serveur", cli: "CLI headless", deployment: "Déploiement", troubleshooting: "Dépannage", faq: "FAQ", contribute: "Contribuer" },
+  es: { "getting-started": "Empezar", installation: "Instalación", "adding-sources": "Añadir fuentes", library: "Biblioteca", browse: "Explorar", extensions: "Extensiones", "local-source": "Fuente local", "video-player": "Reproductor de vídeo", "player-settings": "Ajustes del reproductor", subtitles: "Subtítulos", reader: "Lector", "reader-settings": "Ajustes del lector", updates: "Actualizaciones", downloads: "Descargas", categories: "Categorías", tracking: "Seguimiento", backups: "Copias de seguridad", storage: "Almacenamiento", settings: "Ajustes", "extension-runtime": "Runtime de extensiones", "extension-contract": "Contrato de fuente", "ui-schema": "Esquema de UI nativa", api: "API del servidor", cli: "CLI sin interfaz", deployment: "Despliegue", troubleshooting: "Solución de problemas", faq: "Preguntas frecuentes", contribute: "Contribuir" },
+  pt: { "getting-started": "Primeiros passos", installation: "Instalação", "adding-sources": "Adicionar fontes", library: "Biblioteca", browse: "Explorar", extensions: "Extensões", "local-source": "Fonte local", "video-player": "Reprodutor de vídeo", "player-settings": "Configurações do reprodutor", subtitles: "Legendas", reader: "Leitor", "reader-settings": "Configurações do leitor", updates: "Atualizações", downloads: "Downloads", categories: "Categorias", tracking: "Rastreamento", backups: "Backups", storage: "Armazenamento", settings: "Configurações", "extension-runtime": "Runtime de extensões", "extension-contract": "Contrato de fonte", "ui-schema": "Esquema de UI nativa", api: "API do servidor", cli: "CLI headless", deployment: "Implantação", troubleshooting: "Solução de problemas", faq: "Perguntas frequentes", contribute: "Contribuir" },
+  de: { "getting-started": "Erste Schritte", installation: "Installation", "adding-sources": "Quellen hinzufügen", library: "Bibliothek", browse: "Durchsuchen", extensions: "Erweiterungen", "local-source": "Lokale Quelle", "video-player": "Videoplayer", "player-settings": "Player-Einstellungen", subtitles: "Untertitel", reader: "Leser", "reader-settings": "Leser-Einstellungen", updates: "Updates", downloads: "Downloads", categories: "Kategorien", tracking: "Tracking", backups: "Backups", storage: "Speicher", settings: "Einstellungen", "extension-runtime": "Erweiterungs-Runtime", "extension-contract": "Quell-Vertrag", "ui-schema": "Natives UI-Schema", api: "Server-API", cli: "Headless-CLI", deployment: "Bereitstellung", troubleshooting: "Fehlerbehebung", faq: "FAQ", contribute: "Mitwirken" },
+  it: { "getting-started": "Per iniziare", installation: "Installazione", "adding-sources": "Aggiungere sorgenti", library: "Libreria", browse: "Esplora", extensions: "Estensioni", "local-source": "Sorgente locale", "video-player": "Lettore video", "player-settings": "Impostazioni del lettore", subtitles: "Sottotitoli", reader: "Lettore", "reader-settings": "Impostazioni di lettura", updates: "Aggiornamenti", downloads: "Download", categories: "Categorie", tracking: "Tracciamento", backups: "Backup", storage: "Archiviazione", settings: "Impostazioni", "extension-runtime": "Runtime delle estensioni", "extension-contract": "Contratto sorgente", "ui-schema": "Schema UI nativo", api: "API server", cli: "CLI headless", deployment: "Distribuzione", troubleshooting: "Risoluzione dei problemi", faq: "Domande frequenti", contribute: "Contribuisci" },
+  ru: { "getting-started": "Начало работы", installation: "Установка", "adding-sources": "Добавление источников", library: "Библиотека", browse: "Просмотр", extensions: "Расширения", "local-source": "Локальный источник", "video-player": "Видеоплеер", "player-settings": "Настройки плеера", subtitles: "Субтитры", reader: "Читалка", "reader-settings": "Настройки чтения", updates: "Обновления", downloads: "Загрузки", categories: "Категории", tracking: "Отслеживание", backups: "Резервные копии", storage: "Хранилище", settings: "Настройки", "extension-runtime": "Среда расширений", "extension-contract": "Контракт источника", "ui-schema": "Схема нативного UI", api: "API сервера", cli: "Headless CLI", deployment: "Развёртывание", troubleshooting: "Устранение неполадок", faq: "Частые вопросы", contribute: "Участие" },
+  ar: { "getting-started": "بدء الاستخدام", installation: "التثبيت", "adding-sources": "إضافة المصادر", library: "المكتبة", browse: "تصفح", extensions: "الإضافات", "local-source": "مصدر محلي", "video-player": "مشغل الفيديو", "player-settings": "إعدادات المشغل", subtitles: "الترجمات", reader: "القارئ", "reader-settings": "إعدادات القراءة", updates: "التحديثات", downloads: "التنزيلات", categories: "التصنيفات", tracking: "التتبع", backups: "النسخ الاحتياطي", storage: "التخزين", settings: "الإعدادات", "extension-runtime": "بيئة الإضافات", "extension-contract": "عقد المصدر", "ui-schema": "مخطط الواجهة الأصلية", api: "واجهة الخادم", cli: "CLI بدون واجهة", deployment: "النشر", troubleshooting: "استكشاف الأخطاء", faq: "الأسئلة الشائعة", contribute: "المساهمة" },
+  ja: { "getting-started": "はじめに", installation: "インストール", "adding-sources": "ソースの追加", library: "ライブラリ", browse: "閲覧", extensions: "拡張機能", "local-source": "ローカルソース", "video-player": "動画プレーヤー", "player-settings": "プレーヤー設定", subtitles: "字幕", reader: "リーダー", "reader-settings": "リーダー設定", updates: "更新", downloads: "ダウンロード", categories: "カテゴリ", tracking: "トラッキング", backups: "バックアップ", storage: "ストレージ", settings: "設定", "extension-runtime": "拡張ランタイム", "extension-contract": "ソース契約", "ui-schema": "ネイティブUIスキーマ", api: "サーバーAPI", cli: "ヘッドレスCLI", deployment: "デプロイ", troubleshooting: "トラブルシューティング", faq: "よくある質問", contribute: "貢献" },
+  ko: { "getting-started": "시작하기", installation: "설치", "adding-sources": "소스 추가", library: "라이브러리", browse: "탐색", extensions: "확장 프로그램", "local-source": "로컬 소스", "video-player": "동영상 플레이어", "player-settings": "플레이어 설정", subtitles: "자막", reader: "리더", "reader-settings": "리더 설정", updates: "업데이트", downloads: "다운로드", categories: "카테고리", tracking: "트래킹", backups: "백업", storage: "저장소", settings: "설정", "extension-runtime": "확장 런타임", "extension-contract": "소스 계약", "ui-schema": "네이티브 UI 스키마", api: "서버 API", cli: "헤드리스 CLI", deployment: "배포", troubleshooting: "문제 해결", faq: "자주 묻는 질문", contribute: "기여" },
+  zh: { "getting-started": "快速开始", installation: "安装", "adding-sources": "添加来源", library: "媒体库", browse: "浏览", extensions: "扩展", "local-source": "本地来源", "video-player": "视频播放器", "player-settings": "播放器设置", subtitles: "字幕", reader: "阅读器", "reader-settings": "阅读设置", updates: "更新", downloads: "下载", categories: "分类", tracking: "追番", backups: "备份", storage: "存储", settings: "设置", "extension-runtime": "扩展运行时", "extension-contract": "来源契约", "ui-schema": "原生 UI 架构", api: "服务器 API", cli: "无界面 CLI", deployment: "部署", troubleshooting: "故障排查", faq: "常见问题", contribute: "贡献" },
+  tr: { "getting-started": "Başlangıç", installation: "Kurulum", "adding-sources": "Kaynak ekleme", library: "Kitaplık", browse: "Gözat", extensions: "Uzantılar", "local-source": "Yerel kaynak", "video-player": "Video oynatıcı", "player-settings": "Oynatıcı ayarları", subtitles: "Altyazılar", reader: "Okuyucu", "reader-settings": "Okuma ayarları", updates: "Güncellemeler", downloads: "İndirmeler", categories: "Kategoriler", tracking: "Takip", backups: "Yedekler", storage: "Depolama", settings: "Ayarlar", "extension-runtime": "Uzantı çalışma zamanı", "extension-contract": "Kaynak sözleşmesi", "ui-schema": "Yerel UI şeması", api: "Sunucu API'si", cli: "Başsız CLI", deployment: "Dağıtım", troubleshooting: "Sorun giderme", faq: "SSS", contribute: "Katkıda bulun" },
+  hi: { "getting-started": "शुरुआत करें", installation: "इंस्टॉलेशन", "adding-sources": "स्रोत जोड़ें", library: "लाइब्रेरी", browse: "ब्राउज़ करें", extensions: "एक्सटेंशन", "local-source": "स्थानीय स्रोत", "video-player": "वीडियो प्लेयर", "player-settings": "प्लेयर सेटिंग्स", subtitles: "सबटाइटल", reader: "रीडर", "reader-settings": "रीडर सेटिंग्स", updates: "अपडेट", downloads: "डाउनलोड", categories: "श्रेणियाँ", tracking: "ट्रैकिंग", backups: "बैकअप", storage: "स्टोरेज", settings: "सेटिंग्स", "extension-runtime": "एक्सटेंशन रनटाइम", "extension-contract": "स्रोत अनुबंध", "ui-schema": "नेटिव UI स्कीमा", api: "सर्वर API", cli: "हेडलेस CLI", deployment: "डिप्लॉयमेंट", troubleshooting: "समस्या निवारण", faq: "सामान्य प्रश्न", contribute: "योगदान करें" },
+  id: { "getting-started": "Memulai", installation: "Instalasi", "adding-sources": "Menambahkan sumber", library: "Pustaka", browse: "Jelajahi", extensions: "Ekstensi", "local-source": "Sumber lokal", "video-player": "Pemutar video", "player-settings": "Pengaturan pemutar", subtitles: "Subtitle", reader: "Pembaca", "reader-settings": "Pengaturan pembaca", updates: "Pembaruan", downloads: "Unduhan", categories: "Kategori", tracking: "Pelacakan", backups: "Cadangan", storage: "Penyimpanan", settings: "Pengaturan", "extension-runtime": "Runtime ekstensi", "extension-contract": "Kontrak sumber", "ui-schema": "Skema UI native", api: "API server", cli: "CLI headless", deployment: "Penerapan", troubleshooting: "Pemecahan masalah", faq: "FAQ", contribute: "Berkontribusi" },
+  th: { "getting-started": "เริ่มต้นใช้งาน", installation: "การติดตั้ง", "adding-sources": "เพิ่มแหล่ง", library: "คลัง", browse: "เรียกดู", extensions: "ส่วนขยาย", "local-source": "แหล่งในเครื่อง", "video-player": "เครื่องเล่นวิดีโอ", "player-settings": "การตั้งค่าเครื่องเล่น", subtitles: "คำบรรยาย", reader: "ตัวอ่าน", "reader-settings": "การตั้งค่าตัวอ่าน", updates: "อัปเดต", downloads: "ดาวน์โหลด", categories: "หมวดหมู่", tracking: "การติดตาม", backups: "สำรองข้อมูล", storage: "ที่จัดเก็บ", settings: "การตั้งค่า", "extension-runtime": "รันไทม์ส่วนขยาย", "extension-contract": "สัญญาแหล่ง", "ui-schema": "สคีมา UI เนทีฟ", api: "API เซิร์ฟเวอร์", cli: "CLI แบบไม่มีหน้าจอ", deployment: "การปรับใช้", troubleshooting: "การแก้ปัญหา", faq: "คำถามที่พบบ่อย", contribute: "มีส่วนร่วม" }
+};
+
+export const getGroupLabels = (code) => GROUP_LABELS[code] || GROUP_LABELS.en;
+export const getNavLabels = (code) => NAV_LABELS[code] || NAV_LABELS.en;
 
 export const UI = {
   en: {
-    groups: { map: "App map", extensions: "Extension system", experience: "Experience & UI", platform: "Platform", support: "Troubleshooting" },
-    nav: {
-      overview: "Overview", appMap: "Application map", contentTypes: "Content types",
-      extensionRuntime: "JS runtime", extensionTypes: "Extension types", extensionContract: "Source contract",
-      uiSchema: "Native UI schema", layouts: "ui-layouts.json", watchHome: "Watch home", homeWidgets: "Home widgets",
-      api: "Server API", downloads: "Downloads", trackers: "Tracking", gettingStarted: "Build locally",
-      deployment: "Deploy", troubleshooting: "Troubleshooting", cloudflare: "Cloudflare & anti-bot", cli: "Headless CLI"
-    },
     docsLabel: "Documentation",
     sidebarTagline: "The guide to staying on top.",
     onThisPage: "ON THIS PAGE",
@@ -69,6 +114,7 @@ export const UI = {
     contractExample: "Contract / example",
     nextStep: "Next step",
     continueLabel: "Continue",
+    previous: "Previous",
     source: "Source",
     footer: "Open source media, kept in view.",
     noteTitle: "One map, two runtimes.",
@@ -79,14 +125,6 @@ export const UI = {
     copied: "Copied"
   },
   fr: {
-    groups: { map: "Carte de l’app", extensions: "Système d’extensions", experience: "Expérience & UI", platform: "Plateforme", support: "Dépannage" },
-    nav: {
-      overview: "Vue d’ensemble", appMap: "Carte de l’application", contentTypes: "Types de contenus",
-      extensionRuntime: "Runtime JS", extensionTypes: "Types d’extensions", extensionContract: "Contrat des sources",
-      uiSchema: "Schéma UI natif", layouts: "ui-layouts.json", watchHome: "Accueil Watch", homeWidgets: "Widgets de l’accueil",
-      api: "API serveur", downloads: "Téléchargements", trackers: "Suivi", gettingStarted: "Compiler localement",
-      deployment: "Déployer", troubleshooting: "Dépannage", cloudflare: "Cloudflare & anti-bot", cli: "CLI headless"
-    },
     docsLabel: "Documentation",
     sidebarTagline: "Le guide pour rester au sommet.",
     onThisPage: "SUR CETTE PAGE",
@@ -94,6 +132,7 @@ export const UI = {
     contractExample: "Contrat / exemple",
     nextStep: "Étape suivante",
     continueLabel: "Continuer",
+    previous: "Précédent",
     source: "Source",
     footer: "Des médias ouverts, toujours en vue.",
     noteTitle: "Une carte, deux runtimes.",
@@ -104,14 +143,6 @@ export const UI = {
     copied: "Copié"
   },
   es: {
-    groups: { map: "Mapa de la app", extensions: "Sistema de extensiones", experience: "Experiencia e interfaz", platform: "Plataforma", support: "Solución de problemas" },
-    nav: {
-      overview: "Resumen", appMap: "Mapa de la aplicación", contentTypes: "Tipos de contenido",
-      extensionRuntime: "Runtime JS", extensionTypes: "Tipos de extensión", extensionContract: "Contrato de fuentes",
-      uiSchema: "Esquema de UI nativa", layouts: "ui-layouts.json", watchHome: "Inicio Watch", homeWidgets: "Widgets de inicio",
-      api: "API del servidor", downloads: "Descargas", trackers: "Seguimiento", gettingStarted: "Compilar localmente",
-      deployment: "Desplegar", troubleshooting: "Solución de problemas", cloudflare: "Cloudflare y anti-bot", cli: "CLI headless"
-    },
     docsLabel: "Documentación",
     sidebarTagline: "La guía para mantenerte en la cima.",
     onThisPage: "EN ESTA PÁGINA",
@@ -119,6 +150,7 @@ export const UI = {
     contractExample: "Contrato / ejemplo",
     nextStep: "Siguiente paso",
     continueLabel: "Continuar",
+    previous: "Anterior",
     source: "Código",
     footer: "Medios abiertos, siempre a la vista.",
     noteTitle: "Un mapa, dos runtimes.",
@@ -129,14 +161,6 @@ export const UI = {
     copied: "Copiado"
   },
   pt: {
-    groups: { map: "Mapa do app", extensions: "Sistema de extensões", experience: "Experiência e interface", platform: "Plataforma", support: "Solução de problemas" },
-    nav: {
-      overview: "Visão geral", appMap: "Mapa da aplicação", contentTypes: "Tipos de conteúdo",
-      extensionRuntime: "Runtime JS", extensionTypes: "Tipos de extensão", extensionContract: "Contrato de fontes",
-      uiSchema: "Esquema de UI nativa", layouts: "ui-layouts.json", watchHome: "Início Watch", homeWidgets: "Widgets de início",
-      api: "API do servidor", downloads: "Downloads", trackers: "Rastreamento", gettingStarted: "Compilar localmente",
-      deployment: "Implantar", troubleshooting: "Solução de problemas", cloudflare: "Cloudflare e anti-bot", cli: "CLI headless"
-    },
     docsLabel: "Documentação",
     sidebarTagline: "O guia para permanecer no topo.",
     onThisPage: "NESTA PÁGINA",
@@ -144,6 +168,7 @@ export const UI = {
     contractExample: "Contrato / exemplo",
     nextStep: "Próximo passo",
     continueLabel: "Continuar",
+    previous: "Anterior",
     source: "Código",
     footer: "Mídia aberta, sempre à vista.",
     noteTitle: "Um mapa, dois runtimes.",
@@ -154,14 +179,6 @@ export const UI = {
     copied: "Copiado"
   },
   de: {
-    groups: { map: "App-Karte", extensions: "Erweiterungssystem", experience: "Erlebnis & UI", platform: "Plattform", support: "Fehlerbehebung" },
-    nav: {
-      overview: "Überblick", appMap: "Anwendungskarte", contentTypes: "Inhaltstypen",
-      extensionRuntime: "JS-Runtime", extensionTypes: "Erweiterungstypen", extensionContract: "Quellen-Vertrag",
-      uiSchema: "Natives UI-Schema", layouts: "ui-layouts.json", watchHome: "Watch-Start", homeWidgets: "Start-Widgets",
-      api: "Server-API", downloads: "Downloads", trackers: "Tracking", gettingStarted: "Lokal bauen",
-      deployment: "Bereitstellen", troubleshooting: "Fehlerbehebung", cloudflare: "Cloudflare & Anti-Bot", cli: "Headless-CLI"
-    },
     docsLabel: "Dokumentation",
     sidebarTagline: "Der Leitfaden, um oben zu bleiben.",
     onThisPage: "AUF DIESER SEITE",
@@ -169,6 +186,7 @@ export const UI = {
     contractExample: "Vertrag / Beispiel",
     nextStep: "Nächster Schritt",
     continueLabel: "Weiter",
+    previous: "Zurück",
     source: "Quellcode",
     footer: "Offene Medien, stets im Blick.",
     noteTitle: "Eine Karte, zwei Runtimes.",
@@ -179,14 +197,6 @@ export const UI = {
     copied: "Kopiert"
   },
   it: {
-    groups: { map: "Mappa app", extensions: "Sistema di estensioni", experience: "Esperienza e UI", platform: "Piattaforma", support: "Risoluzione problemi" },
-    nav: {
-      overview: "Panoramica", appMap: "Mappa dell’applicazione", contentTypes: "Tipi di contenuto",
-      extensionRuntime: "Runtime JS", extensionTypes: "Tipi di estensione", extensionContract: "Contratto sorgenti",
-      uiSchema: "Schema UI nativo", layouts: "ui-layouts.json", watchHome: "Home Watch", homeWidgets: "Widget home",
-      api: "API server", downloads: "Download", trackers: "Tracciamento", gettingStarted: "Compila in locale",
-      deployment: "Distribuisci", troubleshooting: "Risoluzione problemi", cloudflare: "Cloudflare e anti-bot", cli: "CLI headless"
-    },
     docsLabel: "Documentazione",
     sidebarTagline: "La guida per restare in cima.",
     onThisPage: "IN QUESTA PAGINA",
@@ -194,6 +204,7 @@ export const UI = {
     contractExample: "Contratto / esempio",
     nextStep: "Passo successivo",
     continueLabel: "Continua",
+    previous: "Precedente",
     source: "Sorgente",
     footer: "Media aperti, sempre in vista.",
     noteTitle: "Una mappa, due runtime.",
@@ -204,14 +215,6 @@ export const UI = {
     copied: "Copiato"
   },
   ru: {
-    groups: { map: "Карта приложения", extensions: "Система расширений", experience: "Опыт и интерфейс", platform: "Платформа", support: "Устранение неполадок" },
-    nav: {
-      overview: "Обзор", appMap: "Карта приложения", contentTypes: "Типы контента",
-      extensionRuntime: "JS-рантайм", extensionTypes: "Типы расширений", extensionContract: "Контракт источников",
-      uiSchema: "Схема нативного UI", layouts: "ui-layouts.json", watchHome: "Главная Watch", homeWidgets: "Виджеты главной",
-      api: "API сервера", downloads: "Загрузки", trackers: "Отслеживание", gettingStarted: "Сборка локально",
-      deployment: "Развёртывание", troubleshooting: "Устранение неполадок", cloudflare: "Cloudflare и анти-бот", cli: "Headless CLI"
-    },
     docsLabel: "Документация",
     sidebarTagline: "Руководство, чтобы оставаться на вершине.",
     onThisPage: "НА ЭТОЙ СТРАНИЦЕ",
@@ -219,6 +222,7 @@ export const UI = {
     contractExample: "Контракт / пример",
     nextStep: "Следующий шаг",
     continueLabel: "Продолжить",
+    previous: "Назад",
     source: "Исходный код",
     footer: "Открытые медиа — всегда на виду.",
     noteTitle: "Одна карта, два рантайма.",
@@ -229,14 +233,6 @@ export const UI = {
     copied: "Скопировано"
   },
   ar: {
-    groups: { map: "خريطة التطبيق", extensions: "نظام الإضافات", experience: "التجربة والواجهة", platform: "المنصة", support: "استكشاف الأخطاء" },
-    nav: {
-      overview: "نظرة عامة", appMap: "خريطة التطبيق", contentTypes: "أنواع المحتوى",
-      extensionRuntime: "بيئة تشغيل JS", extensionTypes: "أنواع الإضافات", extensionContract: "عقد المصادر",
-      uiSchema: "مخطط الواجهة الأصلية", layouts: "ui-layouts.json", watchHome: "رئيسية Watch", homeWidgets: "ودجات الرئيسية",
-      api: "واجهة الخادم", downloads: "التنزيلات", trackers: "التتبع", gettingStarted: "البناء محليًا",
-      deployment: "النشر", troubleshooting: "استكشاف الأخطاء", cloudflare: "Cloudflare ومكافحة الروبوتات", cli: "واجهة headless"
-    },
     docsLabel: "التوثيق",
     sidebarTagline: "الدليل للبقاء في القمة.",
     onThisPage: "في هذه الصفحة",
@@ -244,6 +240,7 @@ export const UI = {
     contractExample: "العقد / مثال",
     nextStep: "الخطوة التالية",
     continueLabel: "متابعة",
+    previous: "السابق",
     source: "المصدر",
     footer: "وسائط مفتوحة، دائمًا في المرأى.",
     noteTitle: "خريطة واحدة، بيئتا تشغيل.",
@@ -254,14 +251,6 @@ export const UI = {
     copied: "تم النسخ"
   },
   ja: {
-    groups: { map: "アプリ構成", extensions: "拡張システム", experience: "体験と UI", platform: "プラットフォーム", support: "トラブルシューティング" },
-    nav: {
-      overview: "概要", appMap: "アプリケーションマップ", contentTypes: "コンテンツ種別",
-      extensionRuntime: "JS ランタイム", extensionTypes: "拡張の種類", extensionContract: "ソース契約",
-      uiSchema: "ネイティブ UI スキーマ", layouts: "ui-layouts.json", watchHome: "Watch ホーム", homeWidgets: "ホームウィジェット",
-      api: "サーバー API", downloads: "ダウンロード", trackers: "トラッキング", gettingStarted: "ローカルでビルド",
-      deployment: "デプロイ", troubleshooting: "トラブルシューティング", cloudflare: "Cloudflare と anti-bot", cli: "ヘッドレス CLI"
-    },
     docsLabel: "ドキュメント",
     sidebarTagline: "頂点に立ち続けるためのガイド。",
     onThisPage: "このページ",
@@ -269,6 +258,7 @@ export const UI = {
     contractExample: "契約 / 例",
     nextStep: "次のステップ",
     continueLabel: "続ける",
+    previous: "前へ",
     source: "ソース",
     footer: "オープンなメディアを、常に視界に。",
     noteTitle: "ひとつの地図、ふたつのランタイム。",
@@ -279,14 +269,6 @@ export const UI = {
     copied: "コピーしました"
   },
   ko: {
-    groups: { map: "앱 구조", extensions: "확장 시스템", experience: "경험 및 UI", platform: "플랫폼", support: "문제 해결" },
-    nav: {
-      overview: "개요", appMap: "애플리케이션 맵", contentTypes: "콘텐츠 유형",
-      extensionRuntime: "JS 런타임", extensionTypes: "확장 유형", extensionContract: "소스 계약",
-      uiSchema: "네이티브 UI 스키마", layouts: "ui-layouts.json", watchHome: "Watch 홈", homeWidgets: "홈 위젯",
-      api: "서버 API", downloads: "다운로드", trackers: "트래킹", gettingStarted: "로컬 빌드",
-      deployment: "배포", troubleshooting: "문제 해결", cloudflare: "Cloudflare 및 anti-bot", cli: "헤드리스 CLI"
-    },
     docsLabel: "문서",
     sidebarTagline: "정상을 유지하기 위한 안내서.",
     onThisPage: "이 페이지에서",
@@ -294,6 +276,7 @@ export const UI = {
     contractExample: "계약 / 예제",
     nextStep: "다음 단계",
     continueLabel: "계속",
+    previous: "이전",
     source: "소스",
     footer: "열린 미디어를 항상 시야에.",
     noteTitle: "하나의 지도, 두 개의 런타임.",
@@ -304,14 +287,6 @@ export const UI = {
     copied: "복사됨"
   },
   zh: {
-    groups: { map: "应用地图", extensions: "扩展系统", experience: "体验与界面", platform: "平台", support: "故障排除" },
-    nav: {
-      overview: "概述", appMap: "应用架构", contentTypes: "内容类型",
-      extensionRuntime: "JS 运行时", extensionTypes: "扩展类型", extensionContract: "源契约",
-      uiSchema: "原生 UI 架构", layouts: "ui-layouts.json", watchHome: "Watch 首页", homeWidgets: "首页组件",
-      api: "服务器 API", downloads: "下载", trackers: "追踪", gettingStarted: "本地构建",
-      deployment: "部署", troubleshooting: "故障排除", cloudflare: "Cloudflare 与反爬", cli: "无头 CLI"
-    },
     docsLabel: "文档",
     sidebarTagline: "保持领先的指南。",
     onThisPage: "本页内容",
@@ -319,6 +294,7 @@ export const UI = {
     contractExample: "契约 / 示例",
     nextStep: "下一步",
     continueLabel: "继续",
+    previous: "上一页",
     source: "源码",
     footer: "开放媒体，始终可见。",
     noteTitle: "一张地图，两种运行时。",
@@ -329,14 +305,6 @@ export const UI = {
     copied: "已复制"
   },
   tr: {
-    groups: { map: "Uygulama haritası", extensions: "Uzantı sistemi", experience: "Deneyim ve arayüz", platform: "Platform", support: "Sorun giderme" },
-    nav: {
-      overview: "Genel bakış", appMap: "Uygulama haritası", contentTypes: "İçerik türleri",
-      extensionRuntime: "JS çalışma zamanı", extensionTypes: "Uzantı türleri", extensionContract: "Kaynak sözleşmesi",
-      uiSchema: "Yerel UI şeması", layouts: "ui-layouts.json", watchHome: "Watch ana sayfa", homeWidgets: "Ana sayfa bileşenleri",
-      api: "Sunucu API", downloads: "İndirmeler", trackers: "Takip", gettingStarted: "Yerel derleme",
-      deployment: "Dağıtım", troubleshooting: "Sorun giderme", cloudflare: "Cloudflare ve anti-bot", cli: "Headless CLI"
-    },
     docsLabel: "Belgeler",
     sidebarTagline: "Zirvede kalmak için rehber.",
     onThisPage: "BU SAYFADA",
@@ -344,6 +312,7 @@ export const UI = {
     contractExample: "Sözleşme / örnek",
     nextStep: "Sonraki adım",
     continueLabel: "Devam et",
+    previous: "Önceki",
     source: "Kaynak",
     footer: "Açık medya, her zaman görünürde.",
     noteTitle: "Tek harita, iki çalışma zamanı.",
@@ -354,14 +323,6 @@ export const UI = {
     copied: "Kopyalandı"
   },
   hi: {
-    groups: { map: "ऐप मैप", extensions: "एक्सटेंशन सिस्टम", experience: "अनुभव और UI", platform: "प्लेटफ़ॉर्म", support: "समस्या निवारण" },
-    nav: {
-      overview: "अवलोकन", appMap: "एप्लिकेशन मैप", contentTypes: "सामग्री प्रकार",
-      extensionRuntime: "JS रनटाइम", extensionTypes: "एक्सटेंशन प्रकार", extensionContract: "स्रोत अनुबंध",
-      uiSchema: "नेटिव UI स्कीमा", layouts: "ui-layouts.json", watchHome: "Watch होम", homeWidgets: "होम विजेट",
-      api: "सर्वर API", downloads: "डाउनलोड", trackers: "ट्रैकिंग", gettingStarted: "स्थानीय बिल्ड",
-      deployment: "डिप्लॉय", troubleshooting: "समस्या निवारण", cloudflare: "Cloudflare और anti-bot", cli: "हेडलेस CLI"
-    },
     docsLabel: "दस्तावेज़",
     sidebarTagline: "शीर्ष पर बने रहने की मार्गदर्शिका।",
     onThisPage: "इस पृष्ठ पर",
@@ -369,6 +330,7 @@ export const UI = {
     contractExample: "अनुबंध / उदाहरण",
     nextStep: "अगला चरण",
     continueLabel: "जारी रखें",
+    previous: "पिछला",
     source: "स्रोत",
     footer: "खुला मीडिया, सदा दृष्टि में।",
     noteTitle: "एक मैप, दो रनटाइम।",
@@ -379,14 +341,6 @@ export const UI = {
     copied: "कॉपी किया गया"
   },
   id: {
-    groups: { map: "Peta aplikasi", extensions: "Sistem ekstensi", experience: "Pengalaman & UI", platform: "Platform", support: "Pemecahan masalah" },
-    nav: {
-      overview: "Ringkasan", appMap: "Peta aplikasi", contentTypes: "Jenis konten",
-      extensionRuntime: "Runtime JS", extensionTypes: "Jenis ekstensi", extensionContract: "Kontrak sumber",
-      uiSchema: "Skema UI native", layouts: "ui-layouts.json", watchHome: "Beranda Watch", homeWidgets: "Widget beranda",
-      api: "API server", downloads: "Unduhan", trackers: "Pelacakan", gettingStarted: "Bangun secara lokal",
-      deployment: "Deploy", troubleshooting: "Pemecahan masalah", cloudflare: "Cloudflare & anti-bot", cli: "CLI headless"
-    },
     docsLabel: "Dokumentasi",
     sidebarTagline: "Panduan untuk tetap di puncak.",
     onThisPage: "DI HALAMAN INI",
@@ -394,6 +348,7 @@ export const UI = {
     contractExample: "Kontrak / contoh",
     nextStep: "Langkah berikutnya",
     continueLabel: "Lanjutkan",
+    previous: "Sebelumnya",
     source: "Sumber",
     footer: "Media terbuka, selalu terlihat.",
     noteTitle: "Satu peta, dua runtime.",
@@ -404,14 +359,6 @@ export const UI = {
     copied: "Disalin"
   },
   th: {
-    groups: { map: "แผนผังแอป", extensions: "ระบบส่วนขยาย", experience: "ประสบการณ์และ UI", platform: "แพลตฟอร์ม", support: "การแก้ปัญหา" },
-    nav: {
-      overview: "ภาพรวม", appMap: "แผนผังแอปพลิเคชัน", contentTypes: "ประเภทเนื้อหา",
-      extensionRuntime: "รันไทม์ JS", extensionTypes: "ประเภทส่วนขยาย", extensionContract: "สัญญาแหล่งที่มา",
-      uiSchema: "สคีมา UI แบบเนทีฟ", layouts: "ui-layouts.json", watchHome: "หน้าแรก Watch", homeWidgets: "วิดเจ็ตหน้าแรก",
-      api: "API เซิร์ฟเวอร์", downloads: "ดาวน์โหลด", trackers: "การติดตาม", gettingStarted: "บิลด์ในเครื่อง",
-      deployment: "ดีพลอย", troubleshooting: "การแก้ปัญหา", cloudflare: "Cloudflare และ anti-bot", cli: "CLI แบบ headless"
-    },
     docsLabel: "เอกสาร",
     sidebarTagline: "คู่มือเพื่ออยู่บนจุดสูงสุด",
     onThisPage: "ในหน้านี้",
@@ -419,6 +366,7 @@ export const UI = {
     contractExample: "สัญญา / ตัวอย่าง",
     nextStep: "ขั้นตอนถัดไป",
     continueLabel: "ดำเนินการต่อ",
+    previous: "ก่อนหน้า",
     source: "ซอร์ส",
     footer: "สื่อเปิด อยู่ในสายตาเสมอ",
     noteTitle: "หนึ่งแผนที่ สองรันไทม์",
@@ -430,5 +378,5 @@ export const UI = {
   }
 };
 
-export const getUi = (code) => UI[code] || UI.en;
+export const getUi = (code) => ({ ...(UI[code] || UI.en), groups: getGroupLabels(code), nav: getNavLabels(code) });
 export const getDir = (code) => (LANGUAGES.find((l) => l.code === code) || LANGUAGES[0]).dir;
