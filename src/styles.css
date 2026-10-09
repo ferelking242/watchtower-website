@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap");
+@import url("/assets/fonts.css");
 
 :root {
   color-scheme: dark;
@@ -131,6 +131,8 @@ h1, h2, p { margin-top: 0; }
 .language-menu button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 9px 10px; border-radius: 7px; background: transparent; color: var(--muted); font: 11.5px "DM Mono", monospace; text-align: left; }
 .language-menu button:hover, .language-menu button.selected { color: var(--text); background: rgba(255,255,255,.06); }
 .language-menu button.selected { font-weight: 500; }
+.language-state { display: inline-flex; align-items: center; gap: 8px; }
+.language-state em { padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--faint); font: 8.5px "DM Mono", monospace; font-style: normal; letter-spacing: .07em; text-transform: uppercase; }
 .mobile-menu-button { display: none; place-items: center; padding: 7px; color: var(--muted); background: transparent; }
 .docs-layout { display: grid; grid-template-columns: 212px minmax(0, 1fr) 176px; min-height: calc(100svh - 70px); }
 .docs-sidebar { display: flex; flex-direction: column; padding: 26px 18px 26px; border-right: 1px solid var(--line); }
@@ -194,6 +196,33 @@ h1, h2, p { margin-top: 0; }
 .code-top button { display: grid; place-items: center; padding: 5px; border-radius: 6px; background: transparent; color: var(--faint); transition: color .2s ease, background .2s ease; }
 .code-top button:hover { color: var(--text); background: rgba(255,255,255,.08); }
 pre { overflow-x: auto; margin: 0; padding: 24px 22px 28px; color: #f0b8a6; font: 12.5px/1.85 "DM Mono", monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.code-meta { display: inline-flex; align-items: center; gap: 10px; }
+.code-lang { padding: 2px 7px; border: 1px solid var(--line); border-radius: 5px; color: var(--faint); font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; }
+.code-card { position: relative; }
+.code-toast { position: absolute; right: 16px; bottom: 14px; padding: 5px 11px; border-radius: 7px; background: var(--accent); color: #fff; font: 10px "DM Mono", monospace; letter-spacing: .06em; animation: fade-in .2s ease both; }
+
+/* Search hits replace the tree while a query is active. */
+.search-hit { display: grid; gap: 3px; width: 100%; padding: 9px 10px; border-radius: 7px; background: transparent; text-align: left; transition: background .18s ease; }
+.search-hit:hover { background: rgba(255,255,255,.05); }
+.search-hit.active { background: var(--accent-soft); }
+.search-hit-title { color: var(--text); font-size: 12.5px; font-weight: 600; }
+.search-hit-sub { overflow: hidden; color: var(--faint); font-size: 11px; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Token colours for highlight.js output, tuned to the docs palette. */
+.hljs-comment, .hljs-quote { color: #6f7a72; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section { color: #e0705a; }
+.hljs-string, .hljs-attr, .hljs-addition, .hljs-template-tag { color: #9fc08a; }
+.hljs-number, .hljs-symbol, .hljs-bullet { color: #c9a24a; }
+.hljs-title, .hljs-name, .hljs-selector-id, .hljs-selector-class { color: #e8b88c; }
+.hljs-attribute, .hljs-variable, .hljs-template-variable { color: #8fb6c9; }
+.hljs-built_in, .hljs-type { color: #c9a24a; }
+.hljs-meta { color: #8b8f86; }
+:root[data-theme="light"] .hljs-comment, :root[data-theme="light"] .hljs-quote { color: #7c857e; }
+:root[data-theme="light"] .hljs-keyword, :root[data-theme="light"] .hljs-selector-tag, :root[data-theme="light"] .hljs-literal, :root[data-theme="light"] .hljs-section { color: #b5342a; }
+:root[data-theme="light"] .hljs-string, :root[data-theme="light"] .hljs-attr { color: #3f7a3a; }
+:root[data-theme="light"] .hljs-number, :root[data-theme="light"] .hljs-built_in, :root[data-theme="light"] .hljs-type { color: #8a6410; }
+:root[data-theme="light"] .hljs-title, :root[data-theme="light"] .hljs-name { color: #9a5220; }
+:root[data-theme="light"] .hljs-attribute, :root[data-theme="light"] .hljs-variable { color: #2f6b86; }
 .docs-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; padding-top: 30px; border-top: 1px solid var(--line); }
 .pager-card { display: grid; gap: 7px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); text-align: left; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
 .pager-card:hover { border-color: var(--line-bright); background: var(--surface-2); transform: translateY(-2px); }

@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { LANGUAGES, LANGUAGE_CODES, SECTION_GROUPS, SECTION_IDS, SECTION_ICONS, getUi, getDir } from "./i18n.js";
-import { getContent } from "./content/index.js";
+import { getContent, hasFullTranslation } from "./content/index.js";
+import { highlightCode } from "./lib/highlight.js";
+import { buildSearchIndex, rankSearch } from "./lib/search.js";
 
 
 const Icon = ({ name, size = 18, strokeWidth = 1.6 }) => {
@@ -83,7 +85,7 @@ function LoadingScreen({ copy, onFinish }) {
   );
 }
 
-function LanguagePicker({ language, setLanguage }) {
+function LanguagePicker({ language, setLanguage, t }) {
   const [open, setOpen] = useState(false);
   const current = LANGUAGES.find((item) => item.code === language) || LANGUAGES[0];
   return (
@@ -93,13 +95,45 @@ function LanguagePicker({ language, setLanguage }) {
       </button>
       {open && (
         <div className="language-menu" role="menu">
-          {LANGUAGES.map((item) => (
-            <button key={item.code} className={language === item.code ? "selected" : ""} onClick={() => { setLanguage(item.code); setOpen(false); }} role="menuitem">
-              <span><b>{item.flag}</b>{item.label}</span><span>{language === item.code && <Icon name="check" size={14} />}</span>
-            </button>
-          ))}
+          {LANGUAGES.map((item) => {
+            const complete = hasFullTranslation(item.code);
+            return (
+              <button key={item.code} className={language === item.code ? "selected" : ""} onClick={() => { setLanguage(item.code); setOpen(false); }} role="menuitem">
+                <span><b>{item.flag}</b>{item.label}</span>
+                <span className="language-state">
+                  {!complete && <em title={t.partialTranslation}>{t.partialShort}</em>}
+                  {language === item.code && <Icon name="check" size={14} />}
+                </span>
+              </button>
+            );
+          })}
         </div>
       )}
+    </div>
+  );
+}
+
+function CodeBlock({ code, title, copyLabel, copiedLabel }) {
+  const [copied, setCopied] = useState(false);
+  const { html, label } = useMemo(() => highlightCode(code), [code]);
+  const copy = () => {
+    navigator.clipboard?.writeText(code);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
+  return (
+    <div className="code-card" id="docs-example">
+      <div className="code-top">
+        <span><i /> {title}</span>
+        <span className="code-meta">
+          <span className="code-lang">{label}</span>
+          <button onClick={copy} aria-label={copyLabel}>
+            {copied ? <Icon name="check" size={14} /> : <Icon name="copy" size={14} />}
+          </button>
+        </span>
+      </div>
+      <pre><code className="hljs" dangerouslySetInnerHTML={{ __html: html }} /></pre>
+      {copied && <span className="code-toast">{copiedLabel}</span>}
     </div>
   );
 }
@@ -109,59 +143,44 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [collapsed, setCollapsed] = useState(() => new Set());
-  const [copied, setCopied] = useState(false);
   const dir = getDir(language);
 
-  const filteredGroups = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return sectionGroups;
-    const matches = (section) => {
-      const page = content[section.id];
-      const haystack = [t.nav[section.key], page?.title, page?.body, ...(page?.subsections || []).flat()]
-        .join(" ")
-        .toLowerCase();
-      return haystack.includes(q);
-    };
-    return sectionGroups
-      .map((group) => ({
-        ...group,
-        items: group.items
-          .map((item) => {
-            if (!item.children) return matches(item) ? item : null;
-            if (matches(item)) return item;
-            const kids = item.children.filter(matches);
-            return kids.length ? { ...item, children: kids } : null;
-          })
-          .filter(Boolean)
-      }))
-      .filter((group) => group.items.length > 0);
-  }, [query, t, content]);
+  const fuse = useMemo(() => buildSearchIndex(sections, t.nav, content), [t, content]);
+  const results = useMemo(() => rankSearch(fuse, query), [fuse, query]);
+  const searching = query.trim().length > 0;
 
   const page = content[active] || content["getting-started"];
   const currentIndex = sections.findIndex((item) => item.id === active);
   const prevSection = sections[(currentIndex - 1 + sections.length) % sections.length];
   const nextSection = sections[(currentIndex + 1) % sections.length];
-  const selectSection = (id) => { setActive(id); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const parentOfActive = sectionGroups
+    .flatMap((group) => group.items)
+    .find((item) => item.children?.some((child) => child.id === active))?.id;
+
+  const goTo = (id, anchor) => {
+    setActive(id);
+    setMenuOpen(false);
+    window.requestAnimationFrame(() => {
+      if (anchor && anchor !== "docs-summary") {
+        document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  };
+  const selectSection = (id) => goTo(id, null);
   const toggleGroup = (id) => setCollapsed((prev) => {
     const next = new Set(prev);
     next.has(id) ? next.delete(id) : next.add(id);
     return next;
   });
-  const copyCode = () => {
-    navigator.clipboard?.writeText(page.code);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
-  const parentOfActive = sectionGroups
-    .flatMap((group) => group.items)
-    .find((item) => item.children?.some((child) => child.id === active))?.id;
 
   return (
     <div className="docs-shell" dir={dir}>
       <header className="docs-topbar">
         <button className="docs-brand" onClick={onHome}><span className="brand-mark"><i /><i /><i /></span><span>WATCHTOWER <small>/ DOCS</small></span></button>
         <div className="docs-top-actions">
-          <LanguagePicker language={language} setLanguage={setLanguage} />
+          <LanguagePicker language={language} setLanguage={setLanguage} t={t} />
           <button className="topbar-action theme-switch" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={theme === "light"}>
             <Icon name={theme === "dark" ? "sun" : "moon"} size={14} /><span>{theme === "dark" ? "Dark" : "Light"}</span>
           </button>
@@ -178,11 +197,22 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
           <label className="sidebar-search">
             <Icon name="search" size={15} />
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t.searchPlaceholder} aria-label={t.searchPlaceholder} />
-            {query && <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label="Clear search"><Icon name="close" size={13} /></button>}
+            {query && <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label={t.clearSearch}><Icon name="close" size={13} /></button>}
           </label>
           <nav className="docs-nav">
-            {filteredGroups.length === 0 && <p className="docs-nav-empty">{t.noResults}</p>}
-            {filteredGroups.map((group) => (
+            {searching && (
+              <div className="docs-nav-group">
+                <span className="docs-nav-group-label">{t.searchResults}</span>
+                {results.length === 0 && <p className="docs-nav-empty">{t.noResults}</p>}
+                {results.map(({ page: doc, target }) => (
+                  <button key={doc.id} className={`search-hit ${active === doc.id ? "active" : ""}`} onClick={() => goTo(doc.id, target.anchor)}>
+                    <span className="search-hit-title">{doc.navLabel}</span>
+                    <span className="search-hit-sub">{target.kind === "page" ? doc.title : target.title}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {!searching && sectionGroups.map((group) => (
               <div className="docs-nav-group" key={group.key}>
                 <span className="docs-nav-group-label">{t.groups[group.key]}</span>
                 {group.items.map((section) => {
@@ -251,7 +281,7 @@ function Docs({ t, content, language, setLanguage, theme, setTheme, onHome }) {
                 <ul className="docs-facts">{page.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
               </section>
             </div>
-            <div className="code-card" id="docs-example"><div className="code-top"><span><i /> {t.contractExample}</span><button onClick={copyCode} aria-label={t.copy}>{copied ? <Icon name="check" size={14} /> : <Icon name="copy" size={14} />}</button></div><pre><code>{page.code}</code></pre></div>
+            <CodeBlock code={page.code} title={t.contractExample} copyLabel={t.copy} copiedLabel={t.copied} />
           </section>
           <nav className="docs-pager" aria-label={t.continueLabel}>
             <button className="pager-card prev" onClick={() => selectSection(prevSection.id)}>
