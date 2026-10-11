@@ -25,13 +25,15 @@ const en = {
       ["Install extensions", "Each extension teaches Watchtower one website. Tap install beside the ones you want, allow installation from unknown sources if Android asks, and the sources appear in Browse."],
       ["Build your library", "Open a source, find a series and tap Add to library. From then on Watchtower tracks your progress, checks for new chapters and keeps the entry in one place."],
       ["Pick your media types", "Watchtower handles manga, anime, novels and music side by side. Each type opens in its own reader or player, chosen automatically from what the extension declares."],
-      ["Common first-run surprises", "An empty Browse screen means no extension is installed yet, not a broken app. A repository that will not load is usually a stale URL or a captive network portal."]
+      ["Common first-run surprises", "An empty Browse screen means no extension is installed yet, not a broken app. A repository that will not load is usually a stale URL or a captive network portal."],
+      ["If the first screen looks empty", "An empty Browse list means no extension is installed yet, not a broken app. If a repository will not load, check that its address ends in index.min.json, then try again on another network before assuming it is gone."],
     ],
     facts: [
       "Watchtower ships with no content. Sources are yours to choose.",
       "Extensions are ordinary JavaScript run in a sandbox.",
       "Your library lives on your device, not on a Watchtower server.",
-      "Android 8.0+ is the floor for the mobile app."
+      "Android 8.0+ is the floor for the mobile app.",
+      "An empty Browse list means no extension is installed, not a failure.",
     ]
   },
 
@@ -56,13 +58,15 @@ sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux`,
       ["Linux command line", "A single binary with no window. It runs the same extension engine, so it can fetch, search and download on a server or over SSH. The installer script copies it and its runtime files into a prefix you choose."],
       ["Stable or preview", "Preview builds track the newest code and break more often. Keep automatic backups on if you run one, and expect to reinstall the release build if something goes wrong."],
       ["Building from source", "You need Flutter 3.38 or newer, Dart 3.10 or newer, and a Rust toolchain. Go 1.21 or newer is only needed if you want to rebuild the torrent server yourself."],
-      ["Keep it updated", "Watchtower tells you when a new version exists, and you install it the same way as the first time. Your library and settings carry over untouched."]
+      ["Keep it updated", "Watchtower tells you when a new version exists, and you install it the same way as the first time. Your library and settings carry over untouched."],
+      ["If the install fails", "The common installer messages are each explained on the errors page. A signature mismatch means a differently signed copy is already installed and has to be removed first, a corrupted download needs fetching again, and a mismatch of processor architecture means the wrong build was downloaded."]
     ],
     facts: [
       "Android is the only platform with published release builds.",
       "The headless binary is built for Linux x86_64.",
       "Rust is required to build from source; Go is optional.",
-      "Preview and stable installs share the same data, so switching keeps your library."
+      "Preview and stable installs share the same data, so switching keeps your library.",
+      "Remove a conflicting install before replacing it with a differently signed build."
     ]
   },
 
@@ -88,13 +92,15 @@ sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux`,
       ["Keep sources fresh", "Refresh a repository whenever you want newer extension versions. An update replaces the extension in place and keeps its settings, so there is nothing to reconfigure."],
       ["Use your own files", "Point Watchtower at a folder of manga or anime you already own and it becomes a normal source. No repository, no network, no account."],
       ["Only trust what you know", "A repository can serve anything, and an extension runs with the same access as the app. Treat an unknown repository the way you would treat an unknown installer."],
-      ["When a repository fails", "A URL that will not load is usually expired, blocked, or copied without its index path. Check that the address ends in index.min.json before assuming the repository is gone."]
+      ["When a repository fails", "A URL that will not load is usually expired, blocked, or copied without its index path. Check that the address ends in index.min.json before assuming the repository is gone."],
+      ["When a repository refuses to load", "A repository that fails to load is usually an expired address, a path that does not end in index.min.json, or a network that blocks it. Confirm the address, then try a different network before removing it."],
     ],
     facts: [
       "A repository is only a JSON file hosted on a web server.",
       "Updates keep your source preferences.",
       "Local folders work with no network at all.",
-      "Watchtower does not check or approve third-party repositories."
+      "Watchtower does not check or approve third-party repositories.",
+      "A repository that will not load is usually a wrong or expired address.",
     ]
   },
 
@@ -113,13 +119,15 @@ sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux`,
       ["Progress", "Watchtower remembers the exact episode or chapter you reached, per entry, and uploads that progress to a tracker when you have one connected."],
       ["Filters and sorting", "Hide what you have finished, show only what is downloaded, or sort by when a series last released. Filters are display-only and never delete anything."],
       ["Several devices", "There is no built-in sync between devices. Move your library with a backup file, and keep downloads separate, since they are not part of a backup."],
-      ["When an entry breaks", "If a series opens empty or loses its cover, its source changed underneath it. Refresh the entry, and migrate it to another source if the problem persists."]
+      ["When an entry breaks", "If a series opens empty or loses its cover, its source changed underneath it. Refresh the entry, and migrate it to another source if the problem persists."],
+      ["When an entry will not update or open", "If a series will not open, its source changed underneath it. Refresh the entry first, and migrate it to another source if the problem persists. A refresh that returns nothing means the extension is out of date rather than the app."],
     ],
     facts: [
       "Completed series are left alone by background updates.",
       "A series can belong to more than one category.",
       "Progress is tracked per chapter or episode, not per series.",
-      "Removing a series from the library does not delete your history."
+      "Removing a series from the library does not delete your history.",
+      "Refreshing fixes most broken entries; migration fixes the rest.",
     ]
   },
 
@@ -138,13 +146,15 @@ sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux`,
       ["When a title will not show up", "Sources often index the original language title rather than the English one. Try the native name, a romanised spelling, or a shorter fragment of it."],
       ["Moving between sources", "If a source slows down or stops working, migrate the entry instead of re-adding it. Watchtower matches the series on the new source and carries your progress and categories across."],
       ["Filtering by language", "Extensions are tagged with the language they serve. Hide the ones you cannot read so search results and listings stay relevant."],
-      ["Why results differ", "Each source indexes its own catalogue, so a title may be complete on one and partial on another. Comparing two sources before committing is normal."]
+      ["Why results differ", "Each source indexes its own catalogue, so a title may be complete on one and partial on another. Comparing two sources before committing is normal."],
+      ["When search returns nothing", "An empty search is usually a title mismatch rather than a broken source. Try the original-language name, a romanised spelling, or a shorter fragment, and remember that one source failing to answer does not stop the others."],
     ],
     facts: [
       "Search fans out to every enabled source at once.",
       "Sources without a popular list still work through search.",
       "Migration moves your progress, not your downloaded files.",
-      "Extension language tags drive the language filter."
+      "Extension language tags drive the language filter.",
+      "An empty search is usually a title mismatch, not a dead source.",
     ]
   },
 
@@ -165,13 +175,15 @@ A repository  →  a list of extensions, hosted as one JSON file`,
       ["Types of content", "An extension declares what it serves: manga, anime, novel, music or game. That declaration decides which reader or player opens when you tap a result."],
       ["Updates and removal", "Extensions update in place and keep their settings. Uninstalling one removes the extension only; your library entries survive and simply wait for a source to serve them again."],
       ["Why you should care who made it", "An extension runs inside Watchtower but can reach the network and read what you give it. Install from repositories you trust, and be cautious with anything unfamiliar."],
-      ["When an extension stops working", "Websites change, and a source breaks with them. That is usually a broken extension, not a broken app, and the fix arrives as an update."]
+      ["When an extension stops working", "Websites change, and a source breaks with them. That is usually a broken extension, not a broken app, and the fix arrives as an update."],
+      ["When an install or update fails", "A failed install is nearly always Android blocking unknown apps, and a failed update is a download that stopped partway. Allow installs from your file manager or browser, then retry, and reinstall from scratch if the file was truncated."],
     ],
     facts: [
       "Extensions are JavaScript, run in a sandbox inside the app.",
       "One extension covers one website.",
       "Installing and updating never touches your library.",
-      "A source that suddenly fails is usually a website change."
+      "A source that suddenly fails is usually a website change.",
+      "A failed install is usually Android, not the extension.",
     ]
   },
 
@@ -191,13 +203,15 @@ Grouped by language, filtered by what you can read.`,
       ["Removing an extension", "Uninstall it from the same screen. Your library entries stay put and simply show as unavailable until another source, or a reinstall, can serve them."],
       ["Keeping the list readable", "Extensions are grouped by language. Filter out the languages you do not read so the list shows only sources that are actually useful to you."],
       ["When nothing installs", "A failed install is almost always Android blocking unknown apps, not the extension. Allow installs from your file manager or browser, then try again."],
-      ["Keeping the catalogue current", "Refresh your repositories every so often. New extensions appear and broken ones get fixes, but nothing arrives until you ask for it."]
+      ["Keeping the catalogue current", "Refresh your repositories every so often. New extensions appear and broken ones get fixes, but nothing arrives until you ask for it."],
+      ["When an extension disappears", "An installed extension can vanish if Android removed it, or if it is hidden by the language filter or the adult-content toggle. Check the filters first, then reinstall it from the repository if it is genuinely gone."],
     ],
     facts: [
       "Updates preserve the settings you set on a source.",
       "Uninstalling an extension keeps your library entries.",
       "Extensions are grouped by language, not by repository.",
-      "Refreshing a repository is how you see new and updated extensions."
+      "Refreshing a repository is how you see new and updated extensions.",
+      "A missing extension is usually hidden by a filter, not uninstalled.",
     ]
   },
 
@@ -218,13 +232,15 @@ watchtower --cli extensions test --repo ./my-repo --mode smoke`,
       ["Testing without the app", "The command line can run a single call and print exactly what came back. That is much faster than installing the extension on a device every time you change a line."],
       ["What your code can use", "Requests, an HTML parser and a JSON parser. There is no file access, no database and no way to reach the app's own screens."],
       ["When output looks wrong", "If a field is empty, the parser is almost always the cause rather than the runtime. Compare what you return against what the source contract expects."],
-      ["Before you publish", "Run the extension against the live site, check the search, listing and page calls, and confirm the content type is correct so it opens in the right reader or player."]
+      ["Before you publish", "Run the extension against the live site, check the search, listing and page calls, and confirm the content type is correct so it opens in the right reader or player."],
+      ["When a call returns nothing", "An empty result is almost always a selector that no longer matches the site rather than a runtime fault. Fetch the page, compare your selectors against the current markup, and test the single call from the command line before rebuilding the app."],
     ],
     facts: [
       "A working source needs only a manifest and an entry file.",
       "The command line can test one call in isolation.",
       "Extensions can reach the network and parse pages, nothing more.",
-      "The content type you declare decides which reader or player opens."
+      "The content type you declare decides which reader or player opens.",
+      "An empty result is usually a selector that no longer matches.",
     ]
   },
 
@@ -246,13 +262,15 @@ watchtower --cli extensions test --repo ./my-repo --mode smoke`,
       ["Keeping the name stable", "The package name is the extension's identity. Change it and users get a second, separate extension instead of an update to the first."],
       ["Be clear about trust", "People installing from your repository are running your code with the app's access. Say who you are, and keep the repository somewhere you control."],
       ["Maintaining a source", "Websites change without warning, so expect to republish. Watch for reports that a source stopped working and fix it before users drift away."],
-      ["The index address matters", "The address you hand out must point at index.min.json. Any other path leaves people staring at a repository that refuses to load."]
+      ["The index address matters", "The address you hand out must point at index.min.json. Any other path leaves people staring at a repository that refuses to load."],
+      ["When users do not get your update", "The usual cause is a version number in the index that did not change, or a repository address pointing somewhere other than the index file. Raise the version, confirm the address, and check that the file is reachable over HTTPS."],
     ],
     facts: [
       "A repository is an HTTPS folder plus one JSON index.",
       "The version in the index is what tells users an update exists.",
       "A stable package name is what makes an update an update.",
-      "Expect to republish whenever the target website changes."
+      "Expect to republish whenever the target website changes.",
+      "An update nobody receives is usually an unchanged version number.",
     ]
   },
 
@@ -276,13 +294,15 @@ localanime/                  video
       ["Covers and details", "A cover image in the series folder becomes the thumbnail. A details file beside it can add author, artist, description and genres when the folder name is not enough."],
       ["Adding new files", "Move files in from outside the app, then refresh the local source so Watchtower rescans the folder. Files added while the app is closed are not noticed until you do."],
       ["Reading offline", "Local sources never touch the network, so they work in flight mode and cannot be blocked or rate-limited. Downloads and local files behave the same way once on disk."],
-      ["Hiding files from the gallery", "Drop a .nomedia file in the folder so covers and episodes stay out of your phone's photo app."]
+      ["Hiding files from the gallery", "Drop a .nomedia file in the folder so covers and episodes stay out of your phone's photo app."],
+      ["When covers are blank or files are missing", "A blank cover or a series that will not open almost always means the folder structure is wrong. Check that there is one folder per series and one file per chapter or episode, then remove the entry, clear the database for items outside the library, and let the local source rescan the folder."]
     ],
     facts: [
       "Both CBZ archives and plain image folders are read as chapters.",
       "Episode order follows the filename, so number your files.",
       "A .nomedia file keeps local media out of the system gallery.",
-      "Local sources work with no network connection at all."
+      "Local sources work with no network connection at all.",
+      "A wrong folder structure is the usual cause of a blank cover."
     ]
   },
 
@@ -303,13 +323,15 @@ Panels   episode list · playback statistics`,
       ["Subtitles", "Subtitle tracks come from the source or from a file you supply. They are chosen and adjusted from the subtitle sheet, and their appearance is set once in settings."],
       ["Episodes and stats", "A side panel lists every episode so you can jump around, and another shows what the player is actually doing with the stream when something looks off."],
       ["When the internal player struggles", "A rare codec or a broken stream can be handed to an external player such as mpv or VLC. That is the reliable fallback, not a sign the episode is unusable."],
-      ["Saving your place", "Progress is written continuously while you watch, so closing the app or losing power does not lose your position."]
+      ["Saving your place", "Progress is written continuously while you watch, so closing the app or losing power does not lose your position."],
+      ["When a video will not play", "A stream that refuses to start is often a codec the internal player cannot handle or a link that expired. Switch to an external player such as mpv or VLC first, then update the extension if every episode from that source fails."],
     ],
     facts: [
       "Playback uses a hardware-accelerated decoder by default.",
       "Gestures handle brightness, volume and seeking.",
       "Progress is saved continuously, not only when you exit.",
-      "An external player is the fallback for unsupported codecs."
+      "An external player is the fallback for unsupported codecs.",
+      "Handing a stubborn stream to an external player is the reliable fallback.",
     ]
   },
 
@@ -378,13 +400,16 @@ Tap the sides to turn a page. Tap the middle for the menu.`,
       ["Picking up where you left off", "Watchtower remembers the page you reached in each chapter, so reopening a series drops you exactly where you stopped rather than at the start."],
       ["Wide pages and spreads", "Two-page spreads and unusually wide scans can be split, rotated or scaled so they are not unreadable on a phone."],
       ["Downloaded chapters", "Chapters you downloaded open instantly and are marked in the chapter list, which is what makes reading offline practical."],
-      ["Novels", "Text novels use the same entry in your library but open in a text reader instead of an image viewer, chosen automatically from the extension's content type."]
+      ["Novels", "Text novels use the same entry in your library but open in a text reader instead of an image viewer, chosen automatically from the extension's content type."],
+      ["When a page will not load", "Occasionally the app fails to recognise an image in a chapter. Leaving the reader and reopening the chapter usually resolves it, and if it persists the image itself is missing on the source rather than in the app."],
+      ["Two pages at once", "A dual-page reader is not available, because scans rarely agree on where a page break falls. Reading one page at a time, or using long strip for webtoons, is the current behaviour."]
     ],
     facts: [
       "Long strip suits vertical webtoons and ignores page width.",
       "The reader remembers the page you reached per chapter.",
       "Zoom is off in long strip until you turn it on.",
-      "Novels open in a text reader, not the image reader."
+      "Novels open in a text reader, not the image reader.",
+      "Reopening a chapter fixes a page that failed to load."
     ]
   },
 
@@ -429,13 +454,15 @@ Series → menu → Refresh   check just this one`,
       ["Notifications", "New chapters and episodes raise a notification, which you can narrow to a category or mute entirely without turning updates off."],
       ["Refreshing one series", "Open the series menu and refresh it when you want to check immediately, without running an update over everything else."],
       ["Why this matters", "A source that receives too many requests can block the whole app with anti-bot protection. Limiting updates to what you follow protects the sources everyone depends on."],
-      ["If updates seem to stop", "Android battery optimisation can suspend background work. Exempt Watchtower from battery restrictions if updates only arrive when you open the app."]
+      ["If updates seem to stop", "Android battery optimisation can suspend background work. Exempt Watchtower from battery restrictions if updates only arrive when you open the app."],
+      ["When an update reports an error", "An update that fails on one series is usually that source rather than the app. Refresh the series by hand, update the extension, and remember that rate limiting after a large update run clears itself with time rather than with retries."],
     ],
     facts: [
       "Updates can be limited to the categories you choose.",
       "Completed series are skipped by default.",
       "Heavy update traffic can get a source to block the app.",
-      "Battery optimisation can delay background updates."
+      "Battery optimisation can delay background updates.",
+      "A failed update on one series points at that source, not the app.",
     ]
   },
 
@@ -456,13 +483,15 @@ One source downloads at a time; different sources run together.`,
       ["Downloads-only mode", "Turn this on to hide anything you have not saved. The app then shows only what is on your device, which is useful on a trip or a metered connection."],
       ["Where files are stored", "Downloads land under a folder named after the source, then the series. Renaming either folder breaks detection, so leave them alone."],
       ["When downloads disappear", "If saved content stops showing, the storage folder has probably moved or become unreadable. Check the storage location and rebuild the downloads index."],
-      ["What a backup does not cover", "Backup files carry your library and settings, never your downloaded media. Those have to be moved across separately."]
+      ["What a backup does not cover", "Backup files carry your library and settings, never your downloaded media. Those have to be moved across separately."],
+      ["When a download fails partway", "A stopped download is usually a dropped connection or a source that stopped answering. Retry from the queue, since partial files are kept, and switch to Wi-Fi if the network is the cause. Persistent 403 or 429 responses mean the source is refusing you, not that the file is gone."],
     ],
     facts: [
       "Only one series per source downloads at a time, on purpose.",
       "Downloaded media is not included in a backup.",
       "Internal storage is faster and more reliable than an SD card.",
-      "Renaming the downloads folder breaks detection."
+      "Renaming the downloads folder breaks detection.",
+      "A stopped download keeps its partial files, so retrying resumes it.",
     ]
   },
 
@@ -505,13 +534,16 @@ Changes made on the website do not come back.`,
       ["Connecting a series", "Open a series, go to tracking, and add the service. Watchtower searches for the title for you, and you can edit the search terms when it matches the wrong entry."],
       ["How much counts as watched", "A percentage threshold decides when an episode is marked as seen. Set it high enough that stopping halfway does not record a full episode."],
       ["One direction only", "Progress goes from Watchtower to the service. Editing your list on the website does not change anything in the app, so pick one place to manage it."],
-      ["Watching offline", "Progress you make without a connection is queued and uploaded the next time you are online, so a flight does not lose your history."]
+      ["Watching offline", "Progress you make without a connection is queued and uploaded the next time you are online, so a flight does not lose your history."],
+      ["When a login or a sync fails", "A service that refuses to log in is usually an expired session or a captcha on the service's own site, so sign in once through the service's website and try again. Progress that will not sync is normally queued rather than lost, and is retried when the connection returns."],
+      ["Matching the wrong title", "Automatic matching can pick the wrong entry when a title is ambiguous. Edit the search terms for that series in the tracking section and select the correct result, then confirm the progress it carries across is the one you want."]
     ],
     facts: [
       "Tracking is set up per series, not for the whole library.",
       "Progress only flows outward, never back in.",
       "A threshold decides when an episode counts as watched.",
-      "Offline progress uploads when you reconnect."
+      "Offline progress uploads when you reconnect.",
+      "A failed login is usually an expired session on the service itself."
     ]
   },
 
@@ -532,13 +564,15 @@ Data and storage → Create backup`,
       ["What is left out", "Downloaded files, custom covers and the history of series that were never added to the library. Those are not recoverable from a backup."],
       ["Restoring it", "Import the file on the new device, then log back in to your trackers and reinstall your extensions so everything can be relinked cleanly."],
       ["Automatic backups", "Set a frequency so a recent backup always exists without you remembering. This is the single best protection against a bad update."],
-      ["Moving to a new device", "Back up, install on the new device, restore, then log in to trackers and reinstall extensions. Downloads have to be copied across separately."]
+      ["Moving to a new device", "Back up, install on the new device, restore, then log in to trackers and reinstall extensions. Downloads have to be copied across separately."],
+      ["When a restore fails", "A restore that stops partway is usually a truncated or outdated backup file, or a version mismatch between the backup and the app. Re-create the backup from the source device, confirm the file copied completely, and restore onto an app that is at least as new as the one that made it."]
     ],
     facts: [
       "A backup is the only way to move a library between devices.",
       "Downloaded media must be moved separately.",
       "Custom covers are not part of a backup.",
-      "Automatic backups are the safest defence against a bad update."
+      "Automatic backups are the safest defence against a bad update.",
+      "A failed restore is usually a truncated or outdated backup file."
     ]
   },
 
@@ -558,13 +592,15 @@ Data and storage → Create backup`,
       ["Android permissions", "Modern Android keeps apps inside their own directories. Grant Watchtower access to the storage folder you chose, or downloads and local sources will fail quietly."],
       ["After moving files in", "Move files in from outside the app and then refresh, so Watchtower rescans the folders. Otherwise the new content stays invisible until something else triggers a scan."],
       ["Keeping the gallery clean", "A .nomedia file in the downloads folder keeps covers and episodes out of your phone's photo gallery."],
-      ["Why internal storage is better", "Downloads on internal storage are faster and far less likely to become unreadable than on a removable card, which can be unmounted or corrupted."]
+      ["Why internal storage is better", "Downloads on internal storage are faster and far less likely to become unreadable than on a removable card, which can be unmounted or corrupted."],
+      ["When the app cannot reach the folder", "Permission errors and disappearing downloads both come from the storage folder being moved or becoming unreadable. Confirm the app still has access, check free space, and prefer internal storage over a removable card that can be unmounted."],
     ],
     facts: [
       "Backups, downloads and local sources share one storage location.",
       "Android needs explicit permission for that folder.",
       "A .nomedia file hides downloaded media from the gallery.",
-      "Internal storage is more reliable than an SD card."
+      "Internal storage is more reliable than an SD card.",
+      "A moved or unreadable storage folder hides downloads and backups.",
     ]
   },
 
@@ -583,13 +619,17 @@ Diagnostics  crash logs · logcat · rebuild indexes`,
       ["Network", "Encrypted DNS can get past some basic blocking and is worth trying when a source will not load on one network but works on another. A proxy does the same job for a whole network."],
       ["Installing extensions", "Android normally blocks installs from outside a store. Granting that permission is what lets extensions install, and Shizuku is an alternative for devices that make it awkward."],
       ["Diagnostics", "Crash logs, a logcat capture and index rebuilding live here. This is where you go when something misbehaves and you want evidence rather than guesses."],
-      ["Before you report a problem", "Note your app version, the source that failed and what the screen showed. That turns a vague report into something that can actually be fixed."]
+      ["Before you report a problem", "Note your app version, the source that failed and what the screen showed. That turns a vague report into something that can actually be fixed."],
+      ["Resetting a stuck state", "Clearing the cache, clearing cookies and web data, and rebuilding the indexes each fix a different class of problem. Cache clears stale page data, cookies clear a stuck verification, and an index rebuild re-scans the storage folder. Clearing the database removes series that are not in your library, which is the usual fix for a blank local cover."],
+      ["A last resort that keeps your data", "If nothing else works, take a fresh backup, then reinstall the app and restore it. That keeps your library and settings while replacing anything corrupted in the install itself."]
     ],
     facts: [
       "The app-switcher privacy setting must be off to take screenshots.",
       "Incognito stops history recording, not progress.",
       "Crash logs stay on your device and are never sent automatically.",
-      "Encrypted DNS often fixes a source that fails on one network only."
+      "Encrypted DNS often fixes a source that fails on one network only.",
+      "Cache, cookies and indexes each fix a different class of problem.",
+      "Back up before reinstalling, then restore to keep your library."
     ]
   },
 
@@ -757,70 +797,104 @@ Does the site load in a browser?     if no, it is the source
 Does another source work right now?  if yes, it is one source
 Does the app work on mobile data?    if yes, it is your network
 
-Then:  update the extension → clear the app's web data → check permissions`,
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions`,
     subsections: [
       ["Start by narrowing it down", "Before touching any setting, decide whether the problem is the source, your network or your device. One source failing while others work points at that source; everything failing points at the app or the connection."],
+      ["Update everything first", "Refresh your repositories and install any extension updates, then check for an app update. A large share of sudden breakage is a website that changed and an extension that has already been fixed but not yet installed."],
       ["A source stopped working", "This is the most common problem and usually the least serious. The website changed, the extension needs an update, and refreshing your repository is the fix. If no update exists yet, the extension author has not caught up."],
-      ["Nothing loads at all", "If every source fails, look at the network instead. Try mobile data, another Wi-Fi network, and encrypted DNS in settings. A single network blocking everything is a frequent cause."],
-      ["A site keeps asking for verification", "Some sites put up a check before they will answer. Opening the source's own page in the built-in browser once usually clears it; clearing the app's stored web data resets a check that is stuck."],
-      ["An extension will not install", "Android blocks installs from outside a store by default. Allow it for your file manager or browser, and if that option is missing, use Shizuku as an alternative route."],
-      ["Content opens in the wrong place", "If a manga opens in the video player, or an episode in the reader, the extension declares the wrong content type. That is a fault in the extension, not in your settings."]
+      ["Nothing loads at all", "If every source fails, look at the network instead. Try mobile data, another Wi-Fi network, and encrypted DNS in settings. A single network blocking everything, or a captive portal that has not been signed in to, is a frequent cause."],
+      ["Opening a site to pass a check", "Some sites put up a verification before they answer. Open the source from Browse and use the built-in browser to load the site's own page, complete any check by hand, then close it and return to the app. Doing this once often clears the block for that source."],
+      ["Cloudflare and endless reloading", "A site behind Cloudflare can keep reloading its check instead of letting you through. Try opening the site in the built-in browser again, changing your user agent in advanced settings, or waiting for the site to lower its protection. Some sources are deliberately hard to use from an app."],
+      ["Clearing cookies and web data", "This resets the app's stored browsing state, including any logins. It is the correct fix for a check that is stuck, and it is worth doing before deciding a source is dead. You will need to sign in again afterwards if the source needs an account."],
+      ["Changing your user agent", "The user agent is the string that identifies your device to a website, and some sites treat it as a bot signal. Replacing the default with a common browser string, then restarting the app, sometimes gets past a check that otherwise loops."],
+      ["An extension will not install", "Android blocks installs from outside a store by default. Allow it for your file manager or browser, and if that option is missing, use Shizuku as an alternative route. A download that stopped partway produces a different message, so reinstall from scratch."],
+      ["Content opens in the wrong place", "If a manga opens in the video player, or an episode in the reader, the extension declares the wrong content type. That is a fault in the extension, not in your settings, so report it rather than trying to fix it locally."],
+      ["Getting crash logs and more detail", "Advanced settings can dump crash logs, and a logcat capture from your device shows what the app was doing in more depth. Both are worth attaching when you report a problem, since they turn a vague description into something that can be traced."],
+      ["Storage and slow or laggy reading", "Slow loading is usually the site, your connection, or a rate limit rather than the app. Laggy reading comes from oversized images in a chapter. Switching source, freeing memory, or waiting out a rate limit are the practical fixes."],
+      ["When it is not just you", "If other people see the same failure, it is the extension or the app rather than your setup. Check the project's issue tracker for the source before opening a new report, and include your app version and the exact error text."]
     ],
     facts: [
       "One broken source is almost always the source, not the app.",
       "A stale extension is the most common cause of sudden breakage.",
       "If every source fails, suspect the network before the app.",
-      "Installing extensions needs Android's permission for unknown apps."
+      "Opening a site in the built-in browser clears many verification checks.",
+      "Clearing cookies and web data resets a stuck check and any logins.",
+      "Crash logs and logcat make a bug report traceable."
     ]
   },
 
   errors: {
-    title: "What the error messages mean.",
-    body: "Watchtower surfaces a handful of errors far more often than any others. Here is what each one is actually telling you, and the first thing worth trying.",
+    title: "Every error message, and what it means.",
+    body: "Watchtower shows the raw error rather than hiding it, so the message itself is the fastest clue you have. Find yours below and try the first fix before changing anything else.",
     marker: "27",
     code: `403  Forbidden        the site is refusing automated requests
-429  Too many         you have been rate limited, wait
 404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
 5xx  Server error     the site itself is broken, nothing to fix locally
-Timeout              the network or the source is too slow
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
 Signature mismatch   an APK signed by someone else is already installed`,
     subsections: [
-      ["403 Forbidden", "The website has decided your request looks automated and is refusing it. In practice this is anti-bot protection. Try updating the extension first, then opening the source in the built-in browser to clear any check the site is holding."],
-      ["429 Too many requests", "You have been rate limited for making requests too quickly. Waiting is the actual fix, and reducing how often updates run is what stops it recurring. Retrying immediately only extends the block."],
-      ["404 Not found", "The page the extension expected has moved or been removed. This is a stale extension almost every time, so refresh your repository and update it."],
-      ["A 500 or other server error", "The website itself is failing. There is nothing to fix on your device, and the right move is to wait and try again later."],
-      ["A timeout or a request that hangs", "Either your connection is poor or the source is overloaded. Confirm the site loads in a browser, then try a different network before blaming the extension."],
-      ["Installation errors", "An APK signed by someone else, a truncated download and the wrong processor architecture each produce a different installer message. Removing the conflicting app and downloading the file again resolves the first two."]
+      ["403 Forbidden", "The website has decided your request looks automated and is refusing it. In practice this is anti-bot protection. Update the extension first, then open the source in the built-in browser once to clear any check the site is holding. If it still refuses, the source may have raised its protection or blocked your address."],
+      ["404 Not found", "The page the extension expected has moved or been removed. This is a stale extension almost every time, so refresh your repository and update it. If there is no update yet, the extension author has not caught up with the site."],
+      ["429 Too many requests", "You have been rate limited for making requests too quickly. Waiting is the actual fix, and reducing how often updates and downloads run is what stops it recurring. Retrying immediately only extends the block."],
+      ["500, 502 and other 5xx errors", "The website itself is failing. There is nothing to fix on your device, and the right move is to wait and try again later. Checking the site in a browser confirms whether it is down for everyone."],
+      ["1006 and 1020, the firewall codes", "1006 usually means a temporary IP ban, and 1020 means a firewall rule set by the site owner, often to block visitors from outside their country. Changing network can help with 1006; 1020 usually cannot be worked around."],
+      ["Failed to bypass Cloudflare", "The site is protected by Cloudflare and the automatic check did not clear. Open the source's page in the built-in browser and complete any verification by hand, then return to the app. If the page reloads endlessly, see the troubleshooting page."],
+      ["Unable to resolve host, connection failed, timeout", "These are network problems rather than faults in the source. Check that the device has internet access, try another network or mobile data, and enable encrypted DNS in settings. A captive Wi-Fi portal is a common cause."],
+      ["Certificate validation failed", "The site's security certificate could not be validated. Check that the device date and time are correct, clear the app's cache and cookies, and try a different network. An expired certificate on the site is not something you can fix."],
+      ["Storage and SD card errors", "Messages about a card, a path or an unavailable folder mean the download location has moved or become unreadable. Check free space, confirm the app still has permission to that folder, and switch back to internal storage if the card keeps failing."],
+      ["App or extension will not install", "An APK signed by someone else, a truncated download and the wrong processor architecture each produce a different installer message. Remove the conflicting copy and download the file again, and make sure Android is allowed to install unknown apps."],
+      ["When the error is not listed here", "Copy the exact message rather than paraphrasing it. The operation name and the URL inside it usually point straight at the failing step, and the troubleshooting page walks through narrowing it down."]
     ],
     facts: [
       "403 and 429 both mean the site is refusing you, for different reasons.",
       "A 404 is nearly always an extension that needs updating.",
       "A 5xx error is the website's fault, not your device's.",
+      "1006 is a temporary ban; 1020 is a firewall rule you cannot bypass.",
+      "Copy the exact message: the URL inside it names the failing step.",
       "Signature mismatches mean a differently signed copy is installed."
     ]
   },
 
   faq: {
     title: "Questions that come up often.",
-    body: "Short answers to the things people ask before and after installing Watchtower.",
+    body: "Short answers to the things people ask before and after installing Watchtower, grouped by the part of the app they touch.",
     marker: "28",
     code: `Is it on a store?        No. Installable extensions conflict with store rules.
 Is there an iOS build?   The code supports it; shipping it is not promised.
 Does it work offline?    Downloads and local files do, browsing does not.
 Does it sync?            No. Move your library with a backup file.
-Is it free?              Yes, and the source is open under Apache 2.0.`,
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index`,
     subsections: [
       ["Why is it not on an app store?", "Because Watchtower installs extensions at runtime, which store policies do not allow. That is also why every install comes from an APK you choose to trust."],
       ["Is there an iOS version?", "The underlying code is cross-platform, but shipping on iOS is constrained by platform rules and is not promised. Android is the platform that gets everything first."],
       ["Does it work without internet?", "Anything you downloaded, plus local files, works completely offline. Browsing sources and searching do not, because those need the websites themselves."],
       ["Can I sync between devices?", "There is no automatic sync. You move your library with a backup file, and downloaded media has to be copied across separately."],
       ["Is it legal and is it free?", "Watchtower is free and open source, and contains no content of its own. What you add through extensions is your responsibility, which is why the app is careful to say it does not vet them."],
-      ["Something is broken, what now?", "Update your extensions first, since that fixes most breakage. If it persists, check the errors page for the message you are seeing before assuming the app is at fault."]
+      ["Why can I not see an installed source?", "Two filters hide sources without deleting them. If the extension serves a language other than your device's, turn that language on in the source list filter. If it is an adult source, enable the option that shows NSFW sources in the list."],
+      ["How do I uninstall an extension?", "Uninstall it from the extensions screen, or like any other app in Android settings. Your library entries stay put and simply show as unavailable until another source can serve them."],
+      ["Why are my downloads not showing?", "Downloads are detected by folder. If the storage location moved, the SD card was removed, or the source or series was renamed on the site, the app cannot match the folder. Fix the location or rename the folder to match, then rebuild the downloads index."],
+      ["Why does my photo gallery show covers and episodes?", "The app normally hides its media from the system gallery with a .nomedia file. If it did not, create one yourself and drop it in the downloads folder, or in the local source folder if that is what leaked."],
+      ["Why is reading or loading slow?", "Slow loading is the site, your connection, or a rate limit, not the app being heavy. Laggy reading comes from oversized images in a chapter, so free up memory or pick a source with smaller scans."],
+      ["Why are some episodes not displayed?", "Aside from network problems, the app can occasionally miss that a video exists. Leaving the player and opening the episode again usually registers it."],
+      ["Why is a library update skipping entries?", "Entries with unwatched or unread content, entries you have not started, entries marked completed, and entries with no expected releases are skipped on purpose. That keeps a large library from hammering sources and getting the app blocked."],
+      ["Why do library updates stop in the background?", "Some Android builds aggressively save battery and suspend background work. Exempt Watchtower from battery optimisation if updates only arrive when you open the app."],
+      ["Why is taking a screenshot blocked?", "The privacy setting that hides the app in the task switcher also blocks screenshots. Turn that setting off if you want to capture the screen."],
+      ["Something is broken, what now?", "Update your extensions first, since that fixes most breakage. If it persists, check the errors page for the exact message you are seeing, then the troubleshooting page, before assuming the app is at fault."]
     ],
     facts: [
       "Watchtower is not distributed through app stores.",
       "Downloaded content and local files work fully offline.",
       "There is no automatic sync between devices.",
+      "A hidden source is usually the language filter or the NSFW toggle.",
+      "Downloads are matched by folder name, so renaming one hides it.",
       "Updating extensions fixes most sudden breakage."
     ]
   },
@@ -849,7 +923,204 @@ git clone https://github.com/ferelking242/watchtower-website`,
       "Reporting the exact error text saves the most time.",
       "Rust is needed for app work; Go only for the torrent server."
     ]
-  }
+  },
+
+  history: {
+    title: "Everything you have already opened.",
+    body: "History records what you watched and read, so you can jump back to something you did not finish without hunting for it again.",
+    marker: "30",
+    code: `History
+├── Anime    what you watched, newest first
+├── Manga    what you read
+└── Filters  today · this week · this month
+
+View   list or grid      Sort   by date or title`,
+    subsections: [
+      ["What it records", "Opening an episode or a chapter adds an entry with the time and how far you got. History is a record of activity, not a second library, so it fills up on its own as you use the app."],
+      ["Filtering and sorting", "Narrow the list to today, this week or this month, switch between a list and a grid, and sort by date or title. These change what is shown and nothing else."],
+      ["Getting back to a series", "Tap an entry to reopen the series where you left it. History is the fastest route back to something you sampled once and set aside."],
+      ["Incognito and privacy", "While incognito mode is on, nothing new is recorded, so nothing you open appears in history. Turning it off resumes recording from that point."],
+      ["Clearing history", "You can clear history without touching your library or your saved progress. Clearing it only removes the record of what you opened."],
+      ["When history looks wrong", "An entry that shows as unwatched usually means the source changed the episode's address, so the app treats it as new. Removing the stray entry and refreshing the series tidies it up."],
+    ],
+    facts: [
+      "History records activity, it does not replace your library.",
+      "Filters narrow the view without deleting anything.",
+      "Incognito mode stops new history from being written.",
+      "Clearing history leaves your progress untouched.",
+    ]
+  },
+
+  calendar: {
+    title: "What is releasing, and when.",
+    body: "The calendar shows upcoming chapters and episodes from your library, so you can see at a glance what is due today and what is coming later.",
+    marker: "31",
+    code: `Calendar      a month view of upcoming releases
+Schedule      a week view with your statuses
+
+Statuses   watching · planning · completed · paused
+Options    week starts Monday · indicate watched`,
+    subsections: [
+      ["The month view", "Days with releases are marked, and tapping a day jumps to that date's list. It answers what is out this week without opening a single series."],
+      ["The weekly schedule", "The schedule lays out a week with the cover of each upcoming release, which reads better than a dense month grid on a phone."],
+      ["Filtering by status", "Show only the statuses you care about, so completed and paused series do not clutter a view you use to plan the week."],
+      ["What the dates mean", "A date is when the source last said something is expected, not a promise. Sources that do not publish dates simply do not appear."],
+      ["Indicating watched entries", "An option marks what you have already seen on the schedule, so a week view doubles as a checklist."],
+      ["When the calendar is empty", "An empty calendar usually means the sources you follow do not publish release dates. That is a limit of the source, not a fault in the app."],
+    ],
+    facts: [
+      "Release dates come from the sources, not from the app.",
+      "The schedule can be filtered by series status.",
+      "An option marks entries you have already watched.",
+      "A source without dates will not appear at all.",
+    ]
+  },
+
+  "mass-migration": {
+    title: "Moving many series at once.",
+    body: "When a source dies, mass migration moves a whole group of library entries to a working source in one pass, instead of editing them one by one.",
+    marker: "32",
+    code: `1. choose the broken source
+2. pick the destination source
+3. review each match
+4. apply, then read the summary`,
+    subsections: [
+      ["When to use it", "A source that has stopped working, or one you want to move away from, is the case for mass migration. Migrating keeps your progress and your categories."],
+      ["Choosing source and destination", "Pick the group of entries to move and the source to move them to. The app searches the destination for each title on its own."],
+      ["Reviewing the matches", "Every match is shown before anything changes, so you can accept the good ones and skip the wrong ones. Matching by title is never perfect."],
+      ["Applying the change", "Applying rewrites each entry to point at the new source and carries your progress across. Series with no match are left untouched."],
+      ["Reading the summary", "The run ends with counts of what moved, what was skipped and what failed. A failed item is usually a title the destination does not carry."],
+      ["When nothing matches", "If most titles fail to match, the destination is a poor fit and a different source is the better answer. Nothing is lost by stopping, because changes only happen when you apply."],
+    ],
+    facts: [
+      "Mass migration moves a group of entries in one pass.",
+      "Every match is reviewed before anything is changed.",
+      "Your progress and categories carry across.",
+      "Nothing changes until you apply the results.",
+    ]
+  },
+
+  statistics: {
+    title: "Your library in numbers.",
+    body: "Statistics summarise what you have watched and read: totals, time spent, status breakdown and the genres you return to most.",
+    marker: "33",
+    code: `Overview     entries · chapters · hours
+Breakdown    watching · completed · on hold · dropped
+Charts       activity over time · top genres · downloads`,
+    subsections: [
+      ["What is counted", "Totals per media type, the number of chapters or episodes, the time spent, and how your library splits across statuses."],
+      ["Time and activity", "The time card estimates how long you have spent watching and reading, and the activity chart shows how that is spread over recent weeks."],
+      ["Top genres", "The genres you actually spend time on, which is often not the ones you would guess. It is a good way to find a new series in a lane you already like."],
+      ["Per media type", "Statistics are split by media type, so anime and manga totals are never mixed together."],
+      ["Where the numbers come from", "Everything is computed from your own library and history on the device. Nothing is uploaded anywhere."],
+      ["When it says there is no data", "A brand new install has nothing to summarise yet. The figures appear once you have watched or read something and it has been recorded."],
+    ],
+    facts: [
+      "Statistics are computed on the device, from your own data.",
+      "Totals are kept separate for each media type.",
+      "The activity chart shows how reading and watching spread over time.",
+      "A new install shows no data until something is recorded.",
+    ]
+  },
+
+  anime: {
+    title: "Watching anime, with intro skipping.",
+    body: "Anime opens in the video player with one extra: intro and ending skipping, powered by AniSkip when a title can be matched.",
+    marker: "34",
+    code: `Player      the same controls as any video
+AniSkip     skip opening and ending automatically
+Discovery   recommended, popular and by genre`,
+    subsections: [
+      ["The anime player", "Episodes play in the same player as everything else, with quality, audio, subtitles and speed in the usual sheets."],
+      ["Skipping intros and endings", "With intro skipping on, a button counts down during the opening and jumps past it, and the ending is handled the same way. It is a setting, so it can be turned off."],
+      ["Why a title cannot be matched", "Skipping needs to identify the series and episode. A title that cannot be identified is simply played without the button, rather than failing."],
+      ["The skip timeout", "A short countdown gives you time to cancel before the jump happens. Its length is configurable if the default feels rushed."],
+      ["Discovering anime", "A discovery screen offers recommended, popular, upcoming, recently updated and top rated lists, plus genre rows, so you can find something without a source open."],
+      ["When discovery shows an error", "The discovery rows come from an external service rather than your sources. When that service is unreachable the rest of the app is unaffected, and a source still works normally."],
+    ],
+    facts: [
+      "Intro skipping needs the series and episode to be identified.",
+      "Skipping is a setting and can be turned off.",
+      "The skip countdown length is configurable.",
+      "Discovery uses an external service; sources work regardless.",
+    ]
+  },
+
+  music: {
+    title: "Music, with your own library.",
+    body: "Watchtower plays music from music extensions and from your own collection, with albums, artists, lyrics and scrobbling in one place.",
+    marker: "35",
+    code: `Music
+├── Home       recent and recommended
+├── Library    albums and artists you keep
+├── Player     queue, shuffle, repeat
+└── Lyrics     synced when the track has them
+
+Connect      Last.fm scrobbling`,
+    subsections: [
+      ["Where the music comes from", "Music extensions provide tracks and collections, and a local library covers files you already own. Both behave like normal sources."],
+      ["Albums and artists", "Music is browsed by album and artist as well as by track, which is what makes a music library usable rather than a long list of files."],
+      ["The player", "A queue with shuffle and repeat, a now-playing sheet, and cover art. Playback continues while you move around the app."],
+      ["Lyrics", "Tracks that carry lyrics show them in a sheet, and synced lyrics follow the position of the track where the source provides timing."],
+      ["Scrobbling", "Connecting Last.fm records what you play to your profile, in the same way tracking records what you watch."],
+      ["When a track will not play", "A music source that has stopped working behaves like any other broken source. Update the extension, and expect a service-based source to be unavailable while that service is down."],
+    ],
+    facts: [
+      "Music comes from extensions or from files you already own.",
+      "Albums and artists are first-class, not just tracks.",
+      "Last.fm scrobbling is available when you connect it.",
+      "Lyrics follow the track when the source provides timing.",
+    ]
+  },
+
+  novels: {
+    title: "Reading novels, and having them read to you.",
+    body: "Novels open in a text reader rather than the image reader, with themes, progress and an optional read-aloud voice.",
+    marker: "36",
+    code: `Novel reader
+├── text, not page images
+├── themes and font controls
+├── progress per chapter
+└── read aloud (text to speech)`,
+    subsections: [
+      ["How novels open", "A source that declares novel content opens in the text reader automatically, so you never have to choose the right reader by hand."],
+      ["Reading comfort", "Font size, line spacing and theme are adjustable, because a wall of text is not the same reading experience as a page of images."],
+      ["Remembering your place", "The novel reader tracks your position in each chapter and returns you to it, the same way the image reader does."],
+      ["Reading aloud", "Text to speech can read a chapter aloud using the voices installed on your device, which is useful on a commute or while doing something else."],
+      ["When a chapter is empty", "A novel chapter that opens blank usually comes from a source that returned text in a shape the reader cannot show. Updating the extension is the first thing to try."],
+      ["Novels versus manga", "A novel is text and a manga is images, so a source has to declare the right type for the content to open correctly. A wrong type sends it to the wrong reader."],
+    ],
+    facts: [
+      "Novels open in a text reader, chosen by content type.",
+      "Font, spacing and theme are adjustable.",
+      "Read-aloud uses the voices installed on your device.",
+      "A blank chapter usually means the source returned unusable text.",
+    ]
+  },
+
+  games: {
+    title: "Games as another kind of source.",
+    body: "Watchtower can list games through game extensions and platforms, using the same browse and search you already know.",
+    marker: "37",
+    code: `Games
+├── Extensions   game sources you have added
+├── Platforms    grouped by platform
+└── Browse       the same search as other media`,
+    subsections: [
+      ["What a game source is", "A game extension lists titles the same way a manga extension lists series, and opens the same browse and search screens."],
+      ["Platforms", "Games are grouped by platform, which keeps a catalogue navigable when a source covers many systems."],
+      ["Browsing and searching", "Search fans out across enabled game sources exactly as it does for the other media types, so one query covers all of them."],
+      ["Installing game extensions", "They install from the same repositories as everything else, and appear under games once installed."],
+      ["When nothing is listed", "An empty games screen means no game extension is installed. Add a repository that provides one, then refresh."],
+      ["Keeping it separate", "Game entries do not mix with your reading and watching, so a large games catalogue never clutters your library."],
+    ],
+    facts: [
+      "Game sources install from the same repositories as everything else.",
+      "Games are grouped by platform.",
+      "Search covers every enabled game source at once.",
+      "Game entries stay separate from your library.",
+    ]
+  },
 };
 
 export default en;
