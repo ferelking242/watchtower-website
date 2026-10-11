@@ -516,6 +516,25 @@ const fr = {
     ],
   },
 
+  "layout-components": {
+    title: "Les cartes qui composent chaque écran.",
+    body: "Watchtower dessine ses écrans d'accueil à partir d'un catalogue de cartes prêtes à l'emploi. Une source choisit lesquelles afficher et dans quel ordre, et chaque écran utilise exactement les mêmes widgets.",
+    subsections: [
+      ["Ce que c'est", "Une bibliothèque d'environ deux cents dispositions de cartes : rangées de couvertures, bannières, classements, listes de chapitres, cartes d'épisodes et plus encore. Chacune porte un nom, et un écran d'accueil n'est qu'une liste ordonnée de ces noms."],
+      ["Pourquoi c'est important", "Une source ne livre pas son propre code de dessin. Elle demande les cartes par leur nom, donc son écran d'accueil est dessiné par les mêmes widgets que tous les autres écrans et reste natif sur téléphone, tablette, ordinateur et télévision."],
+      ["Ce qu'on peut dire à une carte", "Chaque carte accepte quelques réglages, comme la provenance de ses données, un titre, le nombre de colonnes ou un sous-titre. Ces réglages sont stockés à côté de la section, donc une source peut adapter une carte sans nouveau code d'application."],
+      ["Un catalogue, tous les écrans", "La galerie du développeur, l'accueil manga et l'accueil des extensions de visionnage lisent le même catalogue. Une carte corrigée ou ajoutée une fois apparaît partout, ce qui empêche les aperçus et les vrais écrans de diverger."],
+      ["Choisir les cartes", "Ajoutez une section avec le nom de la carte voulue. Si un nom est inconnu, la section est ignorée au lieu de casser la page, et une disposition par défaut est utilisée quand une source ne décrit rien du tout."],
+      ["Pour ceux qui écrivent des sources", "Voyez cela comme un menu plutôt qu'une toile. Vous commandez des cartes nommées, vous ne positionnez pas des pixels, donc votre disposition continue de fonctionner au fil des versions."]
+    ],
+    facts: [
+      "Les écrans d'accueil sont des listes ordonnées de cartes nommées.",
+      "Environ deux cents cartes sont disponibles par leur nom.",
+      "Tous les écrans puisent dans le même catalogue de cartes.",
+      "Un nom de carte inconnu est ignoré, jamais fatal.",
+    ],
+  },
+
   api: {
     title: "Piloter Watchtower depuis un autre programme.",
     body: "L'application peut ouvrir un petit serveur web sur votre propre machine, ce qui permet à des scripts, des lecteurs externes et d'autres appareils d'utiliser les mêmes sources que l'application.",

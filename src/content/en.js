@@ -708,6 +708,33 @@ Optional    filters      source settings`,
     ]
   },
 
+  "layout-components": {
+    title: "The cards every screen is built from.",
+    body: "Watchtower draws its home screens from a catalogue of ready-made cards. A source picks which ones to show and in what order, and every screen renders the very same widgets.",
+    marker: "22a",
+    code: `"sections": [
+  { "id": "trending", "component": "featured-discovery", "title": "Trending" },
+  { "id": "spotlight", "component": "manga-spotlight",
+    "params": { "dataSource": "popular" } },
+  { "id": "top3", "component": "manga-top3",
+    "params": { "dataSource": "popular" } }
+]`,
+    subsections: [
+      ["What it is", "A library of around two hundred card layouts: rows of covers, banners, rankings, chapter lists, episode cards and more. Each one has a name, and a home screen is just an ordered list of those names."],
+      ["Why it matters", "A source does not ship its own drawing code. It asks for the cards by name, so its home screen is drawn by the same widgets as every other screen and looks native on a phone, a tablet, a desktop and a TV alike."],
+      ["What a card can be told", "Each card accepts a few settings, such as where its data comes from, a title, how many columns to use, or a subtitle. Those settings are stored beside the section, so a source can tailor a card without new app code."],
+      ["One catalogue, every screen", "The developer gallery, the manga home and the watch-extension home all read the same catalogue. A card fixed or added once appears everywhere, which is why the previews and the real screens can no longer drift apart."],
+      ["Choosing the cards", "Add a section with the name of the card you want. If a name is unknown the section is skipped rather than breaking the page, and a sensible default layout is used when a source describes nothing at all."],
+      ["For people writing sources", "Think of it as a menu rather than a canvas. You are ordering named cards, not positioning pixels, so your layout keeps working as the app evolves."]
+    ],
+    facts: [
+      "Home screens are ordered lists of named cards.",
+      "Around two hundred cards are available by name.",
+      "Every screen draws from the same card catalogue.",
+      "An unknown card name is skipped, not fatal."
+    ]
+  },
+
   api: {
     title: "Driving Watchtower from another program.",
     body: "The app can open a small web server on your own machine, which lets scripts, external players and other devices use the same sources the app does.",
