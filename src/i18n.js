@@ -39,7 +39,19 @@ export const SECTION_GROUPS = [
   { key: "library", items: ["updates", "downloads", "categories", "tracking", "history", "calendar", "statistics", "mass-migration"] },
   { key: "media", items: ["anime", "music", "novels", "games"] },
   { key: "data", items: ["backups", "storage", "settings"] },
-  { key: "platform", items: ["extension-runtime", "extension-contract", "ui-schema", "layout-components", "api", "cli", "deployment"] },
+  {
+    key: "platform",
+    items: [
+      "extension-runtime",
+      {
+        id: "extension-development",
+        children: ["extension-contract", "ui-schema", "layout-components"]
+      },
+      "api",
+      "cli",
+      "deployment"
+    ]
+  },
   { key: "support", items: ["troubleshooting", "errors", "faq", "contribute"] }
 ];
 
@@ -73,6 +85,7 @@ export const SECTION_ICONS = {
   storage: "server",
   settings: "spark",
   "extension-runtime": "code",
+  "extension-development": "code",
   "extension-contract": "braces",
   "ui-schema": "spark",
   "layout-components": "package",
@@ -112,8 +125,8 @@ export const GROUP_LABELS = {
 };
 
 export const NAV_LABELS = {
-  en: { "getting-started": "Getting started", installation: "Installation", "adding-sources": "Adding sources", library: "Library", browse: "Browse", extensions: "Extensions", "extensions-catalogue": "Catalogue", "extensions-devkit": "Dev kit", "extensions-publishing": "Publishing", "local-source": "Local source", "video-player": "Video player", "player-settings": "Player settings", subtitles: "Subtitles", reader: "Reader", "reader-settings": "Reader settings", updates: "Updates", downloads: "Downloads", categories: "Categories", tracking: "Tracking", backups: "Backups", storage: "Storage", settings: "Settings", "extension-runtime": "Extension runtime", "extension-contract": "Source contract", "ui-schema": "Native UI schema", api: "Server API", cli: "Headless CLI", deployment: "Deployment", troubleshooting: "Troubleshooting", errors: "Errors", faq: "FAQ", contribute: "Contribute", history: "History", calendar: "Calendar", statistics: "Statistics", "mass-migration": "Mass migration", anime: "Anime", music: "Music", novels: "Novels", "layout-components": "Layout components", games: "Games" },
-  fr: { "getting-started": "Premiers pas", installation: "Installation", "adding-sources": "Ajouter des sources", library: "Bibliothèque", browse: "Parcourir", extensions: "Extensions", "extensions-catalogue": "Catalogue", "extensions-devkit": "Kit de dev", "extensions-publishing": "Publication", "local-source": "Source locale", "video-player": "Lecteur vidéo", "player-settings": "Réglages du lecteur", subtitles: "Sous-titres", reader: "Lecteur manga", "reader-settings": "Réglages de lecture", updates: "Mises à jour", downloads: "Téléchargements", categories: "Catégories", tracking: "Suivi", backups: "Sauvegardes", storage: "Stockage", settings: "Réglages", "extension-runtime": "Runtime d’extension", "extension-contract": "Contrat de source", "ui-schema": "Schéma UI natif", api: "API serveur", cli: "CLI headless", deployment: "Déploiement", troubleshooting: "Dépannage", errors: "Erreurs", faq: "FAQ", contribute: "Contribuer", history: "Historique", calendar: "Calendrier", statistics: "Statistiques", "mass-migration": "Migration en masse", anime: "Animés", music: "Musique", novels: "Romans", "layout-components": "Composants de mise en page", games: "Jeux" },
+  en: { "getting-started": "Getting started", installation: "Installation", "adding-sources": "Adding sources", library: "Library", browse: "Browse", extensions: "Extensions", "extensions-catalogue": "Catalogue", "extensions-devkit": "Dev kit", "extensions-publishing": "Publishing", "local-source": "Local source", "video-player": "Video player", "player-settings": "Player settings", subtitles: "Subtitles", reader: "Reader", "reader-settings": "Reader settings", updates: "Updates", downloads: "Downloads", categories: "Categories", tracking: "Tracking", backups: "Backups", storage: "Storage", settings: "Settings", "extension-runtime": "Extension runtime", "extension-development": "Extension development", "extension-contract": "Source contract", "ui-schema": "Native UI schema", api: "Server API", cli: "Headless CLI", deployment: "Deployment", troubleshooting: "Troubleshooting", errors: "Errors", faq: "FAQ", contribute: "Contribute", history: "History", calendar: "Calendar", statistics: "Statistics", "mass-migration": "Mass migration", anime: "Anime", music: "Music", novels: "Novels", "layout-components": "Layout components", games: "Games" },
+  fr: { "getting-started": "Premiers pas", installation: "Installation", "adding-sources": "Ajouter des sources", library: "Bibliothèque", browse: "Parcourir", extensions: "Extensions", "extensions-catalogue": "Catalogue", "extensions-devkit": "Kit de dev", "extensions-publishing": "Publication", "local-source": "Source locale", "video-player": "Lecteur vidéo", "player-settings": "Réglages du lecteur", subtitles: "Sous-titres", reader: "Lecteur manga", "reader-settings": "Réglages de lecture", updates: "Mises à jour", downloads: "Téléchargements", categories: "Catégories", tracking: "Suivi", backups: "Sauvegardes", storage: "Stockage", settings: "Réglages", "extension-runtime": "Runtime d’extension", "extension-development": "Développement d’extensions", "extension-contract": "Contrat de source", "ui-schema": "Schéma UI natif", api: "API serveur", cli: "CLI headless", deployment: "Déploiement", troubleshooting: "Dépannage", errors: "Erreurs", faq: "FAQ", contribute: "Contribuer", history: "Historique", calendar: "Calendrier", statistics: "Statistiques", "mass-migration": "Migration en masse", anime: "Animés", music: "Musique", novels: "Romans", "layout-components": "Composants de mise en page", games: "Jeux" },
   es: { "getting-started": "Empezar", installation: "Instalación", "adding-sources": "Añadir fuentes", library: "Biblioteca", browse: "Explorar", extensions: "Extensiones", "extensions-catalogue": "Catálogo", "extensions-devkit": "Kit de desarrollo", "extensions-publishing": "Publicación", "local-source": "Fuente local", "video-player": "Reproductor de vídeo", "player-settings": "Ajustes del reproductor", subtitles: "Subtítulos", reader: "Lector", "reader-settings": "Ajustes del lector", updates: "Actualizaciones", downloads: "Descargas", categories: "Categorías", tracking: "Seguimiento", backups: "Copias de seguridad", storage: "Almacenamiento", settings: "Ajustes", "extension-runtime": "Runtime de extensiones", "extension-contract": "Contrato de fuente", "ui-schema": "Esquema de UI nativa", api: "API del servidor", cli: "CLI sin interfaz", deployment: "Despliegue", troubleshooting: "Solución de problemas", errors: "Errores", faq: "Preguntas frecuentes", contribute: "Contribuir", history: "Historial", calendar: "Calendario", statistics: "Estadísticas", "mass-migration": "Migración masiva", anime: "Anime", music: "Música", novels: "Novelas", "layout-components": "Componentes de diseño", games: "Juegos" },
   pt: { "getting-started": "Primeiros passos", installation: "Instalação", "adding-sources": "Adicionar fontes", library: "Biblioteca", browse: "Explorar", extensions: "Extensões", "extensions-catalogue": "Catálogo", "extensions-devkit": "Kit de desenvolvimento", "extensions-publishing": "Publicação", "local-source": "Fonte local", "video-player": "Reprodutor de vídeo", "player-settings": "Configurações do reprodutor", subtitles: "Legendas", reader: "Leitor", "reader-settings": "Configurações do leitor", updates: "Atualizações", downloads: "Downloads", categories: "Categorias", tracking: "Rastreamento", backups: "Backups", storage: "Armazenamento", settings: "Configurações", "extension-runtime": "Runtime de extensões", "extension-contract": "Contrato de fonte", "ui-schema": "Esquema de UI nativa", api: "API do servidor", cli: "CLI headless", deployment: "Implantação", troubleshooting: "Solução de problemas", errors: "Erros", faq: "Perguntas frequentes", contribute: "Contribuir", history: "Histórico", calendar: "Calendário", statistics: "Estatísticas", "mass-migration": "Migração em massa", anime: "Anime", music: "Música", novels: "Romances", "layout-components": "Componentes de layout", games: "Jogos" },
   de: { "getting-started": "Erste Schritte", installation: "Installation", "adding-sources": "Quellen hinzufügen", library: "Bibliothek", browse: "Durchsuchen", extensions: "Erweiterungen", "extensions-catalogue": "Katalog", "extensions-devkit": "Entwickler-Kit", "extensions-publishing": "Veröffentlichung", "local-source": "Lokale Quelle", "video-player": "Videoplayer", "player-settings": "Player-Einstellungen", subtitles: "Untertitel", reader: "Leser", "reader-settings": "Leser-Einstellungen", updates: "Updates", downloads: "Downloads", categories: "Kategorien", tracking: "Tracking", backups: "Backups", storage: "Speicher", settings: "Einstellungen", "extension-runtime": "Erweiterungs-Runtime", "extension-contract": "Quell-Vertrag", "ui-schema": "Natives UI-Schema", api: "Server-API", cli: "Headless-CLI", deployment: "Bereitstellung", troubleshooting: "Fehlerbehebung", errors: "Fehler", faq: "FAQ", contribute: "Mitwirken", history: "Verlauf", calendar: "Kalender", statistics: "Statistiken", "mass-migration": "Massenmigration", anime: "Anime", music: "Musik", novels: "Romane", "layout-components": "Layout-Komponenten", games: "Spiele" },
@@ -128,6 +141,28 @@ export const NAV_LABELS = {
   id: { "getting-started": "Memulai", installation: "Instalasi", "adding-sources": "Menambahkan sumber", library: "Pustaka", browse: "Jelajahi", extensions: "Ekstensi", "extensions-catalogue": "Katalog", "extensions-devkit": "Kit pengembang", "extensions-publishing": "Publikasi", "local-source": "Sumber lokal", "video-player": "Pemutar video", "player-settings": "Pengaturan pemutar", subtitles: "Subtitle", reader: "Pembaca", "reader-settings": "Pengaturan pembaca", updates: "Pembaruan", downloads: "Unduhan", categories: "Kategori", tracking: "Pelacakan", backups: "Cadangan", storage: "Penyimpanan", settings: "Pengaturan", "extension-runtime": "Runtime ekstensi", "extension-contract": "Kontrak sumber", "ui-schema": "Skema UI native", api: "API server", cli: "CLI headless", deployment: "Penerapan", troubleshooting: "Pemecahan masalah", errors: "Kesalahan", faq: "FAQ", contribute: "Berkontribusi", history: "Riwayat", calendar: "Kalender", statistics: "Statistik", "mass-migration": "Migrasi massal", anime: "Anime", music: "Musik", novels: "Novel", "layout-components": "Komponen tata letak", games: "Game" },
   th: { "getting-started": "เริ่มต้นใช้งาน", installation: "การติดตั้ง", "adding-sources": "เพิ่มแหล่ง", library: "คลัง", browse: "เรียกดู", extensions: "ส่วนขยาย", "extensions-catalogue": "แค็ตตาล็อก", "extensions-devkit": "ชุดเครื่องมือนักพัฒนา", "extensions-publishing": "การเผยแพร่", "local-source": "แหล่งในเครื่อง", "video-player": "เครื่องเล่นวิดีโอ", "player-settings": "การตั้งค่าเครื่องเล่น", subtitles: "คำบรรยาย", reader: "ตัวอ่าน", "reader-settings": "การตั้งค่าตัวอ่าน", updates: "อัปเดต", downloads: "ดาวน์โหลด", categories: "หมวดหมู่", tracking: "การติดตาม", backups: "สำรองข้อมูล", storage: "ที่จัดเก็บ", settings: "การตั้งค่า", "extension-runtime": "รันไทม์ส่วนขยาย", "extension-contract": "สัญญาแหล่ง", "ui-schema": "สคีมา UI เนทีฟ", api: "API เซิร์ฟเวอร์", cli: "CLI แบบไม่มีหน้าจอ", deployment: "การปรับใช้", troubleshooting: "การแก้ปัญหา", errors: "ข้อผิดพลาด", faq: "คำถามที่พบบ่อย", contribute: "มีส่วนร่วม", history: "ประวัติ", calendar: "ปฏิทิน", statistics: "สถิติ", "mass-migration": "การย้ายเป็นกลุ่ม", anime: "อนิเมะ", music: "เพลง", novels: "นิยาย", "layout-components": "คอมโพเนนต์เลย์เอาต์", games: "เกม" }
 };
+
+const extensionDevelopmentLabels = {
+  en: "Extension development",
+  fr: "Développement d’extensions",
+  es: "Desarrollo de extensiones",
+  pt: "Desenvolvimento de extensões",
+  de: "Erweiterungsentwicklung",
+  it: "Sviluppo estensioni",
+  ru: "Разработка расширений",
+  ar: "تطوير الإضافات",
+  ja: "拡張機能開発",
+  ko: "확장 프로그램 개발",
+  zh: "扩展开发",
+  tr: "Uzantı geliştirme",
+  hi: "एक्सटेंशन विकास",
+  id: "Pengembangan ekstensi",
+  th: "การพัฒนาส่วนขยาย"
+};
+
+for (const [code, label] of Object.entries(extensionDevelopmentLabels)) {
+  NAV_LABELS[code]["extension-development"] = label;
+}
 
 export const getGroupLabels = (code) => GROUP_LABELS[code] || GROUP_LABELS.en;
 export const getNavLabels = (code) => NAV_LABELS[code] || NAV_LABELS.en;

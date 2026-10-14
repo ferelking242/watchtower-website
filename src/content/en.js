@@ -13,7 +13,7 @@ const en = {
     code: `# The first run, in order
 1. Install the app        Android APK, or a desktop build
 2. Add a source repository   More → Extensions → Repositories
-   Paste a URL ending in index.min.json
+   Paste a source index URL, for example index/watch.json
 3. Install the extensions you want, then refresh
 4. Browse a source and tap "Add to library"
 5. Play or read
@@ -21,12 +21,13 @@ const en = {
 # Watchtower never bundles content. No source means an empty library.`,
     subsections: [
       ["What you need", "An Android 8.0 or newer phone or tablet for the full app. Any Linux, macOS or Windows machine can run the headless command line instead, with no graphical session. One thing is not optional: a source repository URL, because Watchtower contains no content of its own."],
-      ["Add your first source", "Open More, then Extensions, then Repositories. Paste a repository URL that ends in index.min.json and confirm. The extension list fills in as soon as the index loads."],
+      ["Add your first source", "Open More, then Extensions, then Repositories. Paste a supported JSON index URL, such as the watch index in a repository, and confirm. The official extensions project publishes separate indexes for watch, manga, novels, music, games and other source types."],
       ["Install extensions", "Each extension teaches Watchtower one website. Tap install beside the ones you want, allow installation from unknown sources if Android asks, and the sources appear in Browse."],
       ["Build your library", "Open a source, find a series and tap Add to library. From then on Watchtower tracks your progress, checks for new chapters and keeps the entry in one place."],
       ["Pick your media types", "Watchtower handles manga, anime, novels and music side by side. Each type opens in its own reader or player, chosen automatically from what the extension declares."],
       ["Common first-run surprises", "An empty Browse screen means no extension is installed yet, not a broken app. A repository that will not load is usually a stale URL or a captive network portal."],
-      ["If the first screen looks empty", "An empty Browse list means no extension is installed yet, not a broken app. If a repository will not load, check that its address ends in index.min.json, then try again on another network before assuming it is gone."],
+      ["If the first screen looks empty", "An empty Browse list means no extension is installed yet, not a broken app. If a repository will not load, check that the URL points to the correct source index and that it returns valid JSON, then try another network before assuming it is gone."],
+      ["Choose the matching index", "Watchtower reads JSON arrays of source records. Use the index for the content type you want, for example index/watch.json or index/manga.json; index.min.json is not a required filename."],
     ],
     facts: [
       "Watchtower ships with no content. Sources are yours to choose.",
@@ -74,26 +75,35 @@ sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux`,
     title: "Where your content comes from.",
     body: "Watchtower has two kinds of source. Online sources arrive as extensions from a repository you add. Offline sources are folders on your own device. Most people use both.",
     marker: "03",
-    code: `# A repository is a JSON index. Its address must end in index.min.json
-{
-  "name": "My repository",
-  "extensions": [
-    {
-      "name": "Example source",
-      "pkg": "eu.kanade.tachiyomi.extension.all.example",
-      "version": "1.4.2",
-      "apk": "example-v1.4.2.apk"
-    }
-  ]
-}`,
+    code: `# A source index is a JSON array, for example index/watch.json
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://example.org/favicon.ico",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false
+  }
+]`,
     subsections: [
       ["Add a repository", "Go to More, then Extensions, then Repositories, and paste the repository URL. The app fetches the index and lists every extension it contains. You can add several repositories at once."],
       ["Install what you need", "Refresh the list, then tap install next to an extension. Android may ask for permission to install unknown apps the first time. Installed extensions show up immediately in Browse."],
       ["Keep sources fresh", "Refresh a repository whenever you want newer extension versions. An update replaces the extension in place and keeps its settings, so there is nothing to reconfigure."],
       ["Use your own files", "Point Watchtower at a folder of manga or anime you already own and it becomes a normal source. No repository, no network, no account."],
       ["Only trust what you know", "A repository can serve anything, and an extension runs with the same access as the app. Treat an unknown repository the way you would treat an unknown installer."],
-      ["When a repository fails", "A URL that will not load is usually expired, blocked, or copied without its index path. Check that the address ends in index.min.json before assuming the repository is gone."],
-      ["When a repository refuses to load", "A repository that fails to load is usually an expired address, a path that does not end in index.min.json, or a network that blocks it. Confirm the address, then try a different network before removing it."],
+      ["When a repository fails", "A URL that will not load is usually expired, blocked, or pointing to a file that is not a JSON array of source records. Open the exact index URL in a browser and check that it returns JSON."],
+      ["Index file names", "There is no required .min.json suffix. Official repositories publish separate files such as index/watch.json and index/manga.json, and a custom repository may use another name if its URL serves the supported JSON format."],
+      ["Match the content type", "The official extensions project publishes separate indexes for watch, manga, novels, music, games, plugins and subtitles. Choose the index that matches the sources you want to install."],
     ],
     facts: [
       "A repository is only a JSON file hosted on a web server.",
@@ -216,61 +226,79 @@ Grouped by language, filtered by what you can read.`,
   },
 
   "extensions-devkit": {
-    title: "Building your own source.",
-    body: "If you want to add a website nobody has covered yet, you can write an extension yourself. It needs one file describing the site and one file implementing the calls.",
+    title: "Build a source against the code that runs it.",
+    body: "A Watchtower source is JavaScript with metadata embedded in the same source file. The marketplace index points to that file; an optional JSON sidecar describes its native home layout. There is no separate source manifest file or extension APK.",
     marker: "06b",
-    code: `# The smallest working source
-my-source/
-├── index.js          the calls Watchtower makes
-└── manifest.json     name, version, language, content type
+    code: `watchtower-extensions/
+├── src/watch/en/example.js       implementation + watchtowerSources
+├── index/watch.json              marketplace records (JSON array)
+└── ui-layouts/example.json       optional native layout
 
-# Run one call and see the raw result, without rebuilding the app
-watchtower --cli extensions test --repo ./my-repo --mode smoke`,
+# Validate repository files, then exercise the real source
+node tools/validate-extensions.mjs
+node tools/run_all_tests.mjs --files "src/watch/en/example.js" --deep --strict --out /tmp/example-report.json`,
     subsections: [
-      ["What you need to write", "Two files: a manifest that names the extension and declares its language and content type, and an entry file with the calls that fetch listings, search, details, chapters and pages."],
-      ["Start from an existing source", "The fastest route is to copy a working extension for a similar site and change the URLs and the parsing. The shape of the calls stays the same."],
-      ["Testing without the app", "The command line can run a single call and print exactly what came back. That is much faster than installing the extension on a device every time you change a line."],
-      ["What your code can use", "Requests, an HTML parser and a JSON parser. There is no file access, no database and no way to reach the app's own screens."],
-      ["When output looks wrong", "If a field is empty, the parser is almost always the cause rather than the runtime. Compare what you return against what the source contract expects."],
-      ["Before you publish", "Run the extension against the live site, check the search, listing and page calls, and confirm the content type is correct so it opens in the right reader or player."],
-      ["When a call returns nothing", "An empty result is almost always a selector that no longer matches the site rather than a runtime fault. Fetch the page, compare your selectors against the current markup, and test the single call from the command line before rebuilding the app."],
+      ["Repository files", "Put the JavaScript source under src/<category>/<language>/<slug>.js. Its top-level watchtowerSources array contains the source metadata, and its DefaultExtension class implements the calls. Add one record to index/<category>.json. Add ui-layouts/<slug>.json only when the source needs custom native home sections, then point to it with uiLayout in the index record."],
+      ["Source metadata and identity", "The source file declares name, lang, baseUrl, iconUrl, typeSource, itemType, version and pkgPath. The marketplace record supplies the stable numeric id, sourceCodeUrl, sourceCodeLanguage, appMinVerReq and catalogue capability flags. Keep the id stable after release; change version whenever the JavaScript changes."],
+      ["Choose the correct category", "The source directory and index file must agree: watch uses index/watch.json and itemType 1, manga uses 0, novel uses 2, music uses 3, and game uses 4. The numeric value is the app's ItemType value, not an arbitrary label."],
+      ["Implement the source contract", "Extend MProvider and implement the methods used by your content type. Listings return {list, hasNextPage}; details return the title and chapter or episode records; manga pages return image URLs; video sources return playable video records. Keep getSourcePreferences() present even when it returns an empty array."],
+      ["Use the supported runtime", "The JavaScript runtime provides Client for HTTP requests and Document for HTML parsing, plus the extension's own settings and the shared helper methods. It is not a browser: source code returns data for Watchtower to render and must not try to draw app screens."],
+      ["Connect custom home sections", "Each home.sections entry has a unique id and a registered component. Watchtower requests that id through getCustomList(id, page). Implement every id you declare, return the same paginated {list, hasNextPage} shape, and do not add decorative sections with no data provider."],
+      ["Test static and live behavior", "Run node tools/validate-extensions.mjs for syntax, JSON, index, icon, itemType and version checks. Then run tools/run_all_tests.mjs against the changed source in deep strict mode. The app CLI also supports extensions test with load, smoke or deep mode."],
+      ["Diagnose empty or repeated pages", "An empty list is usually a selector or response-shape mismatch. A page that repeats page one is a pagination bug and fails deep strict validation. Inspect the live HTML or API response, then test the individual source call again."],
     ],
     facts: [
-      "A working source needs only a manifest and an entry file.",
-      "The command line can test one call in isolation.",
-      "Extensions can reach the network and parse pages, nothing more.",
-      "The content type you declare decides which reader or player opens.",
-      "An empty result is usually a selector that no longer matches.",
+      "The JavaScript implementation contains its watchtowerSources metadata.",
+      "The marketplace index is a JSON array; its numeric id must remain stable.",
+      "A custom native layout is optional and is linked through uiLayout.",
+      "Home section ids are data-provider keys passed to getCustomList(id, page).",
+      "The extension validator checks the index itemType against its catalogue file.",
     ]
   },
 
   "extensions-publishing": {
-    title: "Sharing a source with other people.",
-    body: "Once your extension works, publishing it means putting it in a repository that others can add. A repository is a small JSON file plus the extension packages it lists.",
+    title: "Publish source code, not an app package.",
+    body: "A Watchtower extension release is a JavaScript source file and one entry in a JSON array. A custom native layout is a separate JSON file referenced from that entry. Users install the source from the repository index; there is no per-extension APK to build.",
     marker: "06c",
-    code: `# The repository index, hosted over HTTPS
-{
-  "name": "My repository",
-  "extensions": [
-    { "name": "Example", "pkg": "eu.kanade.example",
-      "version": "1.4.2", "apk": "example-v1.4.2.apk" }
-  ]
-}`,
+    code: `# index/watch.json (a JSON array, hosted over HTTPS)
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://raw.githubusercontent.com/owner/repo/main/assets/icons/example.png",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "appMinVerReq": "0.5.0",
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false,
+    "uiLayout": "ui-layouts/example.json",
+    "uiLayoutVersion": "1.0.0"
+  }
+]`,
     subsections: [
-      ["What a repository is", "A folder of extension packages and one JSON index that lists them. Host the folder anywhere that serves HTTPS, and give people the address of the index file."],
-      ["Publishing an update", "Raise the version number, rebuild the package, and update the version in the index. Watchtower compares that number, so an unchanged version is an update nobody receives."],
-      ["Keeping the name stable", "The package name is the extension's identity. Change it and users get a second, separate extension instead of an update to the first."],
-      ["Be clear about trust", "People installing from your repository are running your code with the app's access. Say who you are, and keep the repository somewhere you control."],
-      ["Maintaining a source", "Websites change without warning, so expect to republish. Watch for reports that a source stopped working and fix it before users drift away."],
-      ["The index address matters", "The address you hand out must point at index.min.json. Any other path leaves people staring at a repository that refuses to load."],
-      ["When users do not get your update", "The usual cause is a version number in the index that did not change, or a repository address pointing somewhere other than the index file. Raise the version, confirm the address, and check that the file is reachable over HTTPS."],
+      ["Publish a JSON array", "Each index/<category>.json is an array of source records, not an object containing APK packages. Host the index and referenced source files over HTTPS, and give users the URL to the index they need."],
+      ["Keep identity and version stable", "The numeric id identifies the installed source. Never recycle it for another site. Increment version for every JavaScript change so Watchtower can offer the update."],
+      ["Publish the JavaScript URL", "sourceCodeUrl must resolve to the actual source file. The official repository uses jsDelivr URLs; raw GitHub URLs are also used for repository-hosted assets such as icons."],
+      ["Publish a layout separately", "If uiLayout is present, its relative path must exist in the repository. Increment uiLayoutVersion when the JSON changes; Watchtower downloads and validates the sidecar separately from the JavaScript."],
+      ["Set truthful capability flags", "Use isNsfw, login, requiresAccount, hasDRM, forYou, hasCloudflare, langs, videoQualities and related fields only when they describe real source behavior. A flag does not implement a missing method."],
+      ["Choose a reachable index URL", "The extension manager requires a URL that returns the source-record JSON array directly, such as index/watch.json. The repository may publish a sibling repo.json descriptor with its name and per-type index URLs, but that descriptor is not itself the source array. The index filename does not need to end in .min.json."],
+      ["Validate before publishing", "Run the repository validator and the source's live test. Check that itemType matches the index file, sourceCodeUrl exists, icons are repository-hosted, and every declared layout section is supported by getCustomList."],
+      ["Explain the trust boundary", "Anyone who installs from your index runs your JavaScript inside Watchtower's extension runtime. Publish from an account you control, document adult or account requirements honestly, and respond when the target site changes."],
     ],
     facts: [
-      "A repository is an HTTPS folder plus one JSON index.",
-      "The version in the index is what tells users an update exists.",
-      "A stable package name is what makes an update an update.",
-      "Expect to republish whenever the target website changes.",
-      "An update nobody receives is usually an unchanged version number.",
+      "A category index is an HTTPS-hosted JSON array of source records.",
+      "Stable numeric ids preserve installed-source identity.",
+      "Bump the source version for JavaScript changes and uiLayoutVersion for layout changes.",
+      "Use a reachable sourceCodeUrl and a repository-hosted icon.",
+      "Capability flags describe behavior; they do not add that behavior.",
     ]
   },
 
@@ -657,81 +685,187 @@ The same sandbox runs on Android, on desktop and on the Linux command line.`,
     ]
   },
 
-  "extension-contract": {
-    title: "What a source has to provide.",
-    body: "For an extension to work, it must answer a fixed set of questions: what is popular, what is new, what a search returns, what a series contains, and where its pages and streams are.",
-    marker: "21",
-    code: `Listing     popular      latest      search
-Details     series details      chapters
-Content     page images      video streams
-Optional    filters      source settings`,
+  "extension-development": {
+    title: "The extension contract and native UI reference.",
+    body: "This is the implementation reference for extension authors and agents. It follows the current Watchtower runtime, the live source indexes and the registered layout catalog. Treat these definitions as a map to the code, not as permission to invent unsupported APIs.",
+    marker: "20a",
+    code: `watchtower-extensions/
+├── src/<category>/<lang>/<slug>.js   source metadata + implementation
+├── index/<category>.json             marketplace records
+└── ui-layouts/<slug>.json            optional native layout
+
+# Source of truth
+watchtower/lib/eval/model/m_provider.dart
+watchtower/lib/models/ui_layout.dart
+watchtower/lib/models/layout_component_registry.dart
+watchtower/lib/models/gallery_component_catalog.dart`,
     subsections: [
-      ["Listing and search", "These calls return the browsable lists: what is popular, what was released recently, and what a search for a term turns up. They are the minimum for a source to be usable."],
-      ["Series and chapters", "One call fills in the details of a series, and another returns its ordered chapters or episodes. Without these, a source can be searched but not opened."],
-      ["Pages and video", "For reading, a call returns the image addresses of a chapter. For video, a call returns the available streams along with the quality and any headers they need."],
-      ["Optional extras", "Filters, source-specific settings and custom image handling are optional. A source without them still works; it simply offers less to configure."],
-      ["Why content type matters", "The type an extension declares decides whether a result opens in the manga reader, the video player or the novel reader. Getting it wrong sends content to the wrong screen."],
-      ["What is not required", "Everything beyond listing and search is a bonus. A minimal source that only lists and searches is a perfectly good source."]
+      ["One implementation reference", "The three child pages below cover the source methods and result shapes, the native layout JSON contract, and every registered gallery card id. Read them together when adding a source that provides a custom home."],
+      ["What belongs in each repository file", "JavaScript and watchtowerSources metadata live together under src/. The index record gives Watchtower the stable source id and download URLs. The optional ui-layout file is linked from that record and does not contain executable code."],
+      ["Runtime boundaries", "Extensions fetch and parse remote content, then return plain data. Watchtower owns navigation, cards, playback and reading. A layout selects registered components; it cannot supply arbitrary widgets or Dart code."],
+      ["Use the registry as the authority", "Method signatures are defined by MProvider and the JavaScript bridge. Layout ids and contexts are defined by LayoutComponentRegistry and GalleryComponentCatalog. If a name is absent there, do not claim it is supported."],
+      ["Keep manifests and indexes in sync", "The source metadata version and the matching index version must agree. A layout change also needs a uiLayoutVersion bump. The repository validator checks syntax, indexes, icons, itemType values, layout ids and version consistency."],
+      ["Recommended change loop", "Copy the closest working source, implement the site-specific requests, validate the source and sidecar, run the live harness, then publish a small commit. Recheck the source against the current site whenever its markup or endpoint changes."],
     ],
     facts: [
-      "Listing and search alone make a browsable source.",
-      "Details and chapter calls are what let a series open.",
-      "Filters and source settings are optional.",
-      "Content type decides which reader or player opens."
+      "A source is JavaScript plus an index record, not a separate APK manifest.",
+      "The layout JSON is optional, declarative and validated against registered ids.",
+      "The three child pages document related parts of one extension-development section.",
+      "The core registry is authoritative when this page and implementation differ.",
+    ]
+  },
+
+  "extension-contract": {
+    title: "Methods, manifests and result shapes.",
+    body: "A source is a JavaScript class extending MProvider, plus a metadata object embedded in the same file and a record in the marketplace index. The method contract is typed by the app even though extensions themselves are JavaScript.",
+    marker: "21",
+    code: `const watchtowerSources = [{
+  "name": "Example source",
+  "lang": "en",
+  "baseUrl": "https://example.org",
+  "apiUrl": "",
+  "iconUrl": "https://example.org/favicon.ico",
+  "typeSource": "single",
+  "itemType": 1,
+  "version": "1.0.0",
+  "login": false,
+  "forYou": false,
+  "pkgPath": "watch/en/example.js",
+  "requiresAccount": false,
+  "hasDRM": false,
+  "isNsfw": false,
+  "hasCloudflare": false,
+  "notes": ""
+}];
+
+class DefaultExtension extends MProvider {
+  get supportsLatest() { return true; }
+  async getPopular(page) { return { list: [], hasNextPage: false }; }
+  async getLatestUpdates(page) { return { list: [], hasNextPage: false }; }
+  async search(query, page, filters) { return { list: [], hasNextPage: false }; }
+  async getDetail(url) { return { name: "", chapters: [] }; }
+  async getPageList(url) { return []; }
+  async getVideoList(url) { return []; }
+  getFilterList() { return []; }
+  getSourcePreferences() { return []; }
+}`,
+    subsections: [
+      ["Two metadata layers", "watchtowerSources is an array in the JavaScript file and describes the implementation. index/<category>.json is a JSON array consumed by the marketplace and carries the stable numeric id, sourceCodeUrl, iconUrl, version and capability metadata. Do not confuse either with ui-layouts/<slug>.json."],
+      ["Catalogue fields and types", "Current index records use name (string), id (integer), lang (string), baseUrl/iconUrl/sourceCodeUrl (URLs), typeSource (string), itemType/sourceCodeLanguage (integers), version/appMinVerReq (version strings), and boolean flags isNsfw, hasCloudflare, login, forYou, requiresAccount and hasDRM, plus notes (string). Optional active fields include apiUrl/loginUrl/description/upstream (strings), langs/subCategories/contentSubtype/videoQualities (string arrays), supportsComments/isAggregator/touchToPreview/account/favorites (booleans), paywall (string), and uiLayout/uiLayoutVersion (strings). Some records retain the legacy isManga flag; itemType is the catalogue classification. The runtime model also accepts subscription/premium booleans and aliases such as supportsAccount."],
+      ["Item types and language", "itemType is the app enum: 0 manga, 1 watch/anime, 2 novel, 3 music, 4 game. The index file must match that value. lang is the primary language code; use langs when the source publishes multiple supported languages. Use multi or all only when that is genuinely accurate."],
+      ["Listings and pagination", "getPopular(page), getLatestUpdates(page) and search(query, page, filters) return {list: [items], hasNextPage: boolean}. Page numbers start at 1. supportsLatest tells the app whether Latest is meaningful; still implement the method and return an empty list when the site truly has no latest feed."],
+      ["Item and detail shape", "List items use name and link, with optional imageUrl, previewUrl, description, author, artist, collectionId, genre and status. getDetail(url) returns the same identity plus chapters or episodes. Each chapter/episode uses name and url, with optional dateUpload, thumbnailUrl, description and duration."],
+      ["Reading and playback", "getPageList(url) returns an ordered array of image URLs for a readable chapter. getVideoList(url) returns video objects with url, quality and originalUrl; headers, subtitles and audio tracks are supported by the video model. Return playable URLs, not page URLs, when the site exposes a stream."],
+      ["Filters, settings and custom sections", "getFilterList() returns source filters and getSourcePreferences() returns settings; both may be empty arrays. getCustomList(id, page) is required for each id declared in a home layout. The runtime also exposes optional recommendations, comments and account-related methods; only advertise the matching index flags when implemented."],
+      ["Transport and parser helpers", "Use new Client().get(url, headers) or the supported HTTP verbs, then parse the response with Document(html), select(selector), selectFirst(selector), text and attr. A failed request should surface as an error with useful context; do not turn every failure into a successful empty page."],
+      ["Optional bridge methods", "The bridge also exposes getHtmlContent(name, url), cleanHtmlContent(html), getHeaders(url), getRecommendations(url), getComments(url), getAccount(), getFavorites(), getSubscription() and getPremiumStatus(). These are optional capabilities with runtime-specific defaults; override only what the source supports. supportsLatest must be explicitly supplied by the source."],
+    ],
+    facts: [
+      "The source metadata is embedded in watchtowerSources; the marketplace id lives in the index.",
+      "Every list call returns list plus hasNextPage.",
+      "itemType is fixed by the catalogue file: watch 1, manga 0, novel 2, music 3, game 4.",
+      "Home sections call getCustomList(id, page); each declared id needs a data implementation.",
+      "Optional flags must describe methods and behavior that actually exist.",
     ]
   },
 
   "ui-schema": {
-    title: "Letting a source design its own home screen.",
-    body: "Some sources present a rich front page: banners, rows of covers, a featured block. Instead of writing app code for each one, an extension can describe that layout itself.",
+    title: "The native layout JSON contract.",
+    body: "A source may ship a declarative JSON layout alongside its JavaScript. The app downloads it from the path in the marketplace record, validates it, and renders registered native components. This replaces the old imagined card/list tree; the current schema is versioned and section ids are data-provider keys.",
     marker: "22",
     code: `{
-  "type": "list",
-  "items": [
-    { "type": "card", "title": "Trending", "image": "$cover" },
-    { "type": "row",  "items": ["$latest"] }
-  ]
+  "schemaVersion": 1,
+  "home": {
+    "sections": [
+      {
+        "id": "trending",
+        "component": "spotlight",
+        "title": "Trending",
+        "icon": "trending_up",
+        "accent": "primary",
+        "seeAll": true,
+        "paginated": true
+      },
+      {
+        "id": "hd",
+        "component": "carousel",
+        "title": "HD"
+      }
+    ]
+  },
+  "browse": {
+    "popular": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "latest":  { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "search": {
+      "results": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+      "filters": "chips"
+    }
+  },
+  "detail": {
+    "hero": "backdrop",
+    "episodeList": "compact",
+    "showRecommendations": true
+  },
+  "player": { "mode": "standard" }
 }`,
     subsections: [
-      ["What it is for", "A source can describe its home screen as data: rows, cards and banners, each pointing at content the source provides. The app draws it with its normal widgets."],
-      ["Why it is a good idea", "It means a new website can have a tailored front page without a new app release, and the page still looks native rather than like a web page in a box."],
-      ["What can be described", "Lists, rows, cards, banners and text blocks are the building blocks. That covers the layout of almost every source home screen in practice."],
-      ["When a source has none", "If an extension does not describe a layout, Watchtower builds one from the source's listings. Nothing breaks; the page is simply plainer."],
-      ["What it cannot do", "The description is data, not code. It cannot run logic, reach your files or change how the app itself behaves, which is exactly why it is safe to accept."],
-      ["For people writing sources", "Think of it as a layout file rather than a program. You are telling the app what to show, not how to draw it."]
+      ["How it is linked", "Add uiLayout with a repository-relative path such as ui-layouts/example.json to the index record. Add uiLayoutVersion and increment it when the sidecar changes. The downloader fetches from the extension repository's raw main branch; the layout is stored separately from source code."],
+      ["Root schema", "schemaVersion must be a number of at least 1 and home must be an object. home.sections is an ordered array. browse, detail and player are optional overrides. If no layout is declared, Watchtower uses its standard Popular, Latest and Search screens."],
+      ["Home section object", "Every section needs a unique non-empty id and a registered component. title, icon and accent control its heading and appearance. seeAll, paginated and requiresAuth are booleans. The id is passed to getCustomList(id, page), so it must map to real source data."],
+      ["Presentation properties", "The schema supports columns, rows, cardStyle, cardComponent, episodeComponent, chapterComponent, gridOrder, scrollDirection, monthSelector and params. These are hints consumed by native renderers; property support depends on the chosen component and media context."],
+      ["Browse, detail and player", "browse can override popular and latest presentation and search results/filters. detail accepts hero and episodeList presentation values plus showRecommendations. player accepts mode standard or feed. These keys do not create new source capabilities."],
+      ["Validation and failure behavior", "The runtime rejects malformed JSON, duplicate or empty ids, missing components and components unknown to the current registry. An invalid layout is not an ignored widget tree. Validate the JSON before publishing and never copy an id from an old mockup without checking the registry."],
+      ["Sections need providers", "For each home section, implement getCustomList(id, page) and return the standard paginated list object. Do not assume Popular or Latest will be substituted automatically for an unknown custom id."],
+      ["Version and cache behavior", "The layout is cached locally. Bump uiLayoutVersion to deliver a layout-only update, or bump the source version when the JavaScript changes. Keep both the index version and embedded watchtowerSources version synchronized."],
     ],
     facts: [
-      "A source can describe its own home screen as data.",
-      "Unknown building blocks are ignored rather than breaking the page.",
-      "A default layout is used when a source provides none.",
-      "The description cannot run code or reach your files."
+      "A layout is JSON linked by uiLayout; it is not executable extension code.",
+      "Each home section id dispatches to getCustomList(id, page).",
+      "Unknown component ids and malformed sections fail validation.",
+      "The current root supports home, browse, detail and player layout blocks.",
     ]
   },
 
   "layout-components": {
-    title: "The cards every screen is built from.",
-    body: "Watchtower draws its home screens from a catalogue of ready-made cards. A source picks which ones to show and in what order, and every screen renders the very same widgets.",
+    title: "Every registered card and home component.",
+    body: "The identifiers below come from the live Dart registry, not from an old mockup or a hand-written estimate. The home component registry provides the section renderers; the gallery catalog adds 199 stable card ids. Compatibility-only entries remain registered for old layouts even when they are not offered in the picker.",
     marker: "22a",
-    code: `"sections": [
-  { "id": "trending", "component": "featured-discovery", "title": "Trending" },
-  { "id": "spotlight", "component": "manga-spotlight",
-    "params": { "dataSource": "popular" } },
-  { "id": "top3", "component": "manga-top3",
-    "params": { "dataSource": "popular" } }
-]`,
+    code: `# ACCUEIL & LECTURE (9)
+home-hero-banner, home-spotlight-rail, home-genre-tile, home-popular-rail, home-read-rail, home-language-grid, home-my-list, home-airecommender, home-mini-player
+# CARTES RICHES (12)
+movie-details, movie-detail, expanded-movie, expandable-movie, interactive-movie, hover-movie, movie-quick-view, media-quick-view, movie-preview, media-preview, movie-details-modal, media-details-modal
+# CATALOGUE & DISCOVERY (13)
+poster, poster-card-compact, landscape, ranked-card, discovery, animated-discovery, ranked-discovery, landscape-discovery, featured-discovery, saga-discovery, spotlight-discovery, tag, app-genre-tile
+# CLASSEMENTS & TOP 10 (10)
+top-movies, top-series, top-anime, top-by-genre, top-by-country, global-ranking, top-rated-ranking, trending-ranking, top-by-decade, must-watch
+# COLLECTIONS & FRANCHISES (24)
+collection, movie-collection, franchise, saga, studio, network, genre, actor, director, character, related-media, similar-media, trending, popular, top-rated, ranked-media, numbered, featured, spotlight-card, recommendation, carousel-card, universe, category-card, cast
+# EXTENSIONS WATCH (6)
+media-ranked, media-landscape, media-grid, media-hero, collection-rail, media-banner-rail
+# FILMS & SÉRIES · SECTIONS (11)
+landscape-showcase, landscape-playlist, landscape-genre-row, genre-grid-section, poster-rail, ranked-rail, landscape-rail, featured-movie-rail, watch-providers-rail, tmdb-hero-carousel, tmdb-featured-stack
+# MANGA & LECTURE (79)
+manga-chapter, manga-chapter-release, manga-chapter-list, manga-chapter-group, manga-latest-release, manga-release-timeline, manga-chapter-volume, manga-chapter-badge, manga-chapter-range, manga-chapter-timeline, manga-new-chapter, manga-chapter-progress, manga-chapter-next, manga-chapter-search, manga-volume, manga-volume-list, manga-volume-preview, manga-special-edition, manga-format, manga-edition-language, manga-collection-tracker, manga-upcoming-volume, manga-genres, manga-demographics, manga-themes, manga-universe-showcase, manga-tags, manga-languages, manga-publishers, manga-language-news, manga-reader, manga-page, manga-page-preview, manga-page-strip, manga-double-page, manga-reading-mode, manga-reading-direction, manga-reader-settings, manga-page-progress, manga-reading-progress, manga-chapter-navigation, manga-quick-access, manga-reader-floating, manga-reader-chapter-list, manga-reader-history, manga-relation-type, manga-universe-timeline, manga-linked-series, manga-relation-list, manga-same-universe, manga-universe-chronology, manga-franchise-universes, manga-character-relations, manga-universe-map, manga-status, manga-serialization, manga-frequency, manga-global-stats, manga-popularity, manga-followers, manga-item-stats, manga-stats-grid, manga-category-ranking, manga-reports, manga-featured, manga-resume, manga-spotlight, manga-genre, manga-update-row, manga-banner, manga-top3, manga-latest-update, manga-ranking, manga-vote, manga-collection-showcase, manga-trending-list, manga-scan-group, manga-card, manga-list-tile
+# SECTIONS RÉUTILISABLES (1)
+three-column-swipe
+# STREAMING & PROGRESSION (15)
+continue-watching, continue-watching-item, resume-watching, recently-watched, watch-again, now-playing, up-next, next-episode, episode, season, series-episode, watch-progress, progress-media, progress-media-card-percent, progress-media-card-chip
+# ÉPISODES & SAISONS (19)
+compact-episode, episode-thumbnail, episode-preview, episode-list-item, season-detail, featured-episode, next-episode-hero, latest-episode, season-selector, series-episode-list, episode-progress, media-progress, up-next-compact, season-episode, series-banner, episode-carousel, season-banner, episode-list, series-grid`,
     subsections: [
-      ["What it is", "A library of around two hundred card layouts: rows of covers, banners, rankings, chapter lists, episode cards and more. Each one has a name, and a home screen is just an ordered list of those names."],
-      ["Why it matters", "A source does not ship its own drawing code. It asks for the cards by name, so its home screen is drawn by the same widgets as every other screen and looks native on a phone, a tablet, a desktop and a TV alike."],
-      ["What a card can be told", "Each card accepts a few settings, such as where its data comes from, a title, how many columns to use, or a subtitle. Those settings are stored beside the section, so a source can tailor a card without new app code."],
-      ["One catalogue, every screen", "The developer gallery, the manga home and the watch-extension home all read the same catalogue. A card fixed or added once appears everywhere, which is why the previews and the real screens can no longer drift apart."],
-      ["Choosing the cards", "Add a section with the name of the card you want. If a name is unknown the section is skipped rather than breaking the page, and a sensible default layout is used when a source describes nothing at all."],
-      ["For people writing sources", "Think of it as a menu rather than a canvas. You are ordering named cards, not positioning pixels, so your layout keeps working as the app evolves."]
+      ["How to read the catalog", "The code panel groups all 199 GalleryComponentCatalog ids by their current source category. These stable kebab-case ids are what go in layout JSON. The ids and descriptions live in watchtower/lib/models/gallery_component_catalog.dart; the home renderer and legacy section definitions live in watchtower/lib/models/layout_component_registry.dart."],
+      ["Home section renderers", "For home.sections[].component, the registered base renderers are spotlight (alias carousel), banner, hero, ranked, newHot (alias new_hot), rankedWide, showcase, creatorRow, landscapeStacked, backdropWide, studioExplorer, universeExplorer, collectionTimeline, grid, catalogue, discoverGrid, category, categoryPills, doubleFeature, editorialSplit, masonry, feed, collectionCards and playlistCarousel. Compatibility ids compactRow (alias compact), historyRow, metadataPoster and statusPoster remain accepted but are not new picker choices."],
+      ["Specialized card slots", "A home grid can select the mangaFeaturedCard or mangaChapterCard for manga items; homeEpisodeCard is the episode-card option; chapterCard belongs to chapter context. These are not interchangeable with the home section component. Context support is checked separately."],
+      ["Common properties", "A section may set title, icon, accent, seeAll, paginated, requiresAuth and monthSelector. Grid sections additionally use columns, rows, cardStyle, gridOrder and scrollDirection. Gallery-backed ids can read their family-specific values from params; only use keys supported by that component family."],
+      ["The 199 gallery ids", "The complete list is grouped by the catalog's own categories in the code panel. It includes rich media, discovery, rankings, collections, watch cards, manga and reading cards, streaming/progress cards, episodes and reusable sections. The source catalog carries each id's label, category, description, renderer family and selectable state."],
+      ["Compatibility and picker state", "An id marked selectable: false still resolves so existing layouts can keep rendering, but the visual picker will not recommend it for a new layout. Do not delete compatibility ids or repurpose an id whose meaning is already stored in user JSON."],
+      ["Use only registered names", "LayoutRegistry validates every home component against LayoutComponentRegistry. A typo or a component copied from a web mockup is an error, not a graceful no-op. Run the extension validator and confirm the id in the core registry before publishing."],
     ],
     facts: [
-      "Home screens are ordered lists of named cards.",
-      "Around two hundred cards are available by name.",
-      "Every screen draws from the same card catalogue.",
-      "An unknown card name is skipped, not fatal."
+      "The catalog currently contains 199 stable gallery component ids.",
+      "Home section renderers and specialized card slots are different contexts.",
+      "Compatibility-only ids remain valid but are not offered for new selection.",
+      "Unknown home component ids fail layout validation.",
     ]
   },
 

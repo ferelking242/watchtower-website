@@ -4,10 +4,10 @@
 // independent. `title`, `body`, `subsections` and `facts` come from the locale
 // when it provides them.
 //
-// Subsections are merged by position, so an overlay is only trusted when its
-// subsection count matches the base. A translation written against an older
-// structure therefore falls back to English instead of pairing translated
-// headings with the wrong paragraphs.
+// Prose overlays are merged by position, so an overlay is only trusted when
+// both its subsection and fact counts match the base. A stale translation
+// falls back to the complete English section rather than mixing old prose
+// with a new structure.
 import en from "./en.js";
 import fr from "./fr.js";
 import es from "./es.js";
@@ -28,21 +28,17 @@ const overlays = { fr, es, pt, de, it, ru, ar, ja, ko, zh, tr, hi, id, th };
 
 function mergeSection(base, overlay) {
   if (!overlay) return { ...base };
-  const subsections =
-    overlay.subsections && overlay.subsections.length === base.subsections.length
-      ? overlay.subsections
-      : base.subsections;
-  const facts =
-    overlay.facts && overlay.facts.length === base.facts.length
-      ? overlay.facts
-      : base.facts;
+  const structureMatches =
+    (!overlay.subsections || overlay.subsections.length === base.subsections.length) &&
+    (!overlay.facts || overlay.facts.length === base.facts.length);
+  if (!structureMatches) return { ...base };
   return {
     marker: base.marker,
     code: base.code,
     title: overlay.title ?? base.title,
     body: overlay.body ?? base.body,
-    subsections,
-    facts
+    subsections: overlay.subsections ?? base.subsections,
+    facts: overlay.facts ?? base.facts
   };
 }
 
@@ -67,7 +63,12 @@ export const hasFullTranslation = (code) => {
   if (!overlay) return false;
   return Object.keys(en).every((id) => {
     const entry = overlay[id];
-    return entry?.title && entry?.body && entry?.subsections?.length === en[id].subsections.length;
+    return (
+      entry?.title &&
+      entry?.body &&
+      entry?.subsections?.length === en[id].subsections.length &&
+      entry?.facts?.length === en[id].facts.length
+    );
   });
 };
 
