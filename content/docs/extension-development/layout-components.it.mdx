@@ -1,0 +1,68 @@
+---
+title: "Componenti di layout"
+fullTitle: "Every registered card and home component."
+description: "The identifiers below come from the live Dart registry, not from an old mockup or a hand-written estimate. The home component registry provides the section renderers; the gallery catalog adds 199 stable card ids. Compatibility-only entries remain registered for old layouts even when they are not offered in the picker."
+marker: "22a"
+---
+
+## How to read the catalog
+
+The code panel groups all 199 GalleryComponentCatalog ids by their current source category. These stable kebab-case ids are what go in layout JSON. The ids and descriptions live in watchtower/lib/models/gallery_component_catalog.dart; the home renderer and legacy section definitions live in watchtower/lib/models/layout_component_registry.dart.
+
+## Home section renderers
+
+For home.sections[].component, the registered base renderers are spotlight (alias carousel), banner, hero, ranked, newHot (alias new_hot), rankedWide, showcase, creatorRow, landscapeStacked, backdropWide, studioExplorer, universeExplorer, collectionTimeline, grid, catalogue, discoverGrid, category, categoryPills, doubleFeature, editorialSplit, masonry, feed, collectionCards and playlistCarousel. Compatibility ids compactRow (alias compact), historyRow, metadataPoster and statusPoster remain accepted but are not new picker choices.
+
+## Specialized card slots
+
+A home grid can select the mangaFeaturedCard or mangaChapterCard for manga items; homeEpisodeCard is the episode-card option; chapterCard belongs to chapter context. These are not interchangeable with the home section component. Context support is checked separately.
+
+## Common properties
+
+A section may set title, icon, accent, seeAll, paginated, requiresAuth and monthSelector. Grid sections additionally use columns, rows, cardStyle, gridOrder and scrollDirection. Gallery-backed ids can read their family-specific values from params; only use keys supported by that component family.
+
+## The 199 gallery ids
+
+The complete list is grouped by the catalog's own categories in the code panel. It includes rich media, discovery, rankings, collections, watch cards, manga and reading cards, streaming/progress cards, episodes and reusable sections. The source catalog carries each id's label, category, description, renderer family and selectable state.
+
+## Compatibility and picker state
+
+An id marked selectable: false still resolves so existing layouts can keep rendering, but the visual picker will not recommend it for a new layout. Do not delete compatibility ids or repurpose an id whose meaning is already stored in user JSON.
+
+## Use only registered names
+
+LayoutRegistry validates every home component against LayoutComponentRegistry. A typo or a component copied from a web mockup is an error, not a graceful no-op. Run the extension validator and confirm the id in the core registry before publishing.
+
+## Riepilogo
+
+- The catalog currently contains 199 stable gallery component ids.
+- Home section renderers and specialized card slots are different contexts.
+- Compatibility-only ids remain valid but are not offered for new selection.
+- Unknown home component ids fail layout validation.
+
+## Contratto / esempio
+
+```text
+# ACCUEIL & LECTURE (9)
+home-hero-banner, home-spotlight-rail, home-genre-tile, home-popular-rail, home-read-rail, home-language-grid, home-my-list, home-airecommender, home-mini-player
+# CARTES RICHES (12)
+movie-details, movie-detail, expanded-movie, expandable-movie, interactive-movie, hover-movie, movie-quick-view, media-quick-view, movie-preview, media-preview, movie-details-modal, media-details-modal
+# CATALOGUE & DISCOVERY (13)
+poster, poster-card-compact, landscape, ranked-card, discovery, animated-discovery, ranked-discovery, landscape-discovery, featured-discovery, saga-discovery, spotlight-discovery, tag, app-genre-tile
+# CLASSEMENTS & TOP 10 (10)
+top-movies, top-series, top-anime, top-by-genre, top-by-country, global-ranking, top-rated-ranking, trending-ranking, top-by-decade, must-watch
+# COLLECTIONS & FRANCHISES (24)
+collection, movie-collection, franchise, saga, studio, network, genre, actor, director, character, related-media, similar-media, trending, popular, top-rated, ranked-media, numbered, featured, spotlight-card, recommendation, carousel-card, universe, category-card, cast
+# EXTENSIONS WATCH (6)
+media-ranked, media-landscape, media-grid, media-hero, collection-rail, media-banner-rail
+# FILMS & SÉRIES · SECTIONS (11)
+landscape-showcase, landscape-playlist, landscape-genre-row, genre-grid-section, poster-rail, ranked-rail, landscape-rail, featured-movie-rail, watch-providers-rail, tmdb-hero-carousel, tmdb-featured-stack
+# MANGA & LECTURE (79)
+manga-chapter, manga-chapter-release, manga-chapter-list, manga-chapter-group, manga-latest-release, manga-release-timeline, manga-chapter-volume, manga-chapter-badge, manga-chapter-range, manga-chapter-timeline, manga-new-chapter, manga-chapter-progress, manga-chapter-next, manga-chapter-search, manga-volume, manga-volume-list, manga-volume-preview, manga-special-edition, manga-format, manga-edition-language, manga-collection-tracker, manga-upcoming-volume, manga-genres, manga-demographics, manga-themes, manga-universe-showcase, manga-tags, manga-languages, manga-publishers, manga-language-news, manga-reader, manga-page, manga-page-preview, manga-page-strip, manga-double-page, manga-reading-mode, manga-reading-direction, manga-reader-settings, manga-page-progress, manga-reading-progress, manga-chapter-navigation, manga-quick-access, manga-reader-floating, manga-reader-chapter-list, manga-reader-history, manga-relation-type, manga-universe-timeline, manga-linked-series, manga-relation-list, manga-same-universe, manga-universe-chronology, manga-franchise-universes, manga-character-relations, manga-universe-map, manga-status, manga-serialization, manga-frequency, manga-global-stats, manga-popularity, manga-followers, manga-item-stats, manga-stats-grid, manga-category-ranking, manga-reports, manga-featured, manga-resume, manga-spotlight, manga-genre, manga-update-row, manga-banner, manga-top3, manga-latest-update, manga-ranking, manga-vote, manga-collection-showcase, manga-trending-list, manga-scan-group, manga-card, manga-list-tile
+# SECTIONS RÉUTILISABLES (1)
+three-column-swipe
+# STREAMING & PROGRESSION (15)
+continue-watching, continue-watching-item, resume-watching, recently-watched, watch-again, now-playing, up-next, next-episode, episode, season, series-episode, watch-progress, progress-media, progress-media-card-percent, progress-media-card-chip
+# ÉPISODES & SAISONS (19)
+compact-episode, episode-thumbnail, episode-preview, episode-list-item, season-detail, featured-episode, next-episode-hero, latest-episode, season-selector, series-episode-list, episode-progress, media-progress, up-next-compact, season-episode, series-banner, episode-carousel, season-banner, episode-list, series-grid
+```

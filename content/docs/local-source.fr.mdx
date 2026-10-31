@@ -1,0 +1,57 @@
+---
+title: "Source locale"
+fullTitle: "Lire et diffuser vos propres fichiers."
+description: "Watchtower peut traiter un dossier de votre appareil comme une source normale. Votre propre collection se comporte alors exactement comme un catalogue en ligne, suivi de progression compris."
+marker: "07"
+---
+
+## Mangas et romans
+
+Placez un dossier par série dans le dossier local, et un fichier par chapitre à l'intérieur. Les chapitres peuvent être des archives CBZ ou de simples dossiers d'images, et le nom du dossier devient le titre de la série.
+
+## Animés
+
+Placez un dossier par série dans le dossier d'animés local, et un fichier vidéo par épisode à l'intérieur. Les épisodes sont ordonnés par nom de fichier, donc numérotez-les.
+
+## Couvertures et détails
+
+Une image de couverture dans le dossier de la série devient la vignette. Un fichier de détails à côté peut ajouter auteur, artiste, description et genres quand le nom du dossier ne suffit pas.
+
+## Ajouter de nouveaux fichiers
+
+Déplacez des fichiers depuis l'extérieur de l'application, puis rafraîchissez la source locale pour que Watchtower réanalyse le dossier. Les fichiers ajoutés application fermée ne sont pas vus avant.
+
+## Lire hors ligne
+
+Les sources locales ne touchent jamais au réseau : elles fonctionnent en mode avion et ne peuvent être ni bloquées ni limitées. Les téléchargements se comportent pareil une fois sur le disque.
+
+## Masquer les fichiers de la galerie
+
+Déposez un fichier .nomedia dans le dossier pour que les couvertures et les épisodes restent hors de l'application Photos.
+
+## Quand les couvertures sont vides ou des fichiers manquent
+
+Une couverture vide ou une série qui ne s'ouvre pas signifie presque toujours que la structure des dossiers est incorrecte. Vérifiez qu'il y a un dossier par série et un fichier par chapitre ou épisode, puis retirez l'entrée, videz la base de données pour les éléments hors bibliothèque, et laissez la source locale réanalyser le dossier.
+
+## Mémo
+
+- Les archives CBZ comme les simples dossiers d'images sont lus comme des chapitres.
+- L'ordre des épisodes suit le nom de fichier, donc numérotez vos fichiers.
+- Un fichier .nomedia garde les médias locaux hors de la galerie système.
+- Les sources locales fonctionnent sans aucune connexion réseau.
+- Une structure de dossiers incorrecte est la cause habituelle d'une couverture vide.
+
+## Contrat / exemple
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

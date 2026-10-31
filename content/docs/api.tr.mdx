@@ -1,0 +1,51 @@
+---
+title: "Sunucu API'si"
+fullTitle: "Watchtower'u başka bir programdan kullanma."
+description: "Uygulama, kendi makinenizde küçük bir web sunucusu açabilir; bu, komut dosyalarının, harici oynatıcıların ve diğer cihazların, uygulamanın kullandığı kaynakların aynısını kullanmasına olanak tanır."
+marker: "23"
+---
+
+## Bu ne
+
+Uygulamaya yerleşik küçük bir web sunucusu. Arayüzle aynı uzantıları ve aynı kitaplığı kullanır, böylece döndürdüğü her şey ekranda gördüklerinizle eşleşir.
+
+## Açma
+
+Siz kasıtlı olarak etkinleştirene kadar kapalıdır. Gelişmiş ayarlarda açın ve bağlantı noktasını not edin, ardından aracınızı bu adrese yönlendirin.
+
+## Ne sorabilirsin
+
+Yüklü kaynaklarınız, kitaplık girişleriniz, herhangi bir kaynakta arama ve çözümlenmiş bir video akışı. Bu, bir medya merkezini veya harici bir oynatıcıyı çalıştırmak için yeterlidir.
+
+## Neden bunu isteyebilirsin?
+
+Otomasyon, farklı bir ön uç veya ağınızdaki başka bir cihazın, telefonunuzun önceden kurmuş olduğu kaynakları kullanmasına izin vermek.
+
+## Kendi ağınızda tutun
+
+Sunucunun parolası yoktur ve güvenilir bir yerel ağ için tasarlanmıştır. Herkesin kütüphanenizi okuyabileceği internete maruz bırakmayın.
+
+## Komut satırıyla ilişkisi
+
+Linux komut satırı aynı sunucuyu açığa çıkarır, böylece uygulamaya karşı yazılan bir komut dosyası, hiçbir değişiklik olmadan başsız bir makinede çalışır.
+
+## Kısa özet
+
+- Ayarlarda etkinleştirene kadar sunucu kapalıdır.
+- Varsayılan olarak 4567 numaralı bağlantı noktasını dinler.
+- Arayüzle aynı kaynakları ve kütüphaneyi kullanır.
+- İnternet için değil, güvenilir bir yerel ağ içindir.
+
+## Sözleşme / örnek
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

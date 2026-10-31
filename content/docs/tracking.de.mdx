@@ -1,0 +1,56 @@
+---
+title: "Tracking"
+fullTitle: "Zeichnen Sie automatisch auf, was Sie sehen."
+description: "Das Tracking verbindet Watchtower mit den Diensten, die Ihren Verlauf speichern. Sie melden sich einmal an und der Fortschritt wird protokolliert, anstatt dass er manuell eingetippt wird."
+marker: "16"
+---
+
+## Welche Dienste werden unterstützt?
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori und Bangumi. Sie werden alle über die Tracking-Einstellungen eingerichtet und Sie können mehrere verbinden.
+
+## Anmelden
+
+Öffnen Sie die Tracking-Einstellungen und tippen Sie auf einen Dienst, um dessen Anmeldung zu starten. Kitsu fragt nach Ihrer E-Mail-Adresse und nicht nach einem Benutzernamen, was die Leute auffällt.
+
+## Eine Reihe verbinden
+
+Öffnen Sie eine Serie, gehen Sie zur Sendungsverfolgung und fügen Sie den Dienst hinzu. Watchtower sucht für Sie nach dem Titel und Sie können die Suchbegriffe bearbeiten, wenn sie mit dem falschen Eintrag übereinstimmen.
+
+## Wie viel zählt als gesehen
+
+Ein prozentualer Schwellenwert entscheidet darüber, wann eine Episode als gesehen markiert wird. Stellen Sie den Wert so hoch ein, dass beim Anhalten auf halbem Weg keine vollständige Episode aufgezeichnet wird.
+
+## Nur eine Richtung
+
+Der Fortschritt geht von Watchtower zum Dienst. Das Bearbeiten Ihrer Liste auf der Website ändert nichts an der App. Wählen Sie daher einen Ort aus, an dem Sie sie verwalten können.
+
+## Offline ansehen
+
+Fortschritte, die Sie ohne Verbindung erzielen, werden in die Warteschlange gestellt und hochgeladen, wenn Sie das nächste Mal online sind, sodass bei einem Flug Ihr Verlauf nicht verloren geht.
+
+## Wenn eine Anmeldung oder eine Synchronisierung fehlschlägt
+
+Ein Dienst, der die Anmeldung verweigert, ist in der Regel eine abgelaufene Sitzung oder ein Captcha auf der Website des Dienstes. Melden Sie sich also einmal über die Website des Dienstes an und versuchen Sie es erneut. Fortschritte, die nicht synchronisiert werden können, werden normalerweise in die Warteschlange gestellt und gehen nicht verloren und werden erneut versucht, wenn die Verbindung wiederhergestellt wird.
+
+## Passend zum falschen Titel
+
+Beim automatischen Abgleich kann der falsche Eintrag ausgewählt werden, wenn ein Titel nicht eindeutig ist. Bearbeiten Sie die Suchbegriffe für diese Serie im Tracking-Bereich, wählen Sie das richtige Ergebnis aus und bestätigen Sie dann, dass der Fortschritt, den es vermittelt, der gewünschte ist.
+
+## Kurzüberblick
+
+- Die Nachverfolgung erfolgt pro Serie und nicht für die gesamte Bibliothek.
+- Fortschritt fließt nur nach außen, nie wieder nach innen.
+- Ein Schwellenwert entscheidet, wann eine Episode als gesehen gilt.
+- Offline-Fortschritts-Uploads, wenn Sie die Verbindung wiederherstellen.
+- Bei einer fehlgeschlagenen Anmeldung handelt es sich in der Regel um eine abgelaufene Sitzung des Dienstes selbst.
+
+## Vertrag / Beispiel
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

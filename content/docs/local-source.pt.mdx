@@ -1,0 +1,57 @@
+---
+title: "Fonte local"
+fullTitle: "Lendo e reproduzindo seus próprios arquivos."
+description: "Watchtower pode tratar uma pasta no seu dispositivo como uma fonte normal. Sua própria coleção se comporta exatamente como uma coleção online, completa com acompanhamento de progresso."
+marker: "07"
+---
+
+## Mangá e romances
+
+Coloque uma pasta por série dentro da pasta local e um arquivo por capítulo dentro dela. Os capítulos podem ser arquivos CBZ ou pastas de imagens simples, e o nome da pasta se torna o título da série.
+
+## Anime
+
+Coloque uma pasta por série dentro da pasta local do anime e um arquivo de vídeo por episódio dentro dela. Os episódios são ordenados por nome de arquivo, portanto numere-os.
+
+## Capas e detalhes
+
+Uma imagem de capa na pasta da série torna-se a miniatura. Um arquivo de detalhes ao lado pode adicionar autor, artista, descrição e gêneros quando o nome da pasta não for suficiente.
+
+## Adicionando novos arquivos
+
+Mova os arquivos de fora do aplicativo e atualize a fonte local para que o Watchtower verifique novamente a pasta. Os arquivos adicionados enquanto o aplicativo está fechado não serão notados até que você o faça.
+
+## Lendo off-line
+
+As fontes locais nunca tocam a rede, portanto funcionam em modo de voo e não podem ser bloqueadas ou com taxa limitada. Downloads e arquivos locais se comportam da mesma maneira quando estão no disco.
+
+## Escondendo arquivos da galeria
+
+Solte um arquivo .nomedia na pasta para que capas e episódios fiquem fora do aplicativo de fotos do seu telefone.
+
+## Quando as capas estão em branco ou faltam arquivos
+
+Uma capa em branco ou uma série que não abre quase sempre significa que a estrutura da pasta está errada. Verifique se há uma pasta por série e um arquivo por capítulo ou episódio, em seguida, remova a entrada, limpe o banco de dados em busca de itens fora da biblioteca e deixe a fonte local verificar novamente a pasta.
+
+## Resumo
+
+- Tanto os arquivos CBZ quanto as pastas de imagens simples são lidos como capítulos.
+- A ordem dos episódios segue o nome do arquivo, então numere seus arquivos.
+- Um arquivo .nomedia mantém a mídia local fora da galeria do sistema.
+- As fontes locais funcionam sem nenhuma conexão de rede.
+- Uma estrutura de pastas errada é a causa comum de uma capa em branco.
+
+## Contrato / exemplo
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

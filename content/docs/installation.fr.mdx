@@ -1,0 +1,58 @@
+---
+title: "Installation"
+fullTitle: "Installez la version adaptée à votre appareil."
+description: "Il y a trois façons de faire tourner Watchtower : l'application Android, une version de bureau, ou une ligne de commande Linux pour les serveurs. Elles partagent le même moteur, donc une source qui fonctionne dans l'une fonctionne dans les autres."
+marker: "02"
+---
+
+## Android
+
+La cible principale, et la seule version qui reçoit toutes les fonctions en premier. Téléchargez l'APK de version stable, ou un APK d'aperçu pour tester le travail en cours. Autorisez l'installation de sources inconnues quand Android le demande, car Watchtower n'est pas distribué sur les magasins d'applications.
+
+## Bureau
+
+Des versions Windows, Linux et macOS existent pour regarder sur un plus grand écran. Compilez-les depuis les sources avec Flutter, car les fichiers publiés concernent d'abord Android et la ligne de commande Linux.
+
+## Ligne de commande Linux
+
+Un seul binaire, sans fenêtre. Il utilise le même moteur d'extensions, donc il peut chercher, parcourir et télécharger sur un serveur ou en SSH. Le script d'installation le copie avec ses fichiers dans le dossier de votre choix.
+
+## Stable ou aperçu
+
+Les versions d'aperçu suivent le code le plus récent et cassent plus souvent. Gardez les sauvegardes automatiques activées si vous en utilisez une, et prévoyez de réinstaller la version stable en cas de problème.
+
+## Compiler depuis les sources
+
+Il vous faut Flutter 3.38 ou plus récent, Dart 3.10 ou plus récent, et une chaîne d'outils Rust. Go 1.21 ou plus récent n'est nécessaire que si vous voulez recompiler le serveur torrent vous-même.
+
+## Garder l'application à jour
+
+Watchtower vous prévient quand une nouvelle version existe, et vous l'installez comme la première fois. Votre bibliothèque et vos réglages sont conservés tels quels.
+
+## Si l'installation échoue
+
+Les messages d'installation courants sont expliqués sur la page des erreurs. Une signature incompatible signifie qu'une copie signée différemment est déjà installée et doit d'abord être supprimée, un téléchargement corrompu doit être récupéré à nouveau, et une incompatibilité d'architecture de processeur signifie que la mauvaise version a été téléchargée.
+
+## Mémo
+
+- Android est la seule plateforme avec des versions publiées.
+- Le binaire sans écran est compilé pour Linux x86_64.
+- Rust est nécessaire pour compiler depuis les sources ; Go est facultatif.
+- Les versions d'aperçu et stable partagent les mêmes données, donc passer de l'une à l'autre garde votre bibliothèque.
+- Supprimez une installation en conflit avant de la remplacer par une version signée différemment.
+
+## Contrat / exemple
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

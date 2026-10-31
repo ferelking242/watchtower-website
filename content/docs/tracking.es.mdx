@@ -1,0 +1,56 @@
+---
+title: "Seguimiento"
+fullTitle: "Grabando lo que ves, automáticamente."
+description: "El seguimiento conecta Watchtower con los servicios que mantienen su historial. Inicia sesión una vez y el progreso se registra sobre la marcha en lugar de escribirlo a mano."
+marker: "16"
+---
+
+## ¿Qué servicios son compatibles?
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori y Bangumi. Todos se configuran desde la configuración de seguimiento y puedes conectar más de uno.
+
+## Iniciar sesión
+
+Abra la configuración de seguimiento y toque un servicio para iniciar sesión. Kitsu es el que te pide tu dirección de correo electrónico en lugar de un nombre de usuario, lo que sorprende a la gente.
+
+## Conectando una serie
+
+Abra una serie, vaya a seguimiento y agregue el servicio. Watchtower busca el título por usted y puede editar los términos de búsqueda cuando coinciden con la entrada incorrecta.
+
+## cuanto cuenta como visto
+
+Un umbral porcentual decide cuándo un episodio se marca como visto. Configúrelo lo suficientemente alto como para que detenerse a mitad de camino no grabe un episodio completo.
+
+## una sola dirección
+
+El progreso va desde Watchtower hasta el servicio. Editar su lista en el sitio web no cambia nada en la aplicación, así que elija un lugar para administrarla.
+
+## Ver sin conexión
+
+El progreso que realice sin conexión se pondrá en cola y se cargará la próxima vez que esté en línea, para que un vuelo no pierda su historial.
+
+## Cuando falla un inicio de sesión o una sincronización
+
+Un servicio que se niega a iniciar sesión suele ser una sesión caducada o un captcha en el sitio del servicio, así que inicie sesión una vez a través del sitio web del servicio e inténtelo nuevamente. El progreso que no se sincroniza normalmente se pone en cola en lugar de perderse y se vuelve a intentar cuando se restablece la conexión.
+
+## Coincidir con el título incorrecto
+
+La coincidencia automática puede seleccionar la entrada incorrecta cuando un título es ambiguo. Edite los términos de búsqueda para esa serie en la sección de seguimiento y seleccione el resultado correcto, luego confirme que el progreso que transmite es el que desea.
+
+## Chuleta
+
+- El seguimiento se configura por serie, no para toda la biblioteca.
+- El progreso sólo fluye hacia afuera, nunca hacia adentro.
+- Un umbral decide cuándo un episodio cuenta como visto.
+- Cargas de progreso sin conexión cuando te vuelves a conectar.
+- Un inicio de sesión fallido suele ser una sesión caducada en el propio servicio.
+
+## Contrato / ejemplo
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

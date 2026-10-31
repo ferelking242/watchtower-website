@@ -1,0 +1,58 @@
+---
+title: "Installation"
+fullTitle: "Installieren Sie den Build, der zu Ihrem Gerät passt."
+description: "Es gibt drei Möglichkeiten, Watchtower auszuführen: die Android-App, ein Desktop-Build oder eine Linux-Befehlszeile für Server. Sie teilen sich eine Engine, sodass eine Quelle, die in einer funktioniert, in allen funktioniert."
+marker: "02"
+---
+
+## Android
+
+Das Hauptziel und der einzige Build, der alle Funktionen zuerst erhält. Laden Sie die Release-APK oder eine Vorschau-APK herunter, wenn Sie kommende Arbeiten testen möchten. Aktivieren Sie die Installation aus unbekannten Quellen, wenn Android Sie dazu auffordert, da Watchtower nicht über einen Store vertrieben wird.
+
+## Desktop
+
+Für die Betrachtung auf einem größeren Bildschirm gibt es Windows-, Linux- und macOS-Builds. Erstellen Sie sie mit Flutter aus dem Quellcode, da Release-Artefakte zuerst für Android und die Linux-CLI veröffentlicht werden.
+
+## Linux-Befehlszeile
+
+Eine einzelne Binärdatei ohne Fenster. Es führt die gleiche Erweiterungs-Engine aus und kann daher auf einem Server oder über SSH abrufen, suchen und herunterladen. Das Installationsskript kopiert es und seine Laufzeitdateien in ein von Ihnen gewähltes Präfix.
+
+## Stabil oder Vorschau
+
+Vorschau-Builds verfolgen den neuesten Code und brechen häufiger ab. Behalten Sie die automatische Sicherung bei, wenn Sie eine solche ausführen, und gehen Sie davon aus, dass Sie den Release-Build neu installieren, wenn etwas schief geht.
+
+## Bauen aus der Quelle
+
+Sie benötigen Flutter 3.38 oder neuer, Dart 3.10 oder neuer und eine Rust-Toolchain. Go 1.21 oder neuer wird nur benötigt, wenn Sie den Torrent-Server selbst neu erstellen möchten.
+
+## Halten Sie es auf dem neuesten Stand
+
+Watchtower informiert Sie, wenn eine neue Version vorhanden ist, und Sie installieren sie auf die gleiche Weise wie beim ersten Mal. Ihre Bibliothek und Einstellungen bleiben unberührt.
+
+## Wenn die Installation fehlschlägt
+
+Die häufigsten Meldungen des Installationsprogramms werden jeweils auf der Fehlerseite erläutert. Eine nicht übereinstimmende Signatur bedeutet, dass bereits eine anders signierte Kopie installiert ist und zuerst entfernt werden muss, ein beschädigter Download erneut abgerufen werden muss und eine nicht übereinstimmende Prozessorarchitektur bedeutet, dass der falsche Build heruntergeladen wurde.
+
+## Kurzüberblick
+
+- Android ist die einzige Plattform mit veröffentlichten Release-Builds.
+- Die Headless-Binärdatei wurde für Linux x86_64 erstellt.
+- Zum Erstellen aus dem Quellcode ist Rust erforderlich. Go ist optional.
+- Vorschau- und stabile Installationen nutzen dieselben Daten, sodass beim Wechsel Ihre Bibliothek erhalten bleibt.
+- Entfernen Sie eine widersprüchliche Installation, bevor Sie sie durch einen anders signierten Build ersetzen.
+
+## Vertrag / Beispiel
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

@@ -1,0 +1,88 @@
+---
+title: "FAQ"
+fullTitle: "Pertanyaan yang sering muncul."
+description: "Jawaban singkat atas pertanyaan orang sebelum dan sesudah menginstal Watchtower, dikelompokkan berdasarkan bagian aplikasi yang mereka sentuh."
+marker: "28"
+---
+
+## Mengapa tidak ada di app store?
+
+Karena Watchtower memasang ekstensi saat runtime, kebijakan toko tidak mengizinkannya. Itu juga sebabnya setiap pemasangan berasal dari APK yang Anda percayai.
+
+## Apakah ada versi iOS?
+
+Kode dasarnya adalah lintas platform, namun pengiriman di iOS dibatasi oleh aturan platform dan tidak dijanjikan. Android adalah platform yang mengutamakan segalanya.
+
+## Apakah ini berfungsi tanpa internet?
+
+Apa pun yang Anda unduh, ditambah file lokal, berfungsi sepenuhnya offline. Menjelajahi sumber dan mencari tidak diperlukan, karena mereka memerlukan situs web itu sendiri.
+
+## Bisakah saya melakukan sinkronisasi antar perangkat?
+
+Tidak ada sinkronisasi otomatis. Anda memindahkan perpustakaan Anda dengan file cadangan, dan media yang diunduh harus disalin secara terpisah.
+
+## Apakah legal dan gratis?
+
+Watchtower gratis dan bersumber terbuka, dan tidak mengandung konten tersendiri. Apa yang Anda tambahkan melalui ekstensi adalah tanggung jawab Anda, itulah sebabnya aplikasi berhati-hati untuk mengatakan bahwa itu tidak memeriksanya.
+
+## Mengapa saya tidak dapat melihat sumber yang diinstal?
+
+Dua filter menyembunyikan sumber tanpa menghapusnya. Jika ekstensi menggunakan bahasa selain bahasa perangkat Anda, aktifkan bahasa tersebut di filter daftar sumber. Jika ini adalah sumber dewasa, aktifkan opsi yang menampilkan sumber NSFW dalam daftar.
+
+## Bagaimana cara mencopot pemasangan ekstensi?
+
+Copot pemasangannya dari layar ekstensi, atau seperti aplikasi lain di pengaturan Android. Entri perpustakaan Anda tetap ada dan ditampilkan sebagai tidak tersedia hingga sumber lain dapat menyajikannya.
+
+## Mengapa unduhan saya tidak muncul?
+
+Unduhan terdeteksi berdasarkan folder. Jika lokasi penyimpanan dipindahkan, kartu SD dilepas, atau sumber atau seri diubah namanya di situs, aplikasi tidak dapat mencocokkan folder tersebut. Perbaiki lokasi atau ganti nama folder agar sesuai, lalu bangun kembali indeks unduhan.
+
+## Mengapa galeri foto saya menampilkan sampul dan episode?
+
+Aplikasi biasanya menyembunyikan medianya dari galeri sistem dengan file .nomedia. Jika tidak, buat sendiri dan letakkan di folder unduhan, atau di folder sumber lokal jika itu yang bocor.
+
+## Mengapa membaca atau memuat lambat?
+
+Pemuatan yang lambat disebabkan oleh situs, koneksi Anda, atau batas kecepatannya, bukan aplikasinya yang berat. Pembacaan yang lamban disebabkan oleh gambar yang terlalu besar dalam satu bab, jadi kosongkan memori atau pilih sumber dengan pindaian yang lebih kecil.
+
+## Mengapa beberapa episode tidak ditampilkan?
+
+Selain masalah jaringan, aplikasi terkadang melewatkan keberadaan video. Meninggalkan pemutar dan membuka episode lagi biasanya akan mendaftarkannya.
+
+## Mengapa pembaruan perpustakaan melewatkan entri?
+
+Entri dengan konten yang belum ditonton atau dibaca, entri yang belum Anda mulai, entri yang ditandai selesai, dan entri yang tidak diharapkan rilisnya sengaja dilewati. Hal ini mencegah perpustakaan besar membobol sumber dan memblokir aplikasi.
+
+## Mengapa pembaruan perpustakaan berhenti di latar belakang?
+
+Beberapa build Android secara agresif menghemat baterai dan menunda pekerjaan di latar belakang. Kecualikan Watchtower dari pengoptimalan baterai jika pembaruan hanya muncul saat Anda membuka aplikasi.
+
+## Mengapa pengambilan tangkapan layar diblokir?
+
+Pengaturan privasi yang menyembunyikan aplikasi di pengalih tugas juga memblokir tangkapan layar. Matikan pengaturan itu jika Anda ingin menangkap layar.
+
+## Ada yang rusak, bagaimana sekarang?
+
+Perbarui ekstensi Anda terlebih dahulu, karena ini akan memperbaiki sebagian besar kerusakan. Jika masalah terus berlanjut, periksa halaman kesalahan untuk melihat pesan persis yang Anda lihat, lalu halaman pemecahan masalah, sebelum berasumsi bahwa aplikasi tersebut salah.
+
+## Ringkasan
+
+- Watchtower tidak didistribusikan melalui toko aplikasi.
+- Konten yang diunduh dan file lokal berfungsi sepenuhnya offline.
+- Tidak ada sinkronisasi otomatis antar perangkat.
+- Sumber tersembunyi biasanya berupa filter bahasa atau tombol NSFW.
+- Unduhan dicocokkan dengan nama folder, jadi mengganti nama akan menyembunyikannya.
+- Memperbarui ekstensi memperbaiki kerusakan yang paling tiba-tiba.
+
+## Kontrak / contoh
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

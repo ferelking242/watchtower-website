@@ -1,0 +1,9 @@
+{
+  "title": "การพัฒนาส่วนขยาย",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

@@ -1,0 +1,59 @@
+---
+title: "Kit de dev"
+fullTitle: "Créer une source conforme au code exécuté."
+description: "Une source Watchtower est du JavaScript avec ses métadonnées intégrées dans le même fichier. L'index du catalogue pointe vers ce fichier ; un fichier JSON facultatif décrit sa page d'accueil native. Il n'existe ni manifeste de source séparé ni APK par extension."
+marker: "06b"
+---
+
+## Fichiers du dépôt
+
+Placez le JavaScript dans src/&lt;category&gt;/&lt;language&gt;/&lt;slug&gt;.js. Son tableau watchtowerSources contient les métadonnées, et sa classe DefaultExtension implémente les appels. Ajoutez une fiche à index/&lt;category&gt;.json. Le fichier ui-layouts/&lt;slug&gt;.json est facultatif ; il se relie avec uiLayout dans la fiche du catalogue.
+
+## Métadonnées et identité
+
+Le fichier source déclare name, lang, baseUrl, iconUrl, typeSource, itemType, version et pkgPath. La fiche du catalogue fournit l'id numérique stable, sourceCodeUrl, sourceCodeLanguage, appMinVerReq et les capacités. Gardez l'id après publication et augmentez version à chaque modification JavaScript.
+
+## Choisir la catégorie
+
+Le dossier et le fichier d'index doivent correspondre : watch utilise index/watch.json et itemType 1 ; manga 0, novel 2, music 3 et game 4. Ces nombres sont les valeurs ItemType de l'application, pas des étiquettes libres.
+
+## Respecter le contrat
+
+Étendez MProvider et implémentez les appels utiles au type de contenu. Les listes renvoient &#123;list, hasNextPage&#125; ; les détails renvoient le titre et les chapitres ou épisodes ; les pages manga renvoient des URL d'images ; les sources vidéo renvoient des pistes lisibles. Gardez getSourcePreferences(), même s'il renvoie un tableau vide.
+
+## Utiliser le runtime disponible
+
+Le runtime JavaScript fournit Client pour les requêtes HTTP, Document pour analyser le HTML, ainsi que les réglages et aides partagés. Ce n'est pas un navigateur : l'extension renvoie des données que Watchtower affiche et ne dessine pas les écrans de l'application.
+
+## Relier les sections personnalisées
+
+Chaque entrée de home.sections a un id unique et un composant enregistré. Watchtower transmet cet id à getCustomList(id, page). Implémentez tous les ids déclarés et renvoyez &#123;list, hasNextPage&#125; ; ne publiez pas de section sans fournisseur de données.
+
+## Tester le statique et le direct
+
+Lancez node tools/validate-extensions.mjs pour vérifier syntaxe, JSON, index, icônes, itemType et versions. Puis exécutez tools/run_all_tests.mjs sur la source modifiée en mode deep strict. Le CLI de l'application propose aussi extensions test en mode load, smoke ou deep.
+
+## Diagnostiquer les pages vides ou répétées
+
+Une liste vide vient souvent d'un sélecteur ou d'une forme de résultat incorrecte. Une page qui répète la première indique un défaut de pagination et échoue au test deep strict. Examinez la réponse réelle, puis relancez l'appel source isolément.
+
+## Mémo
+
+- Les métadonnées watchtowerSources sont intégrées au fichier JavaScript.
+- L'index du catalogue est un tableau JSON dont l'id numérique doit rester stable.
+- Une mise en page native est facultative et se relie avec uiLayout.
+- Les ids des sections sont transmis à getCustomList(id, page).
+- Le validateur compare itemType à la catégorie de l'index.
+
+## Contrat / exemple
+
+```bash
+watchtower-extensions/
+├── src/watch/en/example.js       implementation + watchtowerSources
+├── index/watch.json              marketplace records (JSON array)
+└── ui-layouts/example.json       optional native layout
+
+# Validate repository files, then exercise the real source
+node tools/validate-extensions.mjs
+node tools/run_all_tests.mjs --files "src/watch/en/example.js" --deep --strict --out /tmp/example-report.json
+```

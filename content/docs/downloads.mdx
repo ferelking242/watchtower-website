@@ -1,0 +1,54 @@
+---
+title: "Downloads"
+fullTitle: "Taking your library offline."
+description: "Downloads save episodes and chapters to your device so you can watch or read with no connection. They live in one queue with clear limits."
+marker: "14"
+---
+
+## Starting a download
+
+Add chapters or episodes from a series and they join the download queue. From the queue you can reorder what comes next or cancel something you no longer want.
+
+## Why one at a time
+
+Watchtower downloads one series at a time from any single source. Firing many requests at one site is exactly what triggers the anti-bot protection that gets sources blocked.
+
+## Downloads-only mode
+
+Turn this on to hide anything you have not saved. The app then shows only what is on your device, which is useful on a trip or a metered connection.
+
+## Where files are stored
+
+Downloads land under a folder named after the source, then the series. Renaming either folder breaks detection, so leave them alone.
+
+## When downloads disappear
+
+If saved content stops showing, the storage folder has probably moved or become unreadable. Check the storage location and rebuild the downloads index.
+
+## What a backup does not cover
+
+Backup files carry your library and settings, never your downloaded media. Those have to be moved across separately.
+
+## When a download fails partway
+
+A stopped download is usually a dropped connection or a source that stopped answering. Retry from the queue, since partial files are kept, and switch to Wi-Fi if the network is the cause. Persistent 403 or 429 responses mean the source is refusing you, not that the file is gone.
+
+## Cheat sheet
+
+- Only one series per source downloads at a time, on purpose.
+- Downloaded media is not included in a backup.
+- Internal storage is faster and more reliable than an SD card.
+- Renaming the downloads folder breaks detection.
+- A stopped download keeps its partial files, so retrying resumes it.
+
+## Contract / example
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

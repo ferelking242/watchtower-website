@@ -1,0 +1,54 @@
+---
+title: "Ekstensi"
+fullTitle: "Ekstensi adalah cara Watchtower menjangkau web."
+description: "Ekstensi adalah program kecil yang mengajarkan Watchtower satu situs web: cara membuat daftar, mencari, membaca, dan memutarnya. Segala sesuatu yang Anda jelajahi hadir melalui ekstensi."
+marker: "06"
+---
+
+## Apa itu ekstensi
+
+Ini adalah JavaScript, bukan plugin yang Anda kompilasi. Ia tahu cara menanyakan daftar situs web, hasil pencariannya, bab-babnya, dan aliran videonya, dan ia menjawab dalam bentuk yang dipahami Watchtower.
+
+## Bagaimana mereka menghubungi Anda
+
+Ekstensi dikelompokkan ke dalam repositori. Anda menambahkan repositori satu kali, dan setiap ekstensi yang dimilikinya dapat diinstal dari layar ekstensi.
+
+## Jenis konten
+
+Sebuah ekstensi menyatakan apa yang disajikannya: manga, anime, novel, musik, atau game. Deklarasi tersebut menentukan pembaca atau pemutar mana yang terbuka saat Anda mengetuk hasil.
+
+## Pembaruan dan penghapusan
+
+Ekstensi diperbarui dan mempertahankan pengaturannya. Mencopot pemasangannya hanya akan menghapus ekstensinya; entri perpustakaan Anda bertahan dan cukup menunggu sumber menyajikannya lagi.
+
+## Mengapa Anda harus peduli siapa yang membuatnya
+
+Sebuah ekstensi berjalan di dalam Watchtower tetapi dapat menjangkau jaringan dan membaca apa yang Anda berikan. Instal dari repositori yang Anda percayai, dan berhati-hatilah dengan apa pun yang asing.
+
+## Ketika ekstensi berhenti berfungsi
+
+Situs web berubah, dan sumbernya terputus. Biasanya itu adalah ekstensi yang rusak, bukan aplikasi yang rusak, dan perbaikannya datang sebagai pembaruan.
+
+## Ketika instalasi atau pembaruan gagal
+
+Penginstalan yang gagal hampir selalu berarti Android memblokir aplikasi yang tidak dikenal, dan pembaruan yang gagal adalah pengunduhan yang terhenti di tengah jalan. Izinkan penginstalan dari pengelola file atau browser Anda, lalu coba lagi, dan instal ulang dari awal jika file terpotong.
+
+## Ringkasan
+
+- Ekstensi adalah JavaScript, dijalankan di kotak pasir di dalam aplikasi.
+- Satu ekstensi mencakup satu situs web.
+- Menginstal dan memperbarui tidak pernah menyentuh perpustakaan Anda.
+- Sumber yang tiba-tiba gagal biasanya adalah perubahan website.
+- Instalasi yang gagal biasanya adalah Android, bukan ekstensinya.
+
+## Kontrak / contoh
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

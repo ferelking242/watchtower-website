@@ -1,0 +1,57 @@
+---
+title: "Fuente local"
+fullTitle: "Leer y reproducir tus propios archivos."
+description: "Watchtower puede tratar una carpeta en su dispositivo como una fuente normal. Su propia colección se comporta exactamente como una colección en línea, con seguimiento del progreso."
+marker: "07"
+---
+
+## Mangas y novelas
+
+Coloque una carpeta por serie dentro de la carpeta local y un archivo por capítulo dentro de ella. Los capítulos pueden ser archivos CBZ o carpetas de imágenes simples, y el nombre de la carpeta se convierte en el título de la serie.
+
+## animado
+
+Coloque una carpeta por serie dentro de la carpeta de anime local y un archivo de video por episodio dentro de ella. Los episodios están ordenados por nombre de archivo, así que numérelos.
+
+## Portadas y detalles
+
+Una imagen de portada en la carpeta de la serie se convierte en miniatura. Un archivo de detalles al lado puede agregar autor, artista, descripción y géneros cuando el nombre de la carpeta no es suficiente.
+
+## Agregar nuevos archivos
+
+Mueva archivos desde fuera de la aplicación, luego actualice la fuente local para que Watchtower vuelva a escanear la carpeta. Los archivos agregados mientras la aplicación está cerrada no se notan hasta que usted lo hace.
+
+## Leyendo sin conexión
+
+Las fuentes locales nunca tocan la red, por lo que funcionan en modo avión y no se pueden bloquear ni limitar la velocidad. Las descargas y los archivos locales se comportan de la misma manera una vez en el disco.
+
+## Ocultar archivos de la galería
+
+Coloca un archivo .nomedia en la carpeta para que las portadas y los episodios no aparezcan en la aplicación de fotos de tu teléfono.
+
+## Cuando las portadas están en blanco o faltan archivos
+
+Una portada en blanco o una serie que no se abre casi siempre significa que la estructura de la carpeta es incorrecta. Verifique que haya una carpeta por serie y un archivo por capítulo o episodio, luego elimine la entrada, borre la base de datos en busca de elementos fuera de la biblioteca y deje que la fuente local vuelva a escanear la carpeta.
+
+## Chuleta
+
+- Tanto los archivos CBZ como las carpetas de imágenes simples se leen como capítulos.
+- El orden de los episodios sigue el nombre del archivo, así que numere sus archivos.
+- Un archivo .nomedia mantiene los medios locales fuera de la galería del sistema.
+- Las fuentes locales funcionan sin ninguna conexión de red.
+- Una estructura de carpetas incorrecta es la causa habitual de una portada en blanco.
+
+## Contrato / ejemplo
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

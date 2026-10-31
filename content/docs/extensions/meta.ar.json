@@ -1,0 +1,9 @@
+{
+  "title": "الإضافات",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

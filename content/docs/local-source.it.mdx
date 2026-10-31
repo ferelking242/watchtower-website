@@ -1,0 +1,57 @@
+---
+title: "Sorgente locale"
+fullTitle: "Leggere e riprodurre i propri file."
+description: "Watchtower può trattare una cartella sul tuo dispositivo come una normale fonte. La tua collezione si comporta quindi esattamente come quella online, completa di monitoraggio dei progressi."
+marker: "07"
+---
+
+## Manga e romanzi
+
+Inserisci una cartella per serie nella cartella locale e un file per capitolo al suo interno. I capitoli possono essere archivi CBZ o semplici cartelle di immagini e il nome della cartella diventa il titolo della serie.
+
+## Anime
+
+Inserisci una cartella per serie nella cartella anime locale e un file video per episodio al suo interno. Gli episodi sono ordinati per nome file, quindi numerali.
+
+## Copertine e dettagli
+
+Un'immagine di copertina nella cartella della serie diventa la miniatura. Un file di dettagli accanto può aggiungere autore, artista, descrizione e generi quando il nome della cartella non è sufficiente.
+
+## Aggiunta di nuovi file
+
+Sposta i file dall'esterno dell'app, quindi aggiorna l'origine locale in modo che Watchtower effettui nuovamente la scansione della cartella. I file aggiunti mentre l'app è chiusa non vengono notati finché non lo fai tu.
+
+## Lettura offline
+
+Le fonti locali non entrano mai in contatto con la rete, quindi funzionano in modalità aereo e non possono essere bloccate o limitate in termini di velocità. I download e i file locali si comportano allo stesso modo una volta sul disco.
+
+## Nascondere i file dalla galleria
+
+Rilascia un file .nomedia nella cartella in modo che copertine ed episodi rimangano fuori dall'app fotografica del tuo telefono.
+
+## Quando le copertine sono vuote o mancano i file
+
+Una copertina vuota o una serie che non si apre quasi sempre significa che la struttura della cartella è sbagliata. Controlla che ci sia una cartella per serie e un file per capitolo o episodio, quindi rimuovi la voce, cancella il database per gli elementi esterni alla libreria e lascia che la fonte locale esegua nuovamente la scansione della cartella.
+
+## Riepilogo
+
+- Sia gli archivi CBZ che le cartelle di immagini semplici vengono letti come capitoli.
+- L'ordine degli episodi segue il nome del file, quindi numera i file.
+- Un file .nomedia mantiene i media locali fuori dalla galleria di sistema.
+- Le fonti locali funzionano senza alcuna connessione di rete.
+- Una struttura di cartelle errata è la causa più comune di una copertina vuota.
+
+## Contratto / esempio
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

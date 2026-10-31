@@ -1,0 +1,88 @@
+---
+title: "Preguntas frecuentes"
+fullTitle: "Preguntas que surgen con frecuencia."
+description: "Respuestas breves a las preguntas de la gente antes y después de instalar Watchtower, agrupadas por la parte de la aplicación que tocan."
+marker: "28"
+---
+
+## ¿Por qué no está en una tienda de aplicaciones?
+
+Porque Watchtower instala extensiones en tiempo de ejecución, lo que las políticas de tienda no permiten. Es también por eso que cada instalación proviene de un APK en el que eliges confiar.
+
+## ¿Existe una versión para iOS?
+
+El código subyacente es multiplataforma, pero el envío en iOS está limitado por las reglas de la plataforma y no se promete. Android es la plataforma que obtiene todo primero.
+
+## ¿Funciona sin internet?
+
+Todo lo que hayas descargado, además de los archivos locales, funciona completamente sin conexión. La exploración de fuentes y la búsqueda no lo hacen, porque necesitan los propios sitios web.
+
+## ¿Puedo sincronizar entre dispositivos?
+
+No hay sincronización automática. Mueve su biblioteca con un archivo de respaldo y los medios descargados deben copiarse por separado.
+
+## ¿Es legal y es gratis?
+
+Watchtower es gratuito y de código abierto, y no contiene ningún contenido propio. Lo que agregues a través de extensiones es tu responsabilidad, por lo que la aplicación tiene cuidado de decir que no las examina.
+
+## ¿Por qué no puedo ver una fuente instalada?
+
+Dos filtros ocultan fuentes sin eliminarlas. Si la extensión ofrece un idioma distinto al de su dispositivo, active ese idioma en el filtro de la lista de fuentes. Si es una fuente para adultos, habilite la opción que muestra fuentes NSFW en la lista.
+
+## ¿Cómo desinstalo una extensión?
+
+Desinstálalo desde la pantalla de extensiones o como cualquier otra aplicación en la configuración de Android. Las entradas de su biblioteca permanecen y simplemente se muestran como no disponibles hasta que otra fuente pueda publicarlas.
+
+## ¿Por qué no se muestran mis descargas?
+
+Las descargas se detectan por carpeta. Si se movió la ubicación de almacenamiento, se quitó la tarjeta SD o se cambió el nombre de la fuente o serie en el sitio, la aplicación no puede coincidir con la carpeta. Corrija la ubicación o cambie el nombre de la carpeta para que coincida, luego reconstruya el índice de descargas.
+
+## ¿Por qué mi galería de fotos muestra portadas y episodios?
+
+La aplicación normalmente oculta sus medios de la galería del sistema con un archivo .nomedia. Si no fue así, cree uno usted mismo y colóquelo en la carpeta de descargas, o en la carpeta de origen local si eso es lo que se filtró.
+
+## ¿Por qué la lectura o la carga son lentas?
+
+La carga lenta es el sitio, su conexión o un límite de velocidad, no que la aplicación sea pesada. La lectura lenta proviene de imágenes de gran tamaño en un capítulo, así que libere memoria o elija una fuente con escaneos más pequeños.
+
+## ¿Por qué no se muestran algunos episodios?
+
+Aparte de los problemas de red, la aplicación ocasionalmente puede pasar por alto que existe un video. Salir del reproductor y abrir el episodio nuevamente generalmente lo registra.
+
+## ¿Por qué una actualización de la biblioteca se salta entradas?
+
+Las entradas con contenido no visto o no leído, las entradas que no has iniciado, las entradas marcadas como completadas y las entradas sin publicaciones esperadas se omiten intencionalmente. Eso evita que una gran biblioteca ataque las fuentes y bloquee la aplicación.
+
+## ¿Por qué las actualizaciones de la biblioteca se detienen en segundo plano?
+
+Algunas versiones de Android ahorran batería de forma agresiva y suspenden el trabajo en segundo plano. Exime a Watchtower de la optimización de la batería si las actualizaciones solo llegan cuando abre la aplicación.
+
+## ¿Por qué se bloquea la captura de pantalla?
+
+La configuración de privacidad que oculta la aplicación en el selector de tareas también bloquea las capturas de pantalla. Desactive esa configuración si desea capturar la pantalla.
+
+## Algo está roto, ¿y ahora qué?
+
+Actualice sus extensiones primero, ya que eso soluciona la mayoría de las roturas. Si persiste, consulte la página de errores para ver el mensaje exacto que está viendo y luego la página de solución de problemas, antes de asumir que la aplicación tiene la culpa.
+
+## Chuleta
+
+- Watchtower no se distribuye a través de tiendas de aplicaciones.
+- El contenido descargado y los archivos locales funcionan completamente sin conexión.
+- No hay sincronización automática entre dispositivos.
+- Una fuente oculta suele ser el filtro de idioma o la palanca NSFW.
+- Las descargas coinciden por nombre de carpeta, por lo que cambiar el nombre de una la oculta.
+- La actualización de extensiones soluciona las roturas más repentinas.
+
+## Contrato / ejemplo
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

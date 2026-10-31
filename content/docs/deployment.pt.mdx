@@ -1,0 +1,48 @@
+---
+title: "Implantação"
+fullTitle: "Executando Watchtower em seu próprio servidor."
+description: "Para um servidor doméstico ou um pequeno grupo, a linha de comando do Linux pode ser executada continuamente e servir as mesmas fontes para todos os clientes da sua rede."
+marker: "25"
+---
+
+## O que você ganha
+
+Uma única pasta contendo a linha de comando e os arquivos de tempo de execução necessários. O script do instalador o copia em um prefixo escolhido e o configura para execução.
+
+## Instalando
+
+Execute o instalador com a pasta que você descompactou e o prefixo desejado. Usar um prefixo em seu diretório inicial evita a necessidade de root para tudo posteriormente.
+
+## Executando-o como um serviço
+
+Como ele pode servir por HTTP, você pode mantê-lo funcionando em segundo plano e permitir que outros dispositivos na sua rede usem as fontes que ele configurou.
+
+## Para que serve
+
+Um centro de mídia, um downloader programado ou uma máquina que contém as fontes para que os outros não precisem fazer isso. É o mesmo mecanismo, portanto as fontes se comportam de forma idêntica.
+
+## Mantendo-o atualizado
+
+Atualize-o descompactando uma versão mais recente e executando o instalador novamente. Sua configuração reside no prefixo e não é substituída por uma atualização.
+
+## Se algo não funcionar
+
+O comando médico existe exatamente para isso. Execute-o primeiro e ele lhe dirá se o problema é o tempo de execução, a rede ou a fonte.
+
+## Resumo
+
+- A compilação headless é uma pasta independente mais um instalador.
+- A instalação em seu diretório inicial evita a necessidade de root.
+- Ele pode servir via HTTP para outros dispositivos na sua rede.
+- O comando doctor diagnostica a maioria das falhas de inicialização.
+
+## Contrato / exemplo
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

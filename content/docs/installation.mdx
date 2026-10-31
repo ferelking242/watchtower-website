@@ -1,0 +1,58 @@
+---
+title: "Installation"
+fullTitle: "Install the build that matches your device."
+description: "There are three ways to run Watchtower: the Android app, a desktop build, or a Linux command line for servers. They share one engine, so a source that works in one works in all of them."
+marker: "02"
+---
+
+## Android
+
+The main target, and the only build that gets every feature first. Download the release APK, or a preview APK if you want to test upcoming work. Enable installation from unknown sources when Android asks, because Watchtower is not distributed through a store.
+
+## Desktop
+
+Windows, Linux and macOS builds exist for watching on a bigger screen. Build them from source with Flutter, since release artifacts are published for Android and the Linux CLI first.
+
+## Linux command line
+
+A single binary with no window. It runs the same extension engine, so it can fetch, search and download on a server or over SSH. The installer script copies it and its runtime files into a prefix you choose.
+
+## Stable or preview
+
+Preview builds track the newest code and break more often. Keep automatic backups on if you run one, and expect to reinstall the release build if something goes wrong.
+
+## Building from source
+
+You need Flutter 3.38 or newer, Dart 3.10 or newer, and a Rust toolchain. Go 1.21 or newer is only needed if you want to rebuild the torrent server yourself.
+
+## Keep it updated
+
+Watchtower tells you when a new version exists, and you install it the same way as the first time. Your library and settings carry over untouched.
+
+## If the install fails
+
+The common installer messages are each explained on the errors page. A signature mismatch means a differently signed copy is already installed and has to be removed first, a corrupted download needs fetching again, and a mismatch of processor architecture means the wrong build was downloaded.
+
+## Cheat sheet
+
+- Android is the only platform with published release builds.
+- The headless binary is built for Linux x86_64.
+- Rust is required to build from source; Go is optional.
+- Preview and stable installs share the same data, so switching keeps your library.
+- Remove a conflicting install before replacing it with a differently signed build.
+
+## Contract / example
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

@@ -1,0 +1,58 @@
+---
+title: "Kurulum"
+fullTitle: "Cihazınızla eşleşen yapıyı yükleyin."
+description: "Watchtower'yu çalıştırmanın üç yolu vardır: Android uygulaması, masaüstü yapısı veya sunucular için Linux komut satırı. Tek bir motoru paylaşıyorlar, yani birinde çalışan bir kaynak hepsinde de çalışıyor."
+marker: "02"
+---
+
+## Android
+
+Ana hedef ve her özelliği ilk önce alan tek yapı. Gelecek çalışmaları test etmek istiyorsanız sürüm APK'sını veya önizleme APK'sını indirin. Watchtower bir mağaza aracılığıyla dağıtılmadığından, Android sorduğunda bilinmeyen kaynaklardan yüklemeyi etkinleştirin.
+
+## Masaüstü
+
+Daha büyük bir ekranda izlemek için Windows, Linux ve macOS sürümleri mevcuttur. Sürüm yapıları ilk olarak Android ve Linux CLI için yayınlandığından bunları Flutter ile kaynaktan oluşturun.
+
+## Linux komut satırı
+
+Penceresi olmayan tek bir ikili dosya. Aynı uzantı motorunu çalıştırdığından, bir sunucuda veya SSH üzerinden bilgi alabilir, arayabilir ve indirebilir. Yükleyici komut dosyası, onu ve çalışma zamanı dosyalarını seçtiğiniz bir öneke kopyalar.
+
+## Kararlı veya önizleme
+
+Önizleme yapıları en yeni kodu izler ve daha sık bozulur. Çalıştırıyorsanız otomatik yedeklemeleri açık tutun ve bir şeyler ters giderse sürüm yapısını yeniden yüklemeyi bekleyin.
+
+## Kaynaktan inşa etmek
+
+Flutter 3.38 veya daha yenisine, Dart 3.10 veya daha yenisine ve bir Rust araç zincirine ihtiyacınız var. Go 1.21 veya daha yenisi yalnızca torrent sunucusunu kendiniz yeniden oluşturmak istiyorsanız gereklidir.
+
+## Güncel tutun
+
+Watchtower yeni bir sürümün ne zaman mevcut olduğunu size bildirir ve onu ilk seferkiyle aynı şekilde yüklersiniz. Kitaplığınız ve ayarlarınız dokunulmadan taşınır.
+
+## Kurulum başarısız olursa
+
+Yaygın yükleyici mesajlarının her biri hatalar sayfasında açıklanmaktadır. İmza uyumsuzluğu, farklı imzalı bir kopyanın zaten yüklü olduğu ve önce kaldırılması gerektiği, bozuk bir indirmenin yeniden getirilmesi gerektiği ve işlemci mimarisinin uyumsuzluğu, yanlış yapının indirildiği anlamına gelir.
+
+## Kısa özet
+
+- Android, yayınlanmış sürüm derlemelerine sahip tek platformdur.
+- Başsız ikili dosya Linux x86_64 için oluşturulmuştur.
+- Kaynaktan inşa etmek için pas gereklidir; Git isteğe bağlıdır.
+- Önizleme ve kararlı yüklemeler aynı verileri paylaştığından geçiş yapmak kitaplığınızı korur.
+- Farklı imzalı bir yapıyla değiştirmeden önce çakışan yüklemeyi kaldırın.
+
+## Sözleşme / örnek
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

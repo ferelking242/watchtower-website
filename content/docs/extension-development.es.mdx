@@ -1,0 +1,52 @@
+---
+title: "Desarrollo de extensiones"
+fullTitle: "The extension contract and native UI reference."
+description: "This is the implementation reference for extension authors and agents. It follows the current Watchtower runtime, the live source indexes and the registered layout catalog. Treat these definitions as a map to the code, not as permission to invent unsupported APIs."
+marker: "20a"
+---
+
+## One implementation reference
+
+The three child pages below cover the source methods and result shapes, the native layout JSON contract, and every registered gallery card id. Read them together when adding a source that provides a custom home.
+
+## What belongs in each repository file
+
+JavaScript and watchtowerSources metadata live together under src/. The index record gives Watchtower the stable source id and download URLs. The optional ui-layout file is linked from that record and does not contain executable code.
+
+## Runtime boundaries
+
+Extensions fetch and parse remote content, then return plain data. Watchtower owns navigation, cards, playback and reading. A layout selects registered components; it cannot supply arbitrary widgets or Dart code.
+
+## Use the registry as the authority
+
+Method signatures are defined by MProvider and the JavaScript bridge. Layout ids and contexts are defined by LayoutComponentRegistry and GalleryComponentCatalog. If a name is absent there, do not claim it is supported.
+
+## Keep manifests and indexes in sync
+
+The source metadata version and the matching index version must agree. A layout change also needs a uiLayoutVersion bump. The repository validator checks syntax, indexes, icons, itemType values, layout ids and version consistency.
+
+## Recommended change loop
+
+Copy the closest working source, implement the site-specific requests, validate the source and sidecar, run the live harness, then publish a small commit. Recheck the source against the current site whenever its markup or endpoint changes.
+
+## Chuleta
+
+- A source is JavaScript plus an index record, not a separate APK manifest.
+- The layout JSON is optional, declarative and validated against registered ids.
+- The three child pages document related parts of one extension-development section.
+- The core registry is authoritative when this page and implementation differ.
+
+## Contrato / ejemplo
+
+```bash
+watchtower-extensions/
+├── src/<category>/<lang>/<slug>.js   source metadata + implementation
+├── index/<category>.json             marketplace records
+└── ui-layouts/<slug>.json            optional native layout
+
+# Source of truth
+watchtower/lib/eval/model/m_provider.dart
+watchtower/lib/models/ui_layout.dart
+watchtower/lib/models/layout_component_registry.dart
+watchtower/lib/models/gallery_component_catalog.dart
+```

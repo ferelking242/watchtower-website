@@ -1,0 +1,58 @@
+---
+title: "安装"
+fullTitle: "安装与您的设备匹配的版本。"
+description: "可以通过三种方式运行 Watchtower：Android 应用程序、桌面版本或服务器的 Linux 命令行。它们共享一个引擎，因此适用于一个引擎的源也适用于所有引擎。"
+marker: "02"
+---
+
+## 安卓
+
+主要目标，也是唯一首先获得所有功能的构建。如果您想测试即将推出的工作，请下载发布版 APK 或预览版 APK。当 Android 要求时启用未知来源的安装，因为 Watchtower 不是通过商店分发的。
+
+## 桌面
+
+Windows、Linux 和 macOS 版本都是为了在更大的屏幕上观看而存在的。使用 Flutter 从源代码构建它们，因为发布工件首先针对 Android 和 Linux CLI 发布。
+
+## Linux 命令行
+
+没有窗口的单个二进制文件。它运行相同的扩展引擎，因此可以在服务器上或通过 SSH 获取、搜索和下载。安装程序脚本将其及其运行时文件复制到您选择的前缀中。
+
+## 稳定版或预览版
+
+预览版本跟踪最新代码并更频繁地中断。如果运行自动备份，请保持自动备份，并在出现问题时重新安装发布版本。
+
+## 从源头构建
+
+您需要 Flutter 3.38 或更高版本、Dart 3.10 或更高版本以及 Rust 工具链。仅当您想自己重建 torrent 服务器时才需要 Go 1.21 或更高版本。
+
+## 保持更新
+
+当有新版本存在时，Watchtower 会告诉您，并且您可以像第一次一样安装它。您的库和设置保持不变。
+
+## 如果安装失败
+
+常见的安装程序消息均在错误页面上进行了解释。签名不匹配意味着已经安装了不同签名的副本，必须首先删除，损坏的下载需要再次获取，处理器架构不匹配意味着下载了错误的版本。
+
+## 速查表
+
+- Android 是唯一已发布版本的平台。
+- 无头二进制文件是为 Linux x86_64 构建的。
+- Rust 需要从源代码构建；去是可选的。
+- 预览版和稳定版安装共享相同的数据，因此切换可以保留您的库。
+- 删除冲突的安装，然后再用不同签名的版本替换它。
+
+## 契约 / 示例
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

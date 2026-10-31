@@ -1,0 +1,74 @@
+---
+title: "게시"
+fullTitle: "Publish source code, not an app package."
+description: "A Watchtower extension release is a JavaScript source file and one entry in a JSON array. A custom native layout is a separate JSON file referenced from that entry. Users install the source from the repository index; there is no per-extension APK to build."
+marker: "06c"
+---
+
+## Publish a JSON array
+
+Each index/&lt;category&gt;.json is an array of source records, not an object containing APK packages. Host the index and referenced source files over HTTPS, and give users the URL to the index they need.
+
+## Keep identity and version stable
+
+The numeric id identifies the installed source. Never recycle it for another site. Increment version for every JavaScript change so Watchtower can offer the update.
+
+## Publish the JavaScript URL
+
+sourceCodeUrl must resolve to the actual source file. The official repository uses jsDelivr URLs; raw GitHub URLs are also used for repository-hosted assets such as icons.
+
+## Publish a layout separately
+
+If uiLayout is present, its relative path must exist in the repository. Increment uiLayoutVersion when the JSON changes; Watchtower downloads and validates the sidecar separately from the JavaScript.
+
+## Set truthful capability flags
+
+Use isNsfw, login, requiresAccount, hasDRM, forYou, hasCloudflare, langs, videoQualities and related fields only when they describe real source behavior. A flag does not implement a missing method.
+
+## Choose a reachable index URL
+
+The extension manager requires a URL that returns the source-record JSON array directly, such as index/watch.json. The repository may publish a sibling repo.json descriptor with its name and per-type index URLs, but that descriptor is not itself the source array. The index filename does not need to end in .min.json.
+
+## Validate before publishing
+
+Run the repository validator and the source's live test. Check that itemType matches the index file, sourceCodeUrl exists, icons are repository-hosted, and every declared layout section is supported by getCustomList.
+
+## Explain the trust boundary
+
+Anyone who installs from your index runs your JavaScript inside Watchtower's extension runtime. Publish from an account you control, document adult or account requirements honestly, and respond when the target site changes.
+
+## 요약
+
+- A category index is an HTTPS-hosted JSON array of source records.
+- Stable numeric ids preserve installed-source identity.
+- Bump the source version for JavaScript changes and uiLayoutVersion for layout changes.
+- Use a reachable sourceCodeUrl and a repository-hosted icon.
+- Capability flags describe behavior; they do not add that behavior.
+
+## 계약 / 예제
+
+```text
+# index/watch.json (a JSON array, hosted over HTTPS)
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://raw.githubusercontent.com/owner/repo/main/assets/icons/example.png",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "appMinVerReq": "0.5.0",
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false,
+    "uiLayout": "ui-layouts/example.json",
+    "uiLayoutVersion": "1.0.0"
+  }
+]
+```

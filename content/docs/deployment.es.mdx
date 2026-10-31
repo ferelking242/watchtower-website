@@ -1,0 +1,48 @@
+---
+title: "Despliegue"
+fullTitle: "Ejecutando Watchtower en su propio servidor."
+description: "Para un servidor doméstico o un grupo pequeño, la línea de comandos de Linux puede ejecutarse continuamente y servir las mismas fuentes a todos los clientes de su red."
+marker: "25"
+---
+
+## lo que obtienes
+
+Una única carpeta que contiene la línea de comando y los archivos de ejecución que necesita. El script del instalador lo copia en un prefijo que usted elija y lo configura para ejecutarse.
+
+## Instalarlo
+
+Ejecute el instalador con la carpeta que descomprimió y el prefijo que desee. Usar un prefijo en su directorio de inicio evita necesitar root para todo después.
+
+## Ejecutarlo como un servicio
+
+Debido a que puede funcionar a través de HTTP, puede mantenerlo ejecutándose en segundo plano y permitir que otros dispositivos en su red usen las fuentes que ha configurado.
+
+## para que sirve
+
+Un centro multimedia, un descargador programado o una máquina que contenga las fuentes para que las demás no tengan que hacerlo. Es el mismo motor, por lo que las fuentes se comportan de manera idéntica.
+
+## Manteniéndolo actualizado
+
+Actualícelo descomprimiendo una versión más nueva y ejecutando el instalador nuevamente. Su configuración reside en el prefijo y no se sobrescribe con una actualización.
+
+## Si algo no funciona
+
+El comando médico existe exactamente para esto. Ejecútelo primero y le dirá si el problema es el tiempo de ejecución, la red o una fuente.
+
+## Chuleta
+
+- La compilación sin cabeza es una carpeta independiente más un instalador.
+- La instalación en su directorio de inicio evita la necesidad de root.
+- Puede servir a través de HTTP a otros dispositivos en su red.
+- El comando médico diagnostica la mayoría de las fallas de inicio.
+
+## Contrato / ejemplo
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

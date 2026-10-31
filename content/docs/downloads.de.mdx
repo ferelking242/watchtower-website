@@ -1,0 +1,54 @@
+---
+title: "Downloads"
+fullTitle: "Schalten Sie Ihre Bibliothek offline."
+description: "Durch Downloads werden Episoden und Kapitel auf Ihrem Gerät gespeichert, sodass Sie sie ohne Verbindung ansehen oder lesen können. Sie leben in einer Warteschlange mit klaren Grenzen."
+marker: "14"
+---
+
+## Einen Download starten
+
+Fügen Sie Kapitel oder Episoden aus einer Serie hinzu und sie werden in die Download-Warteschlange aufgenommen. Von der Warteschlange aus können Sie die nächste Bestellung neu anordnen oder etwas stornieren, das Sie nicht mehr benötigen.
+
+## Warum einzeln
+
+Watchtower lädt jeweils eine Serie von einer beliebigen Quelle herunter. Das Auslösen vieler Anfragen an einer Site ist genau das, was den Anti-Bot-Schutz auslöst, der Quellen blockiert.
+
+## Nur-Download-Modus
+
+Aktivieren Sie diese Option, um alles auszublenden, was Sie nicht gespeichert haben. Die App zeigt dann nur an, was sich auf Ihrem Gerät befindet, was auf einer Reise oder einer gemessenen Verbindung nützlich ist.
+
+## Wo Dateien gespeichert werden
+
+Downloads landen in einem Ordner, der nach der Quelle und dann nach der Serie benannt ist. Das Umbenennen eines Ordners beeinträchtigt die Erkennung, also lassen Sie ihn in Ruhe.
+
+## Wenn Downloads verschwinden
+
+Wenn gespeicherte Inhalte nicht mehr angezeigt werden, wurde der Speicherordner wahrscheinlich verschoben oder ist nicht mehr lesbar. Überprüfen Sie den Speicherort und erstellen Sie den Download-Index neu.
+
+## Was ein Backup nicht abdeckt
+
+Sicherungsdateien enthalten Ihre Bibliothek und Einstellungen, niemals Ihre heruntergeladenen Medien. Diese müssen separat bewegt werden.
+
+## Wenn ein Download teilweise fehlschlägt
+
+Ein gestoppter Download ist normalerweise eine unterbrochene Verbindung oder eine Quelle, die nicht mehr antwortet. Versuchen Sie es erneut aus der Warteschlange, da Teildateien beibehalten werden, und wechseln Sie zu WLAN, wenn das Netzwerk die Ursache ist. Anhaltende 403- oder 429-Antworten bedeuten, dass die Quelle Sie ablehnt und nicht, dass die Datei verschwunden ist.
+
+## Kurzüberblick
+
+- Absichtlich wird jeweils nur eine Serie pro Quelle heruntergeladen.
+- Heruntergeladene Medien sind nicht in einem Backup enthalten.
+- Der interne Speicher ist schneller und zuverlässiger als eine SD-Karte.
+- Durch das Umbenennen des Download-Ordners wird die Erkennung unterbrochen.
+- Bei einem gestoppten Download bleiben die Teildateien erhalten, daher wird er bei einem erneuten Versuch fortgesetzt.
+
+## Vertrag / Beispiel
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

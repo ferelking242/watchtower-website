@@ -1,0 +1,9 @@
+{
+  "title": "Erweiterungsentwicklung",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

@@ -1,0 +1,46 @@
+---
+title: "Migração em massa"
+fullTitle: "Movendo muitas séries ao mesmo tempo."
+description: "Quando uma fonte morre, a migração em massa move um grupo inteiro de entradas da biblioteca para uma fonte funcional de uma só vez, em vez de editá-las uma por uma."
+marker: "32"
+---
+
+## Quando usar
+
+Uma fonte que parou de funcionar, ou da qual você deseja se afastar, é o caso da migração em massa. A migração mantém seu progresso e suas categorias.
+
+## Escolhendo origem e destino
+
+Escolha o grupo de entradas para mover e a fonte para onde movê-las. O aplicativo pesquisa o destino de cada título por conta própria.
+
+## Revendo as partidas
+
+Cada partida é mostrada antes de qualquer mudança, então você pode aceitar as boas e pular as erradas. A correspondência por título nunca é perfeita.
+
+## Aplicando a mudança
+
+A aplicação reescreve cada entrada para apontar para a nova fonte e transmite seu progresso. Séries sem correspondência ficam intocadas.
+
+## Lendo o resumo
+
+A execução termina com a contagem do que foi movido, do que foi ignorado e do que falhou. Um item com falha geralmente é um título que o destino não carrega.
+
+## Quando nada combina
+
+Se a maioria dos títulos não corresponder, o destino não se adapta e uma fonte diferente é a melhor resposta. Nada se perde ao parar, porque as mudanças só acontecem quando você aplica.
+
+## Resumo
+
+- A migração em massa move um grupo de entradas em uma única passagem.
+- Cada partida é revisada antes que algo seja alterado.
+- Seu progresso e categorias são transmitidos.
+- Nada muda até que você aplique os resultados.
+
+## Contrato / exemplo
+
+```text
+1. choose the broken source
+2. pick the destination source
+3. review each match
+4. apply, then read the summary
+```

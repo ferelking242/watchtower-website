@@ -1,0 +1,57 @@
+---
+title: "Réglages"
+fullTitle: "Les réglages qui changent le comportement de l'application."
+description: "Au-delà des options propres à chaque fonction, une poignée de réglages globaux touchent les mises à jour, la vie privée, l'installation et la façon de vous remettre d'un problème."
+marker: "19"
+---
+
+## Général
+
+Thème, langue de l'interface et comportement par défaut de la bibliothèque. Ils s'appliquent partout d'un coup, donc c'est le premier endroit à regarder quand l'application ne vous ressemble pas.
+
+## Vie privée
+
+Masquer l'écran dans le sélecteur d'applications garde votre bibliothèque hors des vignettes, et le mode incognito arrête l'enregistrement de l'historique pendant que vous parcourez. L'incognito cache ce que vous avez regardé, pas où vous en êtes.
+
+## Réseau
+
+Le DNS chiffré peut contourner certains blocages simples et vaut la peine d'être essayé quand une source refuse de se charger sur un réseau mais fonctionne sur un autre. Un proxy fait le même travail pour tout un réseau.
+
+## Installer des extensions
+
+Android bloque normalement les installations hors magasin. Accorder cette permission est ce qui permet d'installer les extensions, et Shizuku est une alternative pour les appareils qui compliquent la chose.
+
+## Diagnostic
+
+Journaux de plantage, capture logcat et reconstruction des index sont ici. C'est là qu'on va quand quelque chose se comporte mal et qu'on veut des preuves plutôt que des suppositions.
+
+## Avant de signaler un problème
+
+Notez votre version de l'application, la source qui a échoué et ce que l'écran affichait. Cela transforme un signalement vague en quelque chose de réellement réparable.
+
+## Réinitialiser un état bloqué
+
+Vider le cache, vider les cookies et les données web, et reconstruire les index corrigent chacun une catégorie de problème différente. Le cache efface des données de page périmées, les cookies lèvent une vérification bloquée, et une reconstruction d'index réanalyse le dossier de stockage. Vider la base de données supprime les séries qui ne sont pas dans votre bibliothèque, ce qui est la solution habituelle pour une couverture locale vide.
+
+## Un dernier recours qui préserve vos données
+
+Si rien d'autre ne fonctionne, faites une sauvegarde fraîche, puis réinstallez l'application et restaurez-la. Cela conserve votre bibliothèque et vos réglages tout en remplaçant ce qui était corrompu dans l'installation elle-même.
+
+## Mémo
+
+- Le réglage de confidentialité du sélecteur d'applications doit être désactivé pour les captures d'écran.
+- L'incognito arrête l'historique, pas la progression.
+- Les journaux de plantage restent sur votre appareil et ne sont jamais envoyés automatiquement.
+- Le DNS chiffré corrige souvent une source qui échoue sur un seul réseau.
+- Cache, cookies et index corrigent chacun une catégorie de problème.
+- Sauvegardez avant de réinstaller, puis restaurez pour garder votre bibliothèque.
+
+## Contrat / exemple
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

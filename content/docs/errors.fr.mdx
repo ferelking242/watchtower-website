@@ -1,0 +1,73 @@
+---
+title: "Erreurs"
+fullTitle: "Chaque message d'erreur, et ce qu'il signifie."
+description: "Watchtower affiche l'erreur brute plutôt que de la masquer, donc le message lui-même est votre meilleur indice. Trouvez le vôtre ci-dessous et essayez la première solution avant de changer quoi que ce soit d'autre."
+marker: "27"
+---
+
+## 403 Forbidden
+
+Le site a décidé que votre requête semblait automatisée et la refuse. En pratique, c'est de la protection anti-robot. Mettez d'abord à jour l'extension, puis ouvrez la source dans le navigateur intégré une fois pour lever le contrôle que le site garde. S'il refuse encore, la source a peut-être renforcé sa protection ou bloqué votre adresse.
+
+## 404 Not found
+
+La page attendue par l'extension a bougé ou disparu. C'est presque toujours une extension périmée, donc rafraîchissez votre dépôt et mettez-la à jour. S'il n'y a pas encore de mise à jour, l'auteur de l'extension n'a pas encore suivi le site.
+
+## 429 Too many requests
+
+Vous avez été limité pour avoir fait des requêtes trop vite. Attendre est la vraie solution, et réduire la fréquence des mises à jour et des téléchargements est ce qui empêche le problème de revenir. Réessayer immédiatement ne fait que prolonger le blocage.
+
+## Erreurs 500, 502 et autres 5xx
+
+Le site lui-même est en panne. Il n'y a rien à corriger sur votre appareil, et la bonne décision est d'attendre et de réessayer plus tard. Vérifier le site dans un navigateur confirme s'il est en panne pour tout le monde.
+
+## 1006 et 1020, les codes de pare-feu
+
+1006 signifie généralement un bannissement d'IP temporaire, et 1020 une règle de pare-feu posée par le propriétaire du site, souvent pour bloquer les visiteurs hors de son pays. Changer de réseau aide parfois pour 1006 ; 1020 ne peut généralement pas être contourné.
+
+## Échec du contournement de Cloudflare
+
+Le site est protégé par Cloudflare et la vérification automatique n'est pas passée. Ouvrez la page de la source dans le navigateur intégré et complétez la vérification à la main, puis revenez à l'application. Si la page se recharge sans fin, consultez la page de dépannage.
+
+## Impossible de résoudre l'hôte, connexion échouée, délai dépassé
+
+Ce sont des problèmes de réseau plutôt que des défauts de la source. Vérifiez que l'appareil a accès à Internet, essayez un autre réseau ou les données mobiles, et activez le DNS chiffré dans les réglages. Un portail Wi-Fi captif est une cause fréquente.
+
+## Échec de validation du certificat
+
+Le certificat de sécurité du site n'a pas pu être validé. Vérifiez que la date et l'heure de l'appareil sont correctes, videz le cache et les cookies de l'application, et essayez un autre réseau. Un certificat expiré côté site n'est pas quelque chose que vous pouvez corriger.
+
+## Erreurs de stockage et de carte SD
+
+Les messages à propos d'une carte, d'un chemin ou d'un dossier indisponible signifient que l'emplacement de téléchargement a bougé ou est devenu illisible. Vérifiez l'espace libre, confirmez que l'application a toujours l'accès à ce dossier, et revenez au stockage interne si la carte échoue sans arrêt.
+
+## L'application ou l'extension refuse de s'installer
+
+Un APK signé par quelqu'un d'autre, un téléchargement tronqué et la mauvaise architecture de processeur produisent chacun un message d'installation différent. Supprimez la copie en conflit et retéléchargez le fichier, et assurez-vous qu'Android est autorisé à installer des applications inconnues.
+
+## Quand l'erreur n'est pas listée ici
+
+Copiez le message exact plutôt que de le paraphraser. Le nom de l'opération et l'URL qu'il contient désignent presque toujours l'étape qui échoue, et la page de dépannage explique comment cerner le problème.
+
+## Mémo
+
+- 403 et 429 signifient tous deux que le site vous refuse, pour des raisons différentes.
+- Un 404 est presque toujours une extension à mettre à jour.
+- Une erreur 5xx est la faute du site web, pas de votre appareil.
+- 1006 est un bannissement temporaire ; 1020 est une règle de pare-feu incontournable.
+- Copiez le message exact : l'URL qu'il contient nomme l'étape qui échoue.
+- Une signature incompatible signifie qu'une copie signée différemment est installée.
+
+## Contrat / exemple
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

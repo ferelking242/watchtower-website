@@ -1,0 +1,46 @@
+---
+title: "Runtime de extensiones"
+fullTitle: "Cómo se ejecutan las extensiones y con qué seguridad."
+description: "Las extensiones son JavaScript y Watchtower las ejecuta en un entorno limitado que les proporciona la red y nada más. Esta página explica lo que eso significa para usted."
+marker: "20"
+---
+
+## ¿Qué ejecuta tus extensiones?
+
+Watchtower utiliza un pequeño motor JavaScript integrado en la aplicación. Es el mismo motor en todas las plataformas, razón por la cual una fuente se comporta de manera idéntica en un teléfono y en un servidor.
+
+## Qué puede hacer una extensión
+
+Puede realizar solicitudes web, analizar las páginas que recibe y conservar algunas de sus propias configuraciones. Esa es toda la caja de herramientas.
+
+## De qué se mantiene alejado
+
+Tus archivos, tu biblioteca, tus cuentas y las pantallas propias de la aplicación. Todo lo que produce una extensión se devuelve como datos simples para que la aplicación los procese.
+
+## Por qué una fuente lenta se arrastra
+
+Una fuente que responde lentamente hace que sus propias pantallas se vuelvan lentas, porque la aplicación lo espera. Otras fuentes no se ven afectadas, por lo que la lentitud es una señal de una fuente incorrecta, no de una aplicación pesada.
+
+## Qué significa esto para la confianza
+
+La zona de pruebas limita lo que una extensión puede romper, pero no juzga la intención. Todavía puede ver todo lo que escribas y todo lo que obtenga. Instálelo con personas de su confianza.
+
+## Mismo motor en todas partes
+
+Debido a que la aplicación y la línea de comandos de Linux comparten este tiempo de ejecución, una extensión que funciona en su teléfono también funciona en un servidor, sin cambios.
+
+## Chuleta
+
+- Las extensiones obtienen acceso a la red y análisis de páginas, nada más.
+- No pueden leer sus archivos ni su biblioteca directamente.
+- Una fuente lenta sólo ralentiza sus propias pantallas.
+- El mismo entorno de pruebas se ejecuta en dispositivos móviles, computadoras de escritorio y la línea de comandos.
+
+## Contrato / ejemplo
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

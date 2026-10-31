@@ -1,0 +1,73 @@
+---
+title: "Errors"
+fullTitle: "Every error message, and what it means."
+description: "Watchtower shows the raw error rather than hiding it, so the message itself is the fastest clue you have. Find yours below and try the first fix before changing anything else."
+marker: "27"
+---
+
+## 403 Forbidden
+
+The website has decided your request looks automated and is refusing it. In practice this is anti-bot protection. Update the extension first, then open the source in the built-in browser once to clear any check the site is holding. If it still refuses, the source may have raised its protection or blocked your address.
+
+## 404 Not found
+
+The page the extension expected has moved or been removed. This is a stale extension almost every time, so refresh your repository and update it. If there is no update yet, the extension author has not caught up with the site.
+
+## 429 Too many requests
+
+You have been rate limited for making requests too quickly. Waiting is the actual fix, and reducing how often updates and downloads run is what stops it recurring. Retrying immediately only extends the block.
+
+## 500, 502 and other 5xx errors
+
+The website itself is failing. There is nothing to fix on your device, and the right move is to wait and try again later. Checking the site in a browser confirms whether it is down for everyone.
+
+## 1006 and 1020, the firewall codes
+
+1006 usually means a temporary IP ban, and 1020 means a firewall rule set by the site owner, often to block visitors from outside their country. Changing network can help with 1006; 1020 usually cannot be worked around.
+
+## Failed to bypass Cloudflare
+
+The site is protected by Cloudflare and the automatic check did not clear. Open the source's page in the built-in browser and complete any verification by hand, then return to the app. If the page reloads endlessly, see the troubleshooting page.
+
+## Unable to resolve host, connection failed, timeout
+
+These are network problems rather than faults in the source. Check that the device has internet access, try another network or mobile data, and enable encrypted DNS in settings. A captive Wi-Fi portal is a common cause.
+
+## Certificate validation failed
+
+The site's security certificate could not be validated. Check that the device date and time are correct, clear the app's cache and cookies, and try a different network. An expired certificate on the site is not something you can fix.
+
+## Storage and SD card errors
+
+Messages about a card, a path or an unavailable folder mean the download location has moved or become unreadable. Check free space, confirm the app still has permission to that folder, and switch back to internal storage if the card keeps failing.
+
+## App or extension will not install
+
+An APK signed by someone else, a truncated download and the wrong processor architecture each produce a different installer message. Remove the conflicting copy and download the file again, and make sure Android is allowed to install unknown apps.
+
+## When the error is not listed here
+
+Copy the exact message rather than paraphrasing it. The operation name and the URL inside it usually point straight at the failing step, and the troubleshooting page walks through narrowing it down.
+
+## Cheat sheet
+
+- 403 and 429 both mean the site is refusing you, for different reasons.
+- A 404 is nearly always an extension that needs updating.
+- A 5xx error is the website's fault, not your device's.
+- 1006 is a temporary ban; 1020 is a firewall rule you cannot bypass.
+- Copy the exact message: the URL inside it names the failing step.
+- Signature mismatches mean a differently signed copy is installed.
+
+## Contract / example
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

@@ -1,0 +1,9 @@
+{
+  "title": "拡張機能",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

@@ -1,0 +1,48 @@
+---
+title: "Contribute"
+fullTitle: "Helping make Watchtower better."
+description: "The app, the extensions and this documentation are all open. There is useful work for people who write code and for people who do not."
+marker: "29"
+---
+
+## Ways to help
+
+Report bugs with the exact message you saw, improve a source, write an extension for a site nobody has covered, or translate this site into another language.
+
+## Working on the app
+
+Clone the repository, install the Flutter and Rust toolchains, and run the analyzer before you open a pull request. Go is only needed if you are changing the torrent server.
+
+## Working on the documentation
+
+The site is its own repository. Adding a language means adding one translation file; the layout and navigation already handle the rest.
+
+## Translating
+
+The app and this site both ship many languages, and a new one is additive. You never have to touch the design to add your own language.
+
+## Reporting a good bug
+
+Include your app version, the source you were using, the exact error text and whether other sources still work. That is usually enough to locate the fault.
+
+## Before a large change
+
+Open an issue or ask on Discord first. It saves you building something that does not fit how the project is heading.
+
+## Cheat sheet
+
+- The documentation is a separate repository from the app.
+- Adding a language means adding one file, not changing the layout.
+- Reporting the exact error text saves the most time.
+- Rust is needed for app work; Go only for the torrent server.
+
+## Contract / example
+
+```bash
+# Work on the app
+git clone https://github.com/ferelking242/watchtower
+cd watchtower && flutter pub get
+
+# Work on this documentation
+git clone https://github.com/ferelking242/watchtower-website
+```

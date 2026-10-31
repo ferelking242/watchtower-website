@@ -1,0 +1,54 @@
+---
+title: "Extensions"
+fullTitle: "Extensions are how Watchtower reaches the web."
+description: "An extension is a small program that teaches Watchtower one website: how to list it, search it, read it and play it. Everything you browse comes through an extension."
+marker: "06"
+---
+
+## What an extension is
+
+It is JavaScript, not a plugin you compile. It knows how to ask one website for its listings, its search results, its chapters and its video streams, and it answers in the shape Watchtower understands.
+
+## How they reach you
+
+Extensions are grouped into repositories. You add a repository once, and every extension it holds becomes installable from the extensions screen.
+
+## Types of content
+
+An extension declares what it serves: manga, anime, novel, music or game. That declaration decides which reader or player opens when you tap a result.
+
+## Updates and removal
+
+Extensions update in place and keep their settings. Uninstalling one removes the extension only; your library entries survive and simply wait for a source to serve them again.
+
+## Why you should care who made it
+
+An extension runs inside Watchtower but can reach the network and read what you give it. Install from repositories you trust, and be cautious with anything unfamiliar.
+
+## When an extension stops working
+
+Websites change, and a source breaks with them. That is usually a broken extension, not a broken app, and the fix arrives as an update.
+
+## When an install or update fails
+
+A failed install is nearly always Android blocking unknown apps, and a failed update is a download that stopped partway. Allow installs from your file manager or browser, then retry, and reinstall from scratch if the file was truncated.
+
+## Cheat sheet
+
+- Extensions are JavaScript, run in a sandbox inside the app.
+- One extension covers one website.
+- Installing and updating never touches your library.
+- A source that suddenly fails is usually a website change.
+- A failed install is usually Android, not the extension.
+
+## Contract / example
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

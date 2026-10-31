@@ -1,0 +1,53 @@
+---
+title: "Armazenamento"
+fullTitle: "Onde Watchtower mantém seus arquivos."
+description: "Backups, downloads e fontes locais residem em um único local de armazenamento. Escolhê-lo deliberadamente é o que evita que os downloads desapareçam mais tarde."
+marker: "18"
+---
+
+## O layout da pasta
+
+Tudo fica em uma pasta que você escolhe: backups automáticos, capítulos e episódios baixados, seu mangá local, seu anime local e configuração para players externos. Conhecer o layout é o que facilita a localização de um arquivo perdido.
+
+## Escolhendo um local
+
+Escolha uma pasta que você ainda poderá acessar em um ano. Evite a raiz de um volume de armazenamento e evite mover arquivos do aplicativo posteriormente.
+
+## Permissões do Android
+
+O Android moderno mantém os aplicativos dentro de seus próprios diretórios. Conceda ao Watchtower acesso à pasta de armazenamento que você escolheu, ou os downloads e fontes locais falharão silenciosamente.
+
+## Depois de mover os arquivos para
+
+Mova os arquivos de fora do aplicativo e atualize-os, para que o Watchtower verifique novamente as pastas. Caso contrário, o novo conteúdo permanecerá invisível até que algo acione uma verificação.
+
+## Mantendo a galeria limpa
+
+Um arquivo .nomedia na pasta de downloads mantém capas e episódios fora da galeria de fotos do seu telefone.
+
+## Por que o armazenamento interno é melhor
+
+Os downloads no armazenamento interno são mais rápidos e têm muito menos probabilidade de se tornarem ilegíveis do que em um cartão removível, que pode ser desmontado ou corrompido.
+
+## Quando o aplicativo não consegue acessar a pasta
+
+Erros de permissão e downloads que desaparecem vêm da pasta de armazenamento que foi movida ou se tornou ilegível. Confirme se o aplicativo ainda tem acesso, verifique o espaço livre e prefira o armazenamento interno em vez de um cartão removível que pode ser desmontado.
+
+## Resumo
+
+- Backups, downloads e fontes locais compartilham um local de armazenamento.
+- O Android precisa de permissão explícita para essa pasta.
+- Um arquivo .nomedia oculta a mídia baixada da galeria.
+- O armazenamento interno é mais confiável que um cartão SD.
+- Uma pasta de armazenamento movida ou ilegível oculta downloads e backups.
+
+## Contrato / exemplo
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

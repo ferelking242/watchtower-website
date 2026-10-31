@@ -1,0 +1,73 @@
+---
+title: "Errori"
+fullTitle: "Ogni messaggio di errore e cosa significa."
+description: "Watchtower mostra l'errore non elaborato anziché nasconderlo, quindi il messaggio stesso è l'indizio più veloce che hai. Trova il tuo qui sotto e prova la prima soluzione prima di modificare qualsiasi altra cosa."
+marker: "27"
+---
+
+## 403 Proibito
+
+Il sito web ha deciso che la tua richiesta sembra automatizzata e la sta rifiutando. In pratica si tratta di una protezione anti-bot. Aggiorna prima l'estensione, quindi apri una volta il sorgente nel browser integrato per cancellare eventuali controlli conservati dal sito. Se continua a rifiutare, la fonte potrebbe aver aumentato la protezione o bloccato il tuo indirizzo.
+
+## 404 Non trovato
+
+La pagina prevista dall'estensione è stata spostata o rimossa. Questa è un'estensione obsoleta quasi ogni volta, quindi aggiorna il tuo repository e aggiornalo. Se non è ancora presente alcun aggiornamento, l'autore dell'estensione non ha raggiunto il sito.
+
+## 429 Troppe richieste
+
+Ti è stata applicata una tariffa limitata perché hai effettuato richieste troppo velocemente. L'attesa è la vera soluzione e ridurre la frequenza con cui vengono eseguiti gli aggiornamenti e i download è ciò che impedisce che si ripetano. Un nuovo tentativo immediato non fa altro che estendere il blocco.
+
+## Errori 500, 502 e altri 5xx
+
+Il sito stesso sta fallendo. Non c'è nulla da risolvere sul tuo dispositivo e la mossa giusta è aspettare e riprovare più tardi. Controllare il sito in un browser conferma se è inattivo per tutti.
+
+## 1006 e 1020, i codici firewall
+
+1006 di solito significa un divieto temporaneo dell'IP e 1020 significa una regola firewall impostata dal proprietario del sito, spesso per bloccare i visitatori provenienti dall'esterno del proprio paese. Cambiare rete può aiutare con 1006; 1020 di solito non è possibile aggirarlo.
+
+## Impossibile bypassare Cloudflare
+
+Il sito è protetto da Cloudflare e il controllo automatico non è stato cancellato. Apri la pagina della fonte nel browser integrato e completa manualmente eventuali verifiche, quindi torna all'app. Se la pagina si ricarica all'infinito, consulta la pagina di risoluzione dei problemi.
+
+## Impossibile risolvere l'host, connessione non riuscita, timeout
+
+Questi sono problemi di rete piuttosto che difetti nella fonte. Verifica che il dispositivo abbia accesso a Internet, prova un'altra rete o dati mobili e abilita il DNS crittografato nelle impostazioni. Un portale Wi-Fi captive è una causa comune.
+
+## La convalida del certificato non è riuscita
+
+Non è stato possibile convalidare il certificato di sicurezza del sito. Controlla che la data e l'ora del dispositivo siano corrette, svuota la cache e i cookie dell'app e prova una rete diversa. Un certificato scaduto sul sito non è qualcosa che puoi correggere.
+
+## Errori di archiviazione e scheda SD
+
+I messaggi relativi a una scheda, a un percorso o a una cartella non disponibile indicano che il percorso di download è stato spostato o è diventato illeggibile. Controlla lo spazio libero, conferma che l'app ha ancora l'autorizzazione per quella cartella e torna alla memoria interna se la scheda continua a non funzionare.
+
+## L'app o l'estensione non verranno installate
+
+Un APK firmato da qualcun altro, un download troncato e l'architettura del processore sbagliata producono ciascuno un messaggio di installazione diverso. Rimuovi la copia in conflitto, scarica nuovamente il file e assicurati che Android sia autorizzato a installare app sconosciute.
+
+## Quando l'errore non è elencato qui
+
+Copia il messaggio esatto invece di parafrasarlo. Il nome dell'operazione e l'URL al suo interno di solito puntano direttamente al passaggio non riuscito e la pagina di risoluzione dei problemi illustra il restringimento del campo.
+
+## Riepilogo
+
+- 403 e 429 significano entrambi che il sito ti sta rifiutando, per motivi diversi.
+- Un 404 è quasi sempre un'estensione che necessita di aggiornamento.
+- Un errore 5xx è colpa del sito web, non del tuo dispositivo.
+- 1006 è un divieto temporaneo; 1020 è una regola del firewall che non puoi ignorare.
+- Copia il messaggio esatto: l'URL al suo interno indica il passaggio non riuscito.
+- Le mancate corrispondenze della firma indicano che è installata una copia firmata in modo diverso.
+
+## Contratto / esempio
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

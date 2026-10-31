@@ -1,0 +1,54 @@
+---
+title: "Downloads"
+fullTitle: "Colocando sua biblioteca offline."
+description: "Os downloads salvam episódios e capítulos em seu dispositivo para que você possa assistir ou ler sem conexão. Eles vivem em uma fila com limites claros."
+marker: "14"
+---
+
+## Iniciando um download
+
+Adicione capítulos ou episódios de uma série e eles entrarão na fila de download. Na fila você pode reordenar o que vem a seguir ou cancelar algo que não deseja mais.
+
+## Por que um de cada vez
+
+Watchtower baixa uma série por vez de qualquer fonte. Disparar muitas solicitações em um site é exatamente o que aciona a proteção anti-bot que bloqueia as fontes.
+
+## Modo somente downloads
+
+Ative esta opção para ocultar tudo o que você não salvou. O aplicativo mostra apenas o que está no seu dispositivo, o que é útil em uma viagem ou em uma conexão medida.
+
+## Onde os arquivos são armazenados
+
+Os downloads vão para uma pasta com o nome da fonte e depois da série. Renomear qualquer uma das pastas interrompe a detecção, então deixe-as em paz.
+
+## Quando os downloads desaparecem
+
+Se o conteúdo salvo parar de aparecer, a pasta de armazenamento provavelmente foi movida ou ficou ilegível. Verifique o local de armazenamento e reconstrua o índice de downloads.
+
+## O que um backup não cobre
+
+Os arquivos de backup carregam sua biblioteca e configurações, nunca a mídia baixada. Eles devem ser movidos separadamente.
+
+## Quando um download falha parcialmente
+
+Um download interrompido geralmente é uma conexão interrompida ou uma fonte que parou de responder. Tente novamente na fila, pois os arquivos parciais são mantidos, e mude para Wi-Fi se a causa for a rede. Respostas 403 ou 429 persistentes significam que a fonte está recusando você, e não que o arquivo desapareceu.
+
+## Resumo
+
+- Apenas uma série por fonte é baixada por vez, propositalmente.
+- A mídia baixada não é incluída em um backup.
+- O armazenamento interno é mais rápido e confiável que um cartão SD.
+- Renomear a pasta de downloads interrompe a detecção.
+- Um download interrompido mantém seus arquivos parciais, portanto, uma nova tentativa o retoma.
+
+## Contrato / exemplo
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

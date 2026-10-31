@@ -1,0 +1,51 @@
+---
+title: "API del servidor"
+fullTitle: "Conduciendo Watchtower desde otro programa."
+description: "La aplicación puede abrir un pequeño servidor web en su propia máquina, lo que permite que los scripts, reproductores externos y otros dispositivos utilicen las mismas fuentes que la aplicación."
+marker: "23"
+---
+
+## que es
+
+Un pequeño servidor web integrado en la aplicación. Utiliza las mismas extensiones y la misma biblioteca que la interfaz, por lo que todo lo que devuelve coincide con lo que ves en la pantalla.
+
+## Encendiéndolo
+
+Está apagado hasta que lo habilites, deliberadamente. Enciéndalo en la configuración avanzada y anote el puerto, luego apunte su herramienta a esa dirección.
+
+## ¿Qué puedes preguntar?
+
+Sus fuentes instaladas, las entradas de su biblioteca, una búsqueda en cualquier fuente y una transmisión de video resuelta. Eso es suficiente para manejar un centro multimedia o un reproductor externo.
+
+## ¿Por qué podrías quererlo?
+
+Automatización, una interfaz diferente o permitir que otro dispositivo en su red use las fuentes que su teléfono ya ha configurado.
+
+## Mantenlo en tu propia red
+
+El servidor no tiene contraseña y está destinado a una red local confiable. No lo exponga a Internet, donde cualquiera podría leer su biblioteca.
+
+## Cómo se relaciona con la línea de comando
+
+La línea de comando de Linux expone el mismo servidor, por lo que un script escrito en la aplicación funciona en una máquina sin cabeza sin cambios.
+
+## Chuleta
+
+- El servidor está apagado hasta que lo habilites en la configuración.
+- Escucha en el puerto 4567 de forma predeterminada.
+- Utiliza las mismas fuentes y biblioteca que la interfaz.
+- Está destinado a una red local confiable, no a Internet.
+
+## Contrato / ejemplo
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

@@ -1,0 +1,58 @@
+---
+title: "Instalação"
+fullTitle: "Instale a versão que corresponde ao seu dispositivo."
+description: "Existem três maneiras de executar o Watchtower: o aplicativo Android, uma versão de desktop ou uma linha de comando Linux para servidores. Eles compartilham um mecanismo, portanto, uma fonte que funciona em um funciona em todos eles."
+marker: "02"
+---
+
+## Android
+
+O alvo principal e a única compilação que obtém todos os recursos primeiro. Baixe o APK de lançamento ou um APK de visualização se quiser testar os próximos trabalhos. Habilite a instalação de fontes desconhecidas quando o Android solicitar, porque o Watchtower não é distribuído por meio de uma loja.
+
+## Área de trabalho
+
+Existem compilações para Windows, Linux e macOS para assistir em uma tela maior. Crie-os a partir do código-fonte com o Flutter, já que os artefatos de lançamento são publicados primeiro para Android e para a CLI do Linux.
+
+## Linha de comando do Linux
+
+Um único binário sem janela. Ele executa o mesmo mecanismo de extensão, portanto pode buscar, pesquisar e fazer download em um servidor ou via SSH. O script do instalador copia ele e seus arquivos de tempo de execução em um prefixo escolhido.
+
+## Estável ou visualização
+
+As compilações de visualização rastreiam o código mais recente e quebram com mais frequência. Mantenha os backups automáticos ativados se você executar um e espere reinstalar a versão de lançamento se algo der errado.
+
+## Construindo a partir da fonte
+
+Você precisa do Flutter 3.38 ou mais recente, do Dart 3.10 ou mais recente e de um conjunto de ferramentas Rust. A versão 1.21 ou mais recente só será necessária se você quiser reconstruir o servidor torrent sozinho.
+
+## Mantenha-o atualizado
+
+Watchtower informa quando existe uma nova versão e você a instala da mesma forma que na primeira vez. Sua biblioteca e configurações permanecem intactas.
+
+## Se a instalação falhar
+
+As mensagens comuns do instalador são explicadas na página de erros. Uma incompatibilidade de assinatura significa que uma cópia assinada de forma diferente já está instalada e deve ser removida primeiro, um download corrompido precisa ser buscado novamente e uma incompatibilidade de arquitetura do processador significa que a compilação errada foi baixada.
+
+## Resumo
+
+- O Android é a única plataforma com versões de lançamento publicadas.
+- O binário headless foi desenvolvido para Linux x86_64.
+- Rust é necessário para construir a partir do código-fonte; Ir é opcional.
+- As instalações de visualização e estáveis ​​compartilham os mesmos dados, portanto, a troca mantém sua biblioteca.
+- Remova uma instalação conflitante antes de substituí-la por uma compilação assinada de forma diferente.
+
+## Contrato / exemplo
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

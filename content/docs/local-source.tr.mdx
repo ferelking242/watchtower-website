@@ -1,0 +1,57 @@
+---
+title: "Yerel kaynak"
+fullTitle: "Kendi dosyalarınızı okuma ve oynatma."
+description: "Watchtower, cihazınızdaki bir klasörü normal bir kaynak olarak değerlendirebilir. Böylece kendi koleksiyonunuz tam olarak çevrimiçi bir koleksiyon gibi davranır ve ilerleme takibiyle tamamlanır."
+marker: "07"
+---
+
+## Manga ve romanlar
+
+Yerel klasörün içine dizi başına bir klasör ve onun içine bölüm başına bir dosya koyun. Bölümler CBZ arşivleri veya düz görüntü klasörleri olabilir ve klasör adı serinin başlığı olur.
+
+## anime
+
+Yerel anime klasörünün içine dizi başına bir klasör ve içine bölüm başına bir video dosyası koyun. Bölümler dosya adına göre sıralanmıştır, bu nedenle onları numaralandırın.
+
+## Kapaklar ve ayrıntılar
+
+Seri klasöründeki kapak resmi küçük resim haline gelir. Yanındaki bir detay dosyası, klasör adı yeterli olmadığında yazar, sanatçı, açıklama ve türleri ekleyebilir.
+
+## Yeni dosyalar ekleme
+
+Dosyaları uygulamanın dışından taşıyın, ardından Watchtower'un klasörü yeniden taraması için yerel kaynağı yenileyin. Uygulama kapalıyken eklenen dosyalar siz fark edene kadar fark edilmez.
+
+## Çevrimdışı okuma
+
+Yerel kaynaklar hiçbir zaman ağa dokunmaz, bu nedenle uçuş modunda çalışırlar ve engellenemez veya hız sınırlaması yapılamaz. İndirilenler ve yerel dosyalar diskte bir kez aynı şekilde davranır.
+
+## Dosyaları galeriden gizleme
+
+Kapakların ve bölümlerin telefonunuzun fotoğraf uygulamasının dışında kalması için klasöre bir .nomedia dosyası bırakın.
+
+## Kapaklar boş olduğunda veya dosyalar eksik olduğunda
+
+Boş bir kapak veya açılmayan bir seri neredeyse her zaman klasör yapısının yanlış olduğu anlamına gelir. Dizi başına bir klasör ve bölüm veya epizot başına bir dosya olduğundan emin olun, ardından girişi kaldırın, kitaplık dışındaki öğeler için veritabanını temizleyin ve yerel kaynağın klasörü yeniden taramasına izin verin.
+
+## Kısa özet
+
+- Hem CBZ arşivleri hem de düz görüntü klasörleri bölüm olarak okunur.
+- Bölüm sırası dosya adını takip eder, dolayısıyla dosyalarınızı numaralandırın.
+- Bir .nomedia dosyası, yerel medyayı sistem galerisinin dışında tutar.
+- Yerel kaynaklar hiçbir ağ bağlantısı olmadan çalışır.
+- Yanlış bir klasör yapısı, boş kapağın olağan nedenidir.
+
+## Sözleşme / örnek
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

@@ -1,0 +1,53 @@
+---
+title: "Depolama"
+fullTitle: "Watchtower'un dosyalarını sakladığı yer."
+description: "Yedeklemeler, indirmeler ve yerel kaynakların tümü tek bir depolama konumunda bulunur. Bunu kasıtlı olarak seçmek, indirmelerin daha sonra kaybolmasını önleyen şeydir."
+marker: "18"
+---
+
+## Klasör düzeni
+
+Her şey seçtiğiniz tek bir klasör altında bulunur: otomatik yedeklemeler, indirilen bölümler ve bölümler, yerel manganız, yerel animeniz ve harici oynatıcılar için yapılandırma. Düzeni bilmek başıboş bir dosyayı yerleştirmeyi kolaylaştıran şeydir.
+
+## Bir yer seçme
+
+Bir yıl içinde hâlâ ulaşabileceğiniz bir klasör seçin. Depolama biriminin kökünden kaçının ve daha sonra dosyaları uygulamanın altından taşımaktan kaçının.
+
+## Android izinleri
+
+Modern Android, uygulamaları kendi dizinlerinde tutar. Watchtower'a seçtiğiniz depolama klasörüne erişim izni verin, aksi takdirde indirmeler ve yerel kaynaklar sessizce başarısız olur.
+
+## Dosyaları taşıdıktan sonra
+
+Dosyaları uygulamanın dışından taşıyın ve ardından yenileyin, böylece Watchtower klasörleri yeniden tarar. Aksi halde yeni içerik, başka bir şey taramayı tetikleyene kadar görünmez kalır.
+
+## Galeriyi temiz tutmak
+
+İndirilenler klasöründeki bir .nomedia dosyası, kapakları ve bölümleri telefonunuzun fotoğraf galerisinden uzak tutar.
+
+## Dahili depolama neden daha iyidir?
+
+Dahili depolama birimindeki indirmeler, bağlantısı kesilebilen veya bozulabilen çıkarılabilir bir karta kıyasla daha hızlıdır ve okunamaz hale gelme olasılığı çok daha düşüktür.
+
+## Uygulama klasöre ulaşamadığında
+
+İzin hataları ve kaybolan indirmeler, depolama klasörünün taşınmasından veya okunamaz hale gelmesinden kaynaklanır. Uygulamanın hâlâ erişime sahip olduğunu doğrulayın, boş alanı kontrol edin ve bağlantısı kesilebilen çıkarılabilir bir kart yerine dahili depolamayı tercih edin.
+
+## Kısa özet
+
+- Yedeklemeler, indirmeler ve yerel kaynaklar tek bir depolama konumunu paylaşır.
+- Android'in bu klasör için açık izne ihtiyacı var.
+- Bir .nomedia dosyası, indirilen medyayı galeriden gizler.
+- Dahili depolama SD karttan daha güvenilirdir.
+- Taşınmış veya okunamayan bir depolama klasörü, indirmeleri ve yedeklemeleri gizler.
+
+## Sözleşme / örnek
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

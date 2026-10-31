@@ -1,0 +1,57 @@
+---
+title: "Einstellungen"
+fullTitle: "Die Einstellungen, die das Verhalten der App ändern."
+description: "Über die eigenen Optionen jeder Funktion hinaus wirken sich eine Handvoll App-weiter Einstellungen auf Updates, Datenschutz, Installation und die Wiederherstellung aus, wenn etwas schief geht."
+marker: "19"
+---
+
+## Allgemein
+
+Thema, Sprache der Benutzeroberfläche und wie sich die Bibliothek standardmäßig verhält. Diese gelten überall gleichzeitig und sind daher die erste Anlaufstelle, wenn sich die App nicht wie Ihre anfühlt.
+
+## Privatsphäre
+
+Wenn Sie den Bildschirm im App-Umschalter ausblenden, werden in Ihrer Bibliothek keine Miniaturansichten angezeigt, und der Inkognitomodus stoppt die Aufzeichnung des Verlaufs, während Sie surfen. Inkognito verbirgt, was Sie angeschaut haben, nicht wie weit Sie gekommen sind.
+
+## Netzwerk
+
+Verschlüsseltes DNS kann einige grundlegende Blockierungen überwinden und ist einen Versuch wert, wenn eine Quelle in einem Netzwerk nicht geladen wird, in einem anderen jedoch funktioniert. Ein Proxy erledigt die gleiche Aufgabe für ein ganzes Netzwerk.
+
+## Erweiterungen installieren
+
+Android blockiert normalerweise Installationen von außerhalb eines Stores. Durch die Erteilung dieser Berechtigung können Erweiterungen installiert werden, und Shizuku ist eine Alternative für Geräte, bei denen dies umständlich ist.
+
+## Diagnose
+
+Absturzprotokolle, eine Logcat-Erfassung und Index-Neuerstellung sind hier live verfügbar. Hierhin gehen Sie, wenn sich etwas schlecht verhält und Sie Beweise statt Vermutungen wollen.
+
+## Bevor Sie ein Problem melden
+
+Notieren Sie sich Ihre App-Version, die fehlerhafte Quelle und die Bildschirmanzeige. Dadurch wird aus einem vagen Bericht etwas, das tatsächlich korrigiert werden kann.
+
+## Zurücksetzen eines festgefahrenen Zustands
+
+Durch das Leeren des Caches, das Löschen von Cookies und Webdaten sowie die Neuerstellung der Indizes wird jeweils eine andere Problemklasse behoben. Der Cache löscht veraltete Seitendaten, Cookies löschen eine blockierte Überprüfung und eine Indexneuerstellung scannt den Speicherordner erneut. Durch das Löschen der Datenbank werden Serien entfernt, die sich nicht in Ihrer Bibliothek befinden. Dies ist die übliche Lösung für ein leeres lokales Cover.
+
+## Ein letzter Ausweg, der Ihre Daten behält
+
+Wenn nichts anderes funktioniert, erstellen Sie ein neues Backup, installieren Sie die App neu und stellen Sie sie wieder her. Dadurch bleiben Ihre Bibliothek und Einstellungen erhalten, während alles, was in der Installation selbst beschädigt ist, ersetzt wird.
+
+## Kurzüberblick
+
+- Um Screenshots erstellen zu können, muss die Datenschutzeinstellung des App-Switchers deaktiviert sein.
+- Inkognito stoppt die Verlaufsaufzeichnung, nicht den Fortschritt.
+- Absturzprotokolle verbleiben auf Ihrem Gerät und werden niemals automatisch gesendet.
+- Verschlüsseltes DNS behebt häufig eine Quelle, die nur in einem Netzwerk ausfällt.
+- Cache, Cookies und Indizes lösen jeweils eine andere Problemklasse.
+- Erstellen Sie vor der Neuinstallation ein Backup und stellen Sie es dann wieder her, um Ihre Bibliothek zu behalten.
+
+## Vertrag / Beispiel
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

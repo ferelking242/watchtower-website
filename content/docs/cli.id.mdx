@@ -1,0 +1,47 @@
+---
+title: "CLI headless"
+fullTitle: "Menjalankan Watchtower tanpa layar."
+description: "Baris perintah Linux menjalankan mesin yang sama dengan aplikasi, sehingga server atau pekerjaan terjadwal dapat mengambil, mencari, dan mengunduh tanpa ada yang mengawasi."
+marker: "24"
+---
+
+## Untuk apa
+
+Server, sesi SSH, dan pekerjaan otomatis. Ini adalah mesin ekstensi yang sama dengan aplikasi dengan antarmuka teks, bukan layar, sehingga tidak memerlukan sesi grafis.
+
+## Menjadi berorientasi
+
+Mulailah dengan perintah bantuan, lalu jalankan perintah dokter untuk memastikan runtime dapat memuat dan mencapai semua yang diperlukan sebelum Anda mempercayakannya pada suatu pekerjaan.
+
+## Bekerja dengan ekstensi
+
+Buat daftar apa yang ditawarkan repositori, validasi, dan uji sumber terhadap situs langsung. Pengujian berjalan secara bertahap, mulai dari memuat sumber hingga melakukan pencarian dan panggilan detailnya.
+
+## Menelepon sumber secara langsung
+
+Anda dapat menjalankan satu operasi, seperti pencarian, dan mendapatkan kembali JSON. Itulah yang membuat baris perintah berguna untuk pembuatan skrip dan untuk men-debug sumber.
+
+## Melayani melalui jaringan
+
+Itu dapat memulai server web yang sama dengan yang diekspos oleh aplikasi, yaitu cara klien jarak jauh berbicara dengan mesin tanpa kepala.
+
+## Apa yang belum dilakukannya
+
+Perintah perpustakaan, riwayat, dan antrean unduhan tidak tersedia tanpa kepala, karena baris perintah tidak membuka database lokal aplikasi. Mereka masih membutuhkan aplikasinya.
+
+## Ringkasan
+
+- Baris perintah menggunakan kembali mesin ekstensi aplikasi.
+- Perintah dokter memeriksa runtime sebelum Anda mengandalkannya.
+- Sebuah sumber dapat diuji secara bertahap, mulai dari memuat hingga mencari.
+- Perintah perpustakaan dan unduh masih memerlukan aplikasi.
+
+## Kontrak / contoh
+
+```bash
+watchtower --cli help
+watchtower --cli doctor --json
+watchtower --cli extensions list --repo ./my-repo
+watchtower --cli extensions test --repo ./my-repo --mode smoke
+watchtower --cli source 1900000002 search --query "space opera" --json
+```

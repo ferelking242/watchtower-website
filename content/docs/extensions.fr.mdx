@@ -1,0 +1,54 @@
+---
+title: "Extensions"
+fullTitle: "Les extensions sont la porte de Watchtower vers le web."
+description: "Une extension est un petit programme qui apprend à Watchtower un site : comment le lister, le chercher, le lire et le diffuser. Tout ce que vous parcourez passe par une extension."
+marker: "06"
+---
+
+## Ce qu'est une extension
+
+C'est du JavaScript, pas un module à compiler. Elle sait demander à un site ses listes, ses résultats de recherche, ses chapitres et ses flux vidéo, et elle répond dans la forme que Watchtower comprend.
+
+## Comment elles vous parviennent
+
+Les extensions sont regroupées dans des dépôts. Vous ajoutez un dépôt une fois, et chaque extension qu'il contient devient installable depuis l'écran des extensions.
+
+## Les types de contenu
+
+Une extension déclare ce qu'elle sert : manga, animé, roman, musique ou jeu. Cette déclaration décide quel lecteur s'ouvre quand vous touchez un résultat.
+
+## Mises à jour et désinstallation
+
+Les extensions se mettent à jour sur place et gardent leurs réglages. En désinstaller une ne retire que l'extension ; vos entrées de bibliothèque survivent et attendent simplement une source qui les serve à nouveau.
+
+## Pourquoi l'auteur compte
+
+Une extension s'exécute dans Watchtower mais peut accéder au réseau et lire ce que vous lui donnez. Installez depuis des dépôts de confiance, et méfiez-vous de tout ce qui est inconnu.
+
+## Quand une extension cesse de marcher
+
+Les sites changent, et une source casse avec eux. C'est presque toujours une extension cassée, pas une application cassée, et le correctif arrive sous forme de mise à jour.
+
+## Quand une installation ou une mise à jour échoue
+
+Une installation qui échoue vient presque toujours d'Android qui bloque les applications inconnues, et une mise à jour qui échoue d'un téléchargement interrompu. Autorisez les installations depuis votre gestionnaire de fichiers ou votre navigateur, puis réessayez, et réinstallez depuis zéro si le fichier était tronqué.
+
+## Mémo
+
+- Les extensions sont du JavaScript, exécuté dans un bac à sable dans l'application.
+- Une extension couvre un seul site.
+- Installer et mettre à jour ne touche jamais à votre bibliothèque.
+- Une source qui casse soudainement vient presque toujours d'un changement du site.
+- Une installation qui échoue vient généralement d'Android, pas de l'extension.
+
+## Contrat / exemple
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

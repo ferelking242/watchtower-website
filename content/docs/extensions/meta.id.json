@@ -1,0 +1,9 @@
+{
+  "title": "Ekstensi",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

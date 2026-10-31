@@ -1,0 +1,48 @@
+---
+title: "Distribuzione"
+fullTitle: "Esecuzione di Watchtower sul tuo server."
+description: "Per un server domestico o un piccolo gruppo, la riga di comando di Linux può essere eseguita continuamente e fornire le stesse fonti a tutti i client della rete."
+marker: "25"
+---
+
+## Cosa ottieni
+
+Una singola cartella che contiene la riga di comando e i file di runtime necessari. Lo script di installazione lo copia in un prefisso scelto e lo configura per l'esecuzione.
+
+## Installandolo
+
+Esegui il programma di installazione con la cartella che hai decompresso e il prefisso desiderato. L'uso di un prefisso nella directory home evita di aver bisogno di root per tutto in seguito.
+
+## Eseguendolo come servizio
+
+Poiché può servire tramite HTTP, puoi mantenerlo in esecuzione in background e consentire ad altri dispositivi sulla tua rete di utilizzare le origini che ha configurato.
+
+## A cosa serve
+
+Un media center, un downloader programmato o una macchina che conserva i sorgenti in modo che gli altri non debbano farlo. È lo stesso motore, quindi le sorgenti si comportano in modo identico.
+
+## Mantenerlo aggiornato
+
+Aggiornalo decomprimendo una build più recente ed eseguendo nuovamente il programma di installazione. La tua configurazione risiede nel prefisso e non viene sovrascritta da un aggiornamento.
+
+## Se qualcosa non funzionerà
+
+Il comando del dottore esiste proprio per questo. Eseguilo prima e ti dirà se il problema è il runtime, la rete o una fonte.
+
+## Riepilogo
+
+- La build senza testa è una cartella autonoma più un programma di installazione.
+- L'installazione nella directory home evita la necessità di root.
+- Può servire tramite HTTP ad altri dispositivi sulla tua rete.
+- Il comando doctor diagnostica la maggior parte degli errori di avvio.
+
+## Contratto / esempio
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

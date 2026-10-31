@@ -1,0 +1,74 @@
+---
+title: "Publication"
+fullTitle: "Publier le code source, pas un paquet d'application."
+description: "Publier une extension Watchtower consiste à héberger un fichier JavaScript et une fiche dans un tableau JSON. Une mise en page native facultative est un autre fichier JSON référencé par cette fiche. Les utilisateurs installent la source depuis l'index ; aucun APK n'est généré par extension."
+marker: "06c"
+---
+
+## Publier un tableau JSON
+
+Chaque index/&lt;category&gt;.json est un tableau de fiches de sources, pas un objet de paquets APK. Hébergez l'index et les fichiers référencés en HTTPS, puis donnez aux utilisateurs l'URL de l'index souhaité.
+
+## Conserver l'identité et la version
+
+L'id numérique identifie la source installée. Ne le réutilisez jamais pour un autre site. Augmentez version à chaque modification JavaScript pour que Watchtower puisse proposer la mise à jour.
+
+## Publier l'URL du JavaScript
+
+sourceCodeUrl doit résoudre vers le vrai fichier source. Le dépôt officiel utilise jsDelivr ; des URL GitHub brutes servent aussi pour les ressources comme les icônes.
+
+## Publier la mise en page séparément
+
+Si uiLayout est présent, son chemin relatif doit exister dans le dépôt. Augmentez uiLayoutVersion quand le JSON change ; Watchtower télécharge et valide ce fichier séparément du JavaScript.
+
+## Déclarer les capacités honnêtement
+
+N'utilisez isNsfw, login, requiresAccount, hasDRM, forYou, hasCloudflare, langs, videoQualities et les champs associés que s'ils correspondent au comportement réel. Un indicateur ne remplace pas une méthode absente.
+
+## Choisir une URL d'index accessible
+
+Le gestionnaire d'extensions exige une URL qui renvoie directement le tableau JSON des sources, comme index/watch.json. Le dépôt peut publier un repo.json voisin contenant son nom et les URL des index par type, mais ce descripteur n'est pas lui-même le tableau des sources. Le nom de l'index ne doit pas finir par .min.json.
+
+## Valider avant publication
+
+Lancez le validateur du dépôt et le test direct de la source. Vérifiez la correspondance itemType/index, l'existence de sourceCodeUrl, les icônes hébergées dans le dépôt et la présence de getCustomList pour chaque section déclarée.
+
+## Expliquer la confiance
+
+Toute personne qui installe depuis votre index exécute votre JavaScript dans le runtime d'extensions de Watchtower. Publiez depuis un compte que vous contrôlez, indiquez clairement les restrictions de compte ou de contenu adulte et réparez la source quand le site évolue.
+
+## Mémo
+
+- Un index de catégorie est un tableau JSON hébergé en HTTPS.
+- Les ids numériques stables préservent l'identité des sources installées.
+- Augmentez version pour le JavaScript et uiLayoutVersion pour la mise en page.
+- Utilisez une sourceCodeUrl accessible et une icône hébergée dans le dépôt.
+- Les capacités décrivent le comportement ; elles ne l'implémentent pas.
+
+## Contrat / exemple
+
+```text
+# index/watch.json (a JSON array, hosted over HTTPS)
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://raw.githubusercontent.com/owner/repo/main/assets/icons/example.png",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "appMinVerReq": "0.5.0",
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false,
+    "uiLayout": "ui-layouts/example.json",
+    "uiLayoutVersion": "1.0.0"
+  }
+]
+```

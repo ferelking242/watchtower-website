@@ -1,0 +1,88 @@
+---
+title: "Perguntas frequentes"
+fullTitle: "Perguntas que surgem com frequência."
+description: "Respostas curtas às perguntas que as pessoas perguntam antes e depois de instalar o Watchtower, agrupadas por parte do aplicativo em que tocam."
+marker: "28"
+---
+
+## Por que não está em uma loja de aplicativos?
+
+Porque o Watchtower instala extensões em tempo de execução, o que as políticas de armazenamento não permitem. É também por isso que cada instalação vem de um APK em que você confia.
+
+## Existe uma versão iOS?
+
+O código subjacente é multiplataforma, mas o envio no iOS é limitado pelas regras da plataforma e não é prometido. Android é a plataforma que recebe tudo primeiro.
+
+## Funciona sem internet?
+
+Tudo o que você baixou, além dos arquivos locais, funciona totalmente offline. Navegar nas fontes e pesquisar não, porque elas próprias precisam dos sites.
+
+## Posso sincronizar entre dispositivos?
+
+Não há sincronização automática. Você move sua biblioteca com um arquivo de backup e a mídia baixada deve ser copiada separadamente.
+
+## É legal e é gratuito?
+
+Watchtower é gratuito e de código aberto e não contém conteúdo próprio. O que você adiciona por meio de extensões é de sua responsabilidade, e é por isso que o aplicativo tem o cuidado de dizer que não as examina.
+
+## Por que não consigo ver uma fonte instalada?
+
+Dois filtros ocultam as fontes sem excluí-las. Se a extensão servir um idioma diferente do seu dispositivo, ative esse idioma no filtro da lista de fontes. Se for uma fonte adulta, habilite a opção que mostra as fontes NSFW na lista.
+
+## Como faço para desinstalar uma extensão?
+
+Desinstale-o na tela de extensões ou como qualquer outro aplicativo nas configurações do Android. As entradas da sua biblioteca permanecem inalteradas e simplesmente aparecem como indisponíveis até que outra fonte possa servi-las.
+
+## Por que meus downloads não estão aparecendo?
+
+Os downloads são detectados por pasta. Se o local de armazenamento foi movido, o cartão SD foi removido ou a fonte ou série foi renomeada no site, o aplicativo não poderá corresponder à pasta. Corrija o local ou renomeie a pasta para corresponder e reconstrua o índice de downloads.
+
+## Por que minha galeria de fotos mostra capas e episódios?
+
+O aplicativo normalmente oculta sua mídia da galeria do sistema com um arquivo .nomedia. Caso contrário, crie um você mesmo e solte-o na pasta de downloads ou na pasta de origem local, se for isso que vazou.
+
+## Por que a leitura ou o carregamento estão lentos?
+
+O carregamento lento é o site, sua conexão ou um limite de taxa, e não o peso do aplicativo. A leitura lenta vem de imagens grandes em um capítulo, então libere memória ou escolha uma fonte com digitalizações menores.
+
+## Por que alguns episódios não são exibidos?
+
+Além de problemas de rede, o aplicativo pode ocasionalmente não perceber a existência de um vídeo. Sair do player e abrir o episódio novamente geralmente registra isso.
+
+## Por que uma atualização de biblioteca está ignorando entradas?
+
+Entradas com conteúdo não assistido ou não lido, entradas que você não iniciou, entradas marcadas como concluídas e entradas sem lançamentos esperados são ignoradas propositalmente. Isso evita que uma grande biblioteca martele as fontes e bloqueie o aplicativo.
+
+## Por que as atualizações da biblioteca param em segundo plano?
+
+Algumas versões do Android economizam bateria de forma agressiva e suspendem o trabalho em segundo plano. Isentar o Watchtower da otimização da bateria se as atualizações só chegarem quando você abrir o aplicativo.
+
+## Por que a captura de tela está bloqueada?
+
+A configuração de privacidade que oculta o aplicativo no alternador de tarefas também bloqueia capturas de tela. Desative essa configuração se quiser capturar a tela.
+
+## Algo está quebrado, e agora?
+
+Atualize suas extensões primeiro, pois isso corrige a maioria das falhas. Se persistir, verifique a página de erros para ver a mensagem exata que você está vendo e, em seguida, a página de solução de problemas, antes de presumir que o aplicativo é o culpado.
+
+## Resumo
+
+- Watchtower não é distribuído em lojas de aplicativos.
+- O conteúdo baixado e os arquivos locais funcionam totalmente offline.
+- Não há sincronização automática entre dispositivos.
+- Uma fonte oculta geralmente é o filtro de idioma ou a alternância NSFW.
+- Os downloads são correspondidos pelo nome da pasta, portanto, renomear um deles o oculta.
+- Atualizar extensões corrige a maioria das falhas repentinas.
+
+## Contrato / exemplo
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

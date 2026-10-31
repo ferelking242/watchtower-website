@@ -1,0 +1,56 @@
+---
+title: "Suivi"
+fullTitle: "Enregistrer ce que vous regardez, automatiquement."
+description: "Le suivi connecte Watchtower aux services qui gardent votre historique. Vous vous connectez une fois, et la progression est enregistrée au fur et à mesure au lieu d'être saisie à la main."
+marker: "16"
+---
+
+## Quels services sont pris en charge
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori et Bangumi. Ils se configurent tous depuis les réglages de suivi, et vous pouvez en connecter plusieurs.
+
+## Se connecter
+
+Ouvrez les réglages de suivi et touchez un service pour lancer sa connexion. Kitsu est celui qui demande votre adresse e-mail plutôt qu'un identifiant, ce qui surprend souvent.
+
+## Connecter une série
+
+Ouvrez une série, allez dans le suivi, et ajoutez le service. Watchtower cherche le titre pour vous, et vous pouvez modifier les termes de recherche quand il trouve la mauvaise entrée.
+
+## Quand un épisode compte comme vu
+
+Un seuil en pourcentage décide quand un épisode est marqué comme vu. Réglez-le assez haut pour qu'un arrêt à mi-chemin n'enregistre pas un épisode entier.
+
+## Un seul sens
+
+La progression va de Watchtower vers le service. Modifier votre liste sur le site ne change rien dans l'application, donc choisissez un seul endroit pour gérer cela.
+
+## Regarder hors ligne
+
+La progression faite sans connexion est mise en attente et envoyée dès que vous êtes en ligne, donc un vol ne fait pas perdre votre historique.
+
+## Quand une connexion ou une synchronisation échoue
+
+Un service qui refuse la connexion vient généralement d'une session expirée ou d'un captcha sur le site du service, donc connectez-vous une fois via le site du service et réessayez. Une progression qui ne se synchronise pas est généralement mise en file plutôt que perdue, et renvoyée au retour de la connexion.
+
+## Correspondance avec le mauvais titre
+
+La correspondance automatique peut choisir la mauvaise entrée quand un titre est ambigu. Modifiez les termes de recherche de cette série dans la section de suivi et sélectionnez le bon résultat, puis confirmez que la progression reprise est bien celle voulue.
+
+## Mémo
+
+- Le suivi se configure par série, pas pour toute la bibliothèque.
+- La progression ne circule que vers l'extérieur, jamais en retour.
+- Un seuil décide quand un épisode compte comme vu.
+- La progression hors ligne s'envoie à la reconnexion.
+- Une connexion échouée vient généralement d'une session expirée sur le service lui-même.
+
+## Contrat / exemple
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

@@ -1,0 +1,9 @@
+{
+  "title": "Uzantılar",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

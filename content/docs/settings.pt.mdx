@@ -1,0 +1,57 @@
+---
+title: "Configurações"
+fullTitle: "As configurações que alteram o comportamento do aplicativo."
+description: "Além das opções de cada recurso, várias configurações em todo o aplicativo afetam as atualizações, a privacidade, a instalação e como você se recupera quando algo dá errado."
+marker: "19"
+---
+
+## Em geral
+
+Tema, linguagem da interface e como a biblioteca se comporta por padrão. Eles se aplicam a todos os lugares ao mesmo tempo, portanto, são o primeiro lugar a procurar quando o aplicativo não parece ser seu.
+
+## Privacidade
+
+Ocultar a tela no alternador de aplicativos mantém sua biblioteca sem miniaturas e o modo de navegação anônima interrompe a gravação do histórico enquanto você navega. A navegação anônima esconde o que você olhou, não o quão longe você chegou.
+
+## Rede
+
+O DNS criptografado pode superar alguns bloqueios básicos e vale a pena tentar quando uma fonte não carrega em uma rede, mas funciona em outra. Um proxy faz o mesmo trabalho para toda uma rede.
+
+## Instalando extensões
+
+O Android normalmente bloqueia instalações de fora de uma loja. Conceder essa permissão é o que permite a instalação de extensões, e Shizuku é uma alternativa para dispositivos que tornam isso estranho.
+
+## Diagnóstico
+
+Logs de falhas, captura de logcat e reconstrução de índice estão disponíveis aqui. É aqui que você vai quando algo se comporta mal e você quer evidências em vez de suposições.
+
+## Antes de relatar um problema
+
+Anote a versão do seu aplicativo, a fonte que falhou e o que a tela mostrou. Isso transforma um relatório vago em algo que pode realmente ser corrigido.
+
+## Redefinindo um estado travado
+
+Limpar o cache, limpar cookies e dados da web e reconstruir os índices corrigem, cada um, uma classe diferente de problema. O cache limpa os dados desatualizados da página, os cookies limpam uma verificação travada e uma reconstrução do índice verifica novamente a pasta de armazenamento. Limpar o banco de dados remove séries que não estão em sua biblioteca, o que é a solução usual para uma capa local em branco.
+
+## Um último recurso que mantém seus dados
+
+Se nada mais funcionar, faça um novo backup, reinstale o aplicativo e restaure-o. Isso mantém sua biblioteca e configurações enquanto substitui qualquer coisa corrompida na própria instalação.
+
+## Resumo
+
+- A configuração de privacidade do alternador de aplicativos deve estar desativada para fazer capturas de tela.
+- O modo anônimo interrompe a gravação do histórico, não o progresso.
+- Os registros de falhas permanecem no seu dispositivo e nunca são enviados automaticamente.
+- O DNS criptografado geralmente corrige uma fonte que falha em apenas uma rede.
+- Cache, cookies e índices corrigem, cada um, uma classe diferente de problema.
+- Faça backup antes de reinstalar e restaure para manter sua biblioteca.
+
+## Contrato / exemplo
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

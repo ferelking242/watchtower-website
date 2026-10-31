@@ -1,0 +1,53 @@
+---
+title: "Stockage"
+fullTitle: "Où Watchtower range ses fichiers."
+description: "Sauvegardes, téléchargements et sources locales vivent tous sous un même emplacement de stockage. Le choisir délibérément, c'est ce qui évite que des téléchargements disparaissent plus tard."
+marker: "18"
+---
+
+## La disposition des dossiers
+
+Tout se trouve sous un dossier que vous choisissez : sauvegardes automatiques, chapitres et épisodes téléchargés, vos mangas locaux, vos animés locaux, et la configuration des lecteurs externes. Connaître cette disposition rend un fichier égaré facile à replacer.
+
+## Choisir un emplacement
+
+Prenez un dossier auquel vous aurez encore accès dans un an. Évitez la racine d'un volume de stockage, et évitez de déplacer des fichiers hors de l'application ensuite.
+
+## Autorisations Android
+
+Android moderne garde les applications dans leurs propres dossiers. Accordez à Watchtower l'accès au dossier de stockage choisi, sinon les téléchargements et les sources locales échoueront silencieusement.
+
+## Après avoir déplacé des fichiers
+
+Déplacez des fichiers depuis l'extérieur puis rafraîchissez, pour que Watchtower réanalyse les dossiers. Sinon le nouveau contenu reste invisible jusqu'à ce qu'autre chose déclenche une analyse.
+
+## Garder la galerie propre
+
+Un fichier .nomedia dans le dossier de téléchargement garde les couvertures et les épisodes hors de la galerie de votre téléphone.
+
+## Pourquoi le stockage interne est préférable
+
+Les téléchargements sur le stockage interne sont plus rapides et bien moins susceptibles de devenir illisibles que sur une carte amovible, qui peut être démontée ou corrompue.
+
+## Quand l'application ne peut pas atteindre le dossier
+
+Les erreurs de permission et les téléchargements qui disparaissent viennent tous deux du fait que le dossier de stockage a bougé ou est devenu illisible. Confirmez que l'application y a toujours accès, vérifiez l'espace libre, et préférez le stockage interne à une carte amovible qui peut être démontée.
+
+## Mémo
+
+- Sauvegardes, téléchargements et sources locales partagent un seul emplacement.
+- Android a besoin d'une autorisation explicite pour ce dossier.
+- Un fichier .nomedia cache les médias téléchargés de la galerie.
+- Le stockage interne est plus fiable qu'une carte SD.
+- Un dossier de stockage déplacé ou illisible masque les téléchargements et les sauvegardes.
+
+## Contrat / exemple
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

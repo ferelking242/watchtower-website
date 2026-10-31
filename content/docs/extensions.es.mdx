@@ -1,0 +1,54 @@
+---
+title: "Extensiones"
+fullTitle: "Las extensiones son la forma en que Watchtower llega a la web."
+description: "Una extensión es un pequeño programa que le enseña a Watchtower un sitio web: cómo enumerarlo, buscarlo, leerlo y reproducirlo. Todo lo que navegas llega a través de una extensión."
+marker: "06"
+---
+
+## que es una extensión
+
+Es JavaScript, no un complemento que usted compila. Sabe cómo preguntarle a un sitio web sus listados, sus resultados de búsqueda, sus capítulos y sus transmisiones de video, y responde en la forma que Watchtower entiende.
+
+## como te llegan
+
+Las extensiones se agrupan en repositorios. Agrega un repositorio una vez y cada extensión que contiene se puede instalar desde la pantalla de extensiones.
+
+## Tipos de contenido
+
+Una extensión declara para qué sirve: manga, anime, novela, música o juego. Esa declaración decide qué lector o reproductor se abre cuando tocas un resultado.
+
+## Actualizaciones y eliminación
+
+Las extensiones se actualizan y mantienen su configuración. Desinstalar uno elimina solo la extensión; las entradas de su biblioteca sobreviven y simplemente esperan a que una fuente las entregue nuevamente.
+
+## ¿Por qué debería importarte quién lo hizo?
+
+Una extensión se ejecuta dentro de Watchtower pero puede llegar a la red y leer lo que usted le proporciona. Instálelo desde repositorios en los que confíe y tenga cuidado con cualquier cosa que no le resulte familiar.
+
+## Cuando una extensión deja de funcionar
+
+Los sitios web cambian y una fuente rompe con ellos. Por lo general, se trata de una extensión defectuosa, no de una aplicación defectuosa, y la solución llega como una actualización.
+
+## Cuando falla una instalación o actualización
+
+Una instalación fallida casi siempre se debe a que Android bloquea aplicaciones desconocidas, y una actualización fallida es una descarga que se detuvo parcialmente. Permita las instalaciones desde su administrador de archivos o navegador, luego vuelva a intentarlo y reinstálelo desde cero si el archivo se truncó.
+
+## Chuleta
+
+- Las extensiones son JavaScript y se ejecutan en una zona de pruebas dentro de la aplicación.
+- Una extensión cubre un sitio web.
+- La instalación y actualización nunca toca su biblioteca.
+- Una fuente que falla repentinamente suele ser un cambio de sitio web.
+- Una instalación fallida suele ser Android, no la extensión.
+
+## Contrato / ejemplo
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

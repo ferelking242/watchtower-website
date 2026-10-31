@@ -1,0 +1,46 @@
+---
+title: "Runtime ekstensi"
+fullTitle: "Bagaimana ekstensi dijalankan dan seberapa amannya."
+description: "Ekstensi adalah JavaScript, dan Watchtower menjalankannya di kotak pasir yang memberi mereka jaringan dan tidak ada yang lain. Halaman ini menjelaskan apa artinya bagi Anda."
+marker: "20"
+---
+
+## Apa yang menjalankan ekstensi Anda
+
+Watchtower menggunakan mesin JavaScript kecil yang tertanam di aplikasi. Ini adalah mesin yang sama di setiap platform, itulah sebabnya sumber berperilaku sama di telepon dan di server.
+
+## Ekstensi apa yang boleh dilakukan
+
+Itu dapat membuat permintaan web, mengurai halaman yang diterimanya dan menyimpan beberapa pengaturannya sendiri. Itu adalah keseluruhan kotak peralatan.
+
+## Apa yang dijauhinya
+
+File Anda, perpustakaan Anda, akun Anda, dan layar aplikasi itu sendiri. Segala sesuatu yang dihasilkan oleh ekstensi diserahkan kembali sebagai data biasa untuk dirender oleh aplikasi.
+
+## Mengapa sumber yang lambat terseret
+
+Sumber yang merespons dengan lambat membuat layarnya sendiri menjadi lambat, karena aplikasi menunggunya. Sumber lain tidak terpengaruh, jadi kelambatan adalah tanda dari sumber yang buruk, bukan aplikasi yang berat.
+
+## Apa artinya ini bagi kepercayaan
+
+Sandbox membatasi apa yang dapat dirusak oleh suatu ekstensi, namun tidak menilai niatnya. Ia masih dapat melihat apa pun yang Anda ketikkan dan apa pun yang diambilnya. Instal dari orang yang Anda percayai.
+
+## Mesin yang sama di mana-mana
+
+Karena aplikasi dan baris perintah Linux berbagi runtime ini, ekstensi yang berfungsi di ponsel Anda juga berfungsi di server, tanpa perubahan.
+
+## Ringkasan
+
+- Ekstensi mendapatkan akses jaringan dan penguraian halaman, tidak lebih.
+- Mereka tidak dapat membaca file atau perpustakaan Anda secara langsung.
+- Satu sumber yang lambat hanya memperlambat layarnya sendiri.
+- Kotak pasir yang sama berjalan di perangkat seluler, desktop, dan baris perintah.
+
+## Kontrak / contoh
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

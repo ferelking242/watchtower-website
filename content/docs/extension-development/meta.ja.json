@@ -1,0 +1,9 @@
+{
+  "title": "拡張機能開発",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

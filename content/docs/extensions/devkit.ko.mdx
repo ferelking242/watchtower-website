@@ -1,0 +1,59 @@
+---
+title: "개발 키트"
+fullTitle: "Build a source against the code that runs it."
+description: "A Watchtower source is JavaScript with metadata embedded in the same source file. The marketplace index points to that file; an optional JSON sidecar describes its native home layout. There is no separate source manifest file or extension APK."
+marker: "06b"
+---
+
+## Repository files
+
+Put the JavaScript source under src/&lt;category&gt;/&lt;language&gt;/&lt;slug&gt;.js. Its top-level watchtowerSources array contains the source metadata, and its DefaultExtension class implements the calls. Add one record to index/&lt;category&gt;.json. Add ui-layouts/&lt;slug&gt;.json only when the source needs custom native home sections, then point to it with uiLayout in the index record.
+
+## Source metadata and identity
+
+The source file declares name, lang, baseUrl, iconUrl, typeSource, itemType, version and pkgPath. The marketplace record supplies the stable numeric id, sourceCodeUrl, sourceCodeLanguage, appMinVerReq and catalogue capability flags. Keep the id stable after release; change version whenever the JavaScript changes.
+
+## Choose the correct category
+
+The source directory and index file must agree: watch uses index/watch.json and itemType 1, manga uses 0, novel uses 2, music uses 3, and game uses 4. The numeric value is the app's ItemType value, not an arbitrary label.
+
+## Implement the source contract
+
+Extend MProvider and implement the methods used by your content type. Listings return &#123;list, hasNextPage&#125;; details return the title and chapter or episode records; manga pages return image URLs; video sources return playable video records. Keep getSourcePreferences() present even when it returns an empty array.
+
+## Use the supported runtime
+
+The JavaScript runtime provides Client for HTTP requests and Document for HTML parsing, plus the extension's own settings and the shared helper methods. It is not a browser: source code returns data for Watchtower to render and must not try to draw app screens.
+
+## Connect custom home sections
+
+Each home.sections entry has a unique id and a registered component. Watchtower requests that id through getCustomList(id, page). Implement every id you declare, return the same paginated &#123;list, hasNextPage&#125; shape, and do not add decorative sections with no data provider.
+
+## Test static and live behavior
+
+Run node tools/validate-extensions.mjs for syntax, JSON, index, icon, itemType and version checks. Then run tools/run_all_tests.mjs against the changed source in deep strict mode. The app CLI also supports extensions test with load, smoke or deep mode.
+
+## Diagnose empty or repeated pages
+
+An empty list is usually a selector or response-shape mismatch. A page that repeats page one is a pagination bug and fails deep strict validation. Inspect the live HTML or API response, then test the individual source call again.
+
+## 요약
+
+- The JavaScript implementation contains its watchtowerSources metadata.
+- The marketplace index is a JSON array; its numeric id must remain stable.
+- A custom native layout is optional and is linked through uiLayout.
+- Home section ids are data-provider keys passed to getCustomList(id, page).
+- The extension validator checks the index itemType against its catalogue file.
+
+## 계약 / 예제
+
+```bash
+watchtower-extensions/
+├── src/watch/en/example.js       implementation + watchtowerSources
+├── index/watch.json              marketplace records (JSON array)
+└── ui-layouts/example.json       optional native layout
+
+# Validate repository files, then exercise the real source
+node tools/validate-extensions.mjs
+node tools/run_all_tests.mjs --files "src/watch/en/example.js" --deep --strict --out /tmp/example-report.json
+```

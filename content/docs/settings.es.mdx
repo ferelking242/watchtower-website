@@ -1,0 +1,57 @@
+---
+title: "Ajustes"
+fullTitle: "Las configuraciones que cambian el comportamiento de la aplicación."
+description: "Más allá de las opciones propias de cada función, un puñado de configuraciones de toda la aplicación afectan las actualizaciones, la privacidad, la instalación y cómo te recuperas cuando algo sale mal."
+marker: "19"
+---
+
+## General
+
+Tema, idioma de la interfaz y cómo se comporta la biblioteca de forma predeterminada. Estos se aplican en todas partes a la vez, por lo que son el primer lugar donde buscar cuando la aplicación no parece suya.
+
+## Privacidad
+
+Ocultar la pantalla en el selector de aplicaciones mantiene tu biblioteca fuera de las miniaturas y el modo incógnito detiene la grabación del historial mientras navegas. La incógnito oculta lo que miraste, no hasta dónde llegaste.
+
+## Red
+
+El DNS cifrado puede superar algunos bloqueos básicos y vale la pena intentarlo cuando una fuente no se carga en una red pero funciona en otra. Un proxy hace el mismo trabajo para toda una red.
+
+## Instalación de extensiones
+
+Android normalmente bloquea las instalaciones desde fuera de una tienda. Otorgar ese permiso es lo que permite instalar extensiones, y Shizuku es una alternativa para dispositivos que lo hacen incómodo.
+
+## Diagnóstico
+
+Los registros de fallos, una captura de logcat y la reconstrucción de índices se encuentran aquí. Aquí es donde acudes cuando algo se porta mal y quieres pruebas en lugar de conjeturas.
+
+## Antes de informar un problema
+
+Tenga en cuenta la versión de su aplicación, la fuente que falló y lo que mostró la pantalla. Eso convierte un informe vago en algo que realmente se puede arreglar.
+
+## Restablecer un estado estancado
+
+Limpiar el caché, borrar las cookies y los datos web y reconstruir los índices soluciona una clase diferente de problema. La caché borra los datos de la página obsoleta, las cookies borran una verificación bloqueada y una reconstrucción del índice vuelve a escanear la carpeta de almacenamiento. Al borrar la base de datos se eliminan las series que no están en su biblioteca, que es la solución habitual para una portada local en blanco.
+
+## Un último recurso que conserva tus datos
+
+Si nada más funciona, realice una copia de seguridad nueva, luego reinstale la aplicación y restáurela. Eso mantiene su biblioteca y configuración mientras reemplaza cualquier cosa dañada en la instalación.
+
+## Chuleta
+
+- La configuración de privacidad del cambio de aplicaciones debe estar desactivada para tomar capturas de pantalla.
+- Incognito detiene la grabación del historial, no el progreso.
+- Los registros de fallos permanecen en su dispositivo y nunca se envían automáticamente.
+- El DNS cifrado a menudo repara una fuente que falla en una sola red.
+- La caché, las cookies y los índices solucionan cada uno una clase diferente de problema.
+- Haga una copia de seguridad antes de reinstalar, luego restaure para conservar su biblioteca.
+
+## Contrato / ejemplo
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

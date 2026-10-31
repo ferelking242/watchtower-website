@@ -1,0 +1,88 @@
+---
+title: "FAQ"
+fullTitle: "Questions that come up often."
+description: "Short answers to the things people ask before and after installing Watchtower, grouped by the part of the app they touch."
+marker: "28"
+---
+
+## Why is it not on an app store?
+
+Because Watchtower installs extensions at runtime, which store policies do not allow. That is also why every install comes from an APK you choose to trust.
+
+## Is there an iOS version?
+
+The underlying code is cross-platform, but shipping on iOS is constrained by platform rules and is not promised. Android is the platform that gets everything first.
+
+## Does it work without internet?
+
+Anything you downloaded, plus local files, works completely offline. Browsing sources and searching do not, because those need the websites themselves.
+
+## Can I sync between devices?
+
+There is no automatic sync. You move your library with a backup file, and downloaded media has to be copied across separately.
+
+## Is it legal and is it free?
+
+Watchtower is free and open source, and contains no content of its own. What you add through extensions is your responsibility, which is why the app is careful to say it does not vet them.
+
+## Why can I not see an installed source?
+
+Two filters hide sources without deleting them. If the extension serves a language other than your device's, turn that language on in the source list filter. If it is an adult source, enable the option that shows NSFW sources in the list.
+
+## How do I uninstall an extension?
+
+Uninstall it from the extensions screen, or like any other app in Android settings. Your library entries stay put and simply show as unavailable until another source can serve them.
+
+## Why are my downloads not showing?
+
+Downloads are detected by folder. If the storage location moved, the SD card was removed, or the source or series was renamed on the site, the app cannot match the folder. Fix the location or rename the folder to match, then rebuild the downloads index.
+
+## Why does my photo gallery show covers and episodes?
+
+The app normally hides its media from the system gallery with a .nomedia file. If it did not, create one yourself and drop it in the downloads folder, or in the local source folder if that is what leaked.
+
+## Why is reading or loading slow?
+
+Slow loading is the site, your connection, or a rate limit, not the app being heavy. Laggy reading comes from oversized images in a chapter, so free up memory or pick a source with smaller scans.
+
+## Why are some episodes not displayed?
+
+Aside from network problems, the app can occasionally miss that a video exists. Leaving the player and opening the episode again usually registers it.
+
+## Why is a library update skipping entries?
+
+Entries with unwatched or unread content, entries you have not started, entries marked completed, and entries with no expected releases are skipped on purpose. That keeps a large library from hammering sources and getting the app blocked.
+
+## Why do library updates stop in the background?
+
+Some Android builds aggressively save battery and suspend background work. Exempt Watchtower from battery optimisation if updates only arrive when you open the app.
+
+## Why is taking a screenshot blocked?
+
+The privacy setting that hides the app in the task switcher also blocks screenshots. Turn that setting off if you want to capture the screen.
+
+## Something is broken, what now?
+
+Update your extensions first, since that fixes most breakage. If it persists, check the errors page for the exact message you are seeing, then the troubleshooting page, before assuming the app is at fault.
+
+## Cheat sheet
+
+- Watchtower is not distributed through app stores.
+- Downloaded content and local files work fully offline.
+- There is no automatic sync between devices.
+- A hidden source is usually the language filter or the NSFW toggle.
+- Downloads are matched by folder name, so renaming one hides it.
+- Updating extensions fixes most sudden breakage.
+
+## Contract / example
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

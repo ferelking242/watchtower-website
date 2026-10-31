@@ -1,0 +1,54 @@
+---
+title: "Unduhan"
+fullTitle: "Menjadikan perpustakaan Anda offline."
+description: "Unduhan menyimpan episode dan bab ke perangkat Anda sehingga Anda dapat menonton atau membaca tanpa koneksi internet. Mereka hidup dalam satu antrian dengan batasan yang jelas."
+marker: "14"
+---
+
+## Memulai pengunduhan
+
+Tambahkan bab atau episode dari sebuah serial dan mereka bergabung dalam antrean unduhan. Dari antrian Anda dapat menyusun ulang apa yang berikutnya atau membatalkan sesuatu yang tidak Anda inginkan lagi.
+
+## Mengapa satu per satu
+
+Watchtower mengunduh serial satu per satu dari sumber mana pun. Mengaktifkan banyak permintaan di satu situs inilah yang memicu perlindungan anti-bot yang membuat sumber diblokir.
+
+## Mode hanya unduhan
+
+Aktifkan ini untuk menyembunyikan apa pun yang belum Anda simpan. Aplikasi kemudian hanya menampilkan apa yang ada di perangkat Anda, yang berguna dalam perjalanan atau koneksi terukur.
+
+## Tempat file disimpan
+
+Unduhan mendarat di bawah folder yang diberi nama berdasarkan sumbernya, lalu serinya. Mengganti nama salah satu folder akan merusak deteksi, jadi biarkan saja.
+
+## Saat unduhan hilang
+
+Jika konten yang disimpan berhenti ditampilkan, folder penyimpanan mungkin telah berpindah atau menjadi tidak dapat dibaca. Periksa lokasi penyimpanan dan bangun kembali indeks unduhan.
+
+## Apa yang tidak dicakup oleh cadangan
+
+File cadangan membawa perpustakaan dan pengaturan Anda, bukan media yang Anda unduh. Itu harus dipindahkan secara terpisah.
+
+## Ketika pengunduhan gagal di tengah jalan
+
+Pengunduhan yang terhenti biasanya disebabkan oleh koneksi yang terputus atau sumber yang berhenti menjawab. Coba lagi dari antrean, karena sebagian file disimpan, dan alihkan ke Wi-Fi jika penyebabnya adalah jaringan. Respons 403 atau 429 yang terus-menerus berarti sumbernya menolak Anda, bukan berarti file tersebut hilang.
+
+## Ringkasan
+
+- Hanya satu seri per sumber yang diunduh pada satu waktu, dengan sengaja.
+- Media yang diunduh tidak disertakan dalam cadangan.
+- Penyimpanan internal lebih cepat dan lebih andal dibandingkan kartu SD.
+- Mengganti nama folder unduhan akan merusak deteksi.
+- Pengunduhan yang dihentikan akan menyimpan sebagian filenya, jadi mencoba lagi akan melanjutkannya.
+
+## Kontrak / contoh
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

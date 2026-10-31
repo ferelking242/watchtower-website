@@ -1,0 +1,58 @@
+---
+title: "Instalasi"
+fullTitle: "Instal build yang cocok dengan perangkat Anda."
+description: "Ada tiga cara untuk menjalankan Watchtower: aplikasi Android, versi desktop, atau baris perintah Linux untuk server. Mereka berbagi satu mesin, jadi sumber yang berfungsi di satu mesin juga berfungsi di semua mesin."
+marker: "02"
+---
+
+## Android
+
+Target utama, dan satu-satunya build yang mendapatkan setiap fitur terlebih dahulu. Unduh APK rilis, atau APK pratinjau jika Anda ingin menguji pekerjaan yang akan datang. Aktifkan instalasi dari sumber tidak dikenal ketika Android memintanya, karena Watchtower tidak didistribusikan melalui toko.
+
+## Desktop
+
+Versi Windows, Linux, dan macOS tersedia untuk ditonton di layar yang lebih besar. Bangun dari sumber dengan Flutter, karena artefak rilis dipublikasikan untuk Android dan Linux CLI terlebih dahulu.
+
+## Baris perintah Linux
+
+Biner tunggal tanpa jendela. Ini menjalankan mesin ekstensi yang sama, sehingga dapat mengambil, mencari dan mengunduh di server atau melalui SSH. Skrip penginstal menyalinnya dan file runtime-nya ke awalan yang Anda pilih.
+
+## Stabil atau pratinjau
+
+Pembuatan pratinjau melacak kode terbaru dan lebih sering memecahkannya. Tetap aktifkan pencadangan otomatis jika Anda menjalankannya, dan perkirakan untuk menginstal ulang versi rilis jika terjadi kesalahan.
+
+## Membangun dari sumber
+
+Anda memerlukan Flutter 3.38 atau lebih baru, Dart 3.10 atau lebih baru, dan toolchain Rust. Go 1.21 atau yang lebih baru hanya diperlukan jika Anda ingin membangun kembali server torrent sendiri.
+
+## Terus perbarui
+
+Watchtower memberi tahu Anda ketika ada versi baru, dan Anda menginstalnya dengan cara yang sama seperti pertama kali. Perpustakaan dan pengaturan Anda tidak tersentuh.
+
+## Jika instalasi gagal
+
+Pesan umum penginstal masing-masing dijelaskan di halaman kesalahan. Ketidakcocokan tanda tangan berarti salinan yang ditandatangani secara berbeda telah diinstal dan harus dihapus terlebih dahulu, unduhan yang rusak perlu diambil lagi, dan ketidakcocokan arsitektur prosesor berarti build yang diunduh salah.
+
+## Ringkasan
+
+- Android adalah satu-satunya platform dengan versi rilis yang dipublikasikan.
+- Biner tanpa kepala dibuat untuk Linux x86_64.
+- Karat diperlukan untuk membangun dari sumbernya; Pergi adalah opsional.
+- Pratinjau dan penginstalan stabil berbagi data yang sama, sehingga peralihan tetap mempertahankan perpustakaan Anda.
+- Hapus instalasi yang bertentangan sebelum menggantinya dengan build bertanda tangan berbeda.
+
+## Kontrak / contoh
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

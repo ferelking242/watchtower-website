@@ -1,0 +1,56 @@
+---
+title: "Takip"
+fullTitle: "İzlediklerinizi otomatik olarak kaydediyor."
+description: "İzleme, Watchtower'u geçmişinizi tutan hizmetlere bağlar. Bir kez oturum açarsınız ve elle yazmak yerine ilerlemeniz ilerledikçe kaydedilir."
+marker: "16"
+---
+
+## Hangi hizmetler destekleniyor
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori ve Bangumi. Hepsi izleme ayarlarından ayarlanır ve birden fazla bağlantı kurabilirsiniz.
+
+## Oturum aç
+
+İzleme ayarlarını açın ve oturum açma işlemini başlatmak için bir hizmete dokunun. Kitsu, kullanıcı adı yerine e-posta adresinizi soran ve insanları yakalayan kişidir.
+
+## Bir seriyi bağlama
+
+Bir seri açın, izlemeye gidin ve hizmeti ekleyin. Watchtower başlığı sizin için arar ve yanlış girişle eşleştiğinde arama terimlerini düzenleyebilirsiniz.
+
+## Ne kadar izlendiği sayılır
+
+Bir bölümün ne zaman görüldü olarak işaretleneceğine bir yüzde eşiği karar verir. Yarı yolda durmanın tam bir bölümü kaydetmemesini sağlayacak kadar yükseğe ayarlayın.
+
+## Yalnızca tek yön
+
+İlerleme Watchtower'dan hizmete aktarılır. Listenizi web sitesinde düzenlemek uygulamada hiçbir şeyi değiştirmez; bu nedenle listeyi yönetmek için bir yer seçin.
+
+## Çevrimdışı izliyorum
+
+Bağlantı olmadan kaydettiğiniz ilerleme sıraya alınır ve bir daha çevrimiçi olduğunuzda yüklenir, böylece uçuş geçmişiniz kaybolmaz.
+
+## Oturum açma veya senkronizasyon başarısız olduğunda
+
+Oturum açmayı reddeden bir hizmet genellikle süresi dolmuş bir oturumdur veya hizmetin kendi sitesindeki bir captcha'dır; bu nedenle hizmetin web sitesi üzerinden bir kez oturum açın ve tekrar deneyin. Senkronize edilmeyen ilerleme normalde kaybolmak yerine sıraya alınır ve bağlantı geri geldiğinde yeniden denenir.
+
+## Yanlış başlıkla eşleşiyor
+
+Otomatik eşleştirme, başlık belirsiz olduğunda yanlış girişi seçebilir. İzleme bölümünde söz konusu seriye ilişkin arama terimlerini düzenleyin ve doğru sonucu seçin, ardından taşıdığı ilerlemenin istediğiniz ilerleme olduğunu onaylayın.
+
+## Kısa özet
+
+- İzleme, kitaplığın tamamı için değil, dizi başına ayarlanır.
+- İlerleme yalnızca dışarıya doğru akar, asla geri dönmez.
+- Bir bölümün ne zaman izlendi sayılacağına eşik karar verir.
+- Yeniden bağlandığınızda çevrimdışı ilerleme yüklenir.
+- Başarısız bir oturum açma işlemi genellikle hizmetin kendisinde süresi dolmuş bir oturumdur.
+
+## Sözleşme / örnek
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

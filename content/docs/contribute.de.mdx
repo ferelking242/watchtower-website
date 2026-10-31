@@ -1,0 +1,48 @@
+---
+title: "Mitwirken"
+fullTitle: "Helfen, Watchtower besser zu machen."
+description: "Die App, die Erweiterungen und diese Dokumentation sind alle geöffnet. Es gibt nützliche Arbeit für Leute, die Code schreiben, und für Leute, die das nicht tun."
+marker: "29"
+---
+
+## Möglichkeiten zu helfen
+
+Melden Sie Fehler mit genau der Nachricht, die Sie gesehen haben, verbessern Sie eine Quelle, schreiben Sie eine Erweiterung für eine Site, die niemand abgedeckt hat, oder übersetzen Sie diese Site in eine andere Sprache.
+
+## Arbeite an der App
+
+Klonen Sie das Repository, installieren Sie die Flutter- und Rust-Toolchains und führen Sie den Analysator aus, bevor Sie eine Pull-Anfrage öffnen. Go wird nur benötigt, wenn Sie den Torrent-Server wechseln.
+
+## Arbeiten an der Dokumentation
+
+Die Site ist ein eigenes Repository. Das Hinzufügen einer Sprache bedeutet das Hinzufügen einer Übersetzungsdatei; Das Layout und die Navigation erledigen bereits den Rest.
+
+## Übersetzen
+
+Die App und diese Website bieten beide viele Sprachen an, und eine neue ist zusätzlich verfügbar. Sie müssen das Design nie berühren, um Ihre eigene Sprache hinzuzufügen.
+
+## Ich melde einen guten Fehler
+
+Geben Sie Ihre App-Version, die von Ihnen verwendete Quelle, den genauen Fehlertext und an, ob andere Quellen noch funktionieren. Das reicht in der Regel aus, um den Fehler zu lokalisieren.
+
+## Vor einer großen Veränderung
+
+Öffnen Sie ein Problem oder fragen Sie zuerst auf Discord. Es erspart Ihnen, etwas zu bauen, das nicht zum Projektverlauf passt.
+
+## Kurzüberblick
+
+- Die Dokumentation ist ein von der App getrenntes Repository.
+- Das Hinzufügen einer Sprache bedeutet das Hinzufügen einer Datei, nicht das Ändern des Layouts.
+- Die Meldung des genauen Fehlertextes spart am meisten Zeit.
+- Rust wird für die App-Arbeit benötigt; Gehen Sie nur für den Torrent-Server.
+
+## Vertrag / Beispiel
+
+```bash
+# Work on the app
+git clone https://github.com/ferelking242/watchtower
+cd watchtower && flutter pub get
+
+# Work on this documentation
+git clone https://github.com/ferelking242/watchtower-website
+```

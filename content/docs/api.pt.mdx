@@ -1,0 +1,51 @@
+---
+title: "API do servidor"
+fullTitle: "Dirigindo Watchtower de outro programa."
+description: "O aplicativo pode abrir um pequeno servidor web em sua própria máquina, o que permite que scripts, players externos e outros dispositivos usem as mesmas fontes que o aplicativo."
+marker: "23"
+---
+
+## O que é isso
+
+Um pequeno servidor web integrado ao aplicativo. Ele usa as mesmas extensões e a mesma biblioteca da interface, portanto, tudo o que ele retorna corresponde ao que você vê na tela.
+
+## Ligando
+
+Está desligado até que você o habilite, deliberadamente. Ligue-o nas configurações avançadas, anote a porta e aponte sua ferramenta para esse endereço.
+
+## O que você pode perguntar
+
+Suas fontes instaladas, suas entradas de biblioteca, uma pesquisa em qualquer fonte e um fluxo de vídeo resolvido. Isso é suficiente para acionar um media center ou um player externo.
+
+## Por que você pode querer isso
+
+Automação, um front-end diferente ou permitir que outro dispositivo da sua rede use as fontes que seu telefone já configurou.
+
+## Mantenha-o em sua própria rede
+
+O servidor não possui senha e destina-se a uma rede local confiável. Não o exponha à internet, onde qualquer pessoa poderia ler sua biblioteca.
+
+## Como isso se relaciona com a linha de comando
+
+A linha de comando do Linux expõe o mesmo servidor, portanto, um script escrito no aplicativo funciona em uma máquina headless sem alterações.
+
+## Resumo
+
+- O servidor fica desligado até que você o habilite nas configurações.
+- Ele escuta na porta 4567 por padrão.
+- Ele usa as mesmas fontes e biblioteca da interface.
+- Destina-se a uma rede local confiável, não à Internet.
+
+## Contrato / exemplo
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

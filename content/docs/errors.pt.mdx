@@ -1,0 +1,73 @@
+---
+title: "Erros"
+fullTitle: "Cada mensagem de erro e o que isso significa."
+description: "Watchtower mostra o erro bruto em vez de ocultá-lo, portanto a mensagem em si é a pista mais rápida que você tem. Encontre o seu abaixo e tente a primeira correção antes de alterar qualquer outra coisa."
+marker: "27"
+---
+
+## 403 Proibido
+
+O site decidiu que sua solicitação parece automatizada e a recusa. Na prática, esta é uma proteção anti-bot. Atualize a extensão primeiro e, em seguida, abra o código-fonte no navegador integrado uma vez para limpar qualquer verificação que o site esteja realizando. Se ainda assim recusar, a fonte pode ter aumentado a sua proteção ou bloqueado o seu endereço.
+
+## 404 Não encontrado
+
+A página que a extensão esperava foi movida ou removida. Esta é uma extensão obsoleta quase sempre, então atualize seu repositório e atualize-o. Se ainda não houver atualização, o autor da extensão não alcançou o site.
+
+## 429 Muitas solicitações
+
+Sua taxa foi limitada por fazer solicitações muito rapidamente. Esperar é a solução real, e reduzir a frequência com que as atualizações e downloads são executados é o que impede sua recorrência. Tentar novamente imediatamente apenas estende o bloqueio.
+
+## 500, 502 e outros erros 5xx
+
+O próprio site está falhando. Não há nada para consertar no seu dispositivo, e a atitude certa é esperar e tentar novamente mais tarde. Verificar o site em um navegador confirma se ele está fora do ar para todos.
+
+## 1006 e 1020, os códigos de firewall
+
+1006 geralmente significa uma proibição temporária de IP e 1020 significa uma regra de firewall definida pelo proprietário do site, geralmente para bloquear visitantes de fora de seu país. Mudar de rede pode ajudar com 1006; 1020 geralmente não pode ser contornado.
+
+## Falha ao ignorar Cloudflare
+
+O site é protegido pela Cloudflare e a verificação automática não foi cancelada. Abra a página da fonte no navegador integrado, conclua qualquer verificação manualmente e retorne ao aplicativo. Se a página for recarregada indefinidamente, consulte a página de solução de problemas.
+
+## Não foi possível resolver o host, falha na conexão, tempo limite
+
+Estes são problemas de rede e não falhas na fonte. Verifique se o dispositivo tem acesso à Internet, tente outra rede ou dados móveis e ative o DNS criptografado nas configurações. Um portal Wi-Fi cativo é uma causa comum.
+
+## Falha na validação do certificado
+
+O certificado de segurança do site não pôde ser validado. Verifique se a data e a hora do dispositivo estão corretas, limpe o cache e os cookies do aplicativo e tente uma rede diferente. Um certificado expirado no site não é algo que você possa consertar.
+
+## Erros de armazenamento e cartão SD
+
+Mensagens sobre um cartão, caminho ou pasta indisponível significam que o local do download foi movido ou tornou-se ilegível. Verifique o espaço livre, confirme se o aplicativo ainda tem permissão para essa pasta e volte para o armazenamento interno se o cartão continuar falhando.
+
+## O aplicativo ou extensão não será instalado
+
+Um APK assinado por outra pessoa, um download truncado e a arquitetura de processador errada produzem, cada um, uma mensagem diferente do instalador. Remova a cópia conflitante e baixe o arquivo novamente e certifique-se de que o Android tenha permissão para instalar aplicativos desconhecidos.
+
+## Quando o erro não está listado aqui
+
+Copie a mensagem exata em vez de parafraseá-la. O nome da operação e o URL dentro dela geralmente apontam diretamente para a etapa com falha, e a página de solução de problemas ajuda a restringi-la.
+
+## Resumo
+
+- 403 e 429 significam que o site está recusando você, por motivos diferentes.
+- Um 404 é quase sempre uma extensão que precisa de atualização.
+- Um erro 5xx é culpa do site, não do seu dispositivo.
+- 1006 é uma proibição temporária; 1020 é uma regra de firewall que você não pode ignorar.
+- Copie a mensagem exata: o URL dentro dela nomeia a etapa com falha.
+- Incompatibilidades de assinatura significam que uma cópia assinada de forma diferente está instalada.
+
+## Contrato / exemplo
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

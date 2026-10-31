@@ -1,0 +1,57 @@
+---
+title: "Impostazioni"
+fullTitle: "Le impostazioni che modificano il comportamento dell'app."
+description: "Oltre alle opzioni di ciascuna funzionalità, una manciata di impostazioni a livello di app influiscono sugli aggiornamenti, sulla privacy, sull'installazione e sul modo in cui si ripristina quando qualcosa va storto."
+marker: "19"
+---
+
+## Generale
+
+Tema, lingua dell'interfaccia e comportamento predefinito della libreria. Questi si applicano ovunque contemporaneamente, quindi sono il primo posto in cui cercare quando l'app non sembra la tua.
+
+## Privacy
+
+Nascondendo lo schermo nel commutatore di app mantieni la tua libreria fuori dalle miniature e la modalità di navigazione in incognito interrompe la registrazione della cronologia durante la navigazione. La navigazione in incognito nasconde ciò che hai guardato, non quanto lontano sei arrivato.
+
+## Rete
+
+Il DNS crittografato può superare alcuni blocchi di base e vale la pena provarlo quando una fonte non viene caricata su una rete ma funziona su un'altra. Un proxy fa lo stesso lavoro per un'intera rete.
+
+## Installazione delle estensioni
+
+Android normalmente blocca le installazioni dall'esterno di un negozio. La concessione di tale autorizzazione è ciò che consente l'installazione delle estensioni e Shizuku è un'alternativa per i dispositivi che lo rendono scomodo.
+
+## Diagnostica
+
+I registri degli arresti anomali, l'acquisizione del logcat e la ricostruzione dell'indice si trovano qui. Qui è dove vai quando qualcosa si comporta male e vuoi prove piuttosto che supposizioni.
+
+## Prima di segnalare un problema
+
+Prendi nota della versione dell'app, dell'origine che non ha funzionato e di ciò che è stato mostrato sullo schermo. Ciò trasforma un rapporto vago in qualcosa che può effettivamente essere risolto.
+
+## Ripristino di uno stato bloccato
+
+Svuotare la cache, cancellare cookie e dati web e ricostruire gli indici risolve ciascuno una diversa classe di problema. La cache cancella i dati della pagina non aggiornati, i cookie cancellano una verifica bloccata e una ricostruzione dell'indice esegue nuovamente la scansione della cartella di archiviazione. La cancellazione del database rimuove le serie che non sono nella tua libreria, che è la solita soluzione per una copertina locale vuota.
+
+## L'ultima risorsa che conserva i tuoi dati
+
+Se non funziona nient'altro, esegui un nuovo backup, quindi reinstalla l'app e ripristinala. Ciò mantiene la libreria e le impostazioni sostituendo tutto ciò che è danneggiato nell'installazione stessa.
+
+## Riepilogo
+
+- L'impostazione della privacy del commutatore di app deve essere disattivata per acquisire screenshot.
+- La navigazione in incognito interrompe la registrazione della cronologia, non l'avanzamento.
+- I registri degli arresti anomali rimangono sul tuo dispositivo e non vengono mai inviati automaticamente.
+- Il DNS crittografato spesso risolve un'origine che fallisce solo su una rete.
+- Cache, cookie e indici risolvono ciascuno una diversa classe di problemi.
+- Esegui il backup prima della reinstallazione, quindi ripristina per conservare la tua libreria.
+
+## Contratto / esempio
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

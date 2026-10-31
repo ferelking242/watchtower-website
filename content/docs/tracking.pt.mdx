@@ -1,0 +1,56 @@
+---
+title: "Rastreamento"
+fullTitle: "Gravando o que você assiste, automaticamente."
+description: "O rastreamento conecta o Watchtower aos serviços que mantêm seu histórico. Você faz login uma vez e o progresso é registrado conforme você avança, em vez de ser digitado manualmente."
+marker: "16"
+---
+
+## Quais serviços são suportados
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori e Bangumi. Eles são todos configurados nas configurações de rastreamento e você pode conectar mais de um.
+
+## Fazendo login
+
+Abra as configurações de rastreamento e toque em um serviço para iniciar seu login. Kitsu é aquele que pede seu endereço de e-mail em vez de um nome de usuário, o que chama a atenção das pessoas.
+
+## Conectando uma série
+
+Abra uma série, acesse rastreamento e adicione o serviço. Watchtower procura o título para você e você pode editar os termos de pesquisa quando eles corresponderem à entrada errada.
+
+## Quanto conta como assistido
+
+Um limite percentual decide quando um episódio é marcado como visto. Defina-o alto o suficiente para que parar no meio não grave um episódio completo.
+
+## Uma direção apenas
+
+O progresso vai do Watchtower ao serviço. Editar sua lista no site não altera nada no aplicativo, então escolha um local para gerenciá-la.
+
+## Assistindo off-line
+
+O progresso que você faz sem conexão é colocado na fila e carregado na próxima vez que você estiver on-line, para que um voo não perca seu histórico.
+
+## Quando um login ou sincronização falha
+
+Um serviço que se recusa a fazer login geralmente é uma sessão expirada ou um captcha no próprio site do serviço, portanto, faça login uma vez no site do serviço e tente novamente. O progresso que não será sincronizado normalmente é colocado na fila em vez de perdido e é repetido quando a conexão retorna.
+
+## Combinando o título errado
+
+A correspondência automática pode escolher a entrada errada quando um título é ambíguo. Edite os termos de pesquisa para essa série na seção de rastreamento e selecione o resultado correto e, em seguida, confirme se o progresso realizado é o desejado.
+
+## Resumo
+
+- O rastreamento é configurado por série, não para toda a biblioteca.
+- O progresso apenas flui para fora, nunca para dentro.
+- Um limite decide quando um episódio conta como assistido.
+- O progresso off-line é carregado quando você se reconecta.
+- Uma falha no login geralmente é uma sessão expirada no próprio serviço.
+
+## Contrato / exemplo
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

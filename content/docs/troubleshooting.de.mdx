@@ -1,0 +1,79 @@
+---
+title: "Fehlerbehebung"
+fullTitle: "Wenn etwas nicht funktioniert."
+description: "Fast jedes Problem ist eines von mehreren Dingen: eine Quelle, die sich geändert hat, eine Blockierung einer Website, eine fehlende Berechtigung oder eine Erweiterung, die aktualisiert werden muss. Arbeiten Sie es in dieser Reihenfolge durch."
+marker: "26"
+---
+
+## Beginnen Sie damit, es einzugrenzen
+
+Bevor Sie eine Einstellung berühren, entscheiden Sie, ob das Problem an der Quelle, Ihrem Netzwerk oder Ihrem Gerät liegt. Eine Quelle fällt aus, während andere auf diese Quelle verweisen. Alles, was fehlschlägt, deutet auf die App oder die Verbindung hin.
+
+## Aktualisieren Sie zuerst alles
+
+Aktualisieren Sie Ihre Repositorys und installieren Sie alle Erweiterungsupdates. Suchen Sie dann nach einem App-Update. Ein großer Teil des plötzlichen Ausfalls ist auf eine geänderte Website und eine Erweiterung zurückzuführen, die bereits repariert, aber noch nicht installiert wurde.
+
+## Eine Quelle funktioniert nicht mehr
+
+Dies ist das häufigste und in der Regel am wenigsten schwerwiegende Problem. Die Website hat sich geändert, die Erweiterung benötigt ein Update und die Aktualisierung Ihres Repositorys ist die Lösung. Wenn noch kein Update vorhanden ist, hat der Autor der Erweiterung nicht aufgeholt.
+
+## Es wird überhaupt nichts geladen
+
+Wenn jede Quelle ausfällt, schauen Sie sich stattdessen das Netzwerk an. Probieren Sie mobile Daten, ein anderes WLAN-Netzwerk und verschlüsseltes DNS in den Einstellungen aus. Eine häufige Ursache ist ein einzelnes Netzwerk, das alles blockiert, oder ein Captive-Portal, bei dem man sich nicht angemeldet hat.
+
+## Öffnen einer Website, um einen Scheck zu bestehen
+
+Einige Websites führen eine Verifizierung durch, bevor sie antworten. Öffnen Sie die Quelle über „Durchsuchen“ und verwenden Sie den integrierten Browser, um die eigene Seite der Website zu laden. Führen Sie alle Überprüfungen manuell durch, schließen Sie sie dann und kehren Sie zur App zurück. Wenn Sie dies einmal tun, wird häufig die Sperre für diese Quelle gelöscht.
+
+## Wolkenflare und endloses Nachladen
+
+Eine Website hinter Cloudflare kann ihren Scheck ständig neu laden, anstatt Sie durchzulassen. Versuchen Sie erneut, die Site im integrierten Browser zu öffnen, ändern Sie Ihren Benutzeragenten in den erweiterten Einstellungen oder warten Sie, bis der Schutz der Site verringert wird. Einige Quellen sind absichtlich schwer über eine App zu nutzen.
+
+## Cookies und Webdaten löschen
+
+Dadurch wird der gespeicherte Browserstatus der App einschließlich aller Anmeldungen zurückgesetzt. Dies ist die richtige Lösung für eine steckengebliebene Prüfung und es lohnt sich, dies zu tun, bevor entschieden wird, dass eine Quelle tot ist. Sie müssen sich anschließend erneut anmelden, wenn die Quelle ein Konto benötigt.
+
+## Ändern Sie Ihren Benutzeragenten
+
+Der Benutzeragent ist die Zeichenfolge, die Ihr Gerät gegenüber einer Website identifiziert. Einige Websites behandeln ihn als Bot-Signal. Das Ersetzen des Standardwerts durch eine allgemeine Browserzeichenfolge und das anschließende Neustarten der App führt manchmal über eine Prüfung hinaus, die andernfalls eine Schleife auslöst.
+
+## Eine Erweiterung wird nicht installiert
+
+Android blockiert standardmäßig Installationen von außerhalb eines Stores. Erlauben Sie es für Ihren Dateimanager oder Browser. Wenn diese Option fehlt, verwenden Sie Shizuku als alternative Route. Ein Download, der teilweise abgebrochen wurde, erzeugt eine andere Meldung, also führen Sie eine Neuinstallation durch.
+
+## Der Inhalt wird an der falschen Stelle geöffnet
+
+Wenn im Videoplayer ein Manga oder im Reader eine Episode geöffnet wird, deklariert die Erweiterung den falschen Inhaltstyp. Das ist ein Fehler in der Erweiterung und nicht in Ihren Einstellungen. Melden Sie ihn also, anstatt zu versuchen, ihn lokal zu beheben.
+
+## Absturzprotokolle und weitere Details abrufen
+
+Erweiterte Einstellungen können Absturzprotokolle ausgeben, und eine Logcat-Erfassung von Ihrem Gerät zeigt detaillierter, was die App getan hat. Es lohnt sich, beides beizufügen, wenn Sie ein Problem melden, da sie aus einer vagen Beschreibung etwas machen, das nachvollziehbar ist.
+
+## Speicherung und langsames oder verzögertes Lesen
+
+Langsames Laden ist in der Regel eher auf die Website, Ihre Verbindung oder eine Geschwindigkeitsbegrenzung als auf die App zurückzuführen. Verzögerungen beim Lesen entstehen durch übergroße Bilder in einem Kapitel. Das Wechseln der Quelle, das Freigeben von Speicher oder das Abwarten einer Ratenbegrenzung sind praktische Lösungen.
+
+## Wenn es nicht nur Sie sind
+
+Wenn andere den gleichen Fehler sehen, liegt es an der Erweiterung oder der App und nicht an Ihrem Setup. Überprüfen Sie den Issue-Tracker des Projekts auf die Quelle, bevor Sie einen neuen Bericht öffnen, und geben Sie Ihre App-Version und den genauen Fehlertext an.
+
+## Kurzüberblick
+
+- Eine defekte Quelle ist fast immer die Quelle, nicht die App.
+- Eine veraltete Verlängerung ist die häufigste Ursache für einen plötzlichen Bruch.
+- Wenn jede Quelle ausfällt, verdächtigen Sie das Netzwerk vor der App.
+- Beim Öffnen einer Website im integrierten Browser werden viele Verifizierungsprüfungen gelöscht.
+- Durch das Löschen von Cookies und Webdaten werden eine blockierte Prüfung und alle Anmeldungen zurückgesetzt.
+- Absturzprotokolle und Logcat machen einen Fehlerbericht nachvollziehbar.
+
+## Vertrag / Beispiel
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

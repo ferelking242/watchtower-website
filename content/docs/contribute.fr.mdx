@@ -1,0 +1,48 @@
+---
+title: "Contribuer"
+fullTitle: "Aider à améliorer Watchtower."
+description: "L'application, les extensions et cette documentation sont toutes ouvertes. Il y a du travail utile pour ceux qui écrivent du code comme pour ceux qui n'en écrivent pas."
+marker: "29"
+---
+
+## Comment aider
+
+Signalez les bogues avec le message exact que vous avez vu, améliorez une source, écrivez une extension pour un site que personne n'a couvert, ou traduisez ce site dans une autre langue.
+
+## Travailler sur l'application
+
+Clonez le dépôt, installez les chaînes d'outils Flutter et Rust, et lancez l'analyseur avant d'ouvrir une demande de fusion. Go n'est nécessaire que si vous modifiez le serveur torrent.
+
+## Travailler sur la documentation
+
+Le site est son propre dépôt. Ajouter une langue signifie ajouter un fichier de traduction ; la disposition et la navigation gèrent déjà le reste.
+
+## Traduire
+
+L'application et ce site existent dans de nombreuses langues, et une nouvelle est purement additive. Vous n'avez jamais à toucher au design pour ajouter votre langue.
+
+## Signaler un bon bogue
+
+Indiquez votre version de l'application, la source utilisée, le texte exact de l'erreur et si les autres sources fonctionnent encore. C'est généralement assez pour localiser la panne.
+
+## Avant un grand changement
+
+Ouvrez un ticket ou demandez sur Discord d'abord. Cela vous évite de construire quelque chose qui ne correspond pas à la direction du projet.
+
+## Mémo
+
+- La documentation est un dépôt séparé de l'application.
+- Ajouter une langue signifie ajouter un fichier, pas changer la disposition.
+- Signaler le texte exact de l'erreur fait gagner le plus de temps.
+- Rust est nécessaire pour travailler sur l'application ; Go seulement pour le serveur torrent.
+
+## Contrat / exemple
+
+```bash
+# Work on the app
+git clone https://github.com/ferelking242/watchtower
+cd watchtower && flutter pub get
+
+# Work on this documentation
+git clone https://github.com/ferelking242/watchtower-website
+```

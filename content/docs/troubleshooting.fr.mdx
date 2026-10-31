@@ -1,0 +1,79 @@
+---
+title: "Dépannage"
+fullTitle: "Quand quelque chose ne fonctionne pas."
+description: "Presque tous les problèmes relèvent de quelques causes : une source qui a changé, un blocage d'un site, une permission manquante, ou une extension à mettre à jour. Procédez dans cet ordre."
+marker: "26"
+---
+
+## Commencer par cerner le problème
+
+Avant de toucher à un réglage, déterminez si le problème vient de la source, de votre réseau ou de votre appareil. Une source qui échoue alors que les autres marchent désigne cette source ; tout qui échoue désigne l'application ou la connexion.
+
+## Tout mettre à jour d'abord
+
+Rafraîchissez vos dépôts et installez les mises à jour d'extensions, puis vérifiez s'il existe une mise à jour de l'application. Une grande partie des pannes soudaines vient d'un site qui a changé et d'une extension déjà corrigée mais pas encore installée.
+
+## Une source a cessé de marcher
+
+C'est le problème le plus courant et souvent le moins grave. Le site a changé, l'extension a besoin d'une mise à jour, et rafraîchir votre dépôt est la solution. S'il n'y a pas encore de mise à jour, l'auteur de l'extension n'a pas encore suivi.
+
+## Rien ne se charge du tout
+
+Si toutes les sources échouent, regardez plutôt le réseau. Essayez les données mobiles, un autre réseau Wi-Fi, et le DNS chiffré dans les réglages. Un réseau unique qui bloque tout, ou un portail captif non validé, est une cause fréquente.
+
+## Ouvrir un site pour passer un contrôle
+
+Certains sites imposent une vérification avant de répondre. Ouvrez la source depuis Parcourir et utilisez le navigateur intégré pour charger la page du site, complétez le contrôle à la main, puis fermez et revenez à l'application. Le faire une fois débloque souvent la source.
+
+## Cloudflare et les rechargements sans fin
+
+Un site derrière Cloudflare peut recharger son contrôle sans vous laisser passer. Rouvrez le site dans le navigateur intégré, changez votre user agent dans les réglages avancés, ou attendez que le site baisse sa protection. Certaines sources sont volontairement difficiles à utiliser depuis une application.
+
+## Vider les cookies et les données web
+
+Cela réinitialise l'état de navigation stocké par l'application, y compris les connexions. C'est la bonne solution pour un contrôle bloqué, et cela vaut la peine avant de conclure qu'une source est morte. Il faudra vous reconnecter ensuite si la source demande un compte.
+
+## Changer votre user agent
+
+Le user agent est la chaîne qui identifie votre appareil auprès d'un site, et certains sites y voient un signal de robot. Remplacer la valeur par défaut par une chaîne de navigateur courante, puis redémarrer l'application, franchit parfois un contrôle qui boucle autrement.
+
+## Une extension refuse de s'installer
+
+Android bloque par défaut les installations hors magasin. Autorisez-le pour votre gestionnaire de fichiers ou votre navigateur, et si l'option manque, utilisez Shizuku comme autre voie. Un téléchargement interrompu produit un autre message, donc réinstallez depuis zéro.
+
+## Le contenu s'ouvre au mauvais endroit
+
+Si un manga s'ouvre dans le lecteur vidéo, ou un épisode dans le lecteur de mangas, l'extension déclare le mauvais type de contenu. C'est un défaut de l'extension, pas de vos réglages, donc signalez-le au lieu d'essayer de le corriger localement.
+
+## Obtenir les journaux de plantage et plus de détails
+
+Les réglages avancés permettent d'exporter les journaux de plantage, et une capture logcat montre plus en détail ce que faisait l'application. Les deux valent la peine d'être joints à un signalement, car ils transforment une description vague en quelque chose de traçable.
+
+## Stockage, lenteur et lecture saccadée
+
+Un chargement lent vient généralement du site, de votre connexion ou d'une limitation de débit, pas de l'application. Une lecture saccadée vient d'images trop grandes dans un chapitre. Changer de source, libérer de la mémoire ou attendre la fin d'une limitation sont les solutions pratiques.
+
+## Quand vous n'êtes pas le seul concerné
+
+Si d'autres personnes constatent la même panne, c'est l'extension ou l'application, pas votre configuration. Consultez le suivi des problèmes du projet pour la source avant d'ouvrir un nouveau signalement, et indiquez votre version de l'application et le texte exact de l'erreur.
+
+## Mémo
+
+- Une source cassée est presque toujours la source, pas l'application.
+- Une extension périmée est la cause la plus fréquente d'une panne soudaine.
+- Si toutes les sources échouent, soupçonnez le réseau avant l'application.
+- Ouvrir un site dans le navigateur intégré lève de nombreux contrôles de vérification.
+- Vider les cookies et les données web réinitialise un contrôle bloqué et les connexions.
+- Les journaux de plantage et le logcat rendent un signalement exploitable.
+
+## Contrat / exemple
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

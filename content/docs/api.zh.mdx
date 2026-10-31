@@ -1,0 +1,51 @@
+---
+title: "服务器 API"
+fullTitle: "从另一个程序驱动 Watchtower。"
+description: "该应用程序可以在您自己的计算机上打开一个小型网络服务器，让脚本、外部播放器和其他设备使用与该应用程序相同的源。"
+marker: "23"
+---
+
+## 它是什么
+
+应用程序中内置了一个小型网络服务器。它使用与界面相同的扩展和相同的库，因此它返回的任何内容都与您在屏幕上看到的内容相匹配。
+
+## 打开它
+
+它会关闭，直到您故意启用它为止。在高级设置中将其打开并记下端口，然后将工具指向该地址。
+
+## 你可以问什么
+
+您安装的源、库条目、对任何源的搜索以及解析的视频流。这足以驱动媒体中心或外部播放器。
+
+## 为什么你可能想要它
+
+自动化、不同的前端，或者让网络上的其他设备使用您手机已设置的源。
+
+## 将其保留在您自己的网络上
+
+该服务器没有密码，适用于受信任的本地网络。不要将其暴露在互联网上，任何人都可以阅读您的图书馆。
+
+## 它与命令行有何关系
+
+Linux 命令行公开相同的服务器，因此针对该应用程序编写的脚本可以在无头机器上运行，无需任何更改。
+
+## 速查表
+
+- 服务器处于关闭状态，直到您在设置中启用它。
+- 默认情况下它侦听端口 4567。
+- 它使用与界面相同的源和库。
+- 它适用于受信任的本地网络，而不是互联网。
+
+## 契约 / 示例
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

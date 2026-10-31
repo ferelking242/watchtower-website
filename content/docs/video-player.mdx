@@ -1,0 +1,54 @@
+---
+title: "Video player"
+fullTitle: "Watching an episode."
+description: "The player covers the video with gestures and sheets, so nothing leaves the screen while you are watching. Quality, audio, subtitles and speed all live one tap away."
+marker: "08"
+---
+
+## Basic controls
+
+Tap once to bring up the controls, double tap a side to jump forward or back, and long press to speed up. Pinch to zoom when the video has room to spare.
+
+## Quality and audio
+
+Sources that offer several resolutions or audio tracks expose them in sheets that slide up without interrupting playback. Your choice is remembered for the series.
+
+## Subtitles
+
+Subtitle tracks come from the source or from a file you supply. They are chosen and adjusted from the subtitle sheet, and their appearance is set once in settings.
+
+## Episodes and stats
+
+A side panel lists every episode so you can jump around, and another shows what the player is actually doing with the stream when something looks off.
+
+## When the internal player struggles
+
+A rare codec or a broken stream can be handed to an external player such as mpv or VLC. That is the reliable fallback, not a sign the episode is unusable.
+
+## Saving your place
+
+Progress is written continuously while you watch, so closing the app or losing power does not lose your position.
+
+## When a video will not play
+
+A stream that refuses to start is often a codec the internal player cannot handle or a link that expired. Switch to an external player such as mpv or VLC first, then update the extension if every episode from that source fails.
+
+## Cheat sheet
+
+- Playback uses a hardware-accelerated decoder by default.
+- Gestures handle brightness, volume and seeking.
+- Progress is saved continuously, not only when you exit.
+- An external player is the fallback for unsupported codecs.
+- Handing a stubborn stream to an external player is the reliable fallback.
+
+## Contract / example
+
+```text
+Tap          show or hide the controls
+Double tap   seek forward or back
+Long press   change playback speed
+Pinch        zoom, when the video allows it
+
+Sheets   quality · audio track · subtitles · speed
+Panels   episode list · playback statistics
+```

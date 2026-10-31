@@ -64,7 +64,7 @@ function collectUrls(source, filePath, isHtml) {
   for (const value of values) {
     if (!value || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(value)) continue;
     const path = decodeURIComponent(value.split(/[?#]/, 1)[0]);
-    if (!path) continue;
+    if (!path || path.endsWith("/")) continue;
 
     const target = path.startsWith("/")
       ? resolve(publicRoot, `.${path}`)

@@ -1,0 +1,57 @@
+---
+title: "Lokale Quelle"
+fullTitle: "Eigene Dateien lesen und abspielen."
+description: "Watchtower kann einen Ordner auf Ihrem Gerät als normale Quelle behandeln. Ihre eigene Sammlung verhält sich dann genauso wie eine Online-Sammlung, einschließlich Fortschrittsverfolgung."
+marker: "07"
+---
+
+## Manga und Romane
+
+Legen Sie einen Ordner pro Serie im lokalen Ordner und eine Datei pro Kapitel darin ab. Kapitel können CBZ-Archive oder einfache Bildordner sein, und der Ordnername wird zum Serientitel.
+
+## Anime
+
+Legen Sie einen Ordner pro Serie im lokalen Anime-Ordner und eine Videodatei pro Episode darin ab. Episoden werden nach Dateinamen sortiert, also nummerieren Sie sie.
+
+## Cover und Details
+
+Ein Titelbild im Serienordner wird zum Miniaturbild. In einer Detaildatei daneben können Autor, Interpret, Beschreibung und Genres hinzugefügt werden, wenn der Ordnername nicht ausreicht.
+
+## Neue Dateien hinzufügen
+
+Verschieben Sie Dateien von außerhalb der App und aktualisieren Sie dann die lokale Quelle, damit Watchtower den Ordner erneut scannt. Dateien, die hinzugefügt werden, während die App geschlossen ist, werden erst bemerkt, wenn Sie dies tun.
+
+## Offline lesen
+
+Lokale Quellen berühren nie das Netzwerk, arbeiten also im Flugmodus und können nicht blockiert oder ratenbegrenzt werden. Downloads und lokale Dateien verhalten sich auf der Festplatte gleich.
+
+## Dateien aus der Galerie ausblenden
+
+Legen Sie eine .nomedia-Datei im Ordner ab, damit Cover und Episoden nicht in der Foto-App Ihres Telefons angezeigt werden.
+
+## Wenn die Umschläge leer sind oder Dateien fehlen
+
+Ein leeres Cover oder eine Serie, die sich nicht öffnen lässt, bedeutet fast immer, dass die Ordnerstruktur falsch ist. Überprüfen Sie, ob es einen Ordner pro Serie und eine Datei pro Kapitel oder Episode gibt, entfernen Sie dann den Eintrag, löschen Sie die Datenbank auf Elemente außerhalb der Bibliothek und lassen Sie den Ordner von der lokalen Quelle erneut scannen.
+
+## Kurzüberblick
+
+- Sowohl CBZ-Archive als auch einfache Bildordner werden als Kapitel gelesen.
+- Die Reihenfolge der Episoden richtet sich nach dem Dateinamen. Nummerieren Sie Ihre Dateien daher.
+- Eine .nomedia-Datei hält lokale Medien von der Systemgalerie fern.
+- Lokale Quellen funktionieren auch ohne Netzwerkverbindung.
+- Eine falsche Ordnerstruktur ist die häufigste Ursache für ein leeres Cover.
+
+## Vertrag / Beispiel
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

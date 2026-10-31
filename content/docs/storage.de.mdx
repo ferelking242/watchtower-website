@@ -1,0 +1,53 @@
+---
+title: "Speicher"
+fullTitle: "Wo Watchtower seine Dateien aufbewahrt."
+description: "Backups, Downloads und lokale Quellen befinden sich alle an einem Speicherort. Die bewusste Auswahl verhindert, dass Downloads später verschwinden."
+marker: "18"
+---
+
+## Das Ordnerlayout
+
+Alles befindet sich in einem Ordner, den Sie auswählen: automatische Backups, heruntergeladene Kapitel und Episoden, Ihr lokaler Manga, Ihr lokaler Anime und die Konfiguration für externe Player. Die Kenntnis des Layouts erleichtert das Platzieren einer verirrten Datei.
+
+## Einen Standort auswählen
+
+Wählen Sie einen Ordner aus, den Sie auch in einem Jahr noch erreichen können. Vermeiden Sie das Stammverzeichnis eines Speichervolumes und vermeiden Sie es, Dateien anschließend aus der App heraus zu verschieben.
+
+## Android-Berechtigungen
+
+Modernes Android speichert Apps in ihren eigenen Verzeichnissen. Gewähren Sie Watchtower Zugriff auf den von Ihnen gewählten Speicherordner, sonst schlagen Downloads und lokale Quellen stillschweigend fehl.
+
+## Nach dem Verschieben von Dateien
+
+Verschieben Sie Dateien von außerhalb der App und aktualisieren Sie sie dann, damit Watchtower die Ordner erneut scannt. Andernfalls bleibt der neue Inhalt unsichtbar, bis etwas anderes einen Scan auslöst.
+
+## Halten Sie die Galerie sauber
+
+Eine .nomedia-Datei im Download-Ordner hält Cover und Episoden von der Fotogalerie Ihres Telefons fern.
+
+## Warum interner Speicher besser ist
+
+Downloads auf dem internen Speicher sind schneller und die Wahrscheinlichkeit, dass sie nicht mehr lesbar sind, ist weitaus geringer als auf einer Wechselkarte, die ausgehängt oder beschädigt werden kann.
+
+## Wenn die App den Ordner nicht erreichen kann
+
+Berechtigungsfehler und verschwindende Downloads sind beide darauf zurückzuführen, dass der Speicherordner verschoben wird oder nicht mehr lesbar ist. Vergewissern Sie sich, dass die App weiterhin Zugriff hat, überprüfen Sie den freien Speicherplatz und bevorzugen Sie den internen Speicher gegenüber einer entfernbaren Karte, die ausgehängt werden kann.
+
+## Kurzüberblick
+
+- Backups, Downloads und lokale Quellen teilen sich einen Speicherort.
+- Android benötigt eine explizite Berechtigung für diesen Ordner.
+- Eine .nomedia-Datei verbirgt heruntergeladene Medien aus der Galerie.
+- Der interne Speicher ist zuverlässiger als eine SD-Karte.
+- Ein verschobener oder nicht lesbarer Speicherordner verbirgt Downloads und Backups.
+
+## Vertrag / Beispiel
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

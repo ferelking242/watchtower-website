@@ -1,0 +1,88 @@
+---
+title: "SSS"
+fullTitle: "Sıkça ortaya çıkan sorular."
+description: "İnsanların Watchtower'yu yüklemeden önce ve yükledikten sonra sorduğu sorulara, uygulamanın dokundukları kısmına göre gruplandırılmış kısa yanıtlar."
+marker: "28"
+---
+
+## Neden bir uygulama mağazasında yok?
+
+Çünkü Watchtower, mağaza politikalarının izin vermediği uzantıları çalışma zamanında yükler. Her yüklemenin güvenmeyi seçtiğiniz bir APK'dan gelmesinin nedeni de budur.
+
+## iOS sürümü var mı?
+
+Temel kod platformlar arasıdır, ancak iOS'ta gönderim platform kurallarıyla sınırlıdır ve söz verilmemektedir. Android her şeyi ilk önce alan platformdur.
+
+## İnternet olmadan çalışıyor mu?
+
+İndirdiğiniz her şey ve yerel dosyalar tamamen çevrimdışı çalışır. Kaynaklara göz atmak ve arama yapmak bunu gerektirmez çünkü bunların web sitelerine ihtiyacı vardır.
+
+## Cihazlar arasında senkronizasyon yapabilir miyim?
+
+Otomatik senkronizasyon yoktur. Kitaplığınızı bir yedekleme dosyasıyla taşırsınız ve indirilen medyanın ayrı ayrı kopyalanması gerekir.
+
+## Yasal mı ve ücretsiz mi?
+
+Watchtower ücretsiz ve açık kaynaktır ve kendine ait hiçbir içerik içermez. Uzantılar aracılığıyla eklediğiniz şeyler sizin sorumluluğunuzdadır; bu nedenle uygulama, bunları incelemediğini söylerken dikkatli davranır.
+
+## Neden yüklü bir kaynağı göremiyorum?
+
+İki filtre, kaynakları silmeden gizler. Uzantı cihazınızın dili dışında bir dil sunuyorsa kaynak listesi filtresinde o dili açın. Yetişkinlere yönelik bir kaynaksa listede NSFW kaynaklarını gösteren seçeneği etkinleştirin.
+
+## Bir uzantıyı nasıl kaldırabilirim?
+
+Uzantılar ekranından veya Android ayarlarındaki diğer herhangi bir uygulama gibi kaldırın. Kitaplık girişleriniz aynı kalır ve başka bir kaynak onlara hizmet verene kadar kullanılamaz olarak gösterilir.
+
+## İndirdiklerim neden görünmüyor?
+
+İndirilenler klasöre göre algılanır. Depolama konumu taşınmışsa, SD kart çıkarılmışsa veya kaynak veya seri sitede yeniden adlandırılmışsa uygulama klasörle eşleşemez. Konumu düzeltin veya klasörü eşleşecek şekilde yeniden adlandırın, ardından indirilenler dizinini yeniden oluşturun.
+
+## Fotoğraf galerimde neden kapaklar ve bölümler gösteriliyor?
+
+Uygulama normalde medyasını bir .nomedia dosyasıyla sistem galerisinden gizler. Değilse, kendiniz bir tane oluşturun ve indirilenler klasörüne veya sızdırılan şey buysa yerel kaynak klasörüne bırakın.
+
+## Okuma veya yükleme neden yavaş?
+
+Yavaş yükleme, uygulamanın ağır olması değil, sitenin, bağlantınızın veya hız sınırının sonucudur. Gecikmeli okuma, bir bölümdeki büyük boyutlu resimlerden kaynaklanır; bu nedenle belleği boşaltın veya daha küçük taramalara sahip bir kaynak seçin.
+
+## Neden bazı bölümler görüntülenmiyor?
+
+Ağ sorunlarının yanı sıra, uygulama zaman zaman bir videonun mevcut olduğunu gözden kaçırabilir. Oynatıcıdan ayrılmak ve bölümü tekrar açmak genellikle onu kaydeder.
+
+## Bir kitaplık güncellemesi neden girişleri atlıyor?
+
+İzlenmemiş veya okunmamış içeriğe sahip girişler, henüz başlamadığınız girişler, tamamlandı olarak işaretlenmiş girişler ve yayınlanması beklenmeyen girişler bilerek atlanır. Bu, büyük bir kütüphanenin kaynakları etkilemesini ve uygulamanın engellenmesini önler.
+
+## Kütüphane güncellemeleri neden arka planda duruyor?
+
+Bazı Android sürümleri agresif bir şekilde pil tasarrufu sağlar ve arka planda çalışmayı askıya alır. Güncellemeler yalnızca uygulamayı açtığınızda gelirse Watchtower'yu pil optimizasyonundan muaf tutun.
+
+## Ekran görüntüsü alma neden engelleniyor?
+
+Uygulamayı görev değiştiricide gizleyen gizlilik ayarı, ekran görüntülerini de engeller. Ekranı yakalamak istiyorsanız bu ayarı kapatın.
+
+## Bir şeyler bozuldu, şimdi ne olacak?
+
+Çoğu kırılmayı düzelttiği için önce uzantılarınızı güncelleyin. Sorun devam ederse, uygulamanın hatalı olduğunu varsaymadan önce, tam olarak gördüğünüz mesajı görmek için hatalar sayfasını, ardından sorun giderme sayfasını kontrol edin.
+
+## Kısa özet
+
+- Watchtower, uygulama mağazaları aracılığıyla dağıtılmaz.
+- İndirilen içerik ve yerel dosyalar tamamen çevrimdışı çalışır.
+- Cihazlar arasında otomatik senkronizasyon yoktur.
+- Gizli bir kaynak genellikle dil filtresi veya NSFW geçişidir.
+- İndirilenler klasör adına göre eşleştirilir, dolayısıyla yeniden adlandırmak onu gizler.
+- Uzantıları güncellemek çoğu ani kırılmayı düzeltir.
+
+## Sözleşme / örnek
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

@@ -1,0 +1,45 @@
+---
+title: "Anime"
+fullTitle: "Watching anime, with intro skipping."
+description: "Anime opens in the video player with one extra: intro and ending skipping, powered by AniSkip when a title can be matched."
+marker: "34"
+---
+
+## The anime player
+
+Episodes play in the same player as everything else, with quality, audio, subtitles and speed in the usual sheets.
+
+## Skipping intros and endings
+
+With intro skipping on, a button counts down during the opening and jumps past it, and the ending is handled the same way. It is a setting, so it can be turned off.
+
+## Why a title cannot be matched
+
+Skipping needs to identify the series and episode. A title that cannot be identified is simply played without the button, rather than failing.
+
+## The skip timeout
+
+A short countdown gives you time to cancel before the jump happens. Its length is configurable if the default feels rushed.
+
+## Discovering anime
+
+A discovery screen offers recommended, popular, upcoming, recently updated and top rated lists, plus genre rows, so you can find something without a source open.
+
+## When discovery shows an error
+
+The discovery rows come from an external service rather than your sources. When that service is unreachable the rest of the app is unaffected, and a source still works normally.
+
+## Cheat sheet
+
+- Intro skipping needs the series and episode to be identified.
+- Skipping is a setting and can be turned off.
+- The skip countdown length is configurable.
+- Discovery uses an external service; sources work regardless.
+
+## Contract / example
+
+```text
+Player      the same controls as any video
+AniSkip     skip opening and ending automatically
+Discovery   recommended, popular and by genre
+```

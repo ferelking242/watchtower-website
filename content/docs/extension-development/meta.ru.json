@@ -1,0 +1,9 @@
+{
+  "title": "Разработка расширений",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

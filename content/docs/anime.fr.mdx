@@ -1,0 +1,45 @@
+---
+title: "Animés"
+fullTitle: "Regarder un anime, avec saut d'intro."
+description: "L'anime s'ouvre dans le lecteur vidéo avec un extra : le saut d'intro et de fin, optimisé par AniSkip lorsqu'un titre peut être associé."
+marker: "34"
+---
+
+## Le joueur d'anime
+
+Les épisodes sont lus dans le même lecteur que tout le reste, avec la qualité, l'audio, les sous-titres et la vitesse dans les feuilles habituelles.
+
+## Sauter les intros et les fins
+
+Avec l'intro sautée, un bouton compte à rebours pendant l'ouverture et passe au-delà, et la fin est gérée de la même manière. Il s'agit d'un paramètre, il peut donc être désactivé.
+
+## Pourquoi un titre ne peut pas être égalé
+
+Sauter doit identifier la série et l'épisode. Un titre qui ne peut pas être identifié est simplement joué sans le bouton, plutôt que d'échouer.
+
+## Le délai d'expiration du saut
+
+Un court compte à rebours vous donne le temps d'annuler avant que le saut n'ait lieu. Sa longueur est configurable si la valeur par défaut semble précipitée.
+
+## À la découverte des dessins animés
+
+Un écran de découverte propose des listes recommandées, populaires, à venir, récemment mises à jour et les mieux notées, ainsi que des lignes de genre, afin que vous puissiez trouver quelque chose sans ouvrir la source.
+
+## Lorsque la découverte affiche une erreur
+
+Les lignes de découverte proviennent d'un service externe plutôt que de vos sources. Lorsque ce service est inaccessible, le reste de l'application n'est pas affecté et une source fonctionne toujours normalement.
+
+## Mémo
+
+- Le saut d'intro nécessite que la série et l'épisode soient identifiés.
+- Le saut est un paramètre et peut être désactivé.
+- La durée du compte à rebours est configurable.
+- Discovery utilise un service externe ; les sources fonctionnent malgré tout.
+
+## Contrat / exemple
+
+```text
+Player      the same controls as any video
+AniSkip     skip opening and ending automatically
+Discovery   recommended, popular and by genre
+```

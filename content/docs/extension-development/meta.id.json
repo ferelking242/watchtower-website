@@ -1,0 +1,9 @@
+{
+  "title": "Pengembangan ekstensi",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

@@ -1,0 +1,46 @@
+---
+title: "Uzantı çalışma zamanı"
+fullTitle: "Uzantıların nasıl çalıştırıldığı ve ne kadar güvenli olduğu."
+description: "Uzantılar JavaScript'tir ve Watchtower bunları, onlara ağdan başka hiçbir şey sağlamayan bir sanal alanda çalıştırır. Bu sayfada bunun sizin için ne anlama geldiği açıklanmaktadır."
+marker: "20"
+---
+
+## Uzantılarınızı ne çalıştırır?
+
+Watchtower, uygulamaya gömülü küçük bir JavaScript motoru kullanır. Her platformda aynı motor olduğundan kaynak, telefonda ve sunucuda aynı şekilde davranır.
+
+## Bir uzantının ne yapmasına izin verilir?
+
+Web istekleri yapabilir, aldığı sayfaları ayrıştırabilir ve kendi ayarlarından birkaçını saklayabilir. Araç kutusunun tamamı budur.
+
+## Nelerden uzak tutulur
+
+Dosyalarınız, kitaplığınız, hesaplarınız ve uygulamanın kendi ekranları. Bir uzantının ürettiği her şey, uygulamanın işlemesi için düz veriler olarak geri gönderilir.
+
+## Yavaş bir kaynak neden sürüklenir?
+
+Yavaş yanıt veren bir kaynak, uygulama onu beklediği için kendi ekranlarını yavaşlatır. Diğer kaynaklar etkilenmediğinden yavaşlık, ağır bir uygulamanın değil, tek bir kötü kaynağın işaretidir.
+
+## Bunun güven açısından anlamı nedir?
+
+Korumalı alan, bir uzantının neleri bozabileceğini sınırlar ancak niyeti değerlendirmez. Hala yazdığınız her şeyi ve getirdiği her şeyi görebilir. Güvendiğiniz kişilerden yükleyin.
+
+## Her yerde aynı motor
+
+Uygulama ve Linux komut satırı bu çalışma zamanını paylaştığından, telefonunuzda çalışan bir uzantı hiçbir değişiklik olmadan sunucuda da çalışır.
+
+## Kısa özet
+
+- Uzantılar ağ erişimi ve sayfa ayrıştırma olanağından başka bir şey elde etmez.
+- Dosyalarınızı veya kitaplığınızı doğrudan okuyamazlar.
+- Yavaş bir kaynak yalnızca kendi ekranlarını yavaşlatır.
+- Aynı sanal alan mobilde, masaüstünde ve komut satırında çalışır.
+
+## Sözleşme / örnek
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

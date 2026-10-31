@@ -1,0 +1,9 @@
+{
+  "title": "확장 프로그램 개발",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

@@ -1,0 +1,88 @@
+---
+title: "FAQ"
+fullTitle: "Fragen, die oft auftauchen."
+description: "Kurze Antworten auf die Fragen, die Leute vor und nach der Installation von Watchtower stellen, gruppiert nach dem Teil der App, den sie berühren."
+marker: "28"
+---
+
+## Warum ist es nicht in einem App Store erhältlich?
+
+Denn Watchtower installiert zur Laufzeit Erweiterungen, die Store-Richtlinien nicht zulassen. Das ist auch der Grund, warum jede Installation von einer APK erfolgt, der Sie vertrauen.
+
+## Gibt es eine iOS-Version?
+
+Der zugrunde liegende Code ist plattformübergreifend, der Versand auf iOS ist jedoch durch Plattformregeln eingeschränkt und wird nicht versprochen. Android ist die Plattform, die alles zuerst bekommt.
+
+## Funktioniert es ohne Internet?
+
+Alles, was Sie heruntergeladen haben, sowie lokale Dateien, funktioniert vollständig offline. Das Durchsuchen von Quellen und Suchen ist nicht erforderlich, da diese die Websites selbst benötigen.
+
+## Kann ich zwischen Geräten synchronisieren?
+
+Es gibt keine automatische Synchronisierung. Sie verschieben Ihre Bibliothek mit einer Sicherungsdatei und heruntergeladene Medien müssen separat kopiert werden.
+
+## Ist es legal und kostenlos?
+
+Watchtower ist kostenlos und Open Source und enthält keine eigenen Inhalte. Was Sie durch Erweiterungen hinzufügen, liegt in Ihrer Verantwortung, weshalb die App darauf achtet, diese nicht zu überprüfen.
+
+## Warum kann ich eine installierte Quelle nicht sehen?
+
+Zwei Filter verbergen Quellen, ohne sie zu löschen. Wenn die Erweiterung eine andere Sprache als die Ihres Geräts bereitstellt, aktivieren Sie diese Sprache im Quelllistenfilter. Wenn es sich um eine Quelle für Erwachsene handelt, aktivieren Sie die Option, die NSFW-Quellen in der Liste anzeigt.
+
+## Wie deinstalliere ich eine Erweiterung?
+
+Deinstallieren Sie es über den Erweiterungsbildschirm oder wie jede andere App in den Android-Einstellungen. Ihre Bibliothekseinträge bleiben erhalten und werden einfach als nicht verfügbar angezeigt, bis sie von einer anderen Quelle bereitgestellt werden können.
+
+## Warum werden meine Downloads nicht angezeigt?
+
+Downloads werden nach Ordner erkannt. Wenn der Speicherort verschoben, die SD-Karte entfernt oder die Quelle oder Serie auf der Website umbenannt wurde, kann die App den Ordner nicht zuordnen. Korrigieren Sie den Speicherort oder benennen Sie den Ordner entsprechend um und erstellen Sie dann den Download-Index neu.
+
+## Warum zeigt meine Fotogalerie Cover und Episoden?
+
+Normalerweise versteckt die App ihre Medien mit einer .nomedia-Datei vor der Systemgalerie. Wenn dies nicht der Fall ist, erstellen Sie selbst eines und legen Sie es im Download-Ordner oder im lokalen Quellordner ab, falls dies durchgesickert ist.
+
+## Warum ist das Lesen oder Laden langsam?
+
+Langsames Laden liegt an der Website, Ihrer Verbindung oder einer Geschwindigkeitsbegrenzung, nicht daran, dass die App schwer ist. Verzögerungen beim Lesen entstehen durch übergroße Bilder in einem Kapitel. Geben Sie also Speicherplatz frei oder wählen Sie eine Quelle mit kleineren Scans.
+
+## Warum werden einige Episoden nicht angezeigt?
+
+Abgesehen von Netzwerkproblemen kann es vorkommen, dass die App nicht erkennt, dass ein Video vorhanden ist. Wenn Sie den Player verlassen und die Episode erneut öffnen, wird sie normalerweise registriert.
+
+## Warum überspringt ein Bibliotheksupdate Einträge?
+
+Einträge mit unbeobachtetem oder ungelesenem Inhalt, Einträge, die Sie noch nicht begonnen haben, Einträge, die als abgeschlossen markiert sind, und Einträge, deren Veröffentlichung nicht erwartet wird, werden absichtlich übersprungen. Dadurch wird verhindert, dass eine große Bibliothek Quellen blockiert und die App blockiert.
+
+## Warum werden Bibliotheksaktualisierungen im Hintergrund gestoppt?
+
+Einige Android-Builds sparen aggressiv den Akku und unterbrechen die Hintergrundarbeit. Nehmen Sie Watchtower von der Batterieoptimierung aus, wenn Updates erst beim Öffnen der App eintreffen.
+
+## Warum ist das Erstellen eines Screenshots blockiert?
+
+Die Datenschutzeinstellung, die die App im Aufgabenwechsler verbirgt, blockiert auch Screenshots. Deaktivieren Sie diese Einstellung, wenn Sie den Bildschirm erfassen möchten.
+
+## Etwas ist kaputt, was nun?
+
+Aktualisieren Sie zuerst Ihre Erweiterungen, da dadurch die meisten Fehler behoben werden. Wenn das Problem weiterhin besteht, überprüfen Sie die Fehlerseite auf die genaue Meldung, die Sie sehen, und dann die Seite zur Fehlerbehebung, bevor Sie davon ausgehen, dass die App schuld ist.
+
+## Kurzüberblick
+
+- Watchtower wird nicht über App Stores vertrieben.
+- Heruntergeladene Inhalte und lokale Dateien funktionieren vollständig offline.
+- Es gibt keine automatische Synchronisierung zwischen Geräten.
+- Eine versteckte Quelle ist normalerweise der Sprachfilter oder der NSFW-Schalter.
+- Downloads werden anhand des Ordnernamens zugeordnet. Wenn Sie also einen Ordner umbenennen, wird er ausgeblendet.
+- Durch das Aktualisieren von Erweiterungen werden die meisten plötzlichen Fehler behoben.
+
+## Vertrag / Beispiel
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

@@ -1,0 +1,51 @@
+---
+title: "API server"
+fullTitle: "Mengemudi Watchtower dari program lain."
+description: "Aplikasi ini dapat membuka server web kecil di mesin Anda sendiri, yang memungkinkan skrip, pemutar eksternal, dan perangkat lain menggunakan sumber yang sama dengan yang digunakan aplikasi."
+marker: "23"
+---
+
+## Apa itu
+
+Server web kecil yang terpasang di dalam aplikasi. Ia menggunakan ekstensi yang sama dan pustaka yang sama dengan antarmukanya, jadi apa pun yang dikembalikannya cocok dengan apa yang Anda lihat di layar.
+
+## Menyalakannya
+
+Ini mati sampai Anda mengaktifkannya dengan sengaja. Aktifkan di pengaturan lanjutan dan catat portnya, lalu arahkan alat Anda ke alamat itu.
+
+## Apa yang bisa Anda tanyakan padanya
+
+Sumber yang Anda instal, entri perpustakaan Anda, pencarian terhadap sumber apa pun, dan aliran video yang terselesaikan. Itu cukup untuk menggerakkan pusat media atau pemutar eksternal.
+
+## Mengapa Anda mungkin menginginkannya
+
+Otomatisasi, front end yang berbeda, atau membiarkan perangkat lain di jaringan Anda menggunakan sumber yang telah disiapkan oleh ponsel Anda.
+
+## Simpan di jaringan Anda sendiri
+
+Server tidak memiliki kata sandi dan ditujukan untuk jaringan lokal tepercaya. Jangan memaparkannya ke internet, di mana siapa pun dapat membaca perpustakaan Anda.
+
+## Bagaimana kaitannya dengan baris perintah
+
+Baris perintah Linux mengekspos server yang sama, sehingga skrip yang ditulis pada aplikasi berfungsi pada mesin tanpa kepala tanpa perubahan.
+
+## Ringkasan
+
+- Server mati sampai Anda mengaktifkannya di pengaturan.
+- Ia mendengarkan pada port 4567 secara default.
+- Ia menggunakan sumber dan perpustakaan yang sama dengan antarmuka.
+- Ini dimaksudkan untuk jaringan lokal tepercaya, bukan internet.
+
+## Kontrak / contoh
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

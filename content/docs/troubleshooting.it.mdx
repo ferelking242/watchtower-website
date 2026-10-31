@@ -1,0 +1,79 @@
+---
+title: "Risoluzione dei problemi"
+fullTitle: "Quando qualcosa non funziona."
+description: "Quasi ogni problema è dovuto a alcune cose: una fonte che è cambiata, un blocco da un sito web, un'autorizzazione mancante o un'estensione che necessita di aggiornamento. Elaboralo in quest'ordine."
+marker: "26"
+---
+
+## Inizia restringendo il campo
+
+Prima di toccare qualsiasi impostazione, decidi se il problema è la fonte, la tua rete o il tuo dispositivo. Una fonte fallisce mentre altre lavorano punta a quella fonte; tutto ciò che non funziona punta all'app o alla connessione.
+
+## Aggiorna tutto prima
+
+Aggiorna i tuoi repository e installa eventuali aggiornamenti delle estensioni, quindi verifica la disponibilità di un aggiornamento dell'app. Una grande percentuale di rotture improvvise è dovuta a un sito Web che è stato modificato e a un'estensione che è già stata riparata ma non ancora installata.
+
+## Una fonte ha smesso di funzionare
+
+Questo è il problema più comune e solitamente il meno grave. Il sito Web è cambiato, l'estensione necessita di un aggiornamento e l'aggiornamento del repository è la soluzione. Se non esiste ancora alcun aggiornamento, l'autore dell'estensione non è stato aggiornato.
+
+## Non viene caricato nulla
+
+Se ogni fonte fallisce, guarda invece la rete. Prova i dati mobili, un'altra rete Wi-Fi e il DNS crittografato nelle impostazioni. Una causa frequente è una singola rete che blocca tutto o un captive Portal a cui non è stato effettuato l'accesso.
+
+## Apertura di un sito per superare un controllo
+
+Alcuni siti effettuano una verifica prima di rispondere. Apri il sorgente da Sfoglia e utilizza il browser integrato per caricare la pagina del sito, completa eventuali controlli manualmente, quindi chiudilo e torna all'app. Questa operazione una volta spesso cancella il blocco per quella fonte.
+
+## Cloudflare e ricarica infinita
+
+Un sito dietro Cloudflare può continuare a ricaricare il suo controllo invece di lasciarti passare. Prova ad aprire nuovamente il sito nel browser integrato, a modificare il tuo agente utente nelle impostazioni avanzate o ad attendere che il sito riduca la sua protezione. Alcune fonti sono deliberatamente difficili da utilizzare da un'app.
+
+## Cancellazione di cookie e dati web
+
+Ciò reimposta lo stato di navigazione memorizzato dell'app, inclusi eventuali accessi. È la soluzione corretta per un controllo bloccato e vale la pena farlo prima di decidere che una fonte è morta. Successivamente dovrai accedere nuovamente se la fonte necessita di un account.
+
+## Modifica del tuo agente utente
+
+L'agente utente è la stringa che identifica il tuo dispositivo su un sito Web e alcuni siti lo trattano come un segnale bot. Sostituendo l'impostazione predefinita con una stringa comune del browser, quindi riavviando l'app, a volte si supera un controllo che altrimenti va in loop.
+
+## Un'estensione non verrà installata
+
+Per impostazione predefinita, Android blocca le installazioni dall'esterno di un negozio. Consentilo per il tuo file manager o browser e, se tale opzione manca, utilizza Shizuku come percorso alternativo. Un download interrotto parzialmente produce un messaggio diverso, quindi reinstallalo da zero.
+
+## Il contenuto si apre nel posto sbagliato
+
+Se un manga si apre nel lettore video o un episodio nel lettore, l'estensione dichiara il tipo di contenuto sbagliato. Si tratta di un errore nell'estensione, non nelle tue impostazioni, quindi segnalalo invece di provare a risolverlo localmente.
+
+## Ottenere i registri degli arresti anomali e ulteriori dettagli
+
+Le impostazioni avanzate possono scaricare i registri degli arresti anomali e un'acquisizione logcat dal tuo dispositivo mostra cosa stava facendo l'app in modo più approfondito. Vale la pena allegarli entrambi quando si segnala un problema, poiché trasformano una descrizione vaga in qualcosa di tracciabile.
+
+## Archiviazione e lettura lenta o ritardata
+
+Il caricamento lento è solitamente dovuto al sito, alla tua connessione o a un limite di velocità piuttosto che all'app. La lettura ritardata deriva da immagini di grandi dimensioni in un capitolo. Cambiare sorgente, liberare memoria o attendere che venga superato un limite di velocità sono le soluzioni pratiche.
+
+## Quando non sei solo tu
+
+Se altre persone riscontrano lo stesso errore, il problema è dovuto all'estensione o all'app anziché alla tua configurazione. Controlla l'origine dei problemi del progetto prima di aprire un nuovo report e includi la versione dell'app e il testo esatto dell'errore.
+
+## Riepilogo
+
+- Una fonte non funzionante è quasi sempre la fonte, non l'app.
+- Una prolunga stantia è la causa più comune di rottura improvvisa.
+- Se ogni fonte fallisce, sospetta la rete prima dell'app.
+- L'apertura di un sito nel browser integrato cancella molti controlli di verifica.
+- La cancellazione di cookie e dati Web ripristina un controllo bloccato e tutti gli accessi.
+- I registri di crash e logcat rendono tracciabile una segnalazione di bug.
+
+## Contratto / esempio
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

@@ -1,0 +1,85 @@
+---
+title: "Quell-Vertrag"
+fullTitle: "Methods, manifests and result shapes."
+description: "A source is a JavaScript class extending MProvider, plus a metadata object embedded in the same file and a record in the marketplace index. The method contract is typed by the app even though extensions themselves are JavaScript."
+marker: "21"
+---
+
+## Two metadata layers
+
+watchtowerSources is an array in the JavaScript file and describes the implementation. index/&lt;category&gt;.json is a JSON array consumed by the marketplace and carries the stable numeric id, sourceCodeUrl, iconUrl, version and capability metadata. Do not confuse either with ui-layouts/&lt;slug&gt;.json.
+
+## Catalogue fields and types
+
+Current index records use name (string), id (integer), lang (string), baseUrl/iconUrl/sourceCodeUrl (URLs), typeSource (string), itemType/sourceCodeLanguage (integers), version/appMinVerReq (version strings), and boolean flags isNsfw, hasCloudflare, login, forYou, requiresAccount and hasDRM, plus notes (string). Optional active fields include apiUrl/loginUrl/description/upstream (strings), langs/subCategories/contentSubtype/videoQualities (string arrays), supportsComments/isAggregator/touchToPreview/account/favorites (booleans), paywall (string), and uiLayout/uiLayoutVersion (strings). Some records retain the legacy isManga flag; itemType is the catalogue classification. The runtime model also accepts subscription/premium booleans and aliases such as supportsAccount.
+
+## Item types and language
+
+itemType is the app enum: 0 manga, 1 watch/anime, 2 novel, 3 music, 4 game. The index file must match that value. lang is the primary language code; use langs when the source publishes multiple supported languages. Use multi or all only when that is genuinely accurate.
+
+## Listings and pagination
+
+getPopular(page), getLatestUpdates(page) and search(query, page, filters) return &#123;list: [items], hasNextPage: boolean&#125;. Page numbers start at 1. supportsLatest tells the app whether Latest is meaningful; still implement the method and return an empty list when the site truly has no latest feed.
+
+## Item and detail shape
+
+List items use name and link, with optional imageUrl, previewUrl, description, author, artist, collectionId, genre and status. getDetail(url) returns the same identity plus chapters or episodes. Each chapter/episode uses name and url, with optional dateUpload, thumbnailUrl, description and duration.
+
+## Reading and playback
+
+getPageList(url) returns an ordered array of image URLs for a readable chapter. getVideoList(url) returns video objects with url, quality and originalUrl; headers, subtitles and audio tracks are supported by the video model. Return playable URLs, not page URLs, when the site exposes a stream.
+
+## Filters, settings and custom sections
+
+getFilterList() returns source filters and getSourcePreferences() returns settings; both may be empty arrays. getCustomList(id, page) is required for each id declared in a home layout. The runtime also exposes optional recommendations, comments and account-related methods; only advertise the matching index flags when implemented.
+
+## Transport and parser helpers
+
+Use new Client().get(url, headers) or the supported HTTP verbs, then parse the response with Document(html), select(selector), selectFirst(selector), text and attr. A failed request should surface as an error with useful context; do not turn every failure into a successful empty page.
+
+## Optional bridge methods
+
+The bridge also exposes getHtmlContent(name, url), cleanHtmlContent(html), getHeaders(url), getRecommendations(url), getComments(url), getAccount(), getFavorites(), getSubscription() and getPremiumStatus(). These are optional capabilities with runtime-specific defaults; override only what the source supports. supportsLatest must be explicitly supplied by the source.
+
+## Kurzüberblick
+
+- The source metadata is embedded in watchtowerSources; the marketplace id lives in the index.
+- Every list call returns list plus hasNextPage.
+- itemType is fixed by the catalogue file: watch 1, manga 0, novel 2, music 3, game 4.
+- Home sections call getCustomList(id, page); each declared id needs a data implementation.
+- Optional flags must describe methods and behavior that actually exist.
+
+## Vertrag / Beispiel
+
+```js
+const watchtowerSources = [{
+  "name": "Example source",
+  "lang": "en",
+  "baseUrl": "https://example.org",
+  "apiUrl": "",
+  "iconUrl": "https://example.org/favicon.ico",
+  "typeSource": "single",
+  "itemType": 1,
+  "version": "1.0.0",
+  "login": false,
+  "forYou": false,
+  "pkgPath": "watch/en/example.js",
+  "requiresAccount": false,
+  "hasDRM": false,
+  "isNsfw": false,
+  "hasCloudflare": false,
+  "notes": ""
+}];
+
+class DefaultExtension extends MProvider {
+  get supportsLatest() { return true; }
+  async getPopular(page) { return { list: [], hasNextPage: false }; }
+  async getLatestUpdates(page) { return { list: [], hasNextPage: false }; }
+  async search(query, page, filters) { return { list: [], hasNextPage: false }; }
+  async getDetail(url) { return { name: "", chapters: [] }; }
+  async getPageList(url) { return []; }
+  async getVideoList(url) { return []; }
+  getFilterList() { return []; }
+  getSourcePreferences() { return []; }
+}
+```

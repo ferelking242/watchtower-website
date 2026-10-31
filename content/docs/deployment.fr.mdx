@@ -1,0 +1,48 @@
+---
+title: "Déploiement"
+fullTitle: "Faire tourner Watchtower sur votre propre serveur."
+description: "Pour un serveur domestique ou un petit groupe, la ligne de commande Linux peut tourner en continu et servir les mêmes sources à chaque client de votre réseau."
+marker: "25"
+---
+
+## Ce que vous obtenez
+
+Un seul dossier contenant la ligne de commande et les fichiers dont elle a besoin. Le script d'installation la copie dans un préfixe que vous choisissez et la prépare à fonctionner.
+
+## L'installer
+
+Lancez l'installateur avec le dossier décompressé et le préfixe souhaité. Utiliser un préfixe sous votre dossier personnel évite d'avoir besoin des droits root ensuite.
+
+## L'exécuter comme service
+
+Comme elle peut servir en HTTP, vous pouvez la garder en arrière-plan et laisser d'autres appareils de votre réseau utiliser les sources qu'elle a configurées.
+
+## À quoi c'est utile
+
+Un centre multimédia, un téléchargeur planifié, ou une seule machine qui détient les sources pour que les autres n'aient pas à le faire. C'est le même moteur, donc les sources se comportent à l'identique.
+
+## La garder à jour
+
+Mettez-la à jour en décompressant une version plus récente et en relançant l'installateur. Votre configuration vit dans le préfixe et n'est pas écrasée par une mise à niveau.
+
+## Si quelque chose refuse de démarrer
+
+La commande de diagnostic existe exactement pour cela. Lancez-la d'abord : elle vous dira si le problème vient du moteur, du réseau ou d'une source.
+
+## Mémo
+
+- La version sans écran est un dossier autonome plus un installateur.
+- Installer sous votre dossier personnel évite d'avoir besoin des droits root.
+- Elle peut servir en HTTP à d'autres appareils de votre réseau.
+- La commande de diagnostic diagnostique la plupart des échecs au démarrage.
+
+## Contrat / exemple
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

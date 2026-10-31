@@ -1,0 +1,79 @@
+---
+title: "Pemecahan masalah"
+fullTitle: "Ketika ada sesuatu yang tidak berfungsi."
+description: "Hampir setiap masalah disebabkan oleh salah satu dari beberapa hal: sumber yang berubah, pemblokiran dari situs web, izin yang hilang, atau ekstensi yang perlu diperbarui. Kerjakan dalam urutan itu."
+marker: "26"
+---
+
+## Mulailah dengan mempersempitnya
+
+Sebelum menyentuh pengaturan apa pun, putuskan apakah masalahnya adalah sumbernya, jaringan Anda, atau perangkat Anda. Satu sumber gagal sementara yang lain menunjuk ke sumber itu; semua titik kegagalan pada aplikasi atau koneksi.
+
+## Perbarui semuanya terlebih dahulu
+
+Segarkan repositori Anda dan instal pembaruan ekstensi apa pun, lalu periksa pembaruan aplikasi. Sebagian besar kerusakan mendadak terjadi pada situs web yang berubah dan ekstensi yang telah diperbaiki tetapi belum dipasang.
+
+## Sebuah sumber berhenti bekerja
+
+Ini adalah masalah yang paling umum dan biasanya paling tidak serius. Situs web berubah, ekstensi memerlukan pembaruan, dan menyegarkan repositori Anda adalah solusinya. Jika belum ada pembaruan, pembuat ekstensi belum menyusul.
+
+## Tidak ada yang memuat sama sekali
+
+Jika setiap sumber gagal, lihat jaringannya saja. Coba data seluler, jaringan Wi-Fi lain, dan DNS terenkripsi di pengaturan. Satu jaringan memblokir semuanya, atau portal captive yang belum digunakan untuk masuk, sering menjadi penyebab.
+
+## Membuka situs untuk melewati cek
+
+Beberapa situs memasang verifikasi sebelum menjawab. Buka sumber dari Telusuri dan gunakan browser bawaan untuk memuat halaman situs itu sendiri, selesaikan pemeriksaan apa pun dengan tangan, lalu tutup dan kembali ke aplikasi. Melakukan hal ini sekali sering kali akan menghapus blok untuk sumber tersebut.
+
+## Cloudflare dan pemuatan ulang tanpa akhir
+
+Situs di belakang Cloudflare dapat terus memuat ulang pemeriksaannya alih-alih membiarkan Anda lewat. Coba buka kembali situs tersebut di browser bawaan, ubah agen pengguna Anda di pengaturan lanjutan, atau tunggu hingga situs menurunkan perlindungannya. Beberapa sumber sengaja dibuat sulit untuk digunakan dari suatu aplikasi.
+
+## Menghapus cookie dan data web
+
+Tindakan ini akan menyetel ulang status penjelajahan aplikasi yang disimpan, termasuk login apa pun. Ini adalah perbaikan yang tepat untuk pemeriksaan yang macet, dan ini layak dilakukan sebelum memutuskan sumbernya mati. Anda harus masuk lagi setelahnya jika sumber memerlukan akun.
+
+## Mengubah agen pengguna Anda
+
+Agen pengguna adalah string yang mengidentifikasi perangkat Anda ke situs web, dan beberapa situs memperlakukannya sebagai sinyal bot. Mengganti default dengan string browser umum, lalu memulai ulang aplikasi, terkadang melewati pemeriksaan yang sebaliknya akan berulang.
+
+## Ekstensi tidak akan dipasang
+
+Android memblokir pemasangan dari luar toko secara default. Izinkan untuk pengelola file atau browser Anda, dan jika opsi itu tidak ada, gunakan Shizuku sebagai rute alternatif. Pengunduhan yang terhenti di tengah jalan menghasilkan pesan yang berbeda, jadi instal ulang dari awal.
+
+## Konten terbuka di tempat yang salah
+
+Jika manga dibuka di pemutar video, atau episode di pembaca, ekstensi menyatakan jenis konten yang salah. Itu adalah kesalahan pada ekstensi, bukan pada pengaturan Anda, jadi laporkan daripada mencoba memperbaikinya secara lokal.
+
+## Mendapatkan log kerusakan dan detail lebih lanjut
+
+Setelan lanjutan dapat membuang log kerusakan, dan tangkapan logcat dari perangkat Anda menunjukkan apa yang sedang dilakukan aplikasi secara lebih mendalam. Keduanya layak dilampirkan ketika Anda melaporkan suatu masalah, karena keduanya mengubah deskripsi yang samar-samar menjadi sesuatu yang dapat dilacak.
+
+## Penyimpanan dan pembacaan lambat atau lamban
+
+Pemuatan yang lambat biasanya terjadi pada situs, koneksi Anda, atau batas kecepatan, bukan aplikasinya. Pembacaan yang lamban disebabkan oleh gambar yang terlalu besar dalam satu bab. Beralih sumber, mengosongkan memori, atau menunggu batas kecepatan adalah perbaikan praktisnya.
+
+## Ketika itu bukan hanya kamu
+
+Jika orang lain melihat kegagalan yang sama, itu adalah ekstensi atau aplikasinya, bukan penyiapan Anda. Periksa pelacak masalah proyek untuk mengetahui sumbernya sebelum membuka laporan baru, dan sertakan versi aplikasi Anda dan teks kesalahan yang sebenarnya.
+
+## Ringkasan
+
+- Satu sumber yang rusak hampir selalu merupakan sumbernya, bukan aplikasinya.
+- Ekstensi yang basi adalah penyebab paling umum dari kerusakan mendadak.
+- Jika setiap sumber gagal, curigai jaringan sebelum aplikasi.
+- Membuka situs di browser internal akan menghapus banyak pemeriksaan verifikasi.
+- Menghapus cookie dan data web akan menyetel ulang cek yang macet dan login apa pun.
+- Log kerusakan dan logcat membuat laporan bug dapat dilacak.
+
+## Kontrak / contoh
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

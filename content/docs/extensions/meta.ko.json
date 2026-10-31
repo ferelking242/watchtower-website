@@ -1,0 +1,9 @@
+{
+  "title": "확장 프로그램",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

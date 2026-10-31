@@ -1,0 +1,9 @@
+{
+  "title": "एक्सटेंशन विकास",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

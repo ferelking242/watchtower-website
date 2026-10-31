@@ -1,0 +1,53 @@
+---
+title: "Storage"
+fullTitle: "Where Watchtower keeps its files."
+description: "Backups, downloads and local sources all live under one storage location. Choosing it deliberately is what keeps downloads from vanishing later."
+marker: "18"
+---
+
+## The folder layout
+
+Everything sits under one folder you choose: automatic backups, downloaded chapters and episodes, your local manga, your local anime, and configuration for external players. Knowing the layout is what makes a stray file easy to place.
+
+## Choosing a location
+
+Pick a folder you will still be able to reach in a year. Avoid the very root of a storage volume, and avoid moving files out from under the app afterwards.
+
+## Android permissions
+
+Modern Android keeps apps inside their own directories. Grant Watchtower access to the storage folder you chose, or downloads and local sources will fail quietly.
+
+## After moving files in
+
+Move files in from outside the app and then refresh, so Watchtower rescans the folders. Otherwise the new content stays invisible until something else triggers a scan.
+
+## Keeping the gallery clean
+
+A .nomedia file in the downloads folder keeps covers and episodes out of your phone's photo gallery.
+
+## Why internal storage is better
+
+Downloads on internal storage are faster and far less likely to become unreadable than on a removable card, which can be unmounted or corrupted.
+
+## When the app cannot reach the folder
+
+Permission errors and disappearing downloads both come from the storage folder being moved or becoming unreadable. Confirm the app still has access, check free space, and prefer internal storage over a removable card that can be unmounted.
+
+## Cheat sheet
+
+- Backups, downloads and local sources share one storage location.
+- Android needs explicit permission for that folder.
+- A .nomedia file hides downloaded media from the gallery.
+- Internal storage is more reliable than an SD card.
+- A moved or unreadable storage folder hides downloads and backups.
+
+## Contract / example
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

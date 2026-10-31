@@ -1,0 +1,73 @@
+---
+title: "Kesalahan"
+fullTitle: "Setiap pesan kesalahan, dan artinya."
+description: "Watchtower menampilkan kesalahan mentah, bukan menyembunyikannya, jadi pesan itu sendiri adalah petunjuk tercepat yang Anda miliki. Temukan milik Anda di bawah dan coba perbaikan pertama sebelum mengubah apa pun."
+marker: "27"
+---
+
+## 403 Dilarang
+
+Situs web telah memutuskan permintaan Anda terlihat otomatis dan menolaknya. Dalam praktiknya, ini adalah perlindungan anti-bot. Perbarui ekstensi terlebih dahulu, lalu buka sumbernya di browser bawaan satu kali untuk menghapus semua pemeriksaan yang dilakukan situs. Jika masih menolak, sumber tersebut mungkin telah meningkatkan perlindungannya atau memblokir alamat Anda.
+
+## 404 Tidak ditemukan
+
+Halaman yang diharapkan ekstensinya telah dipindahkan atau dihapus. Ini adalah ekstensi yang basi hampir setiap saat, jadi segarkan repositori Anda dan perbarui. Jika belum ada pembaruan, pembuat ekstensi belum mengetahui situsnya.
+
+## 429 Terlalu banyak permintaan
+
+Anda telah dibatasi tarifnya karena membuat permintaan terlalu cepat. Menunggu adalah perbaikan yang sebenarnya, dan mengurangi seberapa sering pembaruan dan pengunduhan dijalankan akan menghentikannya berulang. Mencoba kembali dengan segera hanya akan memperluas blok.
+
+## 500, 502 dan kesalahan 5xx lainnya
+
+Situs webnya sendiri gagal. Tidak ada yang perlu diperbaiki pada perangkat Anda, dan langkah yang tepat adalah menunggu dan mencoba lagi nanti. Memeriksa situs di browser mengonfirmasi apakah situs tersebut tidak aktif untuk semua orang.
+
+## 1006 dan 1020, kode firewall
+
+1006 biasanya berarti larangan IP sementara, dan 1020 berarti aturan firewall yang ditetapkan oleh pemilik situs, sering kali untuk memblokir pengunjung dari luar negaranya. Mengubah jaringan dapat membantu dengan 1006; 1020 biasanya tidak dapat diatasi.
+
+## Gagal melewati Cloudflare
+
+Situs ini dilindungi oleh Cloudflare dan pemeriksaan otomatis tidak berhasil. Buka halaman sumber di browser internal dan selesaikan verifikasi apa pun secara manual, lalu kembali ke aplikasi. Jika halaman dimuat ulang tanpa henti, lihat halaman pemecahan masalah.
+
+## Tidak dapat menyelesaikan host, koneksi gagal, batas waktu habis
+
+Ini adalah masalah jaringan, bukan kesalahan pada sumbernya. Periksa apakah perangkat memiliki akses internet, coba jaringan atau data seluler lain, dan aktifkan DNS terenkripsi di pengaturan. Portal Wi-Fi terikat adalah penyebab umum.
+
+## Validasi sertifikat gagal
+
+Sertifikat keamanan situs tidak dapat divalidasi. Periksa apakah tanggal dan waktu perangkat sudah benar, hapus cache dan cookie aplikasi, dan coba jaringan lain. Sertifikat yang kedaluwarsa di situs bukanlah sesuatu yang dapat Anda perbaiki.
+
+## Kesalahan penyimpanan dan kartu SD
+
+Pesan tentang kartu, jalur, atau folder tidak tersedia berarti lokasi pengunduhan telah berpindah atau tidak dapat dibaca. Periksa ruang kosong, konfirmasikan bahwa aplikasi masih memiliki izin untuk folder tersebut, dan beralih kembali ke penyimpanan internal jika kartu terus gagal.
+
+## Aplikasi atau ekstensi tidak akan dipasang
+
+APK yang ditandatangani oleh orang lain, unduhan yang terpotong, dan arsitektur prosesor yang salah masing-masing menghasilkan pesan penginstal yang berbeda. Hapus salinan konflik dan unduh kembali file tersebut, dan pastikan Android diizinkan untuk memasang aplikasi yang tidak dikenal.
+
+## Ketika kesalahan tidak tercantum di sini
+
+Salin pesan yang sebenarnya daripada memparafrasekannya. Nama operasi dan URL di dalamnya biasanya mengarah langsung ke langkah yang gagal, dan halaman pemecahan masalah akan mempersempitnya.
+
+## Ringkasan
+
+- 403 dan 429 keduanya berarti situs tersebut menolak Anda, karena alasan yang berbeda.
+- 404 hampir selalu merupakan ekstensi yang perlu diperbarui.
+- Kesalahan 5xx adalah kesalahan situs web, bukan kesalahan perangkat Anda.
+- 1006 adalah larangan sementara; 1020 adalah aturan firewall yang tidak dapat Anda lewati.
+- Salin pesan yang sebenarnya: URL di dalamnya menyebutkan langkah yang gagal.
+- Ketidakcocokan tanda tangan berarti salinan yang ditandatangani berbeda dipasang.
+
+## Kontrak / contoh
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

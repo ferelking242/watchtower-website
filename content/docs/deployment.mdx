@@ -1,0 +1,48 @@
+---
+title: "Deployment"
+fullTitle: "Running Watchtower on your own server."
+description: "For a home server or a small group, the Linux command line can run continuously and serve the same sources to every client on your network."
+marker: "25"
+---
+
+## What you get
+
+A single folder holding the command line and the runtime files it needs. The installer script copies it into a prefix you choose and sets it up to run.
+
+## Installing it
+
+Run the installer with the folder you unpacked and the prefix you want. Using a prefix under your home directory avoids needing root for everything afterwards.
+
+## Running it as a service
+
+Because it can serve over HTTP, you can keep it running in the background and let other devices on your network use the sources it has configured.
+
+## What it is good for
+
+A media centre, a scheduled downloader, or one machine holding the sources so the others do not have to. It is the same engine, so sources behave identically.
+
+## Keeping it current
+
+Update it by unpacking a newer build and running the installer again. Your configuration lives in the prefix and is not overwritten by an upgrade.
+
+## If something will not run
+
+The doctor command exists for exactly this. Run it first and it will tell you whether the runtime, the network or a source is the problem.
+
+## Cheat sheet
+
+- The headless build is a self-contained folder plus an installer.
+- Installing under your home directory avoids needing root.
+- It can serve over HTTP to other devices on your network.
+- The doctor command diagnoses most startup failures.
+
+## Contract / example
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

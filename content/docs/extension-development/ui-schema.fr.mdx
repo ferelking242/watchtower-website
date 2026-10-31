@@ -1,0 +1,85 @@
+---
+title: "Schéma UI natif"
+fullTitle: "Contrat JSON des mises en page natives."
+description: "Une source peut inclure une mise en page JSON déclarative à côté de son JavaScript. L'application la télécharge depuis le chemin de la fiche de catalogue, la valide et affiche des composants natifs enregistrés. Le schéma actuel est versionné et les ids de section sont des clés de fournisseurs de données ; ce n'est pas l'ancien arbre imaginaire cartes/listes."
+marker: "22"
+---
+
+## Liaison avec l'index
+
+Ajoutez uiLayout avec un chemin relatif au dépôt tel que ui-layouts/example.json dans la fiche du catalogue. Ajoutez uiLayoutVersion et augmentez-la après un changement du fichier annexe. Le téléchargeur récupère le fichier depuis la branche raw main du dépôt ; il reste distinct du code source.
+
+## Schéma racine
+
+schemaVersion doit être un nombre supérieur ou égal à 1 et home un objet. home.sections est un tableau ordonné. browse, detail et player sont des remplacements facultatifs. Sans mise en page, Watchtower utilise ses écrans Popular, Latest et Search habituels.
+
+## Objet de section d'accueil
+
+Chaque section doit avoir un id non vide et unique, ainsi qu'un component enregistré. title, icon et accent règlent l'en-tête et l'apparence. seeAll, paginated et requiresAuth sont des booléens. L'id est transmis à getCustomList(id, page) et doit donc correspondre à de vraies données.
+
+## Propriétés de présentation
+
+Le schéma prend en charge columns, rows, cardStyle, cardComponent, episodeComponent, chapterComponent, gridOrder, scrollDirection, monthSelector et params. Ce sont des indications pour les moteurs natifs ; les propriétés disponibles dépendent du composant et du type de média.
+
+## Browse, détails et lecteur
+
+browse peut remplacer la présentation de popular, latest et des résultats/ filtres de recherche. detail accepte les présentations hero et episodeList, ainsi que showRecommendations. player accepte le mode standard ou feed. Ces clés ne créent pas de capacités côté source.
+
+## Validation et erreurs
+
+Le runtime rejette le JSON mal formé, les ids vides ou dupliqués, les composants manquants et ceux inconnus du registre actuel. Une mise en page invalide n'est pas un arbre de widgets ignoré. Validez le JSON avant publication et vérifiez chaque id dans le registre.
+
+## Chaque section a besoin d'un fournisseur
+
+Pour chaque section d'accueil, implémentez getCustomList(id, page) et renvoyez l'objet paginé standard. Ne supposez pas qu'une section inconnue sera automatiquement remplacée par Popular ou Latest.
+
+## Versions et cache
+
+La mise en page est mise en cache localement. Augmentez uiLayoutVersion pour livrer un changement de présentation seul, ou version pour le JavaScript. Gardez la version de l'index et celle de watchtowerSources synchronisées.
+
+## Mémo
+
+- Une mise en page est du JSON lié par uiLayout ; ce n'est pas du code exécutable.
+- Chaque id de section appelle getCustomList(id, page).
+- Les composants inconnus et sections invalides échouent à la validation.
+- Le schéma racine actuel prend en charge home, browse, detail et player.
+
+## Contrat / exemple
+
+```json
+{
+  "schemaVersion": 1,
+  "home": {
+    "sections": [
+      {
+        "id": "trending",
+        "component": "spotlight",
+        "title": "Trending",
+        "icon": "trending_up",
+        "accent": "primary",
+        "seeAll": true,
+        "paginated": true
+      },
+      {
+        "id": "hd",
+        "component": "carousel",
+        "title": "HD"
+      }
+    ]
+  },
+  "browse": {
+    "popular": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "latest":  { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "search": {
+      "results": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+      "filters": "chips"
+    }
+  },
+  "detail": {
+    "hero": "backdrop",
+    "episodeList": "compact",
+    "showRecommendations": true
+  },
+  "player": { "mode": "standard" }
+}
+```

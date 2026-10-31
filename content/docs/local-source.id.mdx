@@ -1,0 +1,57 @@
+---
+title: "Sumber lokal"
+fullTitle: "Membaca dan memutar file Anda sendiri."
+description: "Watchtower dapat memperlakukan folder di perangkat Anda sebagai sumber normal. Koleksi Anda sendiri kemudian berperilaku persis seperti koleksi online, lengkap dengan pelacakan kemajuan."
+marker: "07"
+---
+
+## Manga dan novel
+
+Letakkan satu folder per seri di dalam folder lokal, dan satu file per bab di dalamnya. Bab dapat berupa arsip CBZ atau folder gambar biasa, dan nama folder menjadi judul seri.
+
+## anime
+
+Letakkan satu folder per seri di dalam folder anime lokal, dan satu file video per episode di dalamnya. Episode diurutkan berdasarkan nama file, jadi beri nomor.
+
+## Sampul dan detailnya
+
+Gambar sampul dalam folder seri menjadi thumbnail. File detail di sampingnya dapat menambahkan penulis, artis, deskripsi, dan genre jika nama folder tidak cukup.
+
+## Menambahkan file baru
+
+Pindahkan file dari luar aplikasi, lalu segarkan sumber lokal sehingga Watchtower memindai ulang folder tersebut. File yang ditambahkan saat aplikasi ditutup tidak akan diketahui sampai Anda melakukannya.
+
+## Membaca offline
+
+Sumber lokal tidak pernah menyentuh jaringan, sehingga mereka bekerja dalam mode penerbangan dan tidak dapat diblokir atau dibatasi tarifnya. Unduhan dan file lokal berperilaku sama saat berada di disk.
+
+## Menyembunyikan file dari galeri
+
+Letakkan file .nomedia di folder sehingga sampul dan episode tidak dimasukkan ke aplikasi foto ponsel Anda.
+
+## Ketika sampul kosong atau file hilang
+
+Sampul kosong atau seri yang tidak dapat dibuka hampir selalu berarti struktur foldernya salah. Periksa apakah ada satu folder per seri dan satu file per bab atau episode, lalu hapus entri, hapus database untuk item di luar perpustakaan, dan biarkan sumber lokal memindai ulang folder tersebut.
+
+## Ringkasan
+
+- Arsip CBZ dan folder gambar biasa dibaca sebagai bab.
+- Urutan episode mengikuti nama file, jadi beri nomor pada file Anda.
+- File .nomedia membuat media lokal tidak masuk ke galeri sistem.
+- Sumber lokal berfungsi tanpa koneksi jaringan sama sekali.
+- Struktur folder yang salah adalah penyebab umum sampul kosong.
+
+## Kontrak / contoh
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

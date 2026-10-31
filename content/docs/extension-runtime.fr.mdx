@@ -1,0 +1,46 @@
+---
+title: "Runtime d’extension"
+fullTitle: "Comment les extensions sont exécutées, et en sécurité."
+description: "Les extensions sont du JavaScript, et Watchtower les exécute dans un bac à sable qui leur donne le réseau et rien d'autre. Cette page explique ce que cela signifie pour vous."
+marker: "20"
+---
+
+## Ce qui exécute vos extensions
+
+Watchtower utilise un petit moteur JavaScript intégré à l'application. C'est le même moteur sur chaque plateforme, ce qui explique qu'une source se comporte à l'identique sur un téléphone et sur un serveur.
+
+## Ce qu'une extension a le droit de faire
+
+Elle peut faire des requêtes web, analyser les pages qu'elle reçoit et garder quelques réglages à elle. C'est toute sa boîte à outils.
+
+## Ce dont elle est tenue à l'écart
+
+Vos fichiers, votre bibliothèque, vos comptes et les écrans de l'application. Tout ce qu'une extension produit est renvoyé comme de simples données que l'application affiche.
+
+## Pourquoi une source lente ralentit
+
+Une source qui répond lentement rend ses propres écrans lents, parce que l'application attend après elle. Les autres sources ne sont pas touchées : la lenteur signale donc une source défectueuse, pas une application lourde.
+
+## Ce que cela signifie pour la confiance
+
+Le bac à sable limite ce qu'une extension peut casser, mais il ne juge pas les intentions. Elle peut toujours voir ce que vous y saisissez et ce qu'elle récupère. Installez depuis des gens de confiance.
+
+## Le même moteur partout
+
+Comme l'application et la ligne de commande Linux partagent ce moteur, une extension qui fonctionne sur votre téléphone fonctionne aussi sur un serveur, sans modification.
+
+## Mémo
+
+- Les extensions obtiennent l'accès au réseau et l'analyse de pages, rien d'autre.
+- Elles ne peuvent pas lire vos fichiers ni votre bibliothèque directement.
+- Une source lente ne ralentit que ses propres écrans.
+- Le même bac à sable tourne sur mobile, bureau et ligne de commande.
+
+## Contrat / exemple
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

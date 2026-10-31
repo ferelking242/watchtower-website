@@ -1,0 +1,46 @@
+---
+title: "Erweiterungs-Runtime"
+fullTitle: "Wie Erweiterungen ausgeführt werden und wie sicher."
+description: "Erweiterungen sind JavaScript und Watchtower führt sie in einer Sandbox aus, die ihnen das Netzwerk und nichts anderes bietet. Auf dieser Seite erfahren Sie, was das für Sie bedeutet."
+marker: "20"
+---
+
+## Was führt Ihre Erweiterungen aus?
+
+Watchtower verwendet eine kleine JavaScript-Engine, die in die App eingebettet ist. Es handelt sich auf jeder Plattform um die gleiche Engine, weshalb sich eine Quelle auf einem Telefon und einem Server identisch verhält.
+
+## Was eine Erweiterung leisten darf
+
+Es kann Webanfragen stellen, die empfangenen Seiten analysieren und einige seiner eigenen Einstellungen beibehalten. Das ist der gesamte Werkzeugkasten.
+
+## Wovon es ferngehalten wird
+
+Ihre Dateien, Ihre Bibliothek, Ihre Konten und die eigenen Bildschirme der App. Alles, was eine Erweiterung erzeugt, wird als einfache Daten zurückgegeben, damit die App sie rendern kann.
+
+## Warum eine langsame Quelle schleppt
+
+Eine Quelle, die langsam reagiert, verlangsamt ihre eigenen Bildschirme, da die App darauf wartet. Andere Quellen sind davon nicht betroffen, daher ist Langsamkeit ein Zeichen für eine schlechte Quelle und nicht für eine schwere App.
+
+## Was das für das Vertrauen bedeutet
+
+Die Sandbox begrenzt, was eine Erweiterung beschädigen kann, beurteilt jedoch nicht die Absicht. Es kann immer noch alles sehen, was Sie eingeben und was es abruft. Installieren Sie es von Personen, denen Sie vertrauen.
+
+## Überall der gleiche Motor
+
+Da die App und die Linux-Befehlszeile diese Laufzeit gemeinsam nutzen, funktioniert eine Erweiterung, die auf Ihrem Telefon funktioniert, ohne Änderungen auch auf einem Server.
+
+## Kurzüberblick
+
+- Erweiterungen erhalten Netzwerkzugriff und Seitenanalyse, sonst nichts.
+- Sie können Ihre Dateien oder Ihre Bibliothek nicht direkt lesen.
+- Eine langsame Quelle verlangsamt nur ihre eigenen Bildschirme.
+- Die gleiche Sandbox läuft auf Mobilgeräten, Desktops und der Befehlszeile.
+
+## Vertrag / Beispiel
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

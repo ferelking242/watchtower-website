@@ -1,0 +1,48 @@
+---
+title: "Bereitstellung"
+fullTitle: "Ausführen von Watchtower auf Ihrem eigenen Server."
+description: "Für einen Heimserver oder eine kleine Gruppe kann die Linux-Befehlszeile kontinuierlich ausgeführt werden und jedem Client in Ihrem Netzwerk dieselben Quellen bereitstellen."
+marker: "25"
+---
+
+## Was Sie bekommen
+
+Ein einzelner Ordner, der die Befehlszeile und die benötigten Laufzeitdateien enthält. Das Installationsskript kopiert es in ein von Ihnen gewähltes Präfix und richtet es für die Ausführung ein.
+
+## Installiere es
+
+Führen Sie das Installationsprogramm mit dem entpackten Ordner und dem gewünschten Präfix aus. Durch die Verwendung eines Präfixes in Ihrem Home-Verzeichnis wird vermieden, dass Sie später für alles Root benötigen.
+
+## Führen Sie es als Dienst aus
+
+Da es über HTTP bereitgestellt werden kann, können Sie es im Hintergrund laufen lassen und anderen Geräten in Ihrem Netzwerk erlauben, die von ihm konfigurierten Quellen zu verwenden.
+
+## Wozu es gut ist
+
+Ein Medienzentrum, ein geplanter Downloader oder ein Computer, auf dem die Quellen gespeichert sind, damit die anderen dies nicht tun müssen. Da es sich um dieselbe Engine handelt, verhalten sich die Quellen identisch.
+
+## Halten Sie es aktuell
+
+Aktualisieren Sie es, indem Sie einen neueren Build entpacken und das Installationsprogramm erneut ausführen. Ihre Konfiguration bleibt im Präfix erhalten und wird durch ein Upgrade nicht überschrieben.
+
+## Wenn etwas nicht läuft
+
+Genau dafür gibt es den Doctor-Befehl. Führen Sie es zuerst aus und es wird Ihnen sagen, ob die Laufzeit, das Netzwerk oder eine Quelle das Problem ist.
+
+## Kurzüberblick
+
+- Der Headless-Build besteht aus einem eigenständigen Ordner und einem Installationsprogramm.
+- Durch die Installation in Ihrem Home-Verzeichnis ist kein Root erforderlich.
+- Es kann über HTTP für andere Geräte in Ihrem Netzwerk bereitgestellt werden.
+- Der Befehl „doctor“ diagnostiziert die meisten Startfehler.
+
+## Vertrag / Beispiel
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

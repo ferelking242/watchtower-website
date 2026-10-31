@@ -1,0 +1,51 @@
+---
+title: "Server API"
+fullTitle: "Driving Watchtower from another program."
+description: "The app can open a small web server on your own machine, which lets scripts, external players and other devices use the same sources the app does."
+marker: "23"
+---
+
+## What it is
+
+A small web server built into the app. It uses the same extensions and the same library as the interface, so anything it returns matches what you see on screen.
+
+## Turning it on
+
+It is off until you enable it, deliberately. Switch it on in advanced settings and note the port, then point your tool at that address.
+
+## What you can ask it
+
+Your installed sources, your library entries, a search against any source, and a resolved video stream. That is enough to drive a media centre or an external player.
+
+## Why you might want it
+
+Automation, a different front end, or letting another device on your network use the sources your phone has already set up.
+
+## Keep it on your own network
+
+The server has no password and is meant for a trusted local network. Do not expose it to the internet, where anyone could read your library.
+
+## How it relates to the command line
+
+The Linux command line exposes the same server, so a script written against the app works against a headless machine with no changes.
+
+## Cheat sheet
+
+- The server is off until you enable it in settings.
+- It listens on port 4567 by default.
+- It uses the same sources and library as the interface.
+- It is meant for a trusted local network, not the internet.
+
+## Contract / example
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

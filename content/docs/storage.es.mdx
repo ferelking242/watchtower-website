@@ -1,0 +1,53 @@
+---
+title: "Almacenamiento"
+fullTitle: "Dónde guarda Watchtower sus archivos."
+description: "Las copias de seguridad, las descargas y las fuentes locales se encuentran en una única ubicación de almacenamiento. Elegirlo deliberadamente es lo que evita que las descargas desaparezcan más adelante."
+marker: "18"
+---
+
+## El diseño de la carpeta
+
+Todo se encuentra en una carpeta que usted elige: copias de seguridad automáticas, capítulos y episodios descargados, su manga local, su anime local y configuración para reproductores externos. Conocer el diseño es lo que hace que un archivo perdido sea fácil de colocar.
+
+## Elegir una ubicación
+
+Elija una carpeta a la que aún pueda acceder dentro de un año. Evite la raíz misma de un volumen de almacenamiento y evite mover archivos desde debajo de la aplicación posteriormente.
+
+## permisos de Android
+
+El Android moderno mantiene las aplicaciones dentro de sus propios directorios. Otorgue a Watchtower acceso a la carpeta de almacenamiento que elija, o las descargas y las fuentes locales fallarán silenciosamente.
+
+## Después de mover archivos en
+
+Mueva archivos desde fuera de la aplicación y luego actualice, para que Watchtower vuelva a escanear las carpetas. De lo contrario, el nuevo contenido permanece invisible hasta que algo más activa un análisis.
+
+## Mantener limpia la galería
+
+Un archivo .nomedia en la carpeta de descargas mantiene las portadas y los episodios fuera de la galería de fotos de tu teléfono.
+
+## Por qué el almacenamiento interno es mejor
+
+Las descargas en el almacenamiento interno son más rápidas y es mucho menos probable que se vuelvan ilegibles que en una tarjeta extraíble, que puede desmontarse o dañarse.
+
+## Cuando la aplicación no puede acceder a la carpeta
+
+Los errores de permiso y las descargas que desaparecen se deben a que la carpeta de almacenamiento se mueve o se vuelve ilegible. Confirme que la aplicación todavía tiene acceso, verifique el espacio libre y prefiera el almacenamiento interno a una tarjeta extraíble que se pueda desmontar.
+
+## Chuleta
+
+- Las copias de seguridad, las descargas y las fuentes locales comparten una ubicación de almacenamiento.
+- Android necesita permiso explícito para esa carpeta.
+- Un archivo .nomedia oculta los medios descargados de la galería.
+- El almacenamiento interno es más confiable que una tarjeta SD.
+- Una carpeta de almacenamiento movida o ilegible oculta descargas y copias de seguridad.
+
+## Contrato / ejemplo
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

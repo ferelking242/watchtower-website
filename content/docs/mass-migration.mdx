@@ -1,0 +1,46 @@
+---
+title: "Mass migration"
+fullTitle: "Moving many series at once."
+description: "When a source dies, mass migration moves a whole group of library entries to a working source in one pass, instead of editing them one by one."
+marker: "32"
+---
+
+## When to use it
+
+A source that has stopped working, or one you want to move away from, is the case for mass migration. Migrating keeps your progress and your categories.
+
+## Choosing source and destination
+
+Pick the group of entries to move and the source to move them to. The app searches the destination for each title on its own.
+
+## Reviewing the matches
+
+Every match is shown before anything changes, so you can accept the good ones and skip the wrong ones. Matching by title is never perfect.
+
+## Applying the change
+
+Applying rewrites each entry to point at the new source and carries your progress across. Series with no match are left untouched.
+
+## Reading the summary
+
+The run ends with counts of what moved, what was skipped and what failed. A failed item is usually a title the destination does not carry.
+
+## When nothing matches
+
+If most titles fail to match, the destination is a poor fit and a different source is the better answer. Nothing is lost by stopping, because changes only happen when you apply.
+
+## Cheat sheet
+
+- Mass migration moves a group of entries in one pass.
+- Every match is reviewed before anything is changed.
+- Your progress and categories carry across.
+- Nothing changes until you apply the results.
+
+## Contract / example
+
+```text
+1. choose the broken source
+2. pick the destination source
+3. review each match
+4. apply, then read the summary
+```

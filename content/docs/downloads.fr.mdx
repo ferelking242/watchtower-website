@@ -1,0 +1,54 @@
+---
+title: "Téléchargements"
+fullTitle: "Emporter votre bibliothèque hors ligne."
+description: "Les téléchargements enregistrent épisodes et chapitres sur votre appareil pour regarder ou lire sans connexion. Ils vivent dans une seule file d'attente, avec des limites claires."
+marker: "14"
+---
+
+## Lancer un téléchargement
+
+Ajoutez chapitres ou épisodes depuis une série et ils rejoignent la file de téléchargement. Depuis la file, vous pouvez réordonner la suite ou annuler ce que vous ne voulez plus.
+
+## Pourquoi un à la fois
+
+Watchtower télécharge une série à la fois depuis une même source. Envoyer beaucoup de requêtes à un seul site est exactement ce qui déclenche la protection anti-robot qui fait bloquer les sources.
+
+## Mode téléchargements uniquement
+
+Activez-le pour masquer tout ce que vous n'avez pas enregistré. L'application ne montre alors que ce qui est sur votre appareil, ce qui est utile en voyage ou en connexion limitée.
+
+## Où sont stockés les fichiers
+
+Les téléchargements atterrissent dans un dossier nommé d'après la source, puis la série. Renommer l'un ou l'autre casse la détection, donc laissez-les tranquilles.
+
+## Quand les téléchargements disparaissent
+
+Si le contenu enregistré cesse d'apparaître, le dossier de stockage a probablement bougé ou est devenu illisible. Vérifiez l'emplacement de stockage et reconstruisez l'index des téléchargements.
+
+## Ce qu'une sauvegarde ne couvre pas
+
+Les fichiers de sauvegarde contiennent votre bibliothèque et vos réglages, jamais vos médias téléchargés. Ceux-là doivent être déplacés séparément.
+
+## Quand un téléchargement échoue en cours de route
+
+Un téléchargement interrompu vient généralement d'une connexion perdue ou d'une source qui ne répond plus. Réessayez depuis la file, car les fichiers partiels sont conservés, et passez au Wi-Fi si le réseau est la cause. Des réponses 403 ou 429 persistantes signifient que la source vous refuse, pas que le fichier a disparu.
+
+## Mémo
+
+- Une seule série par source se télécharge à la fois, exprès.
+- Les médias téléchargés ne sont pas inclus dans une sauvegarde.
+- Le stockage interne est plus rapide et plus fiable qu'une carte SD.
+- Renommer le dossier de téléchargement casse la détection.
+- Un téléchargement interrompu conserve ses fichiers partiels, donc réessayer le reprend.
+
+## Contrat / exemple
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

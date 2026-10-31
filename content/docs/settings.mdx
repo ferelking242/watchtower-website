@@ -1,0 +1,57 @@
+---
+title: "Settings"
+fullTitle: "The settings that change how the app behaves."
+description: "Beyond each feature's own options, a handful of app-wide settings affect updates, privacy, installation and how you recover when something goes wrong."
+marker: "19"
+---
+
+## General
+
+Theme, interface language and how the library behaves by default. These apply everywhere at once, so they are the first place to look when the app does not feel like yours.
+
+## Privacy
+
+Hiding the screen in the app switcher keeps your library out of thumbnails, and incognito mode stops recording history while you browse. Incognito hides what you looked at, not how far you got.
+
+## Network
+
+Encrypted DNS can get past some basic blocking and is worth trying when a source will not load on one network but works on another. A proxy does the same job for a whole network.
+
+## Installing extensions
+
+Android normally blocks installs from outside a store. Granting that permission is what lets extensions install, and Shizuku is an alternative for devices that make it awkward.
+
+## Diagnostics
+
+Crash logs, a logcat capture and index rebuilding live here. This is where you go when something misbehaves and you want evidence rather than guesses.
+
+## Before you report a problem
+
+Note your app version, the source that failed and what the screen showed. That turns a vague report into something that can actually be fixed.
+
+## Resetting a stuck state
+
+Clearing the cache, clearing cookies and web data, and rebuilding the indexes each fix a different class of problem. Cache clears stale page data, cookies clear a stuck verification, and an index rebuild re-scans the storage folder. Clearing the database removes series that are not in your library, which is the usual fix for a blank local cover.
+
+## A last resort that keeps your data
+
+If nothing else works, take a fresh backup, then reinstall the app and restore it. That keeps your library and settings while replacing anything corrupted in the install itself.
+
+## Cheat sheet
+
+- The app-switcher privacy setting must be off to take screenshots.
+- Incognito stops history recording, not progress.
+- Crash logs stay on your device and are never sent automatically.
+- Encrypted DNS often fixes a source that fails on one network only.
+- Cache, cookies and indexes each fix a different class of problem.
+- Back up before reinstalling, then restore to keep your library.
+
+## Contract / example
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

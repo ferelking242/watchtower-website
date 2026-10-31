@@ -1,0 +1,46 @@
+---
+title: "Extension runtime"
+fullTitle: "How extensions are run, and how safely."
+description: "Extensions are JavaScript, and Watchtower runs them in a sandbox that gives them the network and nothing else. This page explains what that means for you."
+marker: "20"
+---
+
+## What runs your extensions
+
+Watchtower uses a small JavaScript engine embedded in the app. It is the same engine on every platform, which is why a source behaves identically on a phone and on a server.
+
+## What an extension is allowed to do
+
+It can make web requests, parse the pages it receives and keep a few of its own settings. That is the entire toolbox.
+
+## What it is kept away from
+
+Your files, your library, your accounts and the app's own screens. Everything an extension produces is handed back as plain data for the app to render.
+
+## Why a slow source drags
+
+A source that responds slowly makes its own screens slow, because the app waits for it. Other sources are unaffected, so slowness is a sign of one bad source, not a heavy app.
+
+## What this means for trust
+
+The sandbox limits what an extension can break, but it does not judge intent. It can still see anything you type into it and anything it fetches. Install from people you trust.
+
+## Same engine everywhere
+
+Because the app and the Linux command line share this runtime, an extension that works on your phone works on a server too, with no changes.
+
+## Cheat sheet
+
+- Extensions get network access and page parsing, nothing else.
+- They cannot read your files or your library directly.
+- One slow source only slows its own screens.
+- The same sandbox runs on mobile, desktop and the command line.
+
+## Contract / example
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

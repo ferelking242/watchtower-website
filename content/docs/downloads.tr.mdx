@@ -1,0 +1,54 @@
+---
+title: "İndirmeler"
+fullTitle: "Kitaplığınızı çevrimdışına alma."
+description: "İndirilenler, bölümleri ve bölümleri cihazınıza kaydeder, böylece bağlantı olmadan izleyebilir veya okuyabilirsiniz. Sınırları net olan tek bir kuyrukta yaşıyorlar."
+marker: "14"
+---
+
+## İndirmeyi başlatma
+
+Bir diziden bölümler veya bölümler eklediğinizde indirme sırasına katılırlar. Sıradan, bir sonraki işlemi yeniden sıralayabilir veya artık istemediğiniz bir şeyi iptal edebilirsiniz.
+
+## Neden birer birer
+
+Watchtower herhangi bir tek kaynaktan aynı anda bir dizi indirir. Bir sitede çok sayıda isteğin tetiklenmesi, kaynakların engellenmesine neden olan bot karşıtı korumayı tetikleyen şeydir.
+
+## Yalnızca indirme modu
+
+Kaydetmediğiniz herhangi bir şeyi gizlemek için bunu açın. Uygulama daha sonra yalnızca cihazınızda bulunanları gösterir; bu, yolculukta veya tarifeli bağlantıda kullanışlıdır.
+
+## Dosyaların saklandığı yer
+
+İndirilenler kaynağın ardından serinin adını taşıyan bir klasörün altına gelir. Her iki klasörü de yeniden adlandırmak algılamayı bozar, bu nedenle onları kendi hallerine bırakın.
+
+## İndirilenler kaybolduğunda
+
+Kaydedilen içeriğin gösterimi durursa, depolama klasörü muhtemelen taşınmıştır veya okunamaz hale gelmiştir. Depolama konumunu kontrol edin ve indirilenler dizinini yeniden oluşturun.
+
+## Yedekleme neleri kapsamaz
+
+Yedekleme dosyaları indirilen medyanızı değil, kitaplığınızı ve ayarlarınızı taşır. Bunların ayrı ayrı taşınması gerekiyor.
+
+## İndirme işlemi kısmen başarısız olduğunda
+
+Durdurulan indirme genellikle kopmuş bir bağlantı veya yanıt vermeyi durduran bir kaynaktır. Kısmi dosyalar tutulduğu için kuyruktan yeniden deneyin ve sorun ağdan kaynaklanıyorsa Wi-Fi'ye geçin. Kalıcı 403 veya 429 yanıtları, dosyanın kaybolduğu değil, kaynağın sizi reddettiği anlamına gelir.
+
+## Kısa özet
+
+- Her kaynak için aynı anda yalnızca bir dizi bilerek indirilir.
+- İndirilen medya yedeklemeye dahil edilmez.
+- Dahili depolama, SD karttan daha hızlı ve daha güvenilirdir.
+- İndirilenler klasörünü yeniden adlandırmak algılamayı bozar.
+- Durdurulan bir indirme, kısmi dosyalarını korur, bu nedenle yeniden denemek onu devam ettirir.
+
+## Sözleşme / örnek
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

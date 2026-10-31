@@ -1,0 +1,60 @@
+---
+title: "Premiers pas"
+fullTitle: "Watchtower en dix minutes."
+description: "Watchtower réunit animés, séries, mangas, romans et musique dans une seule application. Elle arrive vide, volontairement : vous choisissez les sources, et tout ce que vous regardez ou lisez reste sur votre appareil."
+marker: "01"
+---
+
+## Ce qu'il vous faut
+
+Un téléphone ou une tablette sous Android 8.0 ou plus récent pour l'application complète. N'importe quelle machine Linux, macOS ou Windows peut faire tourner la ligne de commande à la place, sans session graphique. Une chose n'est pas facultative : une adresse de dépôt de sources, car Watchtower ne contient aucun contenu.
+
+## Ajouter votre première source
+
+Ouvrez Plus, puis Extensions, puis Dépôts. Collez l'URL d'un index JSON accepté, par exemple celui des sources de visionnage, puis validez. Le catalogue officiel publie des index distincts pour les animés, mangas, romans, musique, jeux et d'autres types.
+
+## Installer les extensions
+
+Chaque extension apprend à Watchtower un site précis. Touchez installer à côté de celles qui vous intéressent, autorisez l'installation de sources inconnues si Android le demande, et les sources apparaissent dans Parcourir.
+
+## Construire votre bibliothèque
+
+Ouvrez une source, trouvez une série et touchez Ajouter à la bibliothèque. À partir de là, Watchtower suit votre progression, cherche les nouveaux chapitres et garde l'entrée au même endroit.
+
+## Choisir vos types de média
+
+Watchtower gère mangas, animés, romans et musique côte à côte. Chaque type s'ouvre dans son propre lecteur, choisi automatiquement selon ce que l'extension déclare.
+
+## Les surprises du premier lancement
+
+Un écran Parcourir vide signifie qu'aucune extension n'est encore installée, pas que l'application est cassée. Un dépôt qui refuse de se charger vient presque toujours d'une adresse périmée ou d'un portail Wi-Fi qui bloque.
+
+## Si le premier écran semble vide
+
+Une liste Parcourir vide signifie qu'aucune extension n'est encore installée, pas que l'application est cassée. Si un dépôt refuse de se charger, vérifiez que l'URL pointe vers le bon index et renvoie du JSON valide, puis réessayez sur un autre réseau avant de le croire disparu.
+
+## Choisir le bon index
+
+Watchtower lit des tableaux JSON contenant des fiches de sources. Choisissez l'index du contenu souhaité, par exemple index/watch.json ou index/manga.json ; le nom index.min.json n'est pas obligatoire.
+
+## Mémo
+
+- Watchtower ne contient aucun contenu. Les sources sont à vous de choisir.
+- Les extensions sont du JavaScript ordinaire exécuté dans un bac à sable.
+- Votre bibliothèque vit sur votre appareil, pas sur un serveur Watchtower.
+- Android 8.0+ est le minimum pour l'application mobile.
+- Une liste Parcourir vide signifie qu'aucune extension n'est installée, pas un échec.
+
+## Contrat / exemple
+
+```text
+# The first run, in order
+1. Install the app        Android APK, or a desktop build
+2. Add a source repository   More → Extensions → Repositories
+   Paste a source index URL, for example index/watch.json
+3. Install the extensions you want, then refresh
+4. Browse a source and tap "Add to library"
+5. Play or read
+
+# Watchtower never bundles content. No source means an empty library.
+```

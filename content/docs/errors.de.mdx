@@ -1,0 +1,73 @@
+---
+title: "Fehler"
+fullTitle: "Jede Fehlermeldung und was sie bedeutet."
+description: "Watchtower zeigt den groben Fehler an, anstatt ihn zu verbergen, sodass die Nachricht selbst der schnellste Hinweis ist, den Sie haben. Suchen Sie unten nach Ihrem Fehler und probieren Sie den ersten Fix aus, bevor Sie etwas anderes ändern."
+marker: "27"
+---
+
+## 403 Verboten
+
+Die Website hat entschieden, dass Ihre Anfrage automatisiert zu sein scheint und lehnt sie ab. In der Praxis handelt es sich dabei um einen Anti-Bot-Schutz. Aktualisieren Sie zuerst die Erweiterung und öffnen Sie dann einmal die Quelle im integrierten Browser, um alle auf der Website vorhandenen Prüfungen zu löschen. Wenn die Antwort immer noch abgelehnt wird, hat die Quelle möglicherweise ihren Schutz erhöht oder Ihre Adresse gesperrt.
+
+## 404 Nicht gefunden
+
+Die von der Erweiterung erwartete Seite wurde verschoben oder entfernt. Dies ist fast immer eine veraltete Erweiterung. Aktualisieren Sie daher Ihr Repository und aktualisieren Sie es. Wenn es noch kein Update gibt, hat der Autor der Erweiterung die Seite nicht eingeholt.
+
+## 429 Zu viele Anfragen
+
+Ihr Tarif wurde eingeschränkt, weil Sie zu schnell Anfragen gestellt haben. Warten ist die eigentliche Lösung, und die Verringerung der Häufigkeit von Updates und Downloads verhindert, dass es wieder auftritt. Ein sofortiger erneuter Versuch verlängert nur den Block.
+
+## 500, 502 und andere 5xx-Fehler
+
+Die Website selbst versagt. Auf Ihrem Gerät gibt es nichts zu reparieren. Der richtige Schritt besteht darin, abzuwarten und es später noch einmal zu versuchen. Wenn Sie die Website in einem Browser überprüfen, können Sie feststellen, ob sie für alle zugänglich ist.
+
+## 1006 und 1020, die Firewall-Codes
+
+1006 bedeutet normalerweise ein vorübergehendes IP-Verbot und 1020 bedeutet eine vom Websitebesitzer festgelegte Firewallregel, häufig um Besucher von außerhalb ihres Landes zu blockieren. Ein Netzwerkwechsel kann bei 1006 hilfreich sein; 1020 kann normalerweise nicht umgangen werden.
+
+## Cloudflare konnte nicht umgangen werden
+
+Die Website ist durch Cloudflare geschützt und die automatische Prüfung wurde nicht gelöscht. Öffnen Sie die Seite der Quelle im integrierten Browser, führen Sie die Überprüfung manuell durch und kehren Sie dann zur App zurück. Wenn die Seite endlos neu geladen wird, lesen Sie die Seite zur Fehlerbehebung.
+
+## Host kann nicht aufgelöst werden, Verbindung fehlgeschlagen, Zeitüberschreitung
+
+Dabei handelt es sich eher um Netzwerkprobleme als um Fehler in der Quelle. Überprüfen Sie, ob das Gerät über einen Internetzugang verfügt, versuchen Sie es mit einem anderen Netzwerk oder mobilen Daten und aktivieren Sie verschlüsseltes DNS in den Einstellungen. Ein gefangenes Wi-Fi-Portal ist eine häufige Ursache.
+
+## Die Zertifikatsvalidierung ist fehlgeschlagen
+
+Das Sicherheitszertifikat der Site konnte nicht validiert werden. Überprüfen Sie, ob Datum und Uhrzeit des Geräts korrekt sind, leeren Sie den Cache und die Cookies der App und versuchen Sie es mit einem anderen Netzwerk. Ein abgelaufenes Zertifikat auf der Website können Sie nicht reparieren.
+
+## Speicher- und SD-Kartenfehler
+
+Meldungen über eine Karte, einen Pfad oder einen nicht verfügbaren Ordner bedeuten, dass der Download-Speicherort verschoben wurde oder nicht mehr lesbar ist. Überprüfen Sie den freien Speicherplatz, stellen Sie sicher, dass die App weiterhin Zugriff auf diesen Ordner hat, und kehren Sie zum internen Speicher zurück, wenn die Karte weiterhin ausfällt.
+
+## App oder Erweiterung werden nicht installiert
+
+Ein von jemand anderem signiertes APK, ein abgeschnittener Download und die falsche Prozessorarchitektur führen jeweils zu einer anderen Installationsmeldung. Entfernen Sie die in Konflikt stehende Kopie, laden Sie die Datei erneut herunter und stellen Sie sicher, dass Android unbekannte Apps installieren darf.
+
+## Wenn der Fehler hier nicht aufgeführt ist
+
+Kopieren Sie die genaue Botschaft, anstatt sie zu paraphrasieren. Der Name des Vorgangs und die darin enthaltene URL verweisen normalerweise direkt auf den fehlgeschlagenen Schritt, und auf der Seite zur Fehlerbehebung wird er schrittweise eingegrenzt.
+
+## Kurzüberblick
+
+- 403 und 429 bedeuten beide, dass die Website Sie aus unterschiedlichen Gründen ablehnt.
+- Ein 404 ist fast immer eine Erweiterung, die aktualisiert werden muss.
+- Ein 5xx-Fehler liegt an der Website, nicht an Ihrem Gerät.
+- 1006 ist ein vorübergehendes Verbot; 1020 ist eine Firewall-Regel, die Sie nicht umgehen können.
+- Kopieren Sie die genaue Nachricht: Die darin enthaltene URL benennt den fehlgeschlagenen Schritt.
+- Nicht übereinstimmende Signaturen bedeuten, dass eine anders signierte Kopie installiert wird.
+
+## Vertrag / Beispiel
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

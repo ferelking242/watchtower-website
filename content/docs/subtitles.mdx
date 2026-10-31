@@ -1,0 +1,47 @@
+---
+title: "Subtitles"
+fullTitle: "Making subtitles readable."
+description: "Subtitles come from three places: the stream, a file on your device, or a source that fetches them. This page covers choosing a track, fixing its timing, and styling the ones Watchtower draws itself."
+marker: "10"
+---
+
+## Choosing a track
+
+When an episode carries several subtitle tracks they are listed in the subtitle sheet. Your choice is remembered for that series, so you only pick once.
+
+## Fixing the timing
+
+A track that runs ahead of or behind the audio can be nudged in small steps until it lines up. The offset is remembered, so the fix survives restarting the app.
+
+## Styling
+
+Font, size, colour, outline and background apply to text subtitles. These settings do not touch the video and are safe to experiment with mid-episode.
+
+## Your own files
+
+Put a subtitle file next to a local episode with a matching name and the player loads it automatically, with no setting to change.
+
+## Subtitles baked into the image
+
+Some subtitles are pictures rather than text. They cannot be restyled, only repositioned or resized, because the styling is part of the image itself.
+
+## When subtitles do not appear
+
+Check the subtitle sheet first: the source may offer none, or the file name may not match the episode closely enough to be paired.
+
+## Cheat sheet
+
+- Text subtitles can be restyled; image subtitles cannot.
+- Timing offsets are saved and survive a restart.
+- A matching file beside a local episode loads on its own.
+- Subtitle choices are remembered per series.
+
+## Contract / example
+
+```text
+# Where a subtitle can come from
+1. a track bundled inside the stream
+2. a file sitting next to the episode on disk
+3. a track the source downloads for you
+4. a file you pick by hand
+```

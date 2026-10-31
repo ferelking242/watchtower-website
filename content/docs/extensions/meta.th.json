@@ -1,0 +1,9 @@
+{
+  "title": "ส่วนขยาย",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

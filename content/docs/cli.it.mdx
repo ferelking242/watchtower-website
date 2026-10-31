@@ -1,0 +1,47 @@
+---
+title: "CLI headless"
+fullTitle: "Eseguire Watchtower senza schermo."
+description: "La riga di comando di Linux esegue lo stesso motore dell'app, quindi un server o un lavoro pianificato può recuperare, cercare e scaricare senza che nessuno guardi."
+marker: "24"
+---
+
+## A cosa serve
+
+Server, sessioni SSH e lavori automatizzati. È lo stesso motore di estensione dell'app con un'interfaccia testuale anziché schermate, quindi non necessita di sessione grafica.
+
+## Orientarsi
+
+Inizia con il comando help, quindi esegui il comando doctor per confermare che il runtime può caricarsi e raggiungere tutto ciò di cui ha bisogno prima di affidargli un lavoro.
+
+## Lavorare con le estensioni
+
+Elenca ciò che offre un repository, convalidalo e testa una fonte rispetto al sito live. Il test viene eseguito in più fasi, dal semplice caricamento del sorgente all'esercizio della ricerca e delle chiamate di dettaglio.
+
+## Chiamare direttamente una fonte
+
+Puoi invocare una singola operazione, ad esempio una ricerca, e recuperare JSON. Questo è ciò che rende la riga di comando utile per lo scripting e per il debug di un sorgente.
+
+## Servire in rete
+
+Può avviare lo stesso server Web esposto dall'app, ovvero il modo in cui un client remoto comunica con una macchina headless.
+
+## Cosa non fa ancora
+
+I comandi di libreria, cronologia e coda di download non sono disponibili senza testa, perché la riga di comando non apre i database locali dell'app. Quelli hanno ancora bisogno dell'app.
+
+## Riepilogo
+
+- La riga di comando riutilizza il motore di estensione dell'app.
+- Il comando doctor controlla il runtime prima che tu faccia affidamento su di esso.
+- Una fonte può essere testata in più fasi, dal caricamento alla ricerca.
+- I comandi di libreria e download richiedono ancora l'app.
+
+## Contratto / esempio
+
+```bash
+watchtower --cli help
+watchtower --cli doctor --json
+watchtower --cli extensions list --repo ./my-repo
+watchtower --cli extensions test --repo ./my-repo --mode smoke
+watchtower --cli source 1900000002 search --query "space opera" --json
+```

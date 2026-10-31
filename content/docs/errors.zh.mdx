@@ -1,0 +1,73 @@
+---
+title: "错误"
+fullTitle: "每个错误消息及其含义。"
+description: "Watchtower 显示原始错误而不是隐藏它，因此消息本身是您拥有的最快线索。在下面找到您的并在更改其他任何内容之前尝试第一个修复。"
+marker: "27"
+---
+
+## 403 禁忌
+
+该网站认为您的请求看起来是自动化的，因此拒绝了它。实际上，这是反机器人保护。首先更新扩展程序，然后在内置浏览器中打开源代码一次以清除网站持有的任何检查。如果仍然拒绝，则来源可能已提高保护或屏蔽您的地址。
+
+## 404 未找到
+
+扩展程序所需的页面已移动或删除。这几乎每次都是一个过时的扩展，因此请刷新您的存储库并更新它。如果还没有更新，则扩展作者还没有跟上该网站的步伐。
+
+## 429 请求过多
+
+您因提出请求太快而受到速率限制。等待是真正的解决办法，减少更新和下载运行的频率可以阻止它再次发生。立即重试只会扩展块。
+
+## 500、502 和其他 5xx 错误
+
+网站本身失败了。您的设备上没有任何需要修复的内容，正确的做法是等待并稍后重试。在浏览器中检查该网站，确认该网站是否对所有人都已关闭。
+
+## 1006 和 1020，防火墙代码
+
+1006通常表示临时IP禁令，1020表示网站所有者设置的防火墙规则，通常用于阻止来自国外的访问者。更换网络可以帮助1006； 1020 通常无法解决。
+
+## 无法绕过 Cloudflare
+
+该网站受 Cloudflare 保护，自动检查未清除。在内置浏览器中打开源页面并手动完成任何验证，然后返回到应用程序。如果页面不断重新加载，请参阅故障排除页面。
+
+## 无法解析主机、连接失败、超时
+
+这些是网络问题而不是源故障。检查设备是否可以访问互联网，尝试其他网络或移动数据，并在设置中启用加密 DNS。强制 Wi-Fi 门户是一个常见原因。
+
+## 证书验证失败
+
+无法验证该网站的安全证书。检查设备日期和时间是否正确，清除应用程序的缓存和 Cookie，然后尝试不同的网络。网站上过期的证书不是您可以修复的。
+
+## 存储和 SD 卡错误
+
+有关卡、路径或不可用文件夹的消息意味着下载位置已移动或变得不可读。检查可用空间，确认应用程序仍然具有该文件夹的权限，如果卡仍然出现故障，请切换回内部存储。
+
+## 应用程序或扩展程序将无法安装
+
+由其他人签名的 APK、被截断的下载和错误的处理器架构都会产生不同的安装程序消息。删除冲突的副本并重新下载文件，并确保 Android 允许安装未知应用程序。
+
+## 当此处未列出错误时
+
+复制准确的消息而不是解释它。操作名称和其中的 URL 通常直接指向失败的步骤，故障排除页面会逐步缩小范围。
+
+## 速查表
+
+- 403 和 429 都表示该网站出于不同原因拒绝您。
+- 404 几乎总是需要更新的扩展。
+- 5xx 错误是网站的错误，而不是您的设备的错误。
+- 1006为临时封禁； 1020 是您无法绕过的防火墙规则。
+- 复制确切的消息：其中的 URL 命名了失败的步骤。
+- 签名不匹配意味着安装了不同签名的副本。
+
+## 契约 / 示例
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

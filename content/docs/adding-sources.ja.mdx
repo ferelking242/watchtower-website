@@ -1,0 +1,71 @@
+---
+title: "ソースの追加"
+fullTitle: "Where your content comes from."
+description: "Watchtower has two kinds of source. Online sources arrive as extensions from a repository you add. Offline sources are folders on your own device. Most people use both."
+marker: "03"
+---
+
+## Add a repository
+
+Go to More, then Extensions, then Repositories, and paste the repository URL. The app fetches the index and lists every extension it contains. You can add several repositories at once.
+
+## Install what you need
+
+Refresh the list, then tap install next to an extension. Android may ask for permission to install unknown apps the first time. Installed extensions show up immediately in Browse.
+
+## Keep sources fresh
+
+Refresh a repository whenever you want newer extension versions. An update replaces the extension in place and keeps its settings, so there is nothing to reconfigure.
+
+## Use your own files
+
+Point Watchtower at a folder of manga or anime you already own and it becomes a normal source. No repository, no network, no account.
+
+## Only trust what you know
+
+A repository can serve anything, and an extension runs with the same access as the app. Treat an unknown repository the way you would treat an unknown installer.
+
+## When a repository fails
+
+A URL that will not load is usually expired, blocked, or pointing to a file that is not a JSON array of source records. Open the exact index URL in a browser and check that it returns JSON.
+
+## Index file names
+
+There is no required .min.json suffix. Official repositories publish separate files such as index/watch.json and index/manga.json, and a custom repository may use another name if its URL serves the supported JSON format.
+
+## Match the content type
+
+The official extensions project publishes separate indexes for watch, manga, novels, music, games, plugins and subtitles. Choose the index that matches the sources you want to install.
+
+## 早見表
+
+- A repository is only a JSON file hosted on a web server.
+- Updates keep your source preferences.
+- Local folders work with no network at all.
+- Watchtower does not check or approve third-party repositories.
+- A repository that will not load is usually a wrong or expired address.
+
+## 契約 / 例
+
+```text
+# A source index is a JSON array, for example index/watch.json
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://example.org/favicon.ico",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false
+  }
+]
+```

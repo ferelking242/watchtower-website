@@ -1,0 +1,73 @@
+---
+title: "Hatalar"
+fullTitle: "Her hata mesajı ve ne anlama geldiği."
+description: "Watchtower ham hatayı gizlemek yerine gösterir, dolayısıyla mesajın kendisi sahip olduğunuz en hızlı ipucudur. Aşağıda sizinkini bulun ve başka bir şeyi değiştirmeden önce ilk düzeltmeyi deneyin."
+marker: "27"
+---
+
+## 403 Yasak
+
+Web sitesi, isteğinizin otomatik göründüğüne karar verdi ve reddediyor. Uygulamada bu, anti-bot korumasıdır. Önce uzantıyı güncelleyin, ardından sitenin tuttuğu tüm kontrolleri temizlemek için kaynağı yerleşik tarayıcıda bir kez açın. Hala reddediyorsa kaynak korumasını artırmış veya adresinizi engellemiş olabilir.
+
+## 404 Bulunamadı
+
+Uzantının beklediği sayfa taşındı veya kaldırıldı. Bu neredeyse her zaman eski bir uzantıdır, bu nedenle deponuzu yenileyin ve güncelleyin. Henüz bir güncelleme yoksa, uzantı yazarı siteye yetişememiş demektir.
+
+## 429 Çok fazla istek
+
+Talepleri çok hızlı yaptığınız için oranınız sınırlandırıldı. Beklemek asıl çözümdür ve güncellemelerin ve indirmelerin çalışma sıklığını azaltmak, tekrarlanmayı durduran şeydir. Hemen yeniden denemek yalnızca bloğu uzatır.
+
+## 500, 502 ve diğer 5xx hataları
+
+Web sitesinin kendisi başarısız oluyor. Cihazınızda düzeltilecek hiçbir şey yoktur ve doğru hamle bekleyip daha sonra tekrar denemektir. Sitenin bir tarayıcıda kontrol edilmesi, sitenin herkes için kapalı olup olmadığını doğrular.
+
+## 1006 ve 1020, güvenlik duvarı kodları
+
+1006 genellikle geçici bir IP yasağı anlamına gelir ve 1020, genellikle kendi ülkeleri dışından gelen ziyaretçileri engellemek için site sahibi tarafından belirlenen bir güvenlik duvarı kuralı anlamına gelir. Ağı değiştirmek 1006'ya yardımcı olabilir; 1020 genellikle çözülemez.
+
+## Cloudflare atlanamadı
+
+Site Cloudflare tarafından korunuyor ve otomatik kontrol gerçekleşmedi. Kaynağın sayfasını yerleşik tarayıcıda açın ve doğrulama işlemini elle tamamlayın, ardından uygulamaya geri dönün. Sayfa sürekli olarak yeniden yükleniyorsa sorun giderme sayfasına bakın.
+
+## Ana bilgisayar çözümlenemiyor, bağlantı başarısız oldu, zaman aşımı
+
+Bunlar kaynaktaki hatalardan ziyade ağ sorunlarıdır. Cihazın internet erişimi olup olmadığını kontrol edin, başka bir ağ veya mobil veri deneyin ve ayarlarda şifreli DNS'yi etkinleştirin. Sabit bir Wi-Fi portalı yaygın bir nedendir.
+
+## Sertifika doğrulaması başarısız oldu
+
+Sitenin güvenlik sertifikası doğrulanamadı. Cihaz tarih ve saatinin doğru olup olmadığını kontrol edin, uygulamanın önbelleğini ve çerezlerini temizleyin ve farklı bir ağ deneyin. Sitedeki süresi dolmuş bir sertifika düzeltebileceğiniz bir şey değildir.
+
+## Depolama ve SD kart hataları
+
+Bir kart, bir yol veya kullanılamayan bir klasörle ilgili mesajlar, indirme konumunun taşındığı veya okunamaz hale geldiği anlamına gelir. Boş alanı kontrol edin, uygulamanın bu klasöre hâlâ izin verdiğini doğrulayın ve kart arızalanmaya devam ederse dahili depolamaya geri dönün.
+
+## Uygulama veya uzantı yüklenmeyecek
+
+Başkası tarafından imzalanmış bir APK, kısaltılmış bir indirme ve yanlış işlemci mimarisinin her biri farklı bir yükleyici mesajı üretir. Çakışan kopyayı kaldırın, dosyayı tekrar indirin ve Android'in bilinmeyen uygulamaları yüklemesine izin verildiğinden emin olun.
+
+## Hata burada listelenmediğinde
+
+Başka kelimelerle ifade etmek yerine mesajın tamamını kopyalayın. İşlem adı ve içindeki URL genellikle doğrudan başarısız olan adıma işaret eder ve sorun giderme sayfası onu daraltarak adım adım ilerler.
+
+## Kısa özet
+
+- 403 ve 429'un her ikisi de sitenin sizi farklı nedenlerle reddettiği anlamına gelir.
+- 404 neredeyse her zaman güncellenmesi gereken bir uzantıdır.
+- 5xx hatası, cihazınızın değil web sitesinin hatasıdır.
+- 1006 geçici bir yasaklamadır; 1020, atlayamayacağınız bir güvenlik duvarı kuralıdır.
+- Mesajın tamamını kopyalayın: İçindeki URL, başarısız olan adımın adını verir.
+- İmza uyuşmazlıkları, farklı imzalı bir kopyanın yüklendiği anlamına gelir.
+
+## Sözleşme / örnek
+
+```text
+403  Forbidden        the site is refusing automated requests
+404  Not found        the page moved; the extension is out of date
+429  Too many         you have been rate limited, wait before retrying
+5xx  Server error     the site itself is broken, nothing to fix locally
+1006 / 1020          an IP ban or a firewall rule set by the site owner
+Failed to bypass Cloudflare   the anti-bot check could not be cleared
+Unable to resolve host / connection failed / timeout   a network problem
+CertPathValidatorException / chain validation failed   a bad certificate
+Signature mismatch   an APK signed by someone else is already installed
+```

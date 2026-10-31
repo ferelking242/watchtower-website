@@ -1,0 +1,48 @@
+---
+title: "Dağıtım"
+fullTitle: "Watchtower'u kendi sunucunuzda çalıştırma."
+description: "Bir ev sunucusu veya küçük bir grup için Linux komut satırı sürekli olarak çalışabilir ve ağınızdaki her istemciye aynı kaynakları sunabilir."
+marker: "25"
+---
+
+## Ne elde edeceksin
+
+Komut satırını ve ihtiyaç duyduğu çalışma zamanı dosyalarını tutan tek bir klasör. Yükleyici komut dosyası bunu seçtiğiniz bir öneke kopyalar ve çalışacak şekilde ayarlar.
+
+## Kurulum
+
+Yükleyiciyi paketinden çıkardığınız klasörle ve istediğiniz önekle çalıştırın. Ana dizininizin altında bir önek kullanmak, daha sonra yapılacak her şey için root'a ihtiyaç duymanızı önler.
+
+## Bunu bir hizmet olarak çalıştırmak
+
+HTTP üzerinden hizmet verebildiğinden, arka planda çalışmasını sağlayabilir ve ağınızdaki diğer cihazların, yapılandırdığı kaynakları kullanmasına izin verebilirsiniz.
+
+## Ne işe yarar
+
+Bir medya merkezi, programlı bir indirici veya diğerlerinin buna gerek duymaması için kaynakları tutan bir makine. Aynı motor olduğundan kaynaklar aynı şekilde davranır.
+
+## Güncel tutmak
+
+Daha yeni bir yapının paketini açıp yükleyiciyi tekrar çalıştırarak güncelleyin. Yapılandırmanız önekte bulunur ve yükseltme işlemi sırasında üzerine yazılmaz.
+
+## Eğer bir şey çalışmazsa
+
+Doctor komutu tam olarak bunun için var. Önce onu çalıştırın; size sorunun çalışma zamanından mı, ağdan mı yoksa kaynaktan mı kaynaklandığını söyleyecektir.
+
+## Kısa özet
+
+- Başsız yapı, bağımsız bir klasör artı bir yükleyiciden oluşur.
+- Ana dizininizin altına kurmak root ihtiyacını ortadan kaldırır.
+- Ağınızdaki diğer cihazlara HTTP üzerinden hizmet verebilir.
+- Doktor komutu çoğu başlatma hatasının teşhisini yapar.
+
+## Sözleşme / örnek
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

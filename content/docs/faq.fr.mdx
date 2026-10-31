@@ -1,0 +1,88 @@
+---
+title: "FAQ"
+fullTitle: "Les questions qui reviennent souvent."
+description: "Des réponses courtes aux questions que les gens posent avant et après avoir installé Watchtower, regroupées par partie de l'application."
+marker: "28"
+---
+
+## Pourquoi n'est-elle pas sur un magasin d'applications ?
+
+Parce que Watchtower installe des extensions à l'exécution, ce que les politiques des magasins n'autorisent pas. C'est aussi pourquoi chaque installation vient d'un APK auquel vous choisissez de faire confiance.
+
+## Existe-t-il une version iOS ?
+
+Le code sous-jacent est multiplateforme, mais publier sur iOS est contraint par les règles de la plateforme et n'est pas promis. Android est la plateforme qui reçoit tout en premier.
+
+## Fonctionne-t-elle sans Internet ?
+
+Tout ce que vous avez téléchargé, plus les fichiers locaux, fonctionne entièrement hors ligne. Parcourir les sources et chercher, non, car cela nécessite les sites eux-mêmes.
+
+## Puis-je synchroniser entre appareils ?
+
+Il n'y a pas de synchronisation automatique. Vous déplacez votre bibliothèque avec un fichier de sauvegarde, et les médias téléchargés doivent être copiés séparément.
+
+## Est-ce légal et est-ce gratuit ?
+
+Watchtower est gratuit et open source, et ne contient aucun contenu. Ce que vous ajoutez via les extensions relève de votre responsabilité, ce qui explique pourquoi l'application insiste sur le fait qu'elle ne les contrôle pas.
+
+## Pourquoi une source installée n'apparaît-elle pas ?
+
+Deux filtres masquent des sources sans les supprimer. Si l'extension sert une langue différente de celle de votre appareil, activez cette langue dans le filtre de la liste des sources. S'il s'agit d'une source adulte, activez l'option qui affiche les sources NSFW dans la liste.
+
+## Comment désinstaller une extension ?
+
+Désinstallez-la depuis l'écran des extensions, ou comme n'importe quelle autre application dans les réglages Android. Vos entrées de bibliothèque restent en place et apparaissent simplement comme indisponibles jusqu'à ce qu'une autre source puisse les servir.
+
+## Pourquoi mes téléchargements n'apparaissent-ils pas ?
+
+Les téléchargements sont détectés par dossier. Si l'emplacement de stockage a bougé, si la carte SD a été retirée, ou si la source ou la série a été renommée sur le site, l'application ne peut pas faire correspondre le dossier. Corrigez l'emplacement ou renommez le dossier, puis reconstruisez l'index des téléchargements.
+
+## Pourquoi ma galerie photo montre-t-elle des couvertures et des épisodes ?
+
+L'application masque normalement ses médias de la galerie système avec un fichier .nomedia. Si ce n'est pas le cas, créez-en un vous-même et placez-le dans le dossier des téléchargements, ou dans le dossier de la source locale si c'est ce qui a fui.
+
+## Pourquoi la lecture ou le chargement est-il lent ?
+
+Un chargement lent vient du site, de votre connexion ou d'une limitation de débit, pas d'une application trop lourde. Une lecture saccadée vient d'images trop grandes dans un chapitre, donc libérez de la mémoire ou choisissez une source aux scans plus légers.
+
+## Pourquoi certains épisodes ne s'affichent-ils pas ?
+
+Hormis les problèmes de réseau, l'application peut parfois manquer qu'une vidéo existe. Quitter le lecteur et rouvrir l'épisode suffit généralement à l'enregistrer.
+
+## Pourquoi une mise à jour de bibliothèque saute-t-elle des entrées ?
+
+Les entrées avec du contenu non vu ou non lu, celles que vous n'avez pas commencées, celles marquées terminées et celles sans sortie attendue sont sautées volontairement. Cela évite qu'une grande bibliothèque surcharge les sources et fasse bloquer l'application.
+
+## Pourquoi les mises à jour s'arrêtent-elles en arrière-plan ?
+
+Certaines versions d'Android économisent agressivement la batterie et suspendent le travail en arrière-plan. Exemptez Watchtower de l'optimisation de batterie si les mises à jour n'arrivent qu'à l'ouverture de l'application.
+
+## Pourquoi la capture d'écran est-elle bloquée ?
+
+Le réglage de confidentialité qui masque l'application dans le sélecteur de tâches bloque aussi les captures d'écran. Désactivez ce réglage si vous voulez capturer l'écran.
+
+## Quelque chose est cassé, et maintenant ?
+
+Mettez d'abord à jour vos extensions, car cela corrige la plupart des pannes. Si cela persiste, consultez la page des erreurs pour le message exact que vous voyez, puis la page de dépannage, avant de supposer que l'application est fautive.
+
+## Mémo
+
+- Watchtower n'est pas distribué via les magasins d'applications.
+- Le contenu téléchargé et les fichiers locaux fonctionnent entièrement hors ligne.
+- Il n'y a pas de synchronisation automatique entre appareils.
+- Une source masquée vient souvent du filtre de langue ou du bouton NSFW.
+- Les téléchargements sont reconnus par nom de dossier, donc renommer en masque un.
+- Mettre à jour les extensions corrige la plupart des pannes soudaines.
+
+## Contrat / exemple
+
+```text
+Is it on a store?        No. Installable extensions conflict with store rules.
+Is there an iOS build?   The code supports it; shipping it is not promised.
+Does it work offline?    Downloads and local files do, browsing does not.
+Does it sync?            No. Move your library with a backup file.
+Is it free?              Yes, and the source is open under Apache 2.0.
+
+Missing sources?   check the language filter and the NSFW toggle
+Missing downloads? check the storage folder and rebuild the index
+```

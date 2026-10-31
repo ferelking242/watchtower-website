@@ -1,0 +1,45 @@
+---
+title: "Anime"
+fullTitle: "Ver anime, con introducción saltada."
+description: "El anime se abre en el reproductor de video con un extra: introducción y final saltados, impulsado por AniSkip cuando se puede combinar un título."
+marker: "34"
+---
+
+## el jugador de anime
+
+Los episodios se reproducen en el mismo reproductor que todo lo demás, con calidad, audio, subtítulos y velocidad en las hojas habituales.
+
+## Saltarse introducciones y finales
+
+Al saltar la introducción, un botón hace una cuenta regresiva durante la apertura y la pasa, y el final se maneja de la misma manera. Es una configuración, por lo que se puede desactivar.
+
+## Por qué no se puede igualar un título
+
+Saltar necesita identificar la serie y el episodio. Un título que no se puede identificar simplemente se reproduce sin el botón, en lugar de fallar.
+
+## El tiempo de espera de salto
+
+Una breve cuenta regresiva te da tiempo para cancelar antes de que ocurra el salto. Su longitud es configurable si el valor predeterminado parece apresurado.
+
+## Descubriendo el anime
+
+Una pantalla de descubrimiento ofrece listas recomendadas, populares, próximas, actualizadas recientemente y mejor calificadas, además de filas de géneros, para que pueda encontrar algo sin una fuente abierta.
+
+## Cuando el descubrimiento muestra un error
+
+Las filas de descubrimiento provienen de un servicio externo y no de sus fuentes. Cuando no se puede acceder a ese servicio, el resto de la aplicación no se ve afectado y una fuente sigue funcionando normalmente.
+
+## Chuleta
+
+- Para omitir la introducción es necesario identificar la serie y el episodio.
+- Saltar es una configuración y se puede desactivar.
+- La duración de la cuenta regresiva de salto es configurable.
+- Discovery utiliza un servicio externo; Las fuentes funcionan independientemente.
+
+## Contrato / ejemplo
+
+```text
+Player      the same controls as any video
+AniSkip     skip opening and ending automatically
+Discovery   recommended, popular and by genre
+```

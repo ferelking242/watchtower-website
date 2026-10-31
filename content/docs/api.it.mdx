@@ -1,0 +1,51 @@
+---
+title: "API server"
+fullTitle: "Guidare Watchtower da un altro programma."
+description: "L'app può aprire un piccolo server web sul tuo computer, che consente a script, lettori esterni e altri dispositivi di utilizzare le stesse fonti dell'app."
+marker: "23"
+---
+
+## Di cosa si tratta
+
+Un piccolo server web integrato nell'app. Utilizza le stesse estensioni e la stessa libreria dell'interfaccia, quindi tutto ciò che restituisce corrisponde a ciò che vedi sullo schermo.
+
+## Accensione
+
+È spento finché non lo abiliti, deliberatamente. Accendilo nelle impostazioni avanzate e prendi nota della porta, quindi punta il tuo strumento a quell'indirizzo.
+
+## Cosa puoi chiedergli
+
+Le tue fonti installate, le voci della tua libreria, una ricerca su qualsiasi fonte e un flusso video risolto. Questo è sufficiente per pilotare un media center o un lettore esterno.
+
+## Perché potresti volerlo
+
+Automazione, un front-end diverso o consentire a un altro dispositivo sulla rete di utilizzare le fonti già configurate dal telefono.
+
+## Tienilo sulla tua rete
+
+Il server non ha password ed è pensato per una rete locale affidabile. Non esporlo a Internet, dove chiunque potrebbe leggere la tua biblioteca.
+
+## Come si relaziona alla riga di comando
+
+La riga di comando di Linux espone lo stesso server, quindi uno script scritto sull'app funziona su una macchina headless senza modifiche.
+
+## Riepilogo
+
+- Il server è spento finché non lo abiliti nelle impostazioni.
+- Per impostazione predefinita è in ascolto sulla porta 4567.
+- Utilizza le stesse fonti e libreria dell'interfaccia.
+- È pensato per una rete locale affidabile, non per Internet.
+
+## Contratto / esempio
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

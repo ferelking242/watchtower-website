@@ -1,0 +1,57 @@
+---
+title: "Local source"
+fullTitle: "Reading and playing your own files."
+description: "Watchtower can treat a folder on your device as a normal source. Your own collection then behaves exactly like an online one, complete with progress tracking."
+marker: "07"
+---
+
+## Manga and novels
+
+Put one folder per series inside the local folder, and one file per chapter inside it. Chapters can be CBZ archives or plain image folders, and the folder name becomes the series title.
+
+## Anime
+
+Put one folder per series inside the local anime folder, and one video file per episode inside it. Episodes are ordered by filename, so number them.
+
+## Covers and details
+
+A cover image in the series folder becomes the thumbnail. A details file beside it can add author, artist, description and genres when the folder name is not enough.
+
+## Adding new files
+
+Move files in from outside the app, then refresh the local source so Watchtower rescans the folder. Files added while the app is closed are not noticed until you do.
+
+## Reading offline
+
+Local sources never touch the network, so they work in flight mode and cannot be blocked or rate-limited. Downloads and local files behave the same way once on disk.
+
+## Hiding files from the gallery
+
+Drop a .nomedia file in the folder so covers and episodes stay out of your phone's photo app.
+
+## When covers are blank or files are missing
+
+A blank cover or a series that will not open almost always means the folder structure is wrong. Check that there is one folder per series and one file per chapter or episode, then remove the entry, clear the database for items outside the library, and let the local source rescan the folder.
+
+## Cheat sheet
+
+- Both CBZ archives and plain image folders are read as chapters.
+- Episode order follows the filename, so number your files.
+- A .nomedia file keeps local media out of the system gallery.
+- Local sources work with no network connection at all.
+- A wrong folder structure is the usual cause of a blank cover.
+
+## Contract / example
+
+```text
+local/                       manga and novels
+└── Series title/
+    ├── cover.jpg
+    ├── Chapter 01.cbz
+    └── Chapter 02.cbz
+
+localanime/                  video
+└── Anime title/
+    ├── Episode 01.mp4
+    └── Episode 02.mp4
+```

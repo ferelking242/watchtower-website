@@ -1,0 +1,57 @@
+---
+title: "Ayarlar"
+fullTitle: "Uygulamanın nasıl davranacağını değiştiren ayarlar."
+description: "Her özelliğin kendi seçeneklerinin ötesinde, uygulama genelindeki bir dizi ayar; güncellemeleri, gizliliği, kurulumu ve bir şeyler ters gittiğinde nasıl kurtulacağınızı etkiler."
+marker: "19"
+---
+
+## Genel
+
+Tema, arayüz dili ve kütüphanenin varsayılan olarak nasıl davrandığı. Bunlar her yerde aynı anda geçerli olduğundan, uygulama size ait gibi gelmediğinde bakılacak ilk yer onlardır.
+
+## Mahremiyet
+
+Ekranı uygulama değiştiricide gizlemek kitaplığınızı küçük resimlerden uzak tutar ve gizli mod, siz göz atarken geçmişi kaydetmeyi durdurur. Gizli mod, ne kadar uzağa gittiğinizi değil, neye baktığınızı gizler.
+
+## Ağ
+
+Şifrelenmiş DNS bazı temel engellemeleri aşabilir ve bir kaynak bir ağda yüklenmeyip başka bir ağda çalıştığında denemeye değer. Proxy, tüm ağ için aynı işi yapar.
+
+## Uzantıları yükleme
+
+Android normalde mağazanın dışından yapılan yüklemeleri engeller. Bu iznin verilmesi, uzantıların yüklenmesine izin veren şeydir ve Shizuku, bunu zorlaştıran cihazlar için bir alternatiftir.
+
+## Teşhis
+
+Kilitlenme günlükleri, logcat yakalama ve dizin yeniden oluşturma burada yayında. Bir şeyler ters gittiğinde ve tahminlerden ziyade kanıt istediğinizde başvuracağınız yer burasıdır.
+
+## Bir sorunu bildirmeden önce
+
+Uygulama sürümünüzü, başarısız olan kaynağı ve ekranda gösterilenleri not edin. Bu, belirsiz bir raporu gerçekten düzeltilebilecek bir şeye dönüştürür.
+
+## Sıkışmış durumu sıfırlama
+
+Önbelleği temizlemek, çerezleri ve web verilerini temizlemek ve dizinleri yeniden oluşturmak, her biri farklı bir sorun sınıfını çözer. Önbellek, eski sayfa verilerini temizler, çerezler takılı kalmış doğrulamayı temizler ve dizin yeniden oluşturma işlemi, depolama klasörünü yeniden tarar. Veritabanının temizlenmesi, kitaplığınızda olmayan serileri kaldırır; bu, boş bir yerel kapak için olağan çözümdür.
+
+## Verilerinizi saklayan son çare
+
+Başka hiçbir şey işe yaramazsa, yeni bir yedekleme alın, ardından uygulamayı yeniden yükleyin ve geri yükleyin. Bu, kurulumun kendisinde bozuk olan her şeyi değiştirirken kitaplığınızı ve ayarlarınızı korur.
+
+## Kısa özet
+
+- Ekran görüntüsü alabilmek için uygulama değiştirici gizlilik ayarının kapalı olması gerekir.
+- Gizli mod, ilerlemeyi değil geçmişin kaydedilmesini durdurur.
+- Kilitlenme günlükleri cihazınızda kalır ve hiçbir zaman otomatik olarak gönderilmez.
+- Şifrelenmiş DNS genellikle yalnızca tek bir ağda arızalanan bir kaynağı düzeltir.
+- Önbellek, çerezler ve dizinlerin her biri farklı sınıftaki sorunları çözer.
+- Yeniden yüklemeden önce yedekleyin, ardından kitaplığınızı korumak için geri yükleyin.
+
+## Sözleşme / örnek
+
+```text
+General      theme · language · library behaviour
+Privacy      hide the screen in the app switcher · incognito
+Network      encrypted DNS · proxy
+Install      unknown sources · Shizuku
+Diagnostics  crash logs · logcat · rebuild indexes
+```

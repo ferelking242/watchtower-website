@@ -1,0 +1,46 @@
+---
+title: "Runtime de extensões"
+fullTitle: "Como as extensões são executadas e com que segurança."
+description: "As extensões são JavaScript e o Watchtower as executa em uma sandbox que fornece a rede e nada mais. Esta página explica o que isso significa para você."
+marker: "20"
+---
+
+## O que executa suas extensões
+
+Watchtower usa um pequeno mecanismo JavaScript incorporado no aplicativo. É o mesmo mecanismo em todas as plataformas, e é por isso que uma fonte se comporta de forma idêntica em um telefone e em um servidor.
+
+## O que uma extensão pode fazer
+
+Ele pode fazer solicitações na web, analisar as páginas que recebe e manter algumas de suas próprias configurações. Essa é toda a caixa de ferramentas.
+
+## Do que é mantido longe
+
+Seus arquivos, sua biblioteca, suas contas e as próprias telas do aplicativo. Tudo o que uma extensão produz é devolvido como dados simples para o aplicativo renderizar.
+
+## Por que uma fonte lenta se arrasta
+
+Uma fonte que responde lentamente torna suas próprias telas lentas, porque o aplicativo espera por ela. Outras fontes não são afetadas, portanto, a lentidão é um sinal de uma fonte ruim, não de um aplicativo pesado.
+
+## O que isso significa para a confiança
+
+A sandbox limita o que uma extensão pode quebrar, mas não julga a intenção. Ele ainda pode ver tudo o que você digita e tudo o que ele busca. Instale de pessoas em quem você confia.
+
+## O mesmo motor em todos os lugares
+
+Como o aplicativo e a linha de comando do Linux compartilham esse tempo de execução, uma extensão que funciona no seu telefone também funciona em um servidor, sem alterações.
+
+## Resumo
+
+- As extensões obtêm acesso à rede e análise de páginas, nada mais.
+- Eles não podem ler seus arquivos ou sua biblioteca diretamente.
+- Uma fonte lenta apenas retarda suas próprias telas.
+- O mesmo sandbox é executado em dispositivos móveis, desktop e linha de comando.
+
+## Contrato / exemplo
+
+```text
+An extension can    reach the network, parse pages, read its own settings
+An extension cannot read your files, touch your library, or draw the interface
+
+The same sandbox runs on Android, on desktop and on the Linux command line.
+```

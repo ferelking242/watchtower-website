@@ -1,0 +1,54 @@
+---
+title: "Estensioni"
+fullTitle: "Le estensioni sono il modo in cui Watchtower raggiunge il web."
+description: "Un'estensione è un piccolo programma che insegna a Watchtower un sito web: come elencarlo, cercarlo, leggerlo e riprodurlo. Tutto ciò che navighi arriva tramite un'estensione."
+marker: "06"
+---
+
+## Cos'è un'estensione
+
+È JavaScript, non un plugin compilato. Sa come chiedere a un sito Web i suoi elenchi, i suoi risultati di ricerca, i suoi capitoli e i suoi flussi video e risponde nella forma comprensibile a Watchtower.
+
+## Come ti raggiungono
+
+Le estensioni sono raggruppate in repository. Aggiungi un repository una volta e ogni estensione che contiene diventa installabile dalla schermata delle estensioni.
+
+## Tipi di contenuto
+
+Un'estensione dichiara a cosa serve: manga, anime, romanzo, musica o gioco. Quella dichiarazione decide quale lettore o lettore si apre quando tocchi un risultato.
+
+## Aggiornamenti e rimozione
+
+Le estensioni si aggiornano e mantengono le loro impostazioni. La disinstallazione di uno rimuove solo l'estensione; le voci della tua libreria sopravvivono e aspettano semplicemente che una fonte le serva di nuovo.
+
+## Perché dovrebbe interessarti chi l'ha realizzato
+
+Un'estensione viene eseguita all'interno di Watchtower ma può raggiungere la rete e leggere ciò che gli dai. Installa da repository di cui ti fidi e sii cauto con tutto ciò che non ti è familiare.
+
+## Quando un'estensione smette di funzionare
+
+I siti web cambiano e una fonte rompe con loro. Di solito si tratta di un'estensione danneggiata, non di un'app danneggiata, e la correzione arriva come aggiornamento.
+
+## Quando un'installazione o un aggiornamento non riesce
+
+Un'installazione non riuscita è quasi sempre Android che blocca app sconosciute e un aggiornamento non riuscito è un download interrotto parzialmente. Consenti installazioni dal file manager o dal browser, quindi riprova e reinstalla da zero se il file è stato troncato.
+
+## Riepilogo
+
+- Le estensioni sono JavaScript, eseguite in una sandbox all'interno dell'app.
+- Un'estensione copre un sito web.
+- L'installazione e l'aggiornamento non toccano mai la tua libreria.
+- Una fonte che improvvisamente fallisce è solitamente una modifica del sito web.
+- Un'installazione non riuscita è solitamente Android, non l'estensione.
+
+## Contratto / esempio
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

@@ -1,0 +1,9 @@
+{
+  "title": "Sviluppo estensioni",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

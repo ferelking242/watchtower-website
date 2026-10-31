@@ -1,0 +1,60 @@
+---
+title: "快速开始"
+fullTitle: "Watchtower in ten minutes."
+description: "Watchtower is one app for anime, series, manga, novels and music. It ships empty on purpose: you choose the sources, and everything you watch or read stays on your device."
+marker: "01"
+---
+
+## What you need
+
+An Android 8.0 or newer phone or tablet for the full app. Any Linux, macOS or Windows machine can run the headless command line instead, with no graphical session. One thing is not optional: a source repository URL, because Watchtower contains no content of its own.
+
+## Add your first source
+
+Open More, then Extensions, then Repositories. Paste a supported JSON index URL, such as the watch index in a repository, and confirm. The official extensions project publishes separate indexes for watch, manga, novels, music, games and other source types.
+
+## Install extensions
+
+Each extension teaches Watchtower one website. Tap install beside the ones you want, allow installation from unknown sources if Android asks, and the sources appear in Browse.
+
+## Build your library
+
+Open a source, find a series and tap Add to library. From then on Watchtower tracks your progress, checks for new chapters and keeps the entry in one place.
+
+## Pick your media types
+
+Watchtower handles manga, anime, novels and music side by side. Each type opens in its own reader or player, chosen automatically from what the extension declares.
+
+## Common first-run surprises
+
+An empty Browse screen means no extension is installed yet, not a broken app. A repository that will not load is usually a stale URL or a captive network portal.
+
+## If the first screen looks empty
+
+An empty Browse list means no extension is installed yet, not a broken app. If a repository will not load, check that the URL points to the correct source index and that it returns valid JSON, then try another network before assuming it is gone.
+
+## Choose the matching index
+
+Watchtower reads JSON arrays of source records. Use the index for the content type you want, for example index/watch.json or index/manga.json; index.min.json is not a required filename.
+
+## 速查表
+
+- Watchtower ships with no content. Sources are yours to choose.
+- Extensions are ordinary JavaScript run in a sandbox.
+- Your library lives on your device, not on a Watchtower server.
+- Android 8.0+ is the floor for the mobile app.
+- An empty Browse list means no extension is installed, not a failure.
+
+## 契约 / 示例
+
+```text
+# The first run, in order
+1. Install the app        Android APK, or a desktop build
+2. Add a source repository   More → Extensions → Repositories
+   Paste a source index URL, for example index/watch.json
+3. Install the extensions you want, then refresh
+4. Browse a source and tap "Add to library"
+5. Play or read
+
+# Watchtower never bundles content. No source means an empty library.
+```

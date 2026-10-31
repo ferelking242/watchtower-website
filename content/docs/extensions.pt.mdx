@@ -1,0 +1,54 @@
+---
+title: "Extensões"
+fullTitle: "As extensões são a forma como o Watchtower chega à web."
+description: "Uma extensão é um pequeno programa que ensina ao Watchtower um site: como listá-lo, pesquisá-lo, lê-lo e reproduzi-lo. Tudo o que você navega vem por meio de uma extensão."
+marker: "06"
+---
+
+## O que é uma extensão
+
+É JavaScript, não um plugin que você compila. Ele sabe como solicitar a um site suas listagens, seus resultados de pesquisa, seus capítulos e seus fluxos de vídeo, e responde na forma que Watchtower entende.
+
+## Como eles chegam até você
+
+As extensões são agrupadas em repositórios. Você adiciona um repositório uma vez e cada extensão que ele contém torna-se instalável na tela de extensões.
+
+## Tipos de conteúdo
+
+Uma extensão declara para que serve: mangá, anime, novel, música ou jogo. Essa declaração decide qual leitor ou player abre quando você toca em um resultado.
+
+## Atualizações e remoção
+
+As extensões são atualizadas e mantêm suas configurações. A desinstalação remove apenas a extensão; as entradas da sua biblioteca sobrevivem e simplesmente esperam que uma fonte as sirva novamente.
+
+## Por que você deveria se importar com quem fez isso
+
+Uma extensão é executada dentro do Watchtower, mas pode acessar a rede e ler o que você fornece. Instale a partir de repositórios em que você confia e tenha cuidado com qualquer coisa que não lhe seja familiar.
+
+## Quando uma extensão para de funcionar
+
+Os sites mudam e uma fonte rompe com eles. Geralmente é uma extensão quebrada, não um aplicativo quebrado, e a correção chega como uma atualização.
+
+## Quando uma instalação ou atualização falha
+
+Uma instalação com falha quase sempre significa que o Android bloqueia aplicativos desconhecidos, e uma atualização com falha é um download que parou parcialmente. Permita instalações do seu gerenciador de arquivos ou navegador, tente novamente e reinstale do zero se o arquivo estiver truncado.
+
+## Resumo
+
+- As extensões são JavaScript, executadas em uma sandbox dentro do aplicativo.
+- Uma extensão cobre um site.
+- A instalação e a atualização nunca afetam sua biblioteca.
+- Uma fonte que falha repentinamente geralmente é uma mudança no site.
+- Uma instalação com falha geralmente é do Android, não da extensão.
+
+## Contrato / exemplo
+
+```text
+One extension  →  one website
+
+Installed    ready to browse
+Available    in a repository you added, not installed yet
+Updates      a newer version exists
+
+A repository  →  a list of extensions, hosted as one JSON file
+```

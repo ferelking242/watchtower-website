@@ -1,0 +1,56 @@
+---
+title: "Tracking"
+fullTitle: "Recording what you watch, automatically."
+description: "Tracking connects Watchtower to the services that keep your history. You log in once, and progress is recorded as you go instead of being typed in by hand."
+marker: "16"
+---
+
+## Which services are supported
+
+MyAnimeList, AniList, Kitsu, MangaUpdates, Shikimori and Bangumi. They are all set up from tracking settings, and you can connect more than one.
+
+## Logging in
+
+Open tracking settings and tap a service to start its login. Kitsu is the one that asks for your email address rather than a username, which catches people out.
+
+## Connecting a series
+
+Open a series, go to tracking, and add the service. Watchtower searches for the title for you, and you can edit the search terms when it matches the wrong entry.
+
+## How much counts as watched
+
+A percentage threshold decides when an episode is marked as seen. Set it high enough that stopping halfway does not record a full episode.
+
+## One direction only
+
+Progress goes from Watchtower to the service. Editing your list on the website does not change anything in the app, so pick one place to manage it.
+
+## Watching offline
+
+Progress you make without a connection is queued and uploaded the next time you are online, so a flight does not lose your history.
+
+## When a login or a sync fails
+
+A service that refuses to log in is usually an expired session or a captcha on the service's own site, so sign in once through the service's website and try again. Progress that will not sync is normally queued rather than lost, and is retried when the connection returns.
+
+## Matching the wrong title
+
+Automatic matching can pick the wrong entry when a title is ambiguous. Edit the search terms for that series in the tracking section and select the correct result, then confirm the progress it carries across is the one you want.
+
+## Cheat sheet
+
+- Tracking is set up per series, not for the whole library.
+- Progress only flows outward, never back in.
+- A threshold decides when an episode counts as watched.
+- Offline progress uploads when you reconnect.
+- A failed login is usually an expired session on the service itself.
+
+## Contract / example
+
+```text
+MyAnimeList · AniList · Kitsu
+MangaUpdates · Shikimori · Bangumi
+
+Progress flows from Watchtower to the service.
+Changes made on the website do not come back.
+```

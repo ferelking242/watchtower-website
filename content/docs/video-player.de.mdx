@@ -1,0 +1,54 @@
+---
+title: "Videoplayer"
+fullTitle: "Eine Folge ansehen."
+description: "Der Player verdeckt das Video mit Gesten und Blättern, sodass nichts den Bildschirm verlässt, während Sie es ansehen. Qualität, Audio, Untertitel und Geschwindigkeit sind alle nur einen Fingertipp entfernt."
+marker: "08"
+---
+
+## Grundlegende Steuerelemente
+
+Tippen Sie einmal, um die Steuerelemente aufzurufen, tippen Sie zweimal auf eine Seite, um vorwärts oder rückwärts zu springen, und drücken Sie lange, um schneller zu werden. Drücken Sie zum Zoomen, wenn das Video noch Platz hat.
+
+## Qualität und Audio
+
+Quellen, die mehrere Auflösungen oder Audiospuren bieten, stellen diese in Blättern dar, die nach oben geschoben werden können, ohne die Wiedergabe zu unterbrechen. Ihre Wahl wird für die Serie gespeichert.
+
+## Untertitel
+
+Untertitelspuren stammen von der Quelle oder einer von Ihnen bereitgestellten Datei. Sie werden auf dem Untertitelblatt ausgewählt und angepasst und ihr Erscheinungsbild wird einmalig in den Einstellungen festgelegt.
+
+## Episoden und Statistiken
+
+Ein Seitenbereich listet jede Episode auf, sodass Sie herumspringen können, und ein anderer zeigt, was der Player tatsächlich mit dem Stream macht, wenn etwas nicht stimmt.
+
+## Wenn der innere Spieler Probleme hat
+
+Ein seltener Codec oder ein defekter Stream kann an einen externen Player wie MPV oder VLC weitergegeben werden. Das ist der verlässliche Fallback und kein Zeichen dafür, dass die Episode unbrauchbar ist.
+
+## Sichern Sie sich Ihren Platz
+
+Der Fortschritt wird kontinuierlich aufgezeichnet, während Sie zuschauen, sodass Sie Ihre Position nicht verlieren, wenn Sie die App schließen oder die Stromversorgung verlieren.
+
+## Wenn ein Video nicht abgespielt werden kann
+
+Ein Stream, der sich weigert, zu starten, ist oft ein Codec, mit dem der interne Player nicht umgehen kann, oder ein Link, der abgelaufen ist. Wechseln Sie zuerst zu einem externen Player wie MPV oder VLC und aktualisieren Sie dann die Erweiterung, wenn jede Episode von dieser Quelle fehlschlägt.
+
+## Kurzüberblick
+
+- Die Wiedergabe verwendet standardmäßig einen hardwarebeschleunigten Decoder.
+- Gesten steuern Helligkeit, Lautstärke und Suche.
+- Der Fortschritt wird kontinuierlich gespeichert, nicht nur beim Beenden.
+- Ein externer Player ist die Ausweichlösung für nicht unterstützte Codecs.
+- Die Übergabe eines hartnäckigen Streams an einen externen Player ist der zuverlässige Ausweg.
+
+## Vertrag / Beispiel
+
+```text
+Tap          show or hide the controls
+Double tap   seek forward or back
+Long press   change playback speed
+Pinch        zoom, when the video allows it
+
+Sheets   quality · audio track · subtitles · speed
+Panels   episode list · playback statistics
+```

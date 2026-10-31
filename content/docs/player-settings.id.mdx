@@ -1,0 +1,47 @@
+---
+title: "Pengaturan pemutar"
+fullTitle: "Membentuk pemain berdasarkan kebiasaan Anda."
+description: "Pengaturan pemutar menentukan bagaimana video didekodekan, apa yang dilakukan gerakan, dan tombol mana yang ada di pemutar. Ubah sekali dan setiap episode akan menyusul."
+marker: "09"
+---
+
+## Penguraian kode
+
+Penguraian kode perangkat keras lebih cepat dan lebih ringan pada baterai, dan cocok untuk hampir semua hal. Beralih ke perangkat lunak ketika file tertentu diputar dengan buruk, karena decoding perangkat lunak lebih memaafkan codec yang tidak biasa.
+
+## Gerakan
+
+Putuskan gesekan mana yang melakukan apa: vertikal untuk kecerahan dan volume, horizontal untuk mencari. Setiap arah dapat dibalik jika terasa terbalik bagi Anda.
+
+## Tombol khusus
+
+Tambahkan tindakan yang paling sering Anda lakukan, seperti melewatkan intro atau mengambil tangkapan layar, langsung ke permukaan pemutar sehingga tindakan tersebut tidak lagi terkubur dalam menu.
+
+## Pemutaran lanjutan
+
+Ukuran buffer, rasio aspek yang dipaksakan, dan gambar-dalam-gambar ada di sini untuk kasus yang jarang terjadi di mana perilaku otomatis tidak sesuai dengan keinginan Anda. Kebanyakan orang tidak perlu menyentuhnya.
+
+## Pengecualian per seri
+
+Hampir setiap pengaturan pemain dapat diganti untuk satu seri tanpa mengubah default untuk seri lainnya. Berguna untuk satu pertunjukan dengan audio yang aneh.
+
+## Setelah cadangan pengaturan
+
+Tombol khusus dan preferensi pemutar ada di file cadangan Anda, jadi memulihkan di perangkat baru akan membawa serta tata letak pemutar Anda.
+
+## Ringkasan
+
+- Penguraian kode perangkat keras adalah default dan cocok untuk sebagian besar file.
+- Setiap arah gerakan dapat dibalik atau dimatikan.
+- Pengaturan dapat diganti untuk satu rangkaian.
+- Preferensi pemain disertakan dalam cadangan.
+
+## Kontrak / contoh
+
+```text
+Decoder        hardware · software · automatic
+Gestures       brightness · volume · seek
+Subtitles      font · size · delay
+Custom buttons the actions you use most
+Advanced       buffer · aspect ratio · picture-in-picture
+```

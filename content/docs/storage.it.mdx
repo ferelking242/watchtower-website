@@ -1,0 +1,53 @@
+---
+title: "Archiviazione"
+fullTitle: "Dove Watchtower conserva i suoi file."
+description: "Backup, download e fonti locali risiedono tutti in un'unica posizione di archiviazione. Sceglierlo deliberatamente è ciò che impedisce ai download di svanire in seguito."
+marker: "18"
+---
+
+## Il layout della cartella
+
+Tutto si trova in una cartella a tua scelta: backup automatici, capitoli ed episodi scaricati, i tuoi manga locali, i tuoi anime locali e la configurazione per lettori esterni. Conoscere il layout è ciò che rende facile posizionare un file vagante.
+
+## Scelta di una posizione
+
+Scegli una cartella che sarai ancora in grado di raggiungere tra un anno. Evita la radice stessa di un volume di archiviazione ed evita di spostare successivamente i file dall'app.
+
+## Autorizzazioni Android
+
+Il moderno Android mantiene le app nelle proprie directory. Concedi a Watchtower l'accesso alla cartella di archiviazione che hai scelto, altrimenti i download e le fonti locali falliranno silenziosamente.
+
+## Dopo aver spostato i file in
+
+Sposta i file dall'esterno dell'app e quindi aggiorna, in modo che Watchtower effettui nuovamente la scansione delle cartelle. Altrimenti il ​​nuovo contenuto rimane invisibile finché qualcos'altro non attiva una scansione.
+
+## Mantenere pulita la galleria
+
+Un file .nomedia nella cartella dei download mantiene le copertine e gli episodi fuori dalla galleria fotografica del tuo telefono.
+
+## Perché la memoria interna è migliore
+
+I download sulla memoria interna sono più veloci e hanno molte meno probabilità di diventare illeggibili rispetto a quelli su una scheda rimovibile, che può essere smontata o danneggiata.
+
+## Quando l'app non riesce a raggiungere la cartella
+
+Gli errori di autorizzazione e i download che scompaiono provengono entrambi dallo spostamento della cartella di archiviazione o dal fatto che diventa illeggibile. Verifica che l'app abbia ancora accesso, controlla lo spazio libero e preferisci l'archiviazione interna rispetto a una scheda rimovibile che può essere smontata.
+
+## Riepilogo
+
+- Backup, download e origini locali condividono una posizione di archiviazione.
+- Android necessita di un'autorizzazione esplicita per quella cartella.
+- Un file .nomedia nasconde i media scaricati dalla galleria.
+- La memoria interna è più affidabile di una scheda SD.
+- Una cartella di archiviazione spostata o illeggibile nasconde download e backup.
+
+## Contratto / esempio
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

@@ -1,0 +1,79 @@
+---
+title: "Troubleshooting"
+fullTitle: "When something is not working."
+description: "Almost every problem is one of a few things: a source that changed, a block from a website, a missing permission, or an extension that needs updating. Work through it in that order."
+marker: "26"
+---
+
+## Start by narrowing it down
+
+Before touching any setting, decide whether the problem is the source, your network or your device. One source failing while others work points at that source; everything failing points at the app or the connection.
+
+## Update everything first
+
+Refresh your repositories and install any extension updates, then check for an app update. A large share of sudden breakage is a website that changed and an extension that has already been fixed but not yet installed.
+
+## A source stopped working
+
+This is the most common problem and usually the least serious. The website changed, the extension needs an update, and refreshing your repository is the fix. If no update exists yet, the extension author has not caught up.
+
+## Nothing loads at all
+
+If every source fails, look at the network instead. Try mobile data, another Wi-Fi network, and encrypted DNS in settings. A single network blocking everything, or a captive portal that has not been signed in to, is a frequent cause.
+
+## Opening a site to pass a check
+
+Some sites put up a verification before they answer. Open the source from Browse and use the built-in browser to load the site's own page, complete any check by hand, then close it and return to the app. Doing this once often clears the block for that source.
+
+## Cloudflare and endless reloading
+
+A site behind Cloudflare can keep reloading its check instead of letting you through. Try opening the site in the built-in browser again, changing your user agent in advanced settings, or waiting for the site to lower its protection. Some sources are deliberately hard to use from an app.
+
+## Clearing cookies and web data
+
+This resets the app's stored browsing state, including any logins. It is the correct fix for a check that is stuck, and it is worth doing before deciding a source is dead. You will need to sign in again afterwards if the source needs an account.
+
+## Changing your user agent
+
+The user agent is the string that identifies your device to a website, and some sites treat it as a bot signal. Replacing the default with a common browser string, then restarting the app, sometimes gets past a check that otherwise loops.
+
+## An extension will not install
+
+Android blocks installs from outside a store by default. Allow it for your file manager or browser, and if that option is missing, use Shizuku as an alternative route. A download that stopped partway produces a different message, so reinstall from scratch.
+
+## Content opens in the wrong place
+
+If a manga opens in the video player, or an episode in the reader, the extension declares the wrong content type. That is a fault in the extension, not in your settings, so report it rather than trying to fix it locally.
+
+## Getting crash logs and more detail
+
+Advanced settings can dump crash logs, and a logcat capture from your device shows what the app was doing in more depth. Both are worth attaching when you report a problem, since they turn a vague description into something that can be traced.
+
+## Storage and slow or laggy reading
+
+Slow loading is usually the site, your connection, or a rate limit rather than the app. Laggy reading comes from oversized images in a chapter. Switching source, freeing memory, or waiting out a rate limit are the practical fixes.
+
+## When it is not just you
+
+If other people see the same failure, it is the extension or the app rather than your setup. Check the project's issue tracker for the source before opening a new report, and include your app version and the exact error text.
+
+## Cheat sheet
+
+- One broken source is almost always the source, not the app.
+- A stale extension is the most common cause of sudden breakage.
+- If every source fails, suspect the network before the app.
+- Opening a site in the built-in browser clears many verification checks.
+- Clearing cookies and web data resets a stuck check and any logins.
+- Crash logs and logcat make a bug report traceable.
+
+## Contract / example
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

@@ -1,0 +1,9 @@
+{
+  "title": "Uzantı geliştirme",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}

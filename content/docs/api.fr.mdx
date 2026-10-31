@@ -1,0 +1,51 @@
+---
+title: "API serveur"
+fullTitle: "Piloter Watchtower depuis un autre programme."
+description: "L'application peut ouvrir un petit serveur web sur votre propre machine, ce qui permet à des scripts, des lecteurs externes et d'autres appareils d'utiliser les mêmes sources que l'application."
+marker: "23"
+---
+
+## Ce que c'est
+
+Un petit serveur web intégré à l'application. Il utilise les mêmes extensions et la même bibliothèque que l'interface, donc tout ce qu'il renvoie correspond à ce que vous voyez à l'écran.
+
+## L'activer
+
+Il est désactivé jusqu'à ce que vous l'activiez, volontairement. Activez-le dans les réglages avancés, notez le port, puis pointez votre outil vers cette adresse.
+
+## Ce que vous pouvez lui demander
+
+Vos sources installées, vos entrées de bibliothèque, une recherche sur n'importe quelle source, et un flux vidéo résolu. C'est assez pour piloter un centre multimédia ou un lecteur externe.
+
+## Pourquoi cela peut servir
+
+L'automatisation, une autre interface, ou laisser un autre appareil de votre réseau utiliser les sources déjà configurées sur votre téléphone.
+
+## Gardez-le sur votre réseau
+
+Le serveur n'a pas de mot de passe et est prévu pour un réseau local de confiance. Ne l'exposez pas à Internet, où n'importe qui pourrait lire votre bibliothèque.
+
+## Son lien avec la ligne de commande
+
+La ligne de commande Linux expose le même serveur, donc un script écrit pour l'application fonctionne sur une machine sans écran sans modification.
+
+## Mémo
+
+- Le serveur est désactivé tant que vous ne l'activez pas dans les réglages.
+- Il écoute sur le port 4567 par défaut.
+- Il utilise les mêmes sources et la même bibliothèque que l'interface.
+- Il est prévu pour un réseau local de confiance, pas pour Internet.
+
+## Contrat / exemple
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

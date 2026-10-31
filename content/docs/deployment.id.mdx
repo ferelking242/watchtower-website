@@ -1,0 +1,48 @@
+---
+title: "Penerapan"
+fullTitle: "Menjalankan Watchtower di server Anda sendiri."
+description: "Untuk server rumah atau grup kecil, baris perintah Linux dapat berjalan terus menerus dan menyajikan sumber yang sama ke setiap klien di jaringan Anda."
+marker: "25"
+---
+
+## Apa yang Anda dapatkan
+
+Satu folder yang menampung baris perintah dan file runtime yang diperlukan. Skrip penginstal menyalinnya ke awalan yang Anda pilih dan menyiapkannya untuk dijalankan.
+
+## Menginstalnya
+
+Jalankan penginstal dengan folder yang Anda buka kemasannya dan awalan yang Anda inginkan. Menggunakan awalan di bawah direktori home Anda menghindari kebutuhan root untuk semuanya setelahnya.
+
+## Menjalankannya sebagai layanan
+
+Karena dapat melayani melalui HTTP, Anda dapat tetap menjalankannya di latar belakang dan membiarkan perangkat lain di jaringan Anda menggunakan sumber yang telah dikonfigurasi.
+
+## Apa gunanya
+
+Pusat media, pengunduh terjadwal, atau satu mesin yang menyimpan sumber sehingga mesin lain tidak perlu menyimpannya. Ini adalah mesin yang sama, jadi sumber berperilaku sama.
+
+## Menjaganya tetap terkini
+
+Perbarui dengan membongkar versi yang lebih baru dan menjalankan penginstal lagi. Konfigurasi Anda ada di awalan dan tidak ditimpa oleh peningkatan.
+
+## Jika sesuatu tidak berjalan
+
+Perintah dokter ada untuk hal ini. Jalankan terlebih dahulu dan ia akan memberi tahu Anda apakah runtime, jaringan, atau sumber masalahnya.
+
+## Ringkasan
+
+- Build tanpa kepala adalah folder mandiri plus penginstal.
+- Menginstal di bawah direktori home Anda menghindari kebutuhan root.
+- Itu dapat melayani melalui HTTP ke perangkat lain di jaringan Anda.
+- Perintah dokter mendiagnosis sebagian besar kegagalan startup.
+
+## Kontrak / contoh
+
+```text
+# Unpack and install, choosing your own prefix
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+./watchtower-linux/install-linux-headless.sh ./watchtower-linux \
+  --prefix "$HOME/.local/share/watchtower"
+
+# Then run it as a service and point clients at the port it serves
+```

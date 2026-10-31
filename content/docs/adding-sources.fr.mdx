@@ -1,0 +1,71 @@
+---
+title: "Ajouter des sources"
+fullTitle: "D'où vient votre contenu."
+description: "Watchtower connaît deux sortes de sources. Les sources en ligne arrivent sous forme d'extensions depuis un dépôt que vous ajoutez. Les sources hors ligne sont des dossiers de votre appareil. La plupart des gens utilisent les deux."
+marker: "03"
+---
+
+## Ajouter un dépôt
+
+Allez dans Plus, puis Extensions, puis Dépôts, et collez l'adresse du dépôt. L'application récupère l'index et liste toutes les extensions qu'il contient. Vous pouvez en ajouter plusieurs à la fois.
+
+## Installer ce dont vous avez besoin
+
+Rafraîchissez la liste, puis touchez installer à côté d'une extension. Android peut demander la permission d'installer des applications inconnues la première fois. Les extensions installées apparaissent aussitôt dans Parcourir.
+
+## Garder les sources à jour
+
+Rafraîchissez un dépôt quand vous voulez des versions plus récentes. Une mise à jour remplace l'extension sur place et conserve ses réglages, donc il n'y a rien à reconfigurer.
+
+## Utiliser vos propres fichiers
+
+Indiquez à Watchtower un dossier de mangas ou d'animés que vous possédez déjà, et il devient une source normale. Sans dépôt, sans réseau, sans compte.
+
+## Ne faites confiance qu'à ce que vous connaissez
+
+Un dépôt peut diffuser n'importe quoi, et une extension s'exécute avec les mêmes accès que l'application. Traitez un dépôt inconnu comme un programme d'installation inconnu.
+
+## Quand un dépôt échoue
+
+Une adresse qui ne se charge pas est généralement expirée, bloquée, ou pointe vers un fichier qui n'est pas un tableau JSON de fiches de sources. Ouvrez l'URL exacte dans un navigateur et vérifiez qu'elle renvoie du JSON.
+
+## Noms des index
+
+Le suffixe .min.json n'est pas obligatoire. Les dépôts officiels publient des fichiers distincts tels que index/watch.json et index/manga.json ; un dépôt tiers peut choisir un autre nom si l'URL renvoie le format JSON attendu.
+
+## Choisir le type de contenu
+
+Le catalogue officiel publie des index distincts pour les animés, mangas, romans, musique, jeux, plugins et sous-titres. Choisissez celui qui correspond aux sources à installer.
+
+## Mémo
+
+- Un dépôt n'est qu'un fichier JSON hébergé sur un serveur web.
+- Les mises à jour conservent vos préférences de source.
+- Les dossiers locaux fonctionnent sans aucun réseau.
+- Watchtower ne vérifie ni n'approuve les dépôts tiers.
+- Un dépôt qui ne se charge pas vient généralement d'une adresse erronée ou expirée.
+
+## Contrat / exemple
+
+```text
+# A source index is a JSON array, for example index/watch.json
+[
+  {
+    "name": "Example source",
+    "id": 2000001170,
+    "lang": "en",
+    "baseUrl": "https://example.org",
+    "iconUrl": "https://example.org/favicon.ico",
+    "typeSource": "single",
+    "itemType": 1,
+    "version": "1.0.0",
+    "sourceCodeUrl": "https://cdn.jsdelivr.net/gh/owner/repo@main/src/watch/en/example.js",
+    "sourceCodeLanguage": 1,
+    "isNsfw": false,
+    "login": false,
+    "forYou": false,
+    "requiresAccount": false,
+    "hasDRM": false
+  }
+]
+```

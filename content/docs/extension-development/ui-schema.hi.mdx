@@ -1,0 +1,85 @@
+---
+title: "नेटिव UI स्कीमा"
+fullTitle: "The native layout JSON contract."
+description: "A source may ship a declarative JSON layout alongside its JavaScript. The app downloads it from the path in the marketplace record, validates it, and renders registered native components. This replaces the old imagined card/list tree; the current schema is versioned and section ids are data-provider keys."
+marker: "22"
+---
+
+## How it is linked
+
+Add uiLayout with a repository-relative path such as ui-layouts/example.json to the index record. Add uiLayoutVersion and increment it when the sidecar changes. The downloader fetches from the extension repository's raw main branch; the layout is stored separately from source code.
+
+## Root schema
+
+schemaVersion must be a number of at least 1 and home must be an object. home.sections is an ordered array. browse, detail and player are optional overrides. If no layout is declared, Watchtower uses its standard Popular, Latest and Search screens.
+
+## Home section object
+
+Every section needs a unique non-empty id and a registered component. title, icon and accent control its heading and appearance. seeAll, paginated and requiresAuth are booleans. The id is passed to getCustomList(id, page), so it must map to real source data.
+
+## Presentation properties
+
+The schema supports columns, rows, cardStyle, cardComponent, episodeComponent, chapterComponent, gridOrder, scrollDirection, monthSelector and params. These are hints consumed by native renderers; property support depends on the chosen component and media context.
+
+## Browse, detail and player
+
+browse can override popular and latest presentation and search results/filters. detail accepts hero and episodeList presentation values plus showRecommendations. player accepts mode standard or feed. These keys do not create new source capabilities.
+
+## Validation and failure behavior
+
+The runtime rejects malformed JSON, duplicate or empty ids, missing components and components unknown to the current registry. An invalid layout is not an ignored widget tree. Validate the JSON before publishing and never copy an id from an old mockup without checking the registry.
+
+## Sections need providers
+
+For each home section, implement getCustomList(id, page) and return the standard paginated list object. Do not assume Popular or Latest will be substituted automatically for an unknown custom id.
+
+## Version and cache behavior
+
+The layout is cached locally. Bump uiLayoutVersion to deliver a layout-only update, or bump the source version when the JavaScript changes. Keep both the index version and embedded watchtowerSources version synchronized.
+
+## संक्षिप्त पत्रक
+
+- A layout is JSON linked by uiLayout; it is not executable extension code.
+- Each home section id dispatches to getCustomList(id, page).
+- Unknown component ids and malformed sections fail validation.
+- The current root supports home, browse, detail and player layout blocks.
+
+## अनुबंध / उदाहरण
+
+```json
+{
+  "schemaVersion": 1,
+  "home": {
+    "sections": [
+      {
+        "id": "trending",
+        "component": "spotlight",
+        "title": "Trending",
+        "icon": "trending_up",
+        "accent": "primary",
+        "seeAll": true,
+        "paginated": true
+      },
+      {
+        "id": "hd",
+        "component": "carousel",
+        "title": "HD"
+      }
+    ]
+  },
+  "browse": {
+    "popular": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "latest":  { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+    "search": {
+      "results": { "component": "grid", "columns": 3, "cardStyle": "thumbnail" },
+      "filters": "chips"
+    }
+  },
+  "detail": {
+    "hero": "backdrop",
+    "episodeList": "compact",
+    "showRecommendations": true
+  },
+  "player": { "mode": "standard" }
+}
+```

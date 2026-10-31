@@ -1,0 +1,85 @@
+---
+title: "Contrat de source"
+fullTitle: "Méthodes, manifestes et formes de résultats."
+description: "Une source est une classe JavaScript qui étend MProvider, des métadonnées intégrées au même fichier et une fiche dans l'index du catalogue. Le contrat des méthodes est typé par l'application, même si les extensions sont écrites en JavaScript."
+marker: "21"
+---
+
+## Deux couches de métadonnées
+
+watchtowerSources est un tableau situé dans le fichier JavaScript et décrit l'implémentation. index/&lt;category&gt;.json est un tableau JSON utilisé par le catalogue ; il contient l'id numérique stable, sourceCodeUrl, iconUrl, version et les capacités. Ne confondez aucun de ces fichiers avec ui-layouts/&lt;slug&gt;.json.
+
+## Champs du catalogue et types
+
+Les fiches actuelles utilisent name (chaîne), id (entier), lang (chaîne), baseUrl/iconUrl/sourceCodeUrl (URL), typeSource (chaîne), itemType/sourceCodeLanguage (entiers), version/appMinVerReq (versions sous forme de chaînes), les booléens isNsfw, hasCloudflare, login, forYou, requiresAccount et hasDRM, et notes (chaîne). Les options actives comprennent apiUrl/loginUrl/description/upstream (chaînes), langs/subCategories/contentSubtype/videoQualities (tableaux de chaînes), supportsComments/isAggregator/touchToPreview/account/favorites (booléens), paywall (chaîne) et uiLayout/uiLayoutVersion (chaînes). Certaines fiches gardent l'ancien indicateur isManga ; itemType classe désormais le catalogue. Le modèle accepte aussi subscription/premium et des alias tels que supportsAccount.
+
+## Types et langues
+
+itemType est l'enum de l'application : 0 manga, 1 watch/animé, 2 roman, 3 musique et 4 jeu. Le fichier d'index doit correspondre à cette valeur. lang indique la langue principale ; langs sert aux sources multilingues. Utilisez multi ou all uniquement si c'est exact.
+
+## Listes et pagination
+
+getPopular(page), getLatestUpdates(page) et search(query, page, filters) renvoient &#123;list: [items], hasNextPage: boolean&#125;. Les pages commencent à 1. supportsLatest indique si la page Latest est pertinente ; implémentez quand même la méthode et renvoyez une liste vide si le site ne propose vraiment pas de nouveautés.
+
+## Forme des éléments et détails
+
+Les éléments de liste utilisent name et link, avec imageUrl, previewUrl, description, author, artist, collectionId, genre et status facultatifs. getDetail(url) renvoie la même identité et les chapitres ou épisodes. Ceux-ci ont name et url, avec dateUpload, thumbnailUrl, description et duration facultatifs.
+
+## Lecture et vidéo
+
+getPageList(url) renvoie un tableau ordonné d'URL d'images pour un chapitre lisible. getVideoList(url) renvoie des objets vidéo avec url, quality et originalUrl ; le modèle vidéo prend aussi en charge headers, subtitles et pistes audio. Renvoyez les URL de lecture, pas celles de la page, quand le site expose un flux.
+
+## Filtres, réglages et sections
+
+getFilterList() renvoie les filtres et getSourcePreferences() les réglages ; les deux peuvent renvoyer un tableau vide. getCustomList(id, page) est requis pour chaque id déclaré dans la mise en page d'accueil. Le runtime propose aussi recommandations, commentaires et méthodes liées au compte ; n'annoncez ces capacités que si elles sont implémentées.
+
+## Transport et analyse
+
+Utilisez new Client().get(url, headers) ou les verbes HTTP pris en charge, puis analysez la réponse avec Document(html), select(selector), selectFirst(selector), text et attr. Une requête en échec doit produire une erreur utile ; ne transformez pas chaque panne en page vide réussie.
+
+## Méthodes facultatives du pont
+
+Le pont expose aussi getHtmlContent(name, url), cleanHtmlContent(html), getHeaders(url), getRecommendations(url), getComments(url), getAccount(), getFavorites(), getSubscription() et getPremiumStatus(). Ce sont des capacités facultatives avec des valeurs par défaut propres au runtime ; ne redéfinissez que ce que la source prend en charge. supportsLatest doit être fourni explicitement.
+
+## Mémo
+
+- Les métadonnées de la source sont dans watchtowerSources ; son id de catalogue est dans l'index.
+- Chaque liste renvoie list et hasNextPage.
+- itemType dépend du catalogue : watch 1, manga 0, novel 2, music 3 et game 4.
+- Les sections d'accueil appellent getCustomList(id, page) ; chaque id déclaré doit fournir des données.
+- Les indicateurs facultatifs doivent décrire des méthodes et comportements réels.
+
+## Contrat / exemple
+
+```js
+const watchtowerSources = [{
+  "name": "Example source",
+  "lang": "en",
+  "baseUrl": "https://example.org",
+  "apiUrl": "",
+  "iconUrl": "https://example.org/favicon.ico",
+  "typeSource": "single",
+  "itemType": 1,
+  "version": "1.0.0",
+  "login": false,
+  "forYou": false,
+  "pkgPath": "watch/en/example.js",
+  "requiresAccount": false,
+  "hasDRM": false,
+  "isNsfw": false,
+  "hasCloudflare": false,
+  "notes": ""
+}];
+
+class DefaultExtension extends MProvider {
+  get supportsLatest() { return true; }
+  async getPopular(page) { return { list: [], hasNextPage: false }; }
+  async getLatestUpdates(page) { return { list: [], hasNextPage: false }; }
+  async search(query, page, filters) { return { list: [], hasNextPage: false }; }
+  async getDetail(url) { return { name: "", chapters: [] }; }
+  async getPageList(url) { return []; }
+  async getVideoList(url) { return []; }
+  getFilterList() { return []; }
+  getSourcePreferences() { return []; }
+}
+```

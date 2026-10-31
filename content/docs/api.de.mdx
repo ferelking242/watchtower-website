@@ -1,0 +1,51 @@
+---
+title: "Server-API"
+fullTitle: "Fahren von Watchtower aus einem anderen Programm."
+description: "Die App kann einen kleinen Webserver auf Ihrem eigenen Computer öffnen, sodass Skripte, externe Player und andere Geräte dieselben Quellen wie die App verwenden können."
+marker: "23"
+---
+
+## Was es ist
+
+Ein kleiner, in die App integrierter Webserver. Es verwendet dieselben Erweiterungen und dieselbe Bibliothek wie die Schnittstelle, sodass alles, was es zurückgibt, mit dem übereinstimmt, was Sie auf dem Bildschirm sehen.
+
+## Einschalten
+
+Es ist ausgeschaltet, bis Sie es bewusst aktivieren. Schalten Sie es in den erweiterten Einstellungen ein, notieren Sie sich den Port und richten Sie dann Ihr Tool auf diese Adresse.
+
+## Was Sie fragen können
+
+Ihre installierten Quellen, Ihre Bibliothekseinträge, eine Suche nach beliebigen Quellen und ein aufgelöster Videostream. Das reicht aus, um ein Media Center oder einen externen Player anzutreiben.
+
+## Warum Sie es vielleicht möchten
+
+Automatisierung, ein anderes Frontend oder die Nutzung der von Ihrem Telefon bereits eingerichteten Quellen durch ein anderes Gerät in Ihrem Netzwerk.
+
+## Behalten Sie es in Ihrem eigenen Netzwerk
+
+Der Server hat kein Passwort und ist für ein vertrauenswürdiges lokales Netzwerk gedacht. Stellen Sie es nicht dem Internet zur Verfügung, wo jeder Ihre Bibliothek lesen könnte.
+
+## Wie es mit der Befehlszeile zusammenhängt
+
+Die Linux-Befehlszeile macht denselben Server verfügbar, sodass ein für die App geschriebenes Skript ohne Änderungen auf einem Headless-Computer funktioniert.
+
+## Kurzüberblick
+
+- Der Server ist ausgeschaltet, bis Sie ihn in den Einstellungen aktivieren.
+- Es lauscht standardmäßig auf Port 4567.
+- Es verwendet dieselben Quellen und dieselben Bibliotheken wie die Schnittstelle.
+- Es ist für ein vertrauenswürdiges lokales Netzwerk gedacht, nicht für das Internet.
+
+## Vertrag / Beispiel
+
+```text
+# Turn it on first, in settings
+Settings → Advanced → Enable the server
+# It then answers on port 4567
+http://localhost:4567
+
+GET  /sources     the sources you have installed
+GET  /library     the entries in your library
+POST /search      search a source
+GET  /stream      resolve a video stream
+```

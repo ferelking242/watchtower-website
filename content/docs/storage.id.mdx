@@ -1,0 +1,53 @@
+---
+title: "Penyimpanan"
+fullTitle: "Tempat Watchtower menyimpan filenya."
+description: "Cadangan, unduhan, dan sumber lokal semuanya berada di satu lokasi penyimpanan. Memilihnya dengan sengaja itulah yang membuat unduhan tidak hilang nantinya."
+marker: "18"
+---
+
+## Tata letak folder
+
+Semuanya berada dalam satu folder yang Anda pilih: pencadangan otomatis, bab dan episode yang diunduh, manga lokal Anda, anime lokal Anda, dan konfigurasi untuk pemutar eksternal. Mengetahui tata letaknya membuat file nyasar mudah ditempatkan.
+
+## Memilih lokasi
+
+Pilih folder yang masih dapat Anda jangkau dalam satu tahun. Hindari volume penyimpanan yang paling mendasar, dan hindari memindahkan file dari bawah aplikasi setelahnya.
+
+## izin Android
+
+Android modern menyimpan aplikasi di dalam direktorinya sendiri. Berikan Watchtower akses ke folder penyimpanan yang Anda pilih, atau unduhan dan sumber lokal akan gagal secara diam-diam.
+
+## Setelah memindahkan file masuk
+
+Pindahkan file dari luar aplikasi lalu segarkan, sehingga Watchtower memindai ulang folder tersebut. Jika tidak, konten baru akan tetap tidak terlihat hingga ada hal lain yang memicu pemindaian.
+
+## Menjaga galeri tetap bersih
+
+File .nomedia di folder unduhan membuat sampul dan episode tidak masuk ke galeri foto ponsel Anda.
+
+## Mengapa penyimpanan internal lebih baik
+
+Pengunduhan pada penyimpanan internal lebih cepat dan kecil kemungkinannya menjadi tidak terbaca dibandingkan pada kartu yang dapat dilepas, yang dapat dilepas atau rusak.
+
+## Ketika aplikasi tidak dapat menjangkau folder tersebut
+
+Kesalahan izin dan hilangnya unduhan berasal dari folder penyimpanan yang dipindahkan atau menjadi tidak dapat dibaca. Konfirmasikan bahwa aplikasi masih memiliki akses, periksa ruang kosong, dan pilih penyimpanan internal daripada kartu yang dapat dilepas yang dapat dilepas.
+
+## Ringkasan
+
+- Cadangan, unduhan, dan sumber lokal berbagi satu lokasi penyimpanan.
+- Android memerlukan izin eksplisit untuk folder itu.
+- File .nomedia menyembunyikan media yang diunduh dari galeri.
+- Penyimpanan internal lebih andal dibandingkan kartu SD.
+- Folder penyimpanan yang dipindahkan atau tidak dapat dibaca menyembunyikan unduhan dan cadangan.
+
+## Kontrak / contoh
+
+```text
+[storage location]/
+├── autobackup/     your automatic backups
+├── downloads/      Source (LANG)/Series Title/
+├── local/          manga and novels you own
+├── localanime/     anime you own
+└── mpv-config/     fonts and scripts for external players
+```

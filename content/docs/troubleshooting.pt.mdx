@@ -1,0 +1,79 @@
+---
+title: "Solução de problemas"
+fullTitle: "Quando algo não está funcionando."
+description: "Quase todo problema é uma de algumas coisas: uma fonte que foi alterada, um bloqueio de um site, uma permissão ausente ou uma extensão que precisa ser atualizada. Trabalhe nessa ordem."
+marker: "26"
+---
+
+## Comece restringindo
+
+Antes de alterar qualquer configuração, decida se o problema é a fonte, sua rede ou seu dispositivo. Uma fonte falha enquanto outras apontam para essa fonte; tudo falha no aplicativo ou na conexão.
+
+## Atualize tudo primeiro
+
+Atualize seus repositórios e instale quaisquer atualizações de extensão e, em seguida, verifique se há uma atualização de aplicativo. Uma grande parte das quebras repentinas é um site que mudou e uma extensão que já foi corrigida, mas ainda não instalada.
+
+## Uma fonte parou de funcionar
+
+Este é o problema mais comum e geralmente o menos sério. O site mudou, a extensão precisa de uma atualização e atualizar seu repositório é a solução. Se ainda não existir nenhuma atualização, o autor da extensão não a atualizou.
+
+## Nada carrega
+
+Se todas as fontes falharem, observe a rede. Experimente dados móveis, outra rede Wi-Fi e DNS criptografado nas configurações. Uma única rede bloqueando tudo ou um portal cativo ao qual não foi feito login é uma causa frequente.
+
+## Abrindo um site para passar em um cheque
+
+Alguns sites fazem uma verificação antes de responder. Abra o código-fonte em Navegar e use o navegador integrado para carregar a página do próprio site, conclua qualquer verificação manualmente, feche-o e retorne ao aplicativo. Fazer isso uma vez geralmente limpa o bloqueio dessa fonte.
+
+## Cloudflare e recarga infinita
+
+Um site por trás do Cloudflare pode continuar recarregando seu cheque em vez de deixar você passar. Tente abrir o site no navegador integrado novamente, alterando seu agente de usuário nas configurações avançadas ou aguardando que o site diminua sua proteção. Algumas fontes são deliberadamente difíceis de usar em um aplicativo.
+
+## Limpando cookies e dados da web
+
+Isso redefine o estado de navegação armazenado do aplicativo, incluindo todos os logins. É a solução correta para uma verificação travada e vale a pena fazer isso antes de decidir que uma fonte está morta. Você precisará fazer login novamente se a fonte precisar de uma conta.
+
+## Alterando seu agente de usuário
+
+O agente do usuário é a string que identifica seu dispositivo em um site, e alguns sites o tratam como um sinal de bot. Substituir o padrão por uma string comum do navegador e, em seguida, reiniciar o aplicativo, às vezes passa por uma verificação que, de outra forma, seria executada.
+
+## Uma extensão não será instalada
+
+O Android bloqueia instalações fora de uma loja por padrão. Permita-o para o seu gerenciador de arquivos ou navegador e, se essa opção estiver faltando, use o Shizuku como rota alternativa. Um download que parou parcialmente produz uma mensagem diferente, então reinstale do zero.
+
+## O conteúdo abre no lugar errado
+
+Se um mangá abrir no player de vídeo ou um episódio no leitor, a extensão declara o tipo de conteúdo errado. Isso é uma falha na extensão, não nas suas configurações, então relate-a em vez de tentar corrigi-la localmente.
+
+## Obtendo logs de falhas e mais detalhes
+
+As configurações avançadas podem despejar logs de falhas, e uma captura de logcat do seu dispositivo mostra o que o aplicativo estava fazendo com mais detalhes. Vale a pena anexar ambos quando você relata um problema, pois transformam uma descrição vaga em algo que pode ser rastreado.
+
+## Armazenamento e leitura lenta ou lenta
+
+O carregamento lento geralmente é o site, sua conexão ou um limite de taxa, e não o aplicativo. A leitura lenta vem de imagens grandes em um capítulo. Trocar de fonte, liberar memória ou aguardar um limite de taxa são as soluções práticas.
+
+## Quando não é só você
+
+Se outras pessoas virem a mesma falha, é a extensão ou o aplicativo, e não a sua configuração. Verifique a fonte no rastreador de problemas do projeto antes de abrir um novo relatório e inclua a versão do seu aplicativo e o texto exato do erro.
+
+## Resumo
+
+- Uma fonte quebrada quase sempre é a fonte, não o aplicativo.
+- Uma extensão obsoleta é a causa mais comum de quebra repentina.
+- Se todas as fontes falharem, suspeite da rede antes do aplicativo.
+- Abrir um site no navegador integrado elimina muitas verificações.
+- A limpeza de cookies e dados da web redefine uma verificação travada e todos os logins.
+- Os registros de falhas e o logcat tornam um relatório de bug rastreável.
+
+## Contrato / exemplo
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

@@ -1,0 +1,52 @@
+---
+title: "Développement d’extensions"
+fullTitle: "Référence du contrat d'extension et de l'interface native."
+description: "Cette section est la référence d'implémentation pour les auteurs d'extensions et les agents. Elle suit le runtime Watchtower, les index de sources et le catalogue de composants enregistrés. Les définitions indiquent le code de référence : elles n'autorisent pas à inventer des API non prises en charge."
+marker: "20a"
+---
+
+## Une référence d'implémentation
+
+Les trois pages ci-dessous couvrent les méthodes et les résultats d'une source, le contrat JSON de mise en page native, puis tous les ids enregistrés des cartes. Lisez-les ensemble pour ajouter une source avec un accueil personnalisé.
+
+## Le rôle des fichiers
+
+Le JavaScript et les métadonnées watchtowerSources sont réunis sous src/. La fiche d'index fournit à Watchtower l'id stable et les URL de téléchargement. Le fichier facultatif ui-layout décrit la mise en page native et ne contient pas de code exécutable.
+
+## Limites du runtime
+
+Les extensions récupèrent et analysent du contenu distant, puis renvoient des données simples. Watchtower gère la navigation, les cartes, la lecture et le lecteur. Une mise en page choisit des composants enregistrés ; elle ne fournit ni widgets arbitraires ni code Dart.
+
+## Le registre fait autorité
+
+Les signatures de méthodes sont définies par MProvider et le pont JavaScript. Les ids et contextes de mise en page viennent de LayoutComponentRegistry et GalleryComponentCatalog. Si un nom en est absent, ne le présentez pas comme pris en charge.
+
+## Synchroniser métadonnées et index
+
+La version du fichier source et celle de la fiche d'index doivent correspondre. Un changement de mise en page nécessite aussi d'augmenter uiLayoutVersion. Le validateur vérifie la syntaxe, les index, les icônes, itemType, les ids de mise en page et les versions.
+
+## Boucle de changement conseillée
+
+Copiez la source fonctionnelle la plus proche, implémentez les requêtes propres au site, validez le JavaScript et le fichier annexe, lancez le banc de test, puis publiez un commit limité. Retestez dès que le HTML ou l'API du site change.
+
+## Mémo
+
+- Une source est du JavaScript et une fiche d'index, pas un manifeste APK séparé.
+- La mise en page JSON est facultative, déclarative et validée par ids.
+- Les trois pages enfants forment une seule section de développement d'extensions.
+- Le registre du code fait autorité si cette documentation et l'implémentation divergent.
+
+## Contrat / exemple
+
+```bash
+watchtower-extensions/
+├── src/<category>/<lang>/<slug>.js   source metadata + implementation
+├── index/<category>.json             marketplace records
+└── ui-layouts/<slug>.json            optional native layout
+
+# Source of truth
+watchtower/lib/eval/model/m_provider.dart
+watchtower/lib/models/ui_layout.dart
+watchtower/lib/models/layout_component_registry.dart
+watchtower/lib/models/gallery_component_catalog.dart
+```

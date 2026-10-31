@@ -1,0 +1,79 @@
+---
+title: "Solución de problemas"
+fullTitle: "Cuando algo no funciona."
+description: "Casi todos los problemas se deben a una de varias cosas: una fuente que cambió, un bloqueo de un sitio web, un permiso faltante o una extensión que necesita actualización. Trabaje en ese orden."
+marker: "26"
+---
+
+## Empiece por reducirlo
+
+Antes de tocar cualquier configuración, decida si el problema es la fuente, su red o su dispositivo. Una fuente que falla mientras otras funcionan apuntan a esa fuente; Todo lo que falla apunta a la aplicación o la conexión.
+
+## Actualiza todo primero
+
+Actualice sus repositorios e instale las actualizaciones de extensión, luego busque una actualización de la aplicación. Una gran parte de las averías repentinas se deben a un sitio web que cambió y una extensión que ya se solucionó pero aún no se instaló.
+
+## Una fuente dejó de funcionar
+
+Este es el problema más común y normalmente el menos grave. El sitio web cambió, la extensión necesita una actualización y actualizar su repositorio es la solución. Si aún no existe ninguna actualización, el autor de la extensión no se ha puesto al día.
+
+## No carga nada
+
+Si todas las fuentes fallan, mire la red. Pruebe con datos móviles, otra red Wi-Fi y DNS cifrado en la configuración. Una causa frecuente es una única red que lo bloquea todo o un portal cautivo en el que no se ha iniciado sesión.
+
+## Abrir un sitio para pasar un control
+
+Algunos sitios realizan una verificación antes de responder. Abra la fuente desde Explorar y use el navegador integrado para cargar la propia página del sitio, complete cualquier verificación a mano, luego ciérrela y regrese a la aplicación. Hacer esto una vez a menudo elimina el bloqueo de esa fuente.
+
+## Cloudflare y recarga interminable
+
+Un sitio detrás de Cloudflare puede seguir recargando su cheque en lugar de dejarte pasar. Intente abrir el sitio en el navegador integrado nuevamente, cambiar su agente de usuario en la configuración avanzada o esperar a que el sitio reduzca su protección. Algunas fuentes son deliberadamente difíciles de usar desde una aplicación.
+
+## Borrar cookies y datos web
+
+Esto restablece el estado de navegación almacenado de la aplicación, incluidos los inicios de sesión. Es la solución correcta para una verificación bloqueada y vale la pena hacerlo antes de decidir que una fuente está muerta. Deberá iniciar sesión nuevamente después si la fuente necesita una cuenta.
+
+## Cambiando tu agente de usuario
+
+El agente de usuario es la cadena que identifica su dispositivo en un sitio web y algunos sitios lo tratan como una señal de bot. Reemplazar el valor predeterminado con una cadena de navegador común y luego reiniciar la aplicación a veces supera una verificación que, de lo contrario, se repite.
+
+## Una extensión no se instalará
+
+Android bloquea las instalaciones desde fuera de una tienda de forma predeterminada. Permítalo para su administrador de archivos o navegador, y si falta esa opción, use Shizuku como ruta alternativa. Una descarga que se detuvo parcialmente produce un mensaje diferente, así que vuelva a instalarla desde cero.
+
+## El contenido se abre en el lugar equivocado
+
+Si se abre un manga en el reproductor de vídeo o un episodio en el lector, la extensión declara el tipo de contenido incorrecto. Se trata de un fallo de la extensión, no de la configuración, así que infórmalo en lugar de intentar solucionarlo localmente.
+
+## Obtener registros de fallos y más detalles
+
+La configuración avanzada puede volcar registros de fallas y una captura de logcat desde su dispositivo muestra lo que estaba haciendo la aplicación con mayor profundidad. Vale la pena adjuntar ambos cuando informe un problema, ya que convierten una descripción vaga en algo que se puede rastrear.
+
+## Almacenamiento y lectura lenta o retrasada
+
+La carga lenta suele ser el sitio, su conexión o un límite de velocidad en lugar de la aplicación. La lectura lenta proviene de imágenes de gran tamaño en un capítulo. Cambiar de fuente, liberar memoria o esperar a que se cumpla un límite de velocidad son las soluciones prácticas.
+
+## Cuando no eres solo tú
+
+Si otras personas ven el mismo error, es la extensión o la aplicación y no su configuración. Consulte el rastreador de problemas del proyecto para conocer la fuente antes de abrir un nuevo informe e incluya la versión de su aplicación y el texto exacto del error.
+
+## Chuleta
+
+- Una fuente rota casi siempre es la fuente, no la aplicación.
+- Una extensión obsoleta es la causa más común de rotura repentina.
+- Si todas las fuentes fallan, sospeche de la red antes que de la aplicación.
+- Abrir un sitio en el navegador integrado elimina muchas comprobaciones de verificación.
+- Al borrar las cookies y los datos web se restablece una verificación bloqueada y cualquier inicio de sesión.
+- Los registros de fallos y logcat hacen que se pueda rastrear un informe de error.
+
+## Contrato / ejemplo
+
+```text
+# Narrow it down before changing anything
+Does the site load in a browser?     if no, it is the source
+Does another source work right now?  if yes, it is one source
+Does the app work on mobile data?    if yes, it is your network
+
+Then:  update the extension → open the site in the built-in browser
+       → clear cookies and web data → check permissions
+```

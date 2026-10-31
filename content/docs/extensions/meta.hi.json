@@ -1,0 +1,9 @@
+{
+  "title": "एक्सटेंशन",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

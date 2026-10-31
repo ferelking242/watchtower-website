@@ -1,0 +1,58 @@
+---
+title: "Installazione"
+fullTitle: "Installa la build che corrisponde al tuo dispositivo."
+description: "Esistono tre modi per eseguire Watchtower: l'app Android, una build desktop o una riga di comando Linux per i server. Condividono un motore, quindi una fonte che funziona in uno funziona in tutti."
+marker: "02"
+---
+
+## Androide
+
+L'obiettivo principale e l'unica build che ottiene per prima ogni funzionalità. Scarica l'APK di versione o un APK di anteprima se desideri testare il lavoro imminente. Abilita l'installazione da fonti sconosciute quando Android lo richiede, perché Watchtower non è distribuito tramite uno store.
+
+## Desktop
+
+Esistono build Windows, Linux e macOS per la visione su uno schermo più grande. Costruiscili dal codice sorgente con Flutter, poiché gli artefatti di rilascio vengono pubblicati prima per Android e Linux CLI.
+
+## Riga di comando di Linux
+
+Un singolo binario senza finestra. Funziona con lo stesso motore di estensione, quindi può recuperare, cercare e scaricare su un server o tramite SSH. Lo script di installazione lo copia insieme ai relativi file di runtime in un prefisso scelto.
+
+## Stabile o anteprima
+
+Le build di anteprima tengono traccia del codice più recente e si interrompono più spesso. Mantieni attivi i backup automatici se ne esegui uno e prevedi di reinstallare la build di rilascio se qualcosa va storto.
+
+## Costruire dalla fonte
+
+Sono necessari Flutter 3.38 o versione successiva, Dart 3.10 o versione successiva e una toolchain Rust. Go 1.21 o versione successiva è necessario solo se desideri ricostruire tu stesso il server torrent.
+
+## Tienilo aggiornato
+
+Watchtower ti dice quando esiste una nuova versione e tu la installi nello stesso modo della prima volta. La tua libreria e le tue impostazioni rimangono intatte.
+
+## Se l'installazione fallisce
+
+Ciascuno dei messaggi comuni del programma di installazione viene spiegato nella pagina degli errori. Una mancata corrispondenza della firma significa che una copia firmata in modo diverso è già installata e deve essere prima rimossa, un download danneggiato deve essere recuperato di nuovo e una mancata corrispondenza dell'architettura del processore significa che è stata scaricata la build sbagliata.
+
+## Riepilogo
+
+- Android è l'unica piattaforma con build di rilascio pubblicate.
+- Il binario senza testa è creato per Linux x86_64.
+- Rust è necessario per costruire dal sorgente; Andare è facoltativo.
+- Le installazioni di anteprima e stabili condividono gli stessi dati, quindi il passaggio mantiene la tua libreria.
+- Rimuovi un'installazione in conflitto prima di sostituirla con una build firmata in modo diverso.
+
+## Contratto / esempio
+
+```bash
+# Android: install the APK
+adb install watchtower-release.apk
+# Or open the .apk file on the device and allow unknown sources
+
+# Desktop: build from source
+flutter pub get
+flutter build windows    # or linux, or macos
+
+# Linux server, no screen needed
+7z x watchtower-linux-x64-headless.7z -o./watchtower-linux
+sudo ./watchtower-linux/install-linux-headless.sh ./watchtower-linux
+```

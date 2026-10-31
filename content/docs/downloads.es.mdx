@@ -1,0 +1,54 @@
+---
+title: "Descargas"
+fullTitle: "Desconectar tu biblioteca."
+description: "Las descargas guardan episodios y capítulos en su dispositivo para que pueda verlos o leerlos sin conexión. Viven en una cola con límites claros."
+marker: "14"
+---
+
+## Iniciando una descarga
+
+Agrega capítulos o episodios de una serie y se unirán a la cola de descargas. Desde la cola puedes reordenar lo que viene a continuación o cancelar algo que ya no quieras.
+
+## ¿Por qué uno a la vez?
+
+Watchtower descarga una serie a la vez desde cualquier fuente. Activar muchas solicitudes en un sitio es exactamente lo que activa la protección anti-bot que bloquea las fuentes.
+
+## Modo solo descargas
+
+Active esto para ocultar todo lo que no haya guardado. Luego, la aplicación muestra solo lo que hay en su dispositivo, lo cual es útil en un viaje o una conexión medida.
+
+## Donde se almacenan los archivos
+
+Las descargas se ubican en una carpeta que lleva el nombre de la fuente y luego la serie. Cambiar el nombre de cualquiera de las carpetas interrumpe la detección, así que déjelas en paz.
+
+## Cuando las descargas desaparecen
+
+Si el contenido guardado deja de mostrarse, es probable que la carpeta de almacenamiento se haya movido o se haya vuelto ilegible. Verifique la ubicación de almacenamiento y reconstruya el índice de descargas.
+
+## Lo que no cubre una copia de seguridad
+
+Los archivos de respaldo llevan su biblioteca y configuración, nunca sus medios descargados. Estos deben trasladarse por separado.
+
+## Cuando una descarga falla a mitad de camino
+
+Una descarga detenida suele ser una conexión interrumpida o una fuente que dejó de responder. Vuelva a intentarlo desde la cola, ya que se conservan archivos parciales, y cambie a Wi-Fi si la causa es la red. Las respuestas 403 o 429 persistentes significan que la fuente lo rechaza, no que el archivo ya no esté.
+
+## Chuleta
+
+- Solo se descarga una serie por fuente a la vez, a propósito.
+- Los medios descargados no se incluyen en una copia de seguridad.
+- El almacenamiento interno es más rápido y confiable que una tarjeta SD.
+- Cambiar el nombre de la carpeta de descargas interrumpe la detección.
+- Una descarga detenida conserva sus archivos parciales, por lo que al volver a intentarla se reanuda.
+
+## Contrato / ejemplo
+
+```text
+downloads/
+└── Source name (LANG)/
+    └── Series title/
+        ├── Chapter 01.cbz
+        └── Episode 01.mp4
+
+One source downloads at a time; different sources run together.
+```

@@ -1,0 +1,9 @@
+{
+  "title": "Расширения",
+  "pages": [
+    "index",
+    "./catalogue",
+    "./devkit",
+    "./publishing"
+  ]
+}

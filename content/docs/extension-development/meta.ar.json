@@ -1,0 +1,9 @@
+{
+  "title": "تطوير الإضافات",
+  "pages": [
+    "index",
+    "./contract",
+    "./ui-schema",
+    "./layout-components"
+  ]
+}
