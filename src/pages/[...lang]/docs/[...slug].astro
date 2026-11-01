@@ -1,5 +1,7 @@
 ---
 import { Docs } from "../../../components/docs";
+import type { ExtensionEntry } from "../../../components/extension-catalogue";
+import catalogueData from "../../../data/extensions.json";
 import Layout from "../../../layouts/Layout.astro";
 import { i18n } from "../../../lib/i18n";
 import { source } from "../../../lib/source";
@@ -27,6 +29,13 @@ export function getStaticPaths() {
 const { lang, page } = Astro.props;
 const { body: Content, toc } = await page.data.load();
 const pageTree = await source.serializePageTree(source.getPageTree(lang));
+const isCatalogue = page.slugs.join("/") === "extensions/catalogue";
+const initialCatalogueEntries = isCatalogue
+  ? ([...catalogueData.extensions]
+      .filter((entry) => !entry.adult)
+      .sort((left, right) => left.name.localeCompare(right.name))
+      .slice(0, 24) as ExtensionEntry[])
+  : [];
 ---
 
 <Layout
@@ -44,11 +53,11 @@ const pageTree = await source.serializePageTree(source.getPageTree(lang));
     title={page.data.title}
     fullTitle={page.data.fullTitle}
     description={page.data.description}
-    toc={toc}
-    isCatalogue={page.slugs.join("/") === "extensions/catalogue"}
+    toc={isCatalogue ? [] : toc}
+    isCatalogue={isCatalogue}
+    initialCatalogueEntries={initialCatalogueEntries}
+    catalogueCount={isCatalogue ? catalogueData.extensions.length : 0}
   >
-    {
-      <Content />
-    }
+    {!isCatalogue && <Content />}
   </Docs>
 </Layout>

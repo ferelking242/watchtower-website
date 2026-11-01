@@ -90,11 +90,11 @@ if (uniqueIds.size !== records.length) {
   throw new Error("The extension registry contains duplicate IDs");
 }
 
-await mkdir(new URL("../public/catalogue/", import.meta.url), {
+await mkdir(new URL("../src/data/", import.meta.url), {
   recursive: true,
 });
 await writeFile(
-  new URL("../public/catalogue/extensions.json", import.meta.url),
+  new URL("../src/data/extensions.json", import.meta.url),
   JSON.stringify({
     source: `${repository}/tree/main/index`,
     generatedAt: new Date().toISOString(),

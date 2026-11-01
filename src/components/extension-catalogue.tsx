@@ -10,7 +10,7 @@ type ExtensionCategory =
   | "subtitles"
   | "plugins";
 
-interface ExtensionEntry {
+export interface ExtensionEntry {
   id: string;
   category: ExtensionCategory;
   name: string;
@@ -54,6 +54,7 @@ const labels = {
     showing: "showing",
     of: "of",
     sources: "extensions",
+    loadingMore: "Showing the first results while the full catalogue loads…",
     loading: "Loading the extension catalogue…",
     loadError: "The catalogue could not be loaded.",
     retry: "Reload",
@@ -91,6 +92,8 @@ const labels = {
     showing: "affichées",
     of: "sur",
     sources: "extensions",
+    loadingMore:
+      "Affichage des premiers résultats pendant le chargement du catalogue complet…",
     loading: "Chargement du catalogue d’extensions…",
     loadError: "Le catalogue n’a pas pu être chargé.",
     retry: "Recharger",
@@ -148,11 +151,20 @@ function languageName(
   }
 }
 
-export default function ExtensionCatalogue() {
+interface ExtensionCatalogueProps {
+  initialEntries: ExtensionEntry[];
+  totalCount: number;
+}
+
+export default function ExtensionCatalogue({
+  initialEntries,
+  totalCount,
+}: ExtensionCatalogueProps) {
   const { locale = "en" } = useI18n();
   const copy = locale === "fr" ? labels.fr : labels.en;
-  const [entries, setEntries] = useState<ExtensionEntry[]>();
+  const [entries, setEntries] = useState<ExtensionEntry[]>(initialEntries);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<ExtensionCategory | "all">("all");
   const [language, setLanguage] = useState("all");
@@ -176,10 +188,12 @@ export default function ExtensionCatalogue() {
           throw new Error("Catalogue response has no extension list");
         }
         setEntries(data.extensions);
+        setIsLoading(false);
       })
       .catch((reason: unknown) => {
         if (reason instanceof DOMException && reason.name === "AbortError") return;
         setError(true);
+        setIsLoading(false);
       });
 
     return () => controller.abort();
@@ -190,7 +204,6 @@ export default function ExtensionCatalogue() {
   }, [category, includeAdult, language, search]);
 
   const availableLanguages = useMemo(() => {
-    if (!entries) return [];
     return [...new Set(entries.flatMap((entry) => entry.languages))]
       .filter((value) => value && value !== "all")
       .sort((a, b) =>
@@ -199,8 +212,6 @@ export default function ExtensionCatalogue() {
   }, [copy, entries, locale]);
 
   const visibleEntries = useMemo(() => {
-    if (!entries) return [];
-
     const query = search.trim().toLocaleLowerCase();
     return entries
       .filter((entry) => category === "all" || entry.category === category)
@@ -253,6 +264,7 @@ export default function ExtensionCatalogue() {
           type="search"
           placeholder={copy.search}
           value={search}
+          disabled={isLoading || error}
           onChange={(event) => setSearch(event.target.value)}
         />
         <div className="flex flex-wrap items-center gap-3">
@@ -263,6 +275,7 @@ export default function ExtensionCatalogue() {
             id="extension-language"
             className="min-w-48 rounded-lg border border-fd-border bg-fd-background px-3 py-2 text-sm text-fd-foreground"
             value={language}
+            disabled={isLoading || error}
             onChange={(event) => setLanguage(event.target.value)}
           >
             <option value="all">{copy.allLanguages}</option>
@@ -276,6 +289,7 @@ export default function ExtensionCatalogue() {
             <input
               type="checkbox"
               checked={includeAdult}
+              disabled={isLoading || error}
               onChange={(event) => setIncludeAdult(event.target.checked)}
             />
             {copy.includeAdult}
@@ -285,6 +299,7 @@ export default function ExtensionCatalogue() {
           <button
             type="button"
             onClick={() => setCategory("all")}
+            disabled={isLoading || error}
             aria-pressed={category === "all"}
             className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
               category === "all"
@@ -299,6 +314,7 @@ export default function ExtensionCatalogue() {
               key={value}
               type="button"
               onClick={() => setCategory(value)}
+              disabled={isLoading || error}
               aria-pressed={category === value}
               className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
                 category === value
@@ -312,7 +328,7 @@ export default function ExtensionCatalogue() {
         </div>
       </div>
 
-      {error ? (
+      {error && (
         <div
           className="rounded-xl border border-fd-border bg-fd-card p-6 text-sm"
           role="alert"
@@ -326,15 +342,15 @@ export default function ExtensionCatalogue() {
             {copy.retry}
           </button>
         </div>
-      ) : entries ? (
-        <>
-          <p className="text-sm text-fd-muted-foreground" aria-live="polite">
-            {visibleEntries.length.toLocaleString(locale)} {copy.showing} {copy.of}{" "}
-            {entries.length.toLocaleString(locale)} {copy.sources}
-          </p>
-          {visibleEntries.length ? (
-            <div className="grid gap-3 md:grid-cols-2">
-              {pagedEntries.map((entry) => {
+      )}
+      <p className="text-sm text-fd-muted-foreground" aria-live="polite">
+        {isLoading
+          ? `${copy.loadingMore} (${totalCount.toLocaleString(locale)})`
+          : `${visibleEntries.length.toLocaleString(locale)} ${copy.showing} ${copy.of} ${entries.length.toLocaleString(locale)} ${copy.sources}`}
+      </p>
+      {visibleEntries.length ? (
+        <div className="grid gap-3 md:grid-cols-2">
+          {pagedEntries.map((entry) => {
                 const website = safeUrl(entry.website);
                 const sourceCode = safeUrl(entry.sourceCodeUrl);
 
@@ -423,48 +439,39 @@ export default function ExtensionCatalogue() {
                   </article>
                 );
               })}
-            </div>
-          ) : (
-            <p className="rounded-xl border border-fd-border bg-fd-card p-6 text-sm text-fd-muted-foreground">
-              {copy.empty}
-            </p>
-          )}
-          {pageCount > 1 && (
-            <nav
-              className="flex items-center justify-between gap-3"
-              aria-label={`${copy.page} navigation`}
-            >
-              <button
-                type="button"
-                disabled={page === 0}
-                onClick={() => setPage((current) => Math.max(0, current - 1))}
-                className="rounded-lg border border-fd-border px-3 py-2 text-sm text-fd-foreground enabled:hover:bg-fd-accent disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {copy.previous}
-              </button>
-              <span className="text-xs text-fd-muted-foreground" aria-live="polite">
-                {copy.page} {page + 1} / {pageCount}
-              </span>
-              <button
-                type="button"
-                disabled={page >= pageCount - 1}
-                onClick={() =>
-                  setPage((current) => Math.min(pageCount - 1, current + 1))
-                }
-                className="rounded-lg border border-fd-border px-3 py-2 text-sm text-fd-foreground enabled:hover:bg-fd-accent disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {copy.next}
-              </button>
-            </nav>
-          )}
-        </>
+        </div>
       ) : (
-        <p
-          className="rounded-xl border border-fd-border bg-fd-card p-6 text-sm text-fd-muted-foreground"
-          role="status"
-        >
-          {copy.loading}
+        <p className="rounded-xl border border-fd-border bg-fd-card p-6 text-sm text-fd-muted-foreground">
+          {isLoading ? copy.loading : copy.empty}
         </p>
+      )}
+      {!isLoading && !error && pageCount > 1 && (
+        <nav
+          className="flex items-center justify-between gap-3"
+          aria-label={`${copy.page} navigation`}
+        >
+          <button
+            type="button"
+            disabled={page === 0}
+            onClick={() => setPage((current) => Math.max(0, current - 1))}
+            className="rounded-lg border border-fd-border px-3 py-2 text-sm text-fd-foreground enabled:hover:bg-fd-accent disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {copy.previous}
+          </button>
+          <span className="text-xs text-fd-muted-foreground" aria-live="polite">
+            {copy.page} {page + 1} / {pageCount}
+          </span>
+          <button
+            type="button"
+            disabled={page >= pageCount - 1}
+            onClick={() =>
+              setPage((current) => Math.min(pageCount - 1, current + 1))
+            }
+            className="rounded-lg border border-fd-border px-3 py-2 text-sm text-fd-foreground enabled:hover:bg-fd-accent disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {copy.next}
+          </button>
+        </nav>
       )}
 
       <a

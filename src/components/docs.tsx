@@ -5,7 +5,9 @@ import {
   DocsPage,
   DocsTitle,
 } from "fumadocs-ui/layouts/docs/page";
-import ExtensionCatalogue from "./extension-catalogue";
+import ExtensionCatalogue, {
+  type ExtensionEntry,
+} from "./extension-catalogue";
 import { baseOptions } from "../lib/layout.shared";
 import { Provider } from "./provider";
 
@@ -19,6 +21,8 @@ interface DocsProps {
   description?: string;
   toc: Parameters<typeof DocsPage>[0]["toc"];
   isCatalogue?: boolean;
+  initialCatalogueEntries?: ExtensionEntry[];
+  catalogueCount?: number;
   children: React.ReactNode;
 }
 
@@ -32,6 +36,8 @@ export function Docs({
   description,
   toc,
   isCatalogue = false,
+  initialCatalogueEntries = [],
+  catalogueCount = 0,
   children,
 }: DocsProps) {
   const data = useFumadocsLoader({ tree });
@@ -39,10 +45,17 @@ export function Docs({
   return (
     <Provider lang={lang} pathname={pathname} params={params}>
       <DocsLayout {...baseOptions()} tree={data.tree}>
-        <DocsPage toc={toc}>
+        <DocsPage toc={isCatalogue ? [] : toc}>
           <DocsTitle>{fullTitle || title}</DocsTitle>
           {description && <DocsDescription>{description}</DocsDescription>}
-          {isCatalogue ? <ExtensionCatalogue /> : children}
+          {isCatalogue ? (
+            <ExtensionCatalogue
+              initialEntries={initialCatalogueEntries}
+              totalCount={catalogueCount}
+            />
+          ) : (
+            children
+          )}
         </DocsPage>
       </DocsLayout>
     </Provider>
