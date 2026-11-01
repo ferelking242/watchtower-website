@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ASTRO_DEV_BACKGROUND=1 astro dev --host 0.0.0.0 --port 5000",
     "build": "node scripts/check-public-assets.mjs && astro build",
+    "catalogue:sync": "node scripts/sync-extension-catalogue.mjs",
     "preview": "astro preview --host 0.0.0.0 --port 5000"
   },
   "dependencies": {

@@ -968,7 +968,8 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <nav class="nav-links" id="navlinks">
     <div class="menu-tools">
       <div class="menu-version"><span>Watchtower · v8.1.160+160</span><b>+</b></div>
-      <a class="menu-tool" href="./docs/"><span class="menu-tool-label"><span data-menu-label="docs">Docs</span></span><span class="menu-tool-meta">Read the guide</span></a>
+      <a class="menu-tool" id="docs-link" href="./docs/"><span class="menu-tool-label"><span data-menu-label="docs">Docs</span></span><span class="menu-tool-meta">Read the guide</span></a>
+      <a class="menu-tool" id="catalogue-link" href="./docs/extensions/catalogue/"><span class="menu-tool-label"><span data-menu-label="catalogue">Catalogue</span></span><span class="menu-tool-meta">Browse extensions</span></a>
       <a class="menu-tool" href="#eternity"><span class="menu-tool-label"><span data-menu-label="news">News</span></span><span class="menu-tool-meta">What is new</span></a>
       <button class="menu-tool" id="language-toggle" type="button" aria-expanded="false" aria-controls="language-list"><span class="menu-tool-label"><span data-menu-label="language">Language</span></span><span class="menu-tool-meta" id="language-value">🇬🇧 EN</span></button>
       <div class="menu-language-list" id="language-list" hidden>
@@ -4420,8 +4421,8 @@ function wireNav() {
   const languageValue = $('#language-value');
   const themeValue = $('#theme-value');
   const menuLabels = {
-    en: { docs: 'Docs', news: 'News', language: 'Language', appearance: 'Appearance' },
-    fr: { docs: 'Documentation', news: 'Nouveautés', language: 'Langue', appearance: 'Apparence' }
+    en: { docs: 'Docs', catalogue: 'Catalogue', news: 'News', language: 'Language', appearance: 'Appearance' },
+    fr: { docs: 'Documentation', catalogue: 'Catalogue', news: 'Nouveautés', language: 'Langue', appearance: 'Apparence' }
   };
   const languageNames = {
     en: '🇬🇧 EN', fr: '🇫🇷 FR', es: '🇪🇸 ES', 'pt-br': '🇧🇷 PT',
@@ -4430,7 +4431,11 @@ function wireNav() {
   };
   const setLandingLanguage = language => {
     const activeLanguage = languageNames[language] ? language : 'en';
+    const docsLocale = activeLanguage === 'pt-br' ? 'pt' : activeLanguage;
+    const docsPrefix = docsLocale === 'en' ? '' : `${docsLocale}/`;
     document.documentElement.lang = activeLanguage;
+    $('#docs-link')?.setAttribute('href', `./${docsPrefix}docs/`);
+    $('#catalogue-link')?.setAttribute('href', `./${docsPrefix}docs/extensions/catalogue/`);
     if (languageValue) languageValue.textContent = languageNames[activeLanguage];
     $$('[data-menu-label]').forEach(el => {
       const key = el.dataset.menuLabel;

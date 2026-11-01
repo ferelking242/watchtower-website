@@ -45,7 +45,10 @@ const pageTree = await source.serializePageTree(source.getPageTree(lang));
     fullTitle={page.data.fullTitle}
     description={page.data.description}
     toc={toc}
+    isCatalogue={page.slugs.join("/") === "extensions/catalogue"}
   >
-    <Content />
+    {
+      <Content />
+    }
   </Docs>
 </Layout>
