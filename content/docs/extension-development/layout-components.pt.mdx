@@ -1,13 +1,13 @@
 ---
 title: "Componentes de layout"
 fullTitle: "Every registered card and home component."
-description: "The identifiers below come from the live Dart registry, not from an old mockup or a hand-written estimate. The home component registry provides the section renderers; the gallery catalog adds 218 stable card ids. Compatibility-only entries remain registered for old layouts even when they are not offered in the picker."
+description: "The identifiers below come from the live Dart registry, not from an old mockup or a hand-written estimate. The home component registry provides the section renderers; the gallery catalog adds 221 stable card ids. Compatibility-only entries remain registered for old layouts even when they are not offered in the picker."
 marker: "22a"
 ---
 
 ## How to read the catalog
 
-The code panel groups all 218 GalleryComponentCatalog ids by their current source category. These stable kebab-case ids are what go in layout JSON. The ids and descriptions live in watchtower/lib/models/gallery_component_catalog.dart; the home renderer and legacy section definitions live in watchtower/lib/models/layout_component_registry.dart.
+The code panel groups all 221 GalleryComponentCatalog ids by their current source category. These stable kebab-case ids are what go in layout JSON. The ids and descriptions live in watchtower/lib/models/gallery_component_catalog.dart; the home renderer and legacy section definitions live in watchtower/lib/models/layout_component_registry.dart.
 
 ## Home section renderers
 
@@ -21,7 +21,7 @@ A home grid can select the mangaFeaturedCard or mangaChapterCard for manga items
 
 A section may set title, icon, accent, seeAll, paginated, requiresAuth and monthSelector. Grid sections additionally use columns, rows, cardStyle, gridOrder and scrollDirection. Gallery-backed ids can read their family-specific values from params; only use keys supported by that component family.
 
-## The 218 gallery ids
+## The 221 gallery ids
 
 The complete list is grouped by the catalog's own categories in the code panel. It includes rich media, discovery, rankings, collections, watch cards, manga and reading cards, streaming/progress cards, episodes and reusable sections. The source catalog carries each id's label, category, description, renderer family and selectable state.
 
@@ -35,7 +35,7 @@ LayoutRegistry validates every home component against LayoutComponentRegistry. A
 
 ## Resumo
 
-- The catalog currently contains 218 stable gallery component ids.
+- The catalog currently contains 221 stable gallery component ids.
 - Home section renderers and specialized card slots are different contexts.
 - Compatibility-only ids remain valid but are not offered for new selection.
 - Unknown home component ids fail layout validation.
@@ -47,8 +47,8 @@ LayoutRegistry validates every home component against LayoutComponentRegistry. A
 movie-details, movie-detail, expanded-movie, expandable-movie, interactive-movie, hover-movie, movie-quick-view, media-quick-view, movie-preview, media-preview, movie-details-modal, media-details-modal
 # STREAMING & PROGRESSION (11)
 continue-watching, continue-watching-item, resume-watching, recently-watched, watch-again, now-playing, up-next, next-episode, episode, season, watch-progress
-# COLLECTIONS & FRANCHISES (11)
-collection, similar-media, trending, popular, top-rated, ranked-media, numbered, featured, spotlight-card, recommendation, carousel-card
+# COLLECTIONS & FRANCHISES (5)
+collection, poster-row, featured, spotlight-card, carousel-card
 # ÉPISODES & SAISONS (16)
 compact-episode, episode-preview, episode-list-item, season-detail, featured-episode, next-episode-hero, latest-episode, season-selector, series-episode-list, up-next-compact, season-episode, series-banner, episode-carousel, season-banner, episode-list, series-grid
 # CLASSEMENTS & TOP 10 (1)

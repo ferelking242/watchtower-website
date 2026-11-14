@@ -125,7 +125,7 @@ const T = {
     aliasTitle: "Aliases",
     aliasIntro: "Aliases resolve to the same card. They stay valid for existing layouts but new layouts should use the canonical id.",
     variantsTitle: "One card, many variants",
-    variantsIntro: "Three patterns repeat across the catalogue, and each is a single component with parameters rather than several near-identical widgets.",
+    variantsIntro: "Several patterns repeat across the catalogue, and each is a single component with parameters rather than several near-identical widgets. A variant is always a parameter, never a second component id.",
     catalogueNote:
       "A full interactive catalogue of every id and every parameter palette sits at the end of this page: filter by category, copy an id in one click, and switch renderer family to see exactly what its cards accept. It is generated from the app registry, so it always matches the shipping build.",
     validationTitle: "Validation rules",
@@ -143,6 +143,7 @@ const T = {
       "`spacingX` / `spacingY` beat `spacing` on their own axis.",
       "`mirror` moves the visual right; `reverse` moves it right and right-aligns the text.",
       "`style` picks the progress variant; `percent`, `color`, `animation` and `chevron` refine it.",
+      "`poster-row` carries the badge variant: `showRank`, `showBigRank`, `showRating`, `showViews`, `showMeta`.",
       "`autoScroll` plus `speed` drives the episode carousel; `tilt` drives the universe carousel.",
       "A variant is a parameter, never a second component id.",
     ],
@@ -182,7 +183,7 @@ const T = {
     aliasTitle: "Alias",
     aliasIntro: "Les alias pointent vers la même carte. Ils restent valides pour les mises en page existantes, mais les nouvelles devraient utiliser l'id canonique.",
     variantsTitle: "Une carte, plusieurs variantes",
-    variantsIntro: "Trois motifs reviennent dans le catalogue, et chacun est un seul composant à paramètres plutôt que plusieurs widgets quasi identiques.",
+    variantsIntro: "Plusieurs motifs reviennent dans le catalogue, et chacun est un seul composant à paramètres plutôt que plusieurs widgets quasi identiques. Une variante est toujours un paramètre, jamais un second id de composant.",
     catalogueNote:
       "Un catalogue interactif complet de tous les ids et de toutes les palettes de paramètres se trouve en fin de page : filtrez par catégorie, copiez un id en un clic et changez de famille de moteur pour voir exactement ce que ses cartes acceptent. Il est généré depuis le registre de l'application : il correspond donc toujours à la version livrée.",
     validationTitle: "Règles de validation",
@@ -200,6 +201,7 @@ const T = {
       "`spacingX` / `spacingY` priment sur `spacing` sur leur axe.",
       "`mirror` place le visuel à droite ; `reverse` le place à droite et aligne le texte à droite.",
       "`style` choisit la variante de progression ; `percent`, `color`, `animation` et `chevron` l'affinent.",
+      "`poster-row` porte la variante de pastille : `showRank`, `showBigRank`, `showRating`, `showViews`, `showMeta`.",
       "`autoScroll` plus `speed` animent le carrousel d'épisodes ; `tilt` incline le carrousel d'univers.",
       "Une variante est un paramètre, jamais un second id de composant.",
     ],
@@ -286,6 +288,8 @@ function buildPage(locale) {
     `  "params": { "autoScroll": true, "speed": 30, "tileWidth": 96 }`, "}", "```", "");
   out.push("### Mirrored season banner", "", "```json", "{", `  "id": "season",`, `  "component": "season-banner",`, `  "title": "Saison 2",`,
     `  "params": { "mirror": true, "coverWidth": 118 }`, "}", "```", "");
+  out.push("### Poster row with a badge variant", "", "```json", "{", `  "id": "top10",`, `  "component": "poster-row",`, `  "title": "Top 10 cette semaine",`, `  "params": {`,
+    `    "showBigRank": true,`, `    "showMeta": true,`, `    "spacingX": 10`, `  }`, "}", "```", "");
   out.push("### Tilted universe carousel", "", "```json", "{", `  "id": "universe",`, `  "component": "universe",`, `  "title": "Univers",`,
     `  "params": { "tilt": 0.05 }`, "}", "```", "");
   out.push("### Grid and spacing", "", "```json", "{", `  "id": "grid",`, `  "component": "poster",`, `  "title": "Catalogue",`, `  "params": {`,

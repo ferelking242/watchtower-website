@@ -1,7 +1,7 @@
 ---
 title: "Referencia de layout.json"
 fullTitle: "El contrato completo de layout.json y el catálogo de parámetros."
-description: "Every key a layout section accepts, grouped by purpose, with the exact spelling the renderer reads. The registry exposes 174 stable ids (44 aliases). Cards are bare: the section owns the title, subtitle, icon and Tout voir action; the card only draws its content."
+description: "Every key a layout section accepts, grouped by purpose, with the exact spelling the renderer reads. The registry exposes 168 stable ids (53 aliases). Cards are bare: the section owns the title, subtitle, icon and Tout voir action; the card only draws its content."
 marker: "23"
 ---
 
@@ -64,7 +64,7 @@ A full interactive catalogue of every id and every parameter palette sits at the
 
 ## One card, many variants
 
-Three patterns repeat across the catalogue, and each is a single component with parameters rather than several near-identical widgets.
+Several patterns repeat across the catalogue, and each is a single component with parameters rather than several near-identical widgets. A variant is always a parameter, never a second component id.
 
 ### Progress card
 
@@ -104,6 +104,21 @@ Three patterns repeat across the catalogue, and each is a single component with 
   "component": "season-banner",
   "title": "Saison 2",
   "params": { "mirror": true, "coverWidth": 118 }
+}
+```
+
+### Poster row with a badge variant
+
+```json
+{
+  "id": "top10",
+  "component": "poster-row",
+  "title": "Top 10 cette semaine",
+  "params": {
+    "showBigRank": true,
+    "showMeta": true,
+    "spacingX": 10
+  }
 }
 ```
 
@@ -151,5 +166,6 @@ Three patterns repeat across the catalogue, and each is a single component with 
 - `spacingX` / `spacingY` beat `spacing` on their own axis.
 - `mirror` moves the visual right; `reverse` moves it right and right-aligns the text.
 - `style` picks the progress variant; `percent`, `color`, `animation` and `chevron` refine it.
+- `poster-row` carries the badge variant: `showRank`, `showBigRank`, `showRating`, `showViews`, `showMeta`.
 - `autoScroll` plus `speed` drives the episode carousel; `tilt` drives the universe carousel.
 - A variant is a parameter, never a second component id.

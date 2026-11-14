@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-14T19:13:49.298613Z",
-  "idCount": 174,
-  "aliasCount": 44,
+  "generatedAt": "2026-11-14T23:55:00.091800Z",
+  "idCount": 168,
+  "aliasCount": 53,
   "categories": [
     {
       "name": "CARTES RICHES",
@@ -40,15 +40,9 @@
       "name": "COLLECTIONS & FRANCHISES",
       "ids": [
         "collection",
-        "similar-media",
-        "trending",
-        "popular",
-        "top-rated",
-        "ranked-media",
-        "numbered",
+        "poster-row",
         "featured",
         "spotlight-card",
-        "recommendation",
         "carousel-card"
       ]
     },
@@ -262,6 +256,17 @@
       "director",
       "character",
       "related-media"
+    ],
+    "poster-row": [
+      "similar-media",
+      "trending",
+      "trending-card",
+      "popular",
+      "popular-card",
+      "top-rated",
+      "ranked-media",
+      "numbered",
+      "recommendation"
     ],
     "compact-episode": [
       "episode-thumbnail"
@@ -574,64 +579,24 @@
       ]
     },
     {
-      "id": "similar-media",
-      "className": "SimilarMediaCard",
-      "label": "Contenus similaires",
+      "id": "poster-row",
+      "className": "PosterRowCard",
+      "label": "Rangée de posters",
       "category": "COLLECTIONS & FRANCHISES",
-      "description": "Même genre, même ambiance",
+      "description": "Rangée de posters nue. Variantes par params : rang, grand rang (Top 10), note, vues.",
       "family": "collections",
       "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "trending",
-      "className": "TrendingCard",
-      "label": "Contenu tendance",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Top actuel avec rangs",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "popular",
-      "className": "PopularCard",
-      "label": "Contenu populaire",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Le plus de vues",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "top-rated",
-      "className": "TopRatedCard",
-      "label": "Mieux notés",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Notes IMDb / TMDB",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "ranked-media",
-      "className": "RankedMediaCard",
-      "label": "Classement Top 10",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Top 10 / top 50 avec grands numéros",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "numbered",
-      "className": "NumberedCard",
-      "label": "Carte numérotée",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Top 10 compact, sans en-tête",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
+      "aliases": [
+        "similar-media",
+        "trending",
+        "trending-card",
+        "popular",
+        "popular-card",
+        "top-rated",
+        "ranked-media",
+        "numbered",
+        "recommendation"
+      ]
     },
     {
       "id": "featured",
@@ -649,16 +614,6 @@
       "label": "Coup de projecteur",
       "category": "COLLECTIONS & FRANCHISES",
       "description": "Événement, nouveauté",
-      "family": "collections",
-      "selectable": true,
-      "aliases": []
-    },
-    {
-      "id": "recommendation",
-      "className": "RecommendationCard",
-      "label": "Recommandations",
-      "category": "COLLECTIONS & FRANCHISES",
-      "description": "Parce que vous avez aimé…",
       "family": "collections",
       "selectable": true,
       "aliases": []
@@ -4203,6 +4158,69 @@
         "description": null,
         "example": null,
         "group": "general"
+      },
+      {
+        "key": "showRank",
+        "label": "Pastille de rang",
+        "type": "boolean",
+        "kind": "boolean",
+        "default": "false",
+        "aliases": [],
+        "description": "Affiche une pastille de rang compacte sur chaque poster (variante « tendance »).",
+        "example": null,
+        "group": "content"
+      },
+      {
+        "key": "showBigRank",
+        "label": "Grand numéro de rang",
+        "type": "boolean",
+        "kind": "boolean",
+        "default": "false",
+        "aliases": [
+          "bigRank"
+        ],
+        "description": "Incruste le grand numéro de classement en bas du poster (variante « Top 10 / Top 50 »).",
+        "example": null,
+        "group": "content"
+      },
+      {
+        "key": "showRating",
+        "label": "Pastille de note",
+        "type": "boolean",
+        "kind": "boolean",
+        "default": "false",
+        "aliases": [
+          "rating"
+        ],
+        "description": "Affiche la note (★ 8.8) sur le poster.",
+        "example": null,
+        "group": "content"
+      },
+      {
+        "key": "showViews",
+        "label": "Pastille de vues",
+        "type": "boolean",
+        "kind": "boolean",
+        "default": "false",
+        "aliases": [
+          "views"
+        ],
+        "description": "Affiche le compteur de vues (9.8M) sur le poster.",
+        "example": null,
+        "group": "content"
+      },
+      {
+        "key": "showMeta",
+        "label": "Sous-titre du poster",
+        "type": "boolean",
+        "kind": "boolean",
+        "default": "true",
+        "aliases": [
+          "meta"
+        ],
+        "description": "Affiche le sous-titre de chaque poster sous son titre.",
+        "example": null,
+        "group": "content"
       }
     ],
     "episodes": [

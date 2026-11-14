@@ -1,7 +1,7 @@
 ---
 title: "Référence layout.json"
 fullTitle: "Le contrat complet de layout.json et le catalogue des paramètres."
-description: "Chaque clé acceptée par une section de mise en page, regroupée par usage, avec l'orthographe exacte que lit le moteur. Le registre expose 174 ids stables (44 alias). Les cartes sont nues : la section possède le titre, le sous-titre, l'icône et l'action Tout voir ; la carte ne dessine que son contenu."
+description: "Chaque clé acceptée par une section de mise en page, regroupée par usage, avec l'orthographe exacte que lit le moteur. Le registre expose 168 ids stables (53 alias). Les cartes sont nues : la section possède le titre, le sous-titre, l'icône et l'action Tout voir ; la carte ne dessine que son contenu."
 marker: "23"
 ---
 
@@ -64,7 +64,7 @@ Un catalogue interactif complet de tous les ids et de toutes les palettes de par
 
 ## Une carte, plusieurs variantes
 
-Trois motifs reviennent dans le catalogue, et chacun est un seul composant à paramètres plutôt que plusieurs widgets quasi identiques.
+Plusieurs motifs reviennent dans le catalogue, et chacun est un seul composant à paramètres plutôt que plusieurs widgets quasi identiques. Une variante est toujours un paramètre, jamais un second id de composant.
 
 ### Progress card
 
@@ -104,6 +104,21 @@ Trois motifs reviennent dans le catalogue, et chacun est un seul composant à pa
   "component": "season-banner",
   "title": "Saison 2",
   "params": { "mirror": true, "coverWidth": 118 }
+}
+```
+
+### Poster row with a badge variant
+
+```json
+{
+  "id": "top10",
+  "component": "poster-row",
+  "title": "Top 10 cette semaine",
+  "params": {
+    "showBigRank": true,
+    "showMeta": true,
+    "spacingX": 10
+  }
 }
 ```
 
@@ -151,5 +166,6 @@ Trois motifs reviennent dans le catalogue, et chacun est un seul composant à pa
 - `spacingX` / `spacingY` priment sur `spacing` sur leur axe.
 - `mirror` place le visuel à droite ; `reverse` le place à droite et aligne le texte à droite.
 - `style` choisit la variante de progression ; `percent`, `color`, `animation` et `chevron` l'affinent.
+- `poster-row` porte la variante de pastille : `showRank`, `showBigRank`, `showRating`, `showViews`, `showMeta`.
 - `autoScroll` plus `speed` animent le carrousel d'épisodes ; `tilt` incline le carrousel d'univers.
 - Une variante est un paramètre, jamais un second id de composant.

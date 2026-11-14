@@ -1,13 +1,13 @@
 ---
 title: "Composants de mise en page"
 fullTitle: "Toutes les cartes et sections enregistrées."
-description: "Les identifiants ci-dessous viennent du registre Dart actuel, pas d'une ancienne maquette ni d'une estimation. Le registre des composants d'accueil fournit les moteurs de section ; le catalogue ajoute 218 ids de cartes stables. Les entrées de compatibilité restent enregistrées même si le sélecteur ne les propose plus."
+description: "Les identifiants ci-dessous viennent du registre Dart actuel, pas d'une ancienne maquette ni d'une estimation. Le registre des composants d'accueil fournit les moteurs de section ; le catalogue ajoute 221 ids de cartes stables. Les entrées de compatibilité restent enregistrées même si le sélecteur ne les propose plus."
 marker: "22a"
 ---
 
 ## Lire le catalogue
 
-Le bloc de code regroupe les 218 ids GalleryComponentCatalog par catégorie actuelle. Ces ids stables en kebab-case sont ceux à utiliser dans le JSON. Les ids et descriptions sont dans watchtower/lib/models/gallery_component_catalog.dart ; les moteurs de section et définitions historiques sont dans watchtower/lib/models/layout_component_registry.dart.
+Le bloc de code regroupe les 221 ids GalleryComponentCatalog par catégorie actuelle. Ces ids stables en kebab-case sont ceux à utiliser dans le JSON. Les ids et descriptions sont dans watchtower/lib/models/gallery_component_catalog.dart ; les moteurs de section et définitions historiques sont dans watchtower/lib/models/layout_component_registry.dart.
 
 ## Moteurs de sections d'accueil
 
@@ -21,7 +21,7 @@ Une grille d'accueil manga peut choisir mangaFeaturedCard ou mangaChapterCard ; 
 
 Une section peut définir title, icon, accent, seeAll, paginated, requiresAuth et monthSelector. Les grilles utilisent aussi columns, rows, cardStyle, gridOrder et scrollDirection. Les ids du catalogue utilisent params pour leurs propriétés propres ; n'ajoutez que les clés prises en charge par la famille du composant.
 
-## Les 218 ids du catalogue
+## Les 221 ids du catalogue
 
 La liste complète est regroupée par catégories dans le bloc de code : médias riches, découverte, classements, collections, cartes de visionnage, manga et lecture, progression vidéo, épisodes et sections réutilisables. Le catalogue associe à chaque id son libellé, sa catégorie, sa description, sa famille de rendu et son état de sélection.
 
@@ -47,8 +47,8 @@ LayoutRegistry valide chaque composant d'accueil à l'aide de LayoutComponentReg
 movie-details, movie-detail, expanded-movie, expandable-movie, interactive-movie, hover-movie, movie-quick-view, media-quick-view, movie-preview, media-preview, movie-details-modal, media-details-modal
 # STREAMING & PROGRESSION (11)
 continue-watching, continue-watching-item, resume-watching, recently-watched, watch-again, now-playing, up-next, next-episode, episode, season, watch-progress
-# COLLECTIONS & FRANCHISES (11)
-collection, similar-media, trending, popular, top-rated, ranked-media, numbered, featured, spotlight-card, recommendation, carousel-card
+# COLLECTIONS & FRANCHISES (5)
+collection, poster-row, featured, spotlight-card, carousel-card
 # ÉPISODES & SAISONS (16)
 compact-episode, episode-preview, episode-list-item, season-detail, featured-episode, next-episode-hero, latest-episode, season-selector, series-episode-list, up-next-compact, season-episode, series-banner, episode-carousel, season-banner, episode-list, series-grid
 # CLASSEMENTS & TOP 10 (1)
