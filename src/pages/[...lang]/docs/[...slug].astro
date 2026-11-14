@@ -29,7 +29,9 @@ export function getStaticPaths() {
 const { lang, page } = Astro.props;
 const { body: Content, toc } = await page.data.load();
 const pageTree = await source.serializePageTree(source.getPageTree(lang));
-const isCatalogue = page.slugs.join("/") === "extensions/catalogue";
+const slug = page.slugs.join("/");
+const isCatalogue = slug === "extensions/catalogue";
+const isLayoutReference = slug === "extension-development/layout-json";
 const initialCatalogueEntries = isCatalogue
   ? ([...catalogueData.extensions]
       .filter((entry) => !entry.adult)
@@ -55,6 +57,7 @@ const initialCatalogueEntries = isCatalogue
     description={page.data.description}
     toc={isCatalogue ? [] : toc}
     isCatalogue={isCatalogue}
+    isLayoutReference={isLayoutReference}
     initialCatalogueEntries={initialCatalogueEntries}
     catalogueCount={isCatalogue ? catalogueData.extensions.length : 0}
   >

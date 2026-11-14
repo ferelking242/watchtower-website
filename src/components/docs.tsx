@@ -8,6 +8,7 @@ import {
 import ExtensionCatalogue, {
   type ExtensionEntry,
 } from "./extension-catalogue";
+import LayoutReference from "./layout-reference";
 import { baseOptions } from "../lib/layout.shared";
 import { Provider } from "./provider";
 
@@ -21,6 +22,7 @@ interface DocsProps {
   description?: string;
   toc: Parameters<typeof DocsPage>[0]["toc"];
   isCatalogue?: boolean;
+  isLayoutReference?: boolean;
   initialCatalogueEntries?: ExtensionEntry[];
   catalogueCount?: number;
   children: React.ReactNode;
@@ -36,6 +38,7 @@ export function Docs({
   description,
   toc,
   isCatalogue = false,
+  isLayoutReference = false,
   initialCatalogueEntries = [],
   catalogueCount = 0,
   children,
@@ -54,7 +57,12 @@ export function Docs({
               totalCount={catalogueCount}
             />
           ) : (
-            children
+            <>
+              {children}
+              {isLayoutReference && (
+                <LayoutReference locale={lang} />
+              )}
+            </>
           )}
         </DocsPage>
       </DocsLayout>

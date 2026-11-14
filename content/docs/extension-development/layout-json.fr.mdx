@@ -1,0 +1,155 @@
+---
+title: "Référence layout.json"
+fullTitle: "Le contrat complet de layout.json et le catalogue des paramètres."
+description: "Chaque clé acceptée par une section de mise en page, regroupée par usage, avec l'orthographe exacte que lit le moteur. Le registre expose 174 ids stables (44 alias). Les cartes sont nues : la section possède le titre, le sous-titre, l'icône et l'action Tout voir ; la carte ne dessine que son contenu."
+marker: "23"
+---
+
+## Chargement d'une mise en page
+
+Une source lie une mise en page déclarative avec `uiLayout` (un chemin relatif au dépôt tel que `ui-layouts/example.json`) et `uiLayoutVersion`. L'application la télécharge depuis la branche `main` brute, la valide et affiche les composants natifs enregistrés. Le fichier est une donnée, pas du code : il ne s'exécute jamais dans le bac à sable de la source.
+
+## Forme racine
+
+L'objet racine exige un `schemaVersion` numérique (au moins 1) et un objet `home`. `home.sections` est un tableau ordonné. `browse`, `detail` et `player` sont des remplacements facultatifs. Sans mise en page déclarée, Watchtower retombe sur ses écrans standard Popular, Latest et Search.
+
+```json
+{
+  "schemaVersion": 1,
+  "home": { "sections": [] }
+}
+```
+
+## Objet de section
+
+Chaque section exige un `id` unique et non vide, et un `component` enregistré. L'`id` est transmis à `getCustomList(id, page)` : il doit donc correspondre à de vraies données. Les composants inconnus et les ids vides ou dupliqués échouent à la validation au lieu d'afficher un bloc vide.
+
+```json
+{
+  "id": "trending",
+  "component": "spotlight",
+  "title": "Tendances",
+  "subtitle": "Mis à jour il y a 2 h",
+  "icon": "whatshot",
+  "accent": "primary",
+  "seeAll": true,
+  "paginated": true,
+  "params": { "layout": "row", "items": 12 }
+}
+```
+
+## Où va chaque clé
+
+Les clés de premier niveau décrivent la section elle-même. Le comportement des cartes va dans l'objet `params`, que le moteur lit clé par clé. N'utilisez que les clés prises en charge par la famille du composant choisi ; une clé inconnue est ignorée, ce n'est pas une erreur.
+
+| Key | Type | Role |
+| --- | --- | --- |
+| `id` | string | Data provider id passed to `getCustomList` |
+| `component` | string | Registered component id |
+| `title` | string | Section heading |
+| `subtitle` | string | Heading sub-line |
+| `icon` | string | Stable Material icon name |
+| `accent` | string | Theme name or `#RRGGBB` |
+| `seeAll` | boolean | Show the Tout voir action |
+| `paginated` | boolean | Section loads more pages |
+| `requiresAuth` | boolean | Section needs a signed-in account |
+| `monthSelector` | boolean | Section shows a month picker |
+| `params` | object | Card parameters (see below) |
+
+## Les cartes sont nues
+
+Chaque carte ne dessine que son contenu. Aucune carte n'embarque d'en-tête (« Top 10 », « Populaires », « Tout voir > ») ni de panneau de fond. C'est la section hôte qui affiche le titre, le sous-titre, l'icône et l'action Tout voir. Le panneau visible dans la galerie développeur est le cadre d'aperçu, et il n'est jamais dessiné quand le composant est utilisé dans une vraie page. Mettez le libellé dans la section, jamais dans la carte : pour changer le titre, définissez `title` sur la section, pas dans `params`.
+
+Un catalogue interactif complet de tous les ids et de toutes les palettes de paramètres se trouve en fin de page : filtrez par catégorie, copiez un id en un clic et changez de famille de moteur pour voir exactement ce que ses cartes acceptent. Il est généré depuis le registre de l'application : il correspond donc toujours à la version livrée.
+
+## Une carte, plusieurs variantes
+
+Trois motifs reviennent dans le catalogue, et chacun est un seul composant à paramètres plutôt que plusieurs widgets quasi identiques.
+
+### Progress card
+
+```json
+{
+  "id": "continue",
+  "component": "watch-progress",
+  "title": "Reprendre",
+  "params": {
+    "style": "percent",
+    "percent": true,
+    "color": "green",
+    "animation": true,
+    "chevron": true,
+    "mirror": false,
+    "reverse": false
+  }
+}
+```
+
+### Episode carousel with auto-scroll
+
+```json
+{
+  "id": "episodes",
+  "component": "episode-carousel",
+  "title": "Épisodes",
+  "params": { "autoScroll": true, "speed": 30, "tileWidth": 96 }
+}
+```
+
+### Mirrored season banner
+
+```json
+{
+  "id": "season",
+  "component": "season-banner",
+  "title": "Saison 2",
+  "params": { "mirror": true, "coverWidth": 118 }
+}
+```
+
+### Tilted universe carousel
+
+```json
+{
+  "id": "universe",
+  "component": "universe",
+  "title": "Univers",
+  "params": { "tilt": 0.05 }
+}
+```
+
+### Grid and spacing
+
+```json
+{
+  "id": "grid",
+  "component": "poster",
+  "title": "Catalogue",
+  "params": {
+    "layout": "grid",
+    "columns": 4,
+    "rows": 2,
+    "spacingX": 14,
+    "spacingY": 18,
+    "items": 8
+  }
+}
+```
+
+## Règles de validation
+
+- `schemaVersion` vaut au moins 1 et `home` est un objet.
+- Les ids de section sont uniques et non vides.
+- `component` est un id enregistré du catalogue d'ids ci-dessous.
+- Chaque id de section a une implémentation `getCustomList(id, page)` correspondante.
+- Le JSON mal formé, les composants manquants et les ids inconnus sont rejetés, pas ignorés.
+
+## Mémo
+
+- Les cartes sont nues : titre, sous-titre, icône et Tout voir vivent sur la section.
+- Les clés de disposition décrivent la géométrie, les clés d'effet l'aspect et le mouvement, les clés de contenu remplacent les données.
+- `spacingX` / `spacingY` priment sur `spacing` sur leur axe.
+- `mirror` place le visuel à droite ; `reverse` le place à droite et aligne le texte à droite.
+- `style` choisit la variante de progression ; `percent`, `color`, `animation` et `chevron` l'affinent.
+- `autoScroll` plus `speed` animent le carrousel d'épisodes ; `tilt` incline le carrousel d'univers.
+- Une variante est un paramètre, jamais un second id de composant.

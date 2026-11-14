@@ -4,6 +4,7 @@
     "index",
     "./contract",
     "./ui-schema",
+    "./layout-json",
     "./layout-components"
   ]
 }

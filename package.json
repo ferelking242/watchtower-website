@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "ASTRO_DEV_BACKGROUND=1 astro dev --host 0.0.0.0 --port 5000",
-    "build": "node scripts/check-public-assets.mjs && astro build",
+    "build": "node scripts/check-public-assets.mjs && node scripts/generate-layout-docs.mjs && astro build",
     "catalogue:sync": "node scripts/sync-extension-catalogue.mjs",
-    "preview": "astro preview --host 0.0.0.0 --port 5000"
+    "preview": "astro preview --host 0.0.0.0 --port 5000",
+    "docs:layout": "node scripts/generate-layout-docs.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.2",

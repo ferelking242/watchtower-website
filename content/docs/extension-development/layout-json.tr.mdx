@@ -1,0 +1,155 @@
+---
+title: "layout.json referansı"
+fullTitle: "Eksiksiz layout.json sözleşmesi ve parametre kataloğu."
+description: "Every key a layout section accepts, grouped by purpose, with the exact spelling the renderer reads. The registry exposes 174 stable ids (44 aliases). Cards are bare: the section owns the title, subtitle, icon and Tout voir action; the card only draws its content."
+marker: "23"
+---
+
+## How a layout is loaded
+
+A source links a declarative layout with `uiLayout` (a repository-relative path such as `ui-layouts/example.json`) and `uiLayoutVersion`. The app downloads it from the raw `main` branch, validates it and renders registered native components. The file is data, not code: it never runs in the source sandbox.
+
+## Root shape
+
+The root object needs a numeric `schemaVersion` (at least 1) and a `home` object. `home.sections` is an ordered array. `browse`, `detail` and `player` are optional overrides. When no layout is declared, Watchtower falls back to its standard Popular, Latest and Search screens.
+
+```json
+{
+  "schemaVersion": 1,
+  "home": { "sections": [] }
+}
+```
+
+## Section object
+
+Every section needs a unique, non-empty `id` and a registered `component`. The `id` is passed to `getCustomList(id, page)`, so it must map to real source data. Unknown component ids and duplicate or empty ids fail validation instead of rendering an empty block.
+
+```json
+{
+  "id": "trending",
+  "component": "spotlight",
+  "title": "Tendances",
+  "subtitle": "Mis à jour il y a 2 h",
+  "icon": "whatshot",
+  "accent": "primary",
+  "seeAll": true,
+  "paginated": true,
+  "params": { "layout": "row", "items": 12 }
+}
+```
+
+## Where each key goes
+
+Top-level section keys describe the section itself. Card behaviour belongs in the `params` object, which the renderer reads key by key. Only use keys the chosen component family supports; an unknown key is ignored, not an error.
+
+| Key | Type | Role |
+| --- | --- | --- |
+| `id` | string | Data provider id passed to `getCustomList` |
+| `component` | string | Registered component id |
+| `title` | string | Section heading |
+| `subtitle` | string | Heading sub-line |
+| `icon` | string | Stable Material icon name |
+| `accent` | string | Theme name or `#RRGGBB` |
+| `seeAll` | boolean | Show the Tout voir action |
+| `paginated` | boolean | Section loads more pages |
+| `requiresAuth` | boolean | Section needs a signed-in account |
+| `monthSelector` | boolean | Section shows a month picker |
+| `params` | object | Card parameters (see below) |
+
+## Cards are bare
+
+Every card draws only its own content. No card ships a header ("Top 10", "Popular", "All >") and no card ships a background panel. The hosting section renders the heading, the subtitle, the icon and the Tout voir action. The panel you see in the developer gallery is the gallery preview frame, and it is never drawn when the component is used in a real page. Put the label in the section, never in the card: to change the heading text, set `title` on the section, not inside `params`.
+
+A full interactive catalogue of every id and every parameter palette sits at the end of this page: filter by category, copy an id in one click, and switch renderer family to see exactly what its cards accept. It is generated from the app registry, so it always matches the shipping build.
+
+## One card, many variants
+
+Three patterns repeat across the catalogue, and each is a single component with parameters rather than several near-identical widgets.
+
+### Progress card
+
+```json
+{
+  "id": "continue",
+  "component": "watch-progress",
+  "title": "Reprendre",
+  "params": {
+    "style": "percent",
+    "percent": true,
+    "color": "green",
+    "animation": true,
+    "chevron": true,
+    "mirror": false,
+    "reverse": false
+  }
+}
+```
+
+### Episode carousel with auto-scroll
+
+```json
+{
+  "id": "episodes",
+  "component": "episode-carousel",
+  "title": "Épisodes",
+  "params": { "autoScroll": true, "speed": 30, "tileWidth": 96 }
+}
+```
+
+### Mirrored season banner
+
+```json
+{
+  "id": "season",
+  "component": "season-banner",
+  "title": "Saison 2",
+  "params": { "mirror": true, "coverWidth": 118 }
+}
+```
+
+### Tilted universe carousel
+
+```json
+{
+  "id": "universe",
+  "component": "universe",
+  "title": "Univers",
+  "params": { "tilt": 0.05 }
+}
+```
+
+### Grid and spacing
+
+```json
+{
+  "id": "grid",
+  "component": "poster",
+  "title": "Catalogue",
+  "params": {
+    "layout": "grid",
+    "columns": 4,
+    "rows": 2,
+    "spacingX": 14,
+    "spacingY": 18,
+    "items": 8
+  }
+}
+```
+
+## Validation rules
+
+- `schemaVersion` is at least 1 and `home` is an object.
+- Section ids are unique and non-empty.
+- `component` is a registered id from the id catalogue below.
+- Each home section id has a matching `getCustomList(id, page)` implementation.
+- Malformed JSON, missing components and unknown ids are rejected, not ignored.
+
+## Cheat sheet
+
+- Cards are bare: heading, subtitle, icon and Tout voir live on the section.
+- Layout keys describe geometry, effect keys describe look and motion, content keys override item data.
+- `spacingX` / `spacingY` beat `spacing` on their own axis.
+- `mirror` moves the visual right; `reverse` moves it right and right-aligns the text.
+- `style` picks the progress variant; `percent`, `color`, `animation` and `chevron` refine it.
+- `autoScroll` plus `speed` drives the episode carousel; `tilt` drives the universe carousel.
+- A variant is a parameter, never a second component id.
